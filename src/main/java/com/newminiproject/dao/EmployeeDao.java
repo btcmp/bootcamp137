@@ -2,7 +2,7 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.miniproject.xsis.model.Employee;
+import com.newminiproject.model.Employee;
 
 public interface EmployeeDao {
 
