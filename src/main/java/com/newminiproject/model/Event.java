@@ -71,6 +71,20 @@ public class Event {
 	@ManyToOne
 	private Employee employee;
 	
+	
+	
+	public List<Design> getListDesign() {
+		return listDesign;
+	}
+	public void setListDesign(List<Design> listDesign) {
+		this.listDesign = listDesign;
+	}
+	public List<Promotion> getListPromotion() {
+		return listPromotion;
+	}
+	public void setListPromotion(List<Promotion> listPromotion) {
+		this.listPromotion = listPromotion;
+	}
 	public Employee getEmployee() {
 		return employee;
 	}
