@@ -33,7 +33,6 @@ public class UnitController {
 	@Autowired
 	SequenceDaoUnit seqDao;
 	
-	
 	@RequestMapping
 	public String index(Model model) {
 		List<Unit> listUnit = unitService.getAllUnit();
