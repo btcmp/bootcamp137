@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.marcomplace.dao.SequenceDaoRole;
-import com.marcomplace.model.Role;
-import com.marcomplace.service.RoleService;
+import com.newminiproject.dao.SequenceDaoRole;
+import com.newminiproject.model.Role;
+import com.newminiproject.service.RoleService;
 
 @Controller
 @RequestMapping("/role")
