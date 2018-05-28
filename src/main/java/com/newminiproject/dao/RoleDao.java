@@ -2,7 +2,7 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.marcomplace.model.Role;
+import com.newminiproject.model.Role;
 
 public interface RoleDao {
 
