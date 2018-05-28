@@ -70,6 +70,7 @@ public class DesignController {
 		return "design";
 	}
 	
+	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseBody												//agar keluar nya data
 	public Design save(@RequestBody Design design) {
