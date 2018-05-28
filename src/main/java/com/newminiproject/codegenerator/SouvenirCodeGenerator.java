@@ -1,4 +1,4 @@
-package com.miniproject.xsis.codegenerator;
+package com.newminiproject.codegenerator;
 
 import java.io.Serializable;
 import java.sql.Connection;
