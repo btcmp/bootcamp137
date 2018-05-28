@@ -114,7 +114,7 @@ public class Employee {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="settlementBy")
 	private List<TransactionSouvenir> listSettlementBy;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="settlementApprovedBy")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="settlementAprrovedBy")
 	private List<TransactionSouvenir> listSettlementApprovedBy;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "requestBy")
