@@ -18,6 +18,8 @@
 			    <property name="password" value="${oracle.spring.datasource.password}"/>
 			</bean>
 			
+			
+			<!--configuration -->
 			<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 				<property name="location">
 					<value>classpath:application.properties</value>
