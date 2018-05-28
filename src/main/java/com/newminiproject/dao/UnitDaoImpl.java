@@ -9,7 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.marcomplace.model.Unit;
+import com.newminiproject.model.Unit;
 
 @Repository
 public class UnitDaoImpl implements UnitDao{
