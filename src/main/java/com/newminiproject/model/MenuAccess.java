@@ -33,15 +33,15 @@ public class MenuAccess {
 	private Role mRoleId;
 	
 	@NotNull
-	@Column(name="is_delete")
+	@Column(name="is_delete", nullable=false)
 	private boolean isDelete;
 	
 	@NotNull
-	@Column(name="created_by", length=50)
+	@Column(name="created_by", length=50, nullable=false)
 	private String createdBy;
 	
 	@NotNull
-	@Column(name="created_date")
+	@Column(name="created_date", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date createdDate;
 	

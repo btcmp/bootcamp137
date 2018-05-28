@@ -32,12 +32,14 @@ public class User {
 	//@Column(name="m_user_id")
 	private int id;
 	
-	@Column(name="username", length=50)
+	@Column(name="username", length=50, nullable=false)
 	private String username;
 	
 	//@ColumnTransformer(read = "decode(password, 'password')", write = "encode(?, 'password')")
-    @Column(name = "password", length=50)
+    @Column(name = "password", length=50, nullable=false)
 	private String password;
+    
+    private String repassword;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
@@ -57,13 +59,13 @@ public class User {
 	@Transient
 	private List<String> menus;
 	
-	@Column(name="is_delete")
+	@Column(name="is_delete", nullable=false)
 	private boolean isDelete;
 	
-	@Column(name="created_by", length=50)
+	@Column(name="created_by", length=50, nullable=false)
 	private String createdBy;
 	
-	@Column(name="created_date")
+	@Column(name="created_date", nullable=false)
 	@Temporal(TemporalType.DATE)
 	private Date createdDate;
 	
@@ -169,6 +171,15 @@ public class User {
 	public void setMenus(List<String> menus) {
 		this.menus = menus;
 	}
+
+	public String getRepassword() {
+		return repassword;
+	}
+
+	public void setRepassword(String repassword) {
+		this.repassword = repassword;
+	}
+	
 	
 	
 }
