@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.marcomplace.dao.UnitDao;
-import com.marcomplace.model.Unit;
+import com.newminiproject.dao.UnitDao;
+import com.newminiproject.model.Unit;
 
 @Transactional
 @Service
