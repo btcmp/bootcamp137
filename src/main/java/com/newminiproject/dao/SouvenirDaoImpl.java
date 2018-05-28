@@ -9,8 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.miniproject.xsis.model.Souvenir;
-import com.miniproject.xsis.model.Unit;
+import com.newminiproject.model.Souvenir;
+import com.newminiproject.model.Unit;
 
 @Repository
 public class SouvenirDaoImpl implements SouvenirDao {

@@ -10,10 +10,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.miniproject.xsis.model.Event;
-import com.miniproject.xsis.model.Souvenir;
-import com.miniproject.xsis.model.TransactionSouvenir;
-import com.miniproject.xsis.model.TransactionSouvenirItem;
+import com.newminiproject.model.Event;
+import com.newminiproject.model.Souvenir;
+import com.newminiproject.model.TransactionSouvenir;
+import com.newminiproject.model.TransactionSouvenirItem;
 
 @Repository
 public class SouvenirRequestDaoImpl implements SouvenirRequestDao {

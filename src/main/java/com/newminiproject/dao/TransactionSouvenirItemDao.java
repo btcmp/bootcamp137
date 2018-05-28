@@ -2,8 +2,8 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.miniproject.xsis.model.TransactionSouvenir;
-import com.miniproject.xsis.model.TransactionSouvenirItem;
+import com.newminiproject.model.TransactionSouvenir;
+import com.newminiproject.model.TransactionSouvenirItem;
 
 public interface TransactionSouvenirItemDao {
 

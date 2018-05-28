@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.miniproject.xsis.dao.SouvenirDao;
-import com.miniproject.xsis.model.Souvenir;
-import com.miniproject.xsis.model.Unit;
+import com.newminiproject.dao.SouvenirDao;
+import com.newminiproject.model.Souvenir;
+import com.newminiproject.model.Unit;
 
 @Transactional
 @Service

@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.miniproject.xsis.dao.TransactionSouvenirItemDao;
-import com.miniproject.xsis.model.TransactionSouvenir;
-import com.miniproject.xsis.model.TransactionSouvenirItem;
+import com.newminiproject.dao.TransactionSouvenirItemDao;
+import com.newminiproject.model.TransactionSouvenir;
+import com.newminiproject.model.TransactionSouvenirItem;
 
 @Transactional
 @Service

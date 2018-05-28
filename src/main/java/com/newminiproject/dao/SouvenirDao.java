@@ -2,8 +2,8 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.miniproject.xsis.model.Souvenir;
-import com.miniproject.xsis.model.Unit;
+import com.newminiproject.model.Souvenir;
+import com.newminiproject.model.Unit;
 
 public interface SouvenirDao {
 
