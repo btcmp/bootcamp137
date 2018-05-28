@@ -50,13 +50,7 @@ public class Product {
 	private Date updatedDate;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="mProductId")
-	private List<TransactionPromotionItem> listtransactionPromotionItem;
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="mProductId")
-	private List<TransactionPromotion> listtransactionPromotion;
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="mProductId")
-	private List<TransactionDesignItem> listtransactionDesignItem;
+	private List<DesignItem> listDesignItem;
 
 	////setter and getter ////
 	
@@ -132,27 +126,12 @@ public class Product {
 		this.updatedDate = updatedDate;
 	}
 
-	public List<TransactionPromotionItem> getListtransactionPromotionItem() {
-		return listtransactionPromotionItem;
+	public List<DesignItem> getListDesignItem() {
+		return listDesignItem;
 	}
 
-	public void setListtransactionPromotionItem(List<TransactionPromotionItem> listtransactionPromotionItem) {
-		this.listtransactionPromotionItem = listtransactionPromotionItem;
+	public void setListDesignItem(List<DesignItem> listDesignItem) {
+		this.listDesignItem = listDesignItem;
 	}
-
-	public List<TransactionPromotion> getListtransactionPromotion() {
-		return listtransactionPromotion;
-	}
-
-	public void setListtransactionPromotion(List<TransactionPromotion> listtransactionPromotion) {
-		this.listtransactionPromotion = listtransactionPromotion;
-	}
-
-	public List<TransactionDesignItem> getListtransactionDesignItem() {
-		return listtransactionDesignItem;
-	}
-
-	public void setListtransactionDesignItem(List<TransactionDesignItem> listtransactionDesignItem) {
-		this.listtransactionDesignItem = listtransactionDesignItem;
-	}
+	
 }
