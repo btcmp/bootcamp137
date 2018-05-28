@@ -66,8 +66,9 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public User findUserByUsername(String username) {
 		// TODO Auto-generated method stub
-		String hql="from User us where us.username= :usr";
 		Session session= sessionFactory.getCurrentSession();
+		String hql="from User us where us.username =:usr";
+		
 		Query query= session.createQuery(hql);
 		query.setParameter("usr", username);
 		List<User> listUser= query.list();

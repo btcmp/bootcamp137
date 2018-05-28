@@ -3,6 +3,8 @@ package com.newminiproject.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.newminiproject.dao.EventDao;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
+import com.newminiproject.model.User;
 
 @Transactional
 @Service
@@ -17,9 +20,13 @@ public class EventService {
 	
 	@Autowired
 	EventDao eventDao;
+	@Autowired
+	HttpSession httpSession;
 
 	public void save(Event event) {
 		// TODO Auto-generated method stub
+		/*User appUser = (User) httpSession.getAttribute("app-user");
+		event.setCreateBy(appUser.getUsername());*/
 		eventDao.save(event);
 	}
 

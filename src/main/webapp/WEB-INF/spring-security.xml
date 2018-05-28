@@ -14,7 +14,6 @@
 		<!-- autentikasi url -->
 		<http auto-config="true" use-expressions="true">
 			<intercept-url pattern="/login*" access="permitAll()"/>
-  			<intercept-url pattern="/**" access="isAuthenticated()"/>
   			<intercept-url pattern="/souvenir" access="hasRole('ROLE_ADMIN')"/>
   			<intercept-url pattern="/souvenir/save" access="hasRole('ROLE_REQUESTER')"/>
   			<intercept-url pattern="/souvenir/update" access="hasRole('ROLE_ADMIN')"/>

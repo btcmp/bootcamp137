@@ -56,4 +56,10 @@ public class UserService {
 		userDao.delete(usr);
 	}
 
+	public User findUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		
+		return userDao.findUserByUsername(username);
+	}
+
 }
