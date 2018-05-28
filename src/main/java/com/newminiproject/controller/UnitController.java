@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.marcomplace.dao.SequenceDaoUnit;
-import com.marcomplace.model.Unit;
-import com.marcomplace.service.UnitService;
+import com.newminiproject.dao.SequenceDaoUnit;
+import com.newminiproject.model.Unit;
+import com.newminiproject.service.UnitService;
 
 @Controller
 @RequestMapping("/unit")
