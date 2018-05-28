@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.miniproject.xsis.dao.EmployeeDao;
-import com.miniproject.xsis.model.Employee;
+import com.newminiproject.dao.EmployeeDao;
+import com.newminiproject.model.Employee;
 
 @Transactional
 @Service
