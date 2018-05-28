@@ -7,7 +7,7 @@ import com.newminiproject.model.DesignItem;
 
 public interface DesignItemDao {
 
-	void save(DesignItem di2); 
+	void save(DesignItem di2);
 
 	List<DesignItem> getDesignItemByDesign(Design design);
 

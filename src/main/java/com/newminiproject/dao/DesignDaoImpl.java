@@ -72,7 +72,7 @@ public class DesignDaoImpl implements DesignDao{
 		List<Design> listDesign = query.list();
 		if(listDesign.isEmpty()) {
 			return new ArrayList<Design>();
-		} 
+		}
 		return listDesign;
 	}
 

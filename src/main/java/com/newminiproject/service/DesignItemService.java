@@ -16,7 +16,7 @@ public class DesignItemService {
 	
 	@Autowired
 	DesignItemDao designItemDao;
- 
+
 	public List<DesignItem> getDesignItemByDesign(Design design) {
 		// TODO Auto-generated method stub
 		List<DesignItem> listDesignItem = designItemDao.getDesignItemByDesign(design);

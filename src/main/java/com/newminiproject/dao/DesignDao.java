@@ -8,7 +8,7 @@ public interface DesignDao {
 
 	List<Design> getListDesign();
 
-	void save(Design design); 
+	void save(Design design);
 
 	Design getDesignById(int id);
 
