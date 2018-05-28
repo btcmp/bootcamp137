@@ -198,6 +198,5 @@ public class DesignItem {
 	public void setListPromotionItem(List<PromotionItem> listPromotionItem) {
 		this.listPromotionItem = listPromotionItem;
 	}
-	
-	
+		
 }

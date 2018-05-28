@@ -256,5 +256,4 @@ public class Design {
 		this.listPromotion = listPromotion;
 	}
 
-	
 }
