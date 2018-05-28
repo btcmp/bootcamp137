@@ -56,5 +56,4 @@
 							on ur.M_ROLE_ID = r.ID where au.USERNAME = ? " />
 			</authentication-provider>
 		</authentication-manager>
-		
 </beans:beans>
