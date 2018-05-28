@@ -33,6 +33,7 @@
 							<value>com.newminiproject.model.Company</value>
 							<value>com.newminiproject.model.Event</value>
 							<value>com.newminiproject.model.Employee</value>
+							
 						</list>
 					</property>
 					<property name="hibernateProperties">
