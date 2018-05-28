@@ -2,7 +2,7 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.training.xsis.model.Design;
+import com.newminiproject.model.Design;
 
 public interface DesignDao {
 

@@ -9,9 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.training.xsis.model.Design;
-import com.training.xsis.model.DesignItem;
-import com.training.xsis.service.DesignItemService;
+import com.newminiproject.model.Design;
+import com.newminiproject.model.DesignItem;
 
 @Repository
 public class DesignItemDaoImpl implements DesignItemDao {

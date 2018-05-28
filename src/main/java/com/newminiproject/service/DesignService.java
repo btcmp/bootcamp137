@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.training.xsis.dao.DesignDao;
-import com.training.xsis.dao.DesignItemDao;
-import com.training.xsis.model.Design;
-import com.training.xsis.model.DesignItem;
-import com.training.xsis.model.Event;
-import com.training.xsis.model.Product;
+import com.newminiproject.dao.DesignDao;
+import com.newminiproject.dao.DesignItemDao;
+import com.newminiproject.model.Design;
+import com.newminiproject.model.DesignItem;
+import com.newminiproject.model.Event;
+import com.newminiproject.model.Product;
 
 @Service
 @Transactional
