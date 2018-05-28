@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.marcomplace.dao.SequenceDaoMenu;
-import com.marcomplace.model.Menu;
-import com.marcomplace.service.MenuService;
+import com.newminiproject.dao.SequenceDaoMenu;
+import com.newminiproject.model.Menu;
+import com.newminiproject.service.MenuService;
 
 @Controller
 @RequestMapping("/menu")
