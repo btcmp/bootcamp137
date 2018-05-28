@@ -53,7 +53,7 @@ public class DesignItemDaoImpl implements DesignItemDao {
 		//System.out.println("request due date = "+di2.getRequestDueDate());
 		System.out.println("note = "+di2.getNote());
 		System.out.println("id = "+di2.getId());
-		query.executeUpdate();
+		query.executeUpdate(); 
 	}
 
 }
