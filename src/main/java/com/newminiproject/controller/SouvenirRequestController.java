@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.miniproject.xsis.codegenerator.CodeGenerator;
-import com.miniproject.xsis.model.Event;
-import com.miniproject.xsis.model.Souvenir;
-import com.miniproject.xsis.model.TransactionSouvenir;
-import com.miniproject.xsis.model.TransactionSouvenirItem;
-import com.miniproject.xsis.model.Unit;
-import com.miniproject.xsis.service.SouvenirRequestService;
-import com.miniproject.xsis.service.SouvenirService;
-import com.miniproject.xsis.service.TransactionSouvenirItemService;
+import com.newminiproject.codegenerator.CodeGenerator;
+import com.newminiproject.model.Event;
+import com.newminiproject.model.Souvenir;
+import com.newminiproject.model.TransactionSouvenir;
+import com.newminiproject.model.TransactionSouvenirItem;
+import com.newminiproject.model.Unit;
+import com.newminiproject.service.SouvenirRequestService;
+import com.newminiproject.service.SouvenirService;
+import com.newminiproject.service.TransactionSouvenirItemService;
 
 @Controller
 @RequestMapping("/souvenirrequest")
