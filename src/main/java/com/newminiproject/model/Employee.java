@@ -73,7 +73,7 @@ public class Employee {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="requestBy")
 	private List<Design> listDesignRequest;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="approvedsBy")
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="approvedBy")
 	private List<Design> listDesignApproved;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="assignTo")
