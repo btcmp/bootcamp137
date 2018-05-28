@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.miniproject.xsis.model.Menu;
-import com.miniproject.xsis.model.MenuAccess;
-import com.miniproject.xsis.model.Role;
-import com.miniproject.xsis.service.MenuAccessService;
-import com.miniproject.xsis.service.MenuService;
-import com.miniproject.xsis.service.RoleService;
+import com.newminiproject.model.Menu;
+import com.newminiproject.model.MenuAccess;
+import com.newminiproject.model.Role;
+import com.newminiproject.service.MenuAccessService;
+import com.newminiproject.service.MenuService;
+import com.newminiproject.service.RoleService;
 
 @Controller
 @RequestMapping("/menu_access")

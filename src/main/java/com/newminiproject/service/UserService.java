@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.miniproject.xsis.dao.RoleDao;
-import com.miniproject.xsis.dao.UserDao;
-import com.miniproject.xsis.model.Role;
-import com.miniproject.xsis.model.User;
+import com.newminiproject.dao.RoleDao;
+import com.newminiproject.dao.UserDao;
+import com.newminiproject.model.Role;
+import com.newminiproject.model.User;
 
 @Service
 @Transactional

@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.miniproject.xsis.model.Employee;
-import com.miniproject.xsis.model.Role;
-import com.miniproject.xsis.model.User;
-import com.miniproject.xsis.service.EmployeeService;
-import com.miniproject.xsis.service.RoleService;
-import com.miniproject.xsis.service.UserService;
+import com.newminiproject.model.Employee;
+import com.newminiproject.model.Role;
+import com.newminiproject.model.User;
+import com.newminiproject.service.EmployeeService;
+import com.newminiproject.service.RoleService;
+import com.newminiproject.service.UserService;
 
 @Controller
 @RequestMapping("/user")
