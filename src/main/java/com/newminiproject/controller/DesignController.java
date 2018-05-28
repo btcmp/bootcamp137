@@ -20,17 +20,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-import com.training.xsis.dao.SeqDao;
-import com.training.xsis.model.Design;
-import com.training.xsis.model.DesignItem;
-import com.training.xsis.model.Employee;
-import com.training.xsis.model.Event;
-import com.training.xsis.model.Product;
-import com.training.xsis.service.DesignItemService;
-import com.training.xsis.service.DesignService;
-import com.training.xsis.service.EmployeeService;
-import com.training.xsis.service.EventService;
-import com.training.xsis.service.ProductService;
+import com.newminiproject.dao.SeqDaoDesign;
+import com.newminiproject.model.Design;
+import com.newminiproject.model.Employee;
+import com.newminiproject.model.Event;
+import com.newminiproject.model.Product;
+import com.newminiproject.service.DesignItemService;
+import com.newminiproject.service.DesignService;
+import com.newminiproject.service.EmployeeService;
+import com.newminiproject.service.EventService;
+import com.newminiproject.service.ProductService;
 
 @Controller
 @RequestMapping("/design")
@@ -52,14 +51,14 @@ public class DesignController {
 	ProductService productService;
 	
 	@Autowired
-	SeqDao seqDao;
+	SeqDaoDesign seqDao;
 	
 	@RequestMapping
 	public String index(Model model) {
-		List<Event> listEvent = eventService.getListEvent();
-		List<Employee> listEmployee = employeeService.getListEmployee();
+		List<Event> listEvent = eventService.getAll();
+		List<Employee> listEmployee = employeeService.getAll();
 		List<Design> listDesign = designService.getListDesign();
-		List<Product> listProduct = productService.getListProduct();
+		List<Product> listProduct = productService.getAllProduct();
 		model.addAttribute("listEvent", listEvent);
 		model.addAttribute("listEmployee", listEmployee);
 		model.addAttribute("listDesign", listDesign);
@@ -69,7 +68,6 @@ public class DesignController {
 //		model.addAttribute("request", seqDao.requestDate());
 		return "design";
 	}
-	
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseBody												//agar keluar nya data

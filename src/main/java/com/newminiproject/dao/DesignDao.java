@@ -2,13 +2,13 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.training.xsis.model.Design;
+import com.newminiproject.model.Design;
 
 public interface DesignDao {
 
 	List<Design> getListDesign();
 
-	void save(Design design);
+	void save(Design design); 
 
 	Design getDesignById(int id);
 
@@ -16,4 +16,5 @@ public interface DesignDao {
 
 	List<Design> search(Design design);
 
+	
 }
