@@ -2,7 +2,7 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.marcomplace.model.Menu;
+import com.newminiproject.model.Menu;
 
 public interface MenuDao {
 
