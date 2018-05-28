@@ -7,17 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.xsis.training146.dao.PromotionDao;
-import com.xsis.training146.dao.PromotionItemDao;
-import com.xsis.training146.dao.PromotionItemFileDao;
-import com.xsis.training146.model.Design;
-import com.xsis.training146.model.DesignItem;
-import com.xsis.training146.model.Employee;
-import com.xsis.training146.model.Event;
-import com.xsis.training146.model.Product;
-import com.xsis.training146.model.Promotion;
-import com.xsis.training146.model.PromotionItem;
-import com.xsis.training146.model.PromotionItemFile;
+import com.newminiproject.dao.PromotionDao;
+import com.newminiproject.dao.PromotionItemDao;
+import com.newminiproject.dao.PromotionItemFileDao;
+import com.newminiproject.model.Design;
+import com.newminiproject.model.DesignItem;
+import com.newminiproject.model.Employee;
+import com.newminiproject.model.Event;
+import com.newminiproject.model.Product;
+import com.newminiproject.model.Promotion;
+import com.newminiproject.model.PromotionItem;
+import com.newminiproject.model.PromotionItemFile;
+
 
 @Transactional
 @Service

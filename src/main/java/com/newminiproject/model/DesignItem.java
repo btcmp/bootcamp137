@@ -1,14 +1,17 @@
 package com.newminiproject.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -72,6 +75,9 @@ public class DesignItem {
 	@Temporal(TemporalType.DATE)
 	@Column(name="updated_date")
 	private Date updatedDate;
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="designItem")
+	private List<PromotionItem> listPromotionItem;
 
 	public int getId() {
 		return id;
@@ -184,6 +190,13 @@ public class DesignItem {
 	public void setUpdatedBy(Employee updatedBy) {
 		this.updatedBy = updatedBy;
 	}
-	
-	
+
+	public List<PromotionItem> getListPromotionItem() {
+		return listPromotionItem;
+	}
+
+	public void setListPromotionItem(List<PromotionItem> listPromotionItem) {
+		this.listPromotionItem = listPromotionItem;
+	}
+		
 }

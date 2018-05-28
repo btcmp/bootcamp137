@@ -15,22 +15,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.mysql.jdbc.Blob;
-import com.xsis.training146.dao.SeqDao;
-import com.xsis.training146.model.Design;
-import com.xsis.training146.model.DesignItem;
-import com.xsis.training146.model.Event;
-import com.xsis.training146.model.MyFiles;
-import com.xsis.training146.model.Product;
-import com.xsis.training146.model.Promotion;
-import com.xsis.training146.model.PromotionItem;
-import com.xsis.training146.model.PromotionItemFile;
-import com.xsis.training146.service.DesignItemService;
-import com.xsis.training146.service.DesignService;
-import com.xsis.training146.service.EventService;
-import com.xsis.training146.service.ProductService;
-import com.xsis.training146.service.PromotionItemFileService;
-import com.xsis.training146.service.PromotionItemService;
-import com.xsis.training146.service.PromotionService;
+import com.newminiproject.dao.SeqDaoPromotion;
+import com.newminiproject.model.Design;
+import com.newminiproject.model.Event;
+import com.newminiproject.model.Product;
+import com.newminiproject.model.Promotion;
+import com.newminiproject.service.DesignItemService;
+import com.newminiproject.service.DesignService;
+import com.newminiproject.service.EventService;
+import com.newminiproject.service.ProductService;
+import com.newminiproject.service.PromotionItemFileService;
+import com.newminiproject.service.PromotionItemService;
+import com.newminiproject.service.PromotionService;
 
 
 @Controller
@@ -59,19 +55,19 @@ public class PromotionController {
 	ProductService productService;
 	
 	@Autowired
-	SeqDao seqDao;
+	SeqDaoPromotion seqDaoPromotion;
 	
 
 	@RequestMapping
 	public String index(Model model) {
-		String hasil = seqDao.addSeq();
-		String tanggal = seqDao.convDate();
+		String hasil = seqDaoPromotion.addSeq();
+		String tanggal = seqDaoPromotion.convDate();
 		
 		List<Event> listEvent = eventService.getAll();
-		List<Design> listDesign = designService.getAll();
+		List<Design> listDesign = designService.getListDesign();
 		
 		List<Promotion> listPromotion = promotionService.getAllPromotion();
-		List<Product> listProduct = productService.getAll();
+		List<Product> listProduct = productService.getAllProduct();
 		
 		model.addAttribute("listProduct", listProduct);
 		
@@ -108,8 +104,8 @@ public class PromotionController {
 	@RequestMapping (value="/test", method = RequestMethod.GET)
 	@ResponseBody
 	public String test() {
-		String hasil = seqDao.addSeq();
-		String tanggal = seqDao.convDate();
+		String hasil = seqDaoPromotion.addSeq();
+		String tanggal = seqDaoPromotion.convDate();
 		//System.out.println(tanggal);
 		return "";
 	}

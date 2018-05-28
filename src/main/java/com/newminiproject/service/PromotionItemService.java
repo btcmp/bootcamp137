@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.xsis.training146.dao.PromotionItemDao;
-import com.xsis.training146.model.Promotion;
-import com.xsis.training146.model.PromotionItem;
+import com.newminiproject.dao.PromotionItemDao;
+import com.newminiproject.model.Promotion;
+import com.newminiproject.model.PromotionItem;
+
 
 @Transactional
 @Service

@@ -1,3 +1,4 @@
+
 package com.newminiproject.dao;
 
 import java.util.ArrayList;
@@ -9,8 +10,10 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.xsis.training146.model.Promotion;
-import com.xsis.training146.model.PromotionItemFile;
+import com.newminiproject.model.Promotion;
+import com.newminiproject.model.PromotionItemFile;
+
+
 
 @Repository
 public class PromotionItemFileDaoImpl implements PromotionItemFileDao {
