@@ -1,18 +1,15 @@
 package com.newminiproject.model;
+
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,15 +17,11 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Email;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
 @Entity
 @Table(name="M_EMPLOYEE")
 public class Employee {
 	@Id
-	@SequenceGenerator(name="seqEmployee",sequenceName="seqEmployee")        
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seqEmployee")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	
 	@Column(name="employee_number", length=50, unique=true)
@@ -40,7 +33,12 @@ public class Employee {
 	@Column(name="last_name", length=50)
 	private String lastName;
 	
+	@ManyToOne
+	@JoinColumn(name="m_company_id")
+	private Company mCompanyId;
+	
 	@Column(length=150)
+	@Email
 	private String email;
 	
 	@Column(name="is_delete", length=50)
@@ -49,7 +47,7 @@ public class Employee {
 	@Column(name="created_by", length=50)
 	private String createdBy;
 	
-	
+	@CreationTimestamp
 	@Temporal(TemporalType.DATE)
 	@Column(name="created_date")
 	private Date createdDate;
@@ -57,32 +55,10 @@ public class Employee {
 	@Column(name="updated_by", length=50)
 	private String updated_by;
 	
+	@CreationTimestamp
 	@Temporal(TemporalType.DATE)
 	@Column(name="updated_date")
 	private Date updatedDate;
-	
-	@ManyToOne
-	private Company company;
-	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="employee")
-	@JsonIgnore
-	private List<Event> event;
-	
-	public List<Event> getEvent() {
-		return event;
-	}
-
-	public void setEvent(List<Event> event) {
-		this.event = event;
-	}
-
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
-	}
 
 	public int getId() {
 		return id;
@@ -116,7 +92,13 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	
+	public Company getmCompanyId() {
+		return mCompanyId;
+	}
+
+	public void setmCompanyId(Company mCompanyId) {
+		this.mCompanyId = mCompanyId;
+	}
 
 	public String getEmail() {
 		return email;
@@ -165,4 +147,6 @@ public class Employee {
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
 	}
+	
+	
 }
