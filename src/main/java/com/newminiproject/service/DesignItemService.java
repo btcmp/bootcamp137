@@ -22,5 +22,4 @@ public class DesignItemService {
 		List<DesignItem> listDesignItem = designItemDao.getDesignItemByDesign(design);
 		return listDesignItem;
 	}
-
 }

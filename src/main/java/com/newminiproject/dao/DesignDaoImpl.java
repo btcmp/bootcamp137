@@ -76,5 +76,4 @@ public class DesignDaoImpl implements DesignDao{
 		return listDesign;
 	}
 
-
 }

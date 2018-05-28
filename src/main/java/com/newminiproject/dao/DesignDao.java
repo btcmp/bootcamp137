@@ -16,4 +16,5 @@ public interface DesignDao {
 
 	List<Design> search(Design design);
 
+	
 }

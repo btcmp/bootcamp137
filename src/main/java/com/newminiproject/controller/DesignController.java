@@ -24,10 +24,12 @@ import com.newminiproject.dao.SeqDaoDesign;
 import com.newminiproject.model.Design;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
+import com.newminiproject.model.Product;
 import com.newminiproject.service.DesignItemService;
 import com.newminiproject.service.DesignService;
 import com.newminiproject.service.EmployeeService;
 import com.newminiproject.service.EventService;
+import com.newminiproject.service.ProductService;
 
 @Controller
 @RequestMapping("/design")
@@ -56,7 +58,7 @@ public class DesignController {
 		List<Event> listEvent = eventService.getAll();
 		List<Employee> listEmployee = employeeService.getAll();
 		List<Design> listDesign = designService.getListDesign();
-		List<Product> listProduct = productService.getListProduct();
+		List<Product> listProduct = productService.getAllProduct();
 		model.addAttribute("listEvent", listEvent);
 		model.addAttribute("listEmployee", listEmployee);
 		model.addAttribute("listDesign", listDesign);

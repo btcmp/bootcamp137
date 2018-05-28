@@ -35,7 +35,6 @@ public class DesignService {
 
 	public void save(Design design) {
 		// TODO Auto-generated method stub
-		
 		//save Design Request
 		Event event = new Event();
 		event.setId(design.gettEventId().getId());

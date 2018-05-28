@@ -56,7 +56,4 @@ public class DesignItemDaoImpl implements DesignItemDao {
 		query.executeUpdate();
 	}
 
-	
-	
-	
 }
