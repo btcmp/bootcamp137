@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.miniproject.xsis.model.Company;
-import com.miniproject.xsis.model.Employee;
-import com.miniproject.xsis.model.Souvenir;
-import com.miniproject.xsis.service.CompanyService;
-import com.miniproject.xsis.service.EmployeeService;
+import com.newminiproject.model.Company;
+import com.newminiproject.model.Employee;
+import com.newminiproject.model.Souvenir;
+import com.newminiproject.service.CompanyService;
+import com.newminiproject.service.EmployeeService;
 
 
 
