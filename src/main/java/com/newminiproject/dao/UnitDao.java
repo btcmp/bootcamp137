@@ -6,7 +6,6 @@ import com.newminiproject.model.Unit;
 
 public interface UnitDao {
 
-	
 	void save(Unit unit);
 
 	List<Unit> getAllUnit();
