@@ -33,14 +33,28 @@
 				 <property name="annotatedClasses">
 						<list> 
 							<value>com.newminiproject.model.Company</value>
-							<value>com.newminiproject.model.Event</value>
+							<value>com.newminiproject.model.Design</value>
+							<value>com.newminiproject.model.DesignItem</value>
 							<value>com.newminiproject.model.Employee</value>
+							<value>com.newminiproject.model.Event</value>
+							<value>com.newminiproject.model.Menu</value>
+							<value>com.newminiproject.model.MenuAccess</value>
+							<value>com.newminiproject.model.Product</value>
+							<value>com.newminiproject.model.Promotion</value>
+							<value>com.newminiproject.model.PromotionItem</value>
+							<value>com.newminiproject.model.PromotionItemFile</value>
+							<value>com.newminiproject.model.Role</value>
+							<value>com.newminiproject.model.Souvenir</value>
+							<value>com.newminiproject.model.TransactionSouvenir</value>
+							<value>com.newminiproject.model.TransactionSouvenirItem</value>
+							<value>com.newminiproject.model.Unit</value>
+							<value>com.newminiproject.model.User</value>
 							
 						</list>
 					</property>
 					<property name="hibernateProperties">
 						<props>
-							<prop key="hibernate.hbm2ddl.auto">update</prop>
+							<prop key="hibernate.hbm2ddl.auto">create</prop>
 							<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
 							<prop key="hibernate.show_sql">true</prop>
 							<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate5.SpringSessionContext
