@@ -417,6 +417,7 @@ public class Employee {
 		this.listPromotionItemFileUpdatedBy = listPromotionItemFileUpdatedBy;
 	}
 
+	
 	public List<PromotionItem> getListPromotionItemRequestPic() {
 		return listPromotionItemRequestPic;
 	}
