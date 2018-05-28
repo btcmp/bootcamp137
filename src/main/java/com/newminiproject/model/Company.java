@@ -46,8 +46,7 @@ public class Company {
 	private Date createDate;
 	private String createBy;
 	
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="company")
-	@JsonIgnore
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="mCompanyId")
 	private List<Employee> employee;
 	
 	public List<Employee> getEmployee() {
