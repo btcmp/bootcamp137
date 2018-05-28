@@ -2,7 +2,7 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.miniproject.xsis.model.User;
+import com.newminiproject.model.User;
 
 public interface UserDao {
 

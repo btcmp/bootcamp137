@@ -2,7 +2,7 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.miniproject.xsis.model.MenuAccess;
+import com.newminiproject.model.MenuAccess;
 
 public interface MenuAccessDao {
 
