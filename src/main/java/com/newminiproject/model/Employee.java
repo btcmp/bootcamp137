@@ -100,9 +100,17 @@ public class Employee {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="approvedBy")
 	private List<TransactionSouvenir> listApprovedBy;
 
-	@OneToMany(fetch=FetchType.LAZY, mappedBy="recievedBy")
-	private List<TransactionSouvenir> listRecievedBy;
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="receivedBy")
+	private List<TransactionSouvenir> listReceivedBy;
 	
+	public List<TransactionSouvenir> getListReceivedBy() {
+		return listReceivedBy;
+	}
+
+	public void setListReceivedBy(List<TransactionSouvenir> listReceivedBy) {
+		this.listReceivedBy = listReceivedBy;
+	}
+
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="settlementBy")
 	private List<TransactionSouvenir> listSettlementBy;
 	
@@ -319,14 +327,6 @@ public class Employee {
 
 	public void setListApprovedBy(List<TransactionSouvenir> listApprovedBy) {
 		this.listApprovedBy = listApprovedBy;
-	}
-
-	public List<TransactionSouvenir> getListRecievedBy() {
-		return listRecievedBy;
-	}
-
-	public void setListRecievedBy(List<TransactionSouvenir> listRecievedBy) {
-		this.listRecievedBy = listRecievedBy;
 	}
 
 	public List<TransactionSouvenir> getListSettlementBy() {
