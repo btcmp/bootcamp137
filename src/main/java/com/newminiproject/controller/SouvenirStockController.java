@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.miniproject.xsis.dao.SeqDaoTSouvenir;
-import com.miniproject.xsis.model.Employee;
-import com.miniproject.xsis.model.Souvenir;
-import com.miniproject.xsis.model.TransactionSouvenir;
-import com.miniproject.xsis.model.TransactionSouvenirItem;
-import com.miniproject.xsis.service.EmployeeService;
-import com.miniproject.xsis.service.SouvenirStockService;
-import com.miniproject.xsis.service.TransactionSouvenirItemStockService;
+import com.newminiproject.dao.SeqDaoTSouvenir;
+import com.newminiproject.model.Employee;
+import com.newminiproject.model.Souvenir;
+import com.newminiproject.model.TransactionSouvenir;
+import com.newminiproject.service.EmployeeService;
+import com.newminiproject.service.SouvenirStockService;
+import com.newminiproject.service.TransactionSouvenirItemStockService;
 
 @Controller
 @RequestMapping("/souvenirstock")
@@ -30,7 +29,7 @@ public class SouvenirStockController {
 	EmployeeService employeeService;
 	
 	@Autowired
-	SouvenirStockService souvenirService;
+	SouvenirStockService souvenirStockService;
 	
 	@Autowired
 	SeqDaoTSouvenir seqDaoTSouvenir;
@@ -41,8 +40,8 @@ public class SouvenirStockController {
 	@RequestMapping
 	public String index(Model model) {
 		List<Employee> listEmployee = employeeService.getAll();
-		List<Souvenir> listSouvenir = souvenirService.getAllSouvenir();
-		List<TransactionSouvenir> listTransactionSouvenir = souvenirService.getAllTransactionSouvenir();
+		List<Souvenir> listSouvenir = souvenirStockService.getAllSouvenir();
+		List<TransactionSouvenir> listTransactionSouvenir = souvenirStockService.getAllTransactionSouvenir();
 		String hasilb = seqDaoTSouvenir.addSeq();
 		model.addAttribute("hasil", hasilb);
 		model.addAttribute("listTransactionSouvenir", listTransactionSouvenir);
@@ -54,14 +53,14 @@ public class SouvenirStockController {
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseBody// respones status biasanya void
 	public TransactionSouvenir save(@RequestBody TransactionSouvenir transactionSouvenir) {
-		souvenirService.save(transactionSouvenir);
+		souvenirStockService.save(transactionSouvenir);
 		return transactionSouvenir;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/getTransactionSouvenir")
 	public TransactionSouvenir getTransactionSouvenirById(@RequestParam(value="id", required=false) int id) { //reqparam dari url
-		TransactionSouvenir transactionSouvenir = souvenirService.getTransactionSouvenirById(id);
+		TransactionSouvenir transactionSouvenir = souvenirStockService.getTransactionSouvenirById(id);
 		//
 		return transactionSouvenir;
 	}
@@ -71,14 +70,14 @@ public class SouvenirStockController {
 		System.out.println("id"+id);
 		TransactionSouvenir transactionSouvenir = new TransactionSouvenir();
 		transactionSouvenir.setId(id);
-		souvenirService.delete(transactionSouvenir);
+		souvenirStockService.delete(transactionSouvenir);
 		return "redirect:/souvenirstock";
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	@ResponseBody
 	public TransactionSouvenir update(@RequestBody TransactionSouvenir transactionSouvenir) {
-		souvenirService.update(transactionSouvenir);
+		souvenirStockService.update(transactionSouvenir);
 		return transactionSouvenir;
 	}
 }

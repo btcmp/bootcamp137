@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.miniproject.xsis.dao.SouvenirDao;
-import com.miniproject.xsis.dao.TransactionSouvenirStockDao;
-import com.miniproject.xsis.dao.TransactionSouvenirItemStockDao;
-import com.miniproject.xsis.model.Employee;
-import com.miniproject.xsis.model.Souvenir;
-import com.miniproject.xsis.model.TransactionSouvenir;
-import com.miniproject.xsis.model.TransactionSouvenirItem;
+import com.newminiproject.dao.SouvenirDao;
+import com.newminiproject.dao.TransactionSouvenirItemStockDao;
+import com.newminiproject.dao.TransactionSouvenirStockDao;
+import com.newminiproject.model.Employee;
+import com.newminiproject.model.Souvenir;
+import com.newminiproject.model.TransactionSouvenir;
+import com.newminiproject.model.TransactionSouvenirItem;
+
 
 @Transactional
 @Service
@@ -30,7 +31,7 @@ public class SouvenirStockService {
 	TransactionSouvenirItemStockService transactionSouvenirItemService;
 	
 	@Autowired
-	TransactionSouvenirStockDao transactionSouvenirDao;
+	TransactionSouvenirStockDao transactionSouvenirStockDao;
 
 	public List<Souvenir> getAllSouvenir() {
 		// TODO Auto-generated method stub
@@ -48,9 +49,9 @@ public class SouvenirStockService {
 		ts.setReceivedDate(transactionSouvenir.getReceivedDate());
 		ts.setNote(transactionSouvenir.getNote());
 		
-		transactionSouvenirDao.save(ts);
+		transactionSouvenirStockDao.save(ts);
 		//2. save table transaction souvenir item
-		for(TransactionSouvenirItem tsi: transactionSouvenir.getListtransactionSouvenirItem()) {
+		for(TransactionSouvenirItem tsi: transactionSouvenir.getTransactionSouvenirItem()) {
 			TransactionSouvenirItem tsi2 = new TransactionSouvenirItem();
 			Souvenir souvenir = new Souvenir();
 			souvenir.setId(tsi.getmSouvenirId().getId());
@@ -65,12 +66,12 @@ public class SouvenirStockService {
 
 	public List<TransactionSouvenir> getAllTransactionSouvenir() {
 		// TODO Auto-generated method stub
-		return transactionSouvenirDao.getAllTransactionSouvenir();
+		return transactionSouvenirStockDao.getAllTransactionSouvenir();
 	}
 
 	public TransactionSouvenir getTransactionSouvenirById(int id) {
 		// TODO Auto-generated method stub
-		TransactionSouvenir transactionSouvenir = transactionSouvenirDao.getTransactionSouvenirById(id);
+		TransactionSouvenir transactionSouvenir = transactionSouvenirStockDao.getTransactionSouvenirById(id);
 		List<TransactionSouvenirItem> listTransactionSouvenirItem = transactionSouvenirItemService.getTransactionSouvenirItemByTransactionSouvenir(transactionSouvenir);
 		List<TransactionSouvenirItem> listTsi = new ArrayList<>();
 		for(TransactionSouvenirItem tsi : listTransactionSouvenirItem) {
@@ -88,7 +89,7 @@ public class SouvenirStockService {
 			
 			listTsi.add(tsi2);
 		}
-		transactionSouvenir.setListtransactionSouvenirItem(listTsi);
+		transactionSouvenir.setTransactionSouvenirItem(listTsi);;
 		return transactionSouvenir;
 	}
 
@@ -105,9 +106,9 @@ public class SouvenirStockService {
 		ts.setNote(transactionSouvenir.getNote());
 		System.out.println("String yang di update :" + ts.getNote());
 		
-		transactionSouvenirDao.update(ts);
+		transactionSouvenirStockDao.update(ts);
 		//2. save table transaction souvenir item
-			for(TransactionSouvenirItem tsi: transactionSouvenir.getListtransactionSouvenirItem()) {
+			for(TransactionSouvenirItem tsi: transactionSouvenir.getTransactionSouvenirItem()) {
 				TransactionSouvenirItem tsi2 = new TransactionSouvenirItem();
 				Souvenir souvenir = new Souvenir();
 				souvenir.setId(tsi.getmSouvenirId().getId());
@@ -125,9 +126,9 @@ public class SouvenirStockService {
 		// TODO Auto-generated method stub
 		TransactionSouvenir ts = new TransactionSouvenir();
 		ts.setId(transactionSouvenir.getId());
-		transactionSouvenirDao.delete(transactionSouvenir);
+		transactionSouvenirStockDao.delete(transactionSouvenir);
 		System.out.println("id service atas : "+ transactionSouvenir.getId());
-		for(TransactionSouvenirItem tsi: transactionSouvenir.getListtransactionSouvenirItem()) {
+		for(TransactionSouvenirItem tsi: transactionSouvenir.getTransactionSouvenirItem()) {
 			TransactionSouvenirItem tsi2 = new TransactionSouvenirItem();
 			tsi2.setId(tsi.getId());
 			tsi2.settSouvenirId(ts);
