@@ -92,6 +92,9 @@ public class Design {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="tDesignId")
 	private List<DesignItem> listDesignItem;
 	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="design")
+	private List<Promotion> listPromotion;
+	
 	public int getId() {
 		return id;
 	}
@@ -245,4 +248,13 @@ public class Design {
 		this.listDesignItem = listDesignItem;
 	}
 
+	public List<Promotion> getListPromotion() {
+		return listPromotion;
+	}
+
+	public void setListPromotion(List<Promotion> listPromotion) {
+		this.listPromotion = listPromotion;
+	}
+
+	
 }
