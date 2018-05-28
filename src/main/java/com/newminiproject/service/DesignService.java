@@ -63,7 +63,7 @@ public class DesignService {
 			
 			designItemDao.save(di2);
 		}
-	}
+	} 
 
 	public Design getDesignById(int id) {
 		// TODO Auto-generated method stub
