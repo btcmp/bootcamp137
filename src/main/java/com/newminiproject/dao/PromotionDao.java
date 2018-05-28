@@ -2,8 +2,9 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.xsis.training146.model.Event;
-import com.xsis.training146.model.Promotion;
+import com.newminiproject.model.Event;
+import com.newminiproject.model.Promotion;
+
 
 public interface PromotionDao {
 

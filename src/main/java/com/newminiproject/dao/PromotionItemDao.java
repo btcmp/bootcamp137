@@ -2,8 +2,9 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.xsis.training146.model.Promotion;
-import com.xsis.training146.model.PromotionItem;
+import com.newminiproject.model.Promotion;
+import com.newminiproject.model.PromotionItem;
+
 
 public interface PromotionItemDao {
 

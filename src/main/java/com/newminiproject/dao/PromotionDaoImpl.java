@@ -9,8 +9,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.xsis.training146.model.Event;
-import com.xsis.training146.model.Promotion;
+import com.newminiproject.model.Event;
+import com.newminiproject.model.Promotion;
 
 @Repository
 public class PromotionDaoImpl implements PromotionDao {
