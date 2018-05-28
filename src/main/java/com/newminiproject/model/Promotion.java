@@ -1,3 +1,4 @@
+
 package com.newminiproject.model;
 
 import java.util.Date;
