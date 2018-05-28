@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.miniproject.xsis.dao.SeqDao;
-import com.miniproject.xsis.model.Souvenir;
-import com.miniproject.xsis.model2.Product;
-import com.miniproject.xsis.service.ProductService;
+import com.newminiproject.dao.SeqDaoProduct;
+import com.newminiproject.model.Product;
+import com.newminiproject.service.ProductService;
+
 
 @Controller
 @RequestMapping("/product")
@@ -31,7 +31,7 @@ public class ProductController {
 	ProductService prodSer;
 	
 	@Autowired
-	SeqDao seqDao;
+	SeqDaoProduct seqDao;
 	
 	@RequestMapping
 	public String index(Model model){

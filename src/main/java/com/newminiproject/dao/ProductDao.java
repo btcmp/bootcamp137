@@ -2,7 +2,8 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.miniproject.xsis.model2.Product;
+import com.newminiproject.model.Product;
+
 
 public interface ProductDao {
 
