@@ -2,7 +2,7 @@ package com.newminiproject.dao;
 
 import java.util.List;
 
-import com.marcomplace.model.Unit;
+import com.newminiproject.model.Unit;
 
 public interface UnitDao {
 
