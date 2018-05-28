@@ -9,7 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.miniproject.xsis.model2.Product;
+import com.newminiproject.model.Product;
 
 import javassist.expr.NewArray;
 
