@@ -166,11 +166,11 @@
 					$('#RequestDateE').val(data.requestDate);
 					$('#statusE').val(data.status);
 					$('#NoteE').val(data.note);
-					$('#assignTOE').val(data.employee.firstName);
+					//$('#assignTOE').val(data.employee.firstName);
 					//document.getElementById("valueAssign").value = data.employee.id;
 					
 
-					console.log(data.employee.firstName);
+					console.log(data);
 				 
 				},
 				error : function(){
