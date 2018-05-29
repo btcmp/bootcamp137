@@ -18,6 +18,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="T_EVENT")
 public class Event {
@@ -32,17 +34,8 @@ public class Event {
 	private Date requestDate;
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
-	
 	private String rejectReason;
-	
-	
-	
-	//buat entar relasi dengan employee untuk 
-	//sekarang input dulu ke database dengan nama yg ada di employee
-	//private int assignToFk;
-	
 	private int status;
-	
 	@CreationTimestamp
 	@Temporal(TemporalType.DATE)
 	private Date createDate;
@@ -51,7 +44,6 @@ public class Event {
 	private String eventPlace;
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
-	
 	@Temporal(TemporalType.DATE)
 	private Date closeDate;
 	private String requestBy;
@@ -62,9 +54,11 @@ public class Event {
 	private Date update_date;
 	private String updateBy;
 	
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="tEventId")
 	private List<Design> listDesign;
 	
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="event")
 	private List<Promotion> listPromotion;
 	

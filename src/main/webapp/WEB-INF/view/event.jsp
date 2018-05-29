@@ -166,11 +166,13 @@
 					$('#RequestDateE').val(data.requestDate);
 					$('#statusE').val(data.status);
 					$('#NoteE').val(data.note);
+					$('#EmployeeName').val(data.employee.firstName);
+					
 					//$('#assignTOE').val(data.employee.firstName);
 					//document.getElementById("valueAssign").value = data.employee.id;
 					
 
-					console.log(data);
+					console.log(data.employee.firstName);
 				 
 				},
 				error : function(){
@@ -292,10 +294,12 @@
 					$("#NoteE").prop('disabled', true);
 					$("#EndDateE").prop('disabled', true);
 					document.getElementById('btnedit').style.display = 'none';
+					
 					document.getElementById('CloseRequest').style.display = 'none';
 					document.getElementById('approved').style.display = 'block';
 					document.getElementById('rejected').style.display = 'block';
 					document.getElementById('assignTOE').style.display = 'block';
+					document.getElementById('idEmployeeName').style.display = 'none';
 					
 					var a = document.getElementById("statusES");
 					a.value = "Submited";  
@@ -318,7 +322,8 @@
 					document.getElementById('CloseRequest').style.display = 'none';
 					document.getElementById('approved').style.display = 'none';
 					document.getElementById('rejected').style.display = 'none';
-					//document.getElementById('assignTOE').style.display = 'none';
+					document.getElementById('assignTOE').style.display = 'none';
+					document.getElementById('idEmployeeName').style.display = 'block';
 					
 					var a = document.getElementById("statusES");
 					a.value = "In Progress";  
@@ -870,6 +875,13 @@
 							  	<div class="col">
 							      <label>* Assign To</label>
 							    </div>
+							  	
+							  	 <div class="col" id="idEmployeeName">
+							       <input type="text" class="form-control" id="EmployeeName" aria-describedby="emailHelp" placeholder="Type Event Name">
+							    </div>  
+							  	  
+							    
+							    
 							    <div class="col" id="assignTOE">
 							      <select class="custom-select" id="valueAssign">
 									 	 	<option selected>Select Employee</option>
@@ -878,6 +890,8 @@
 										</c:forEach>
 									</select>
 							    </div>
+							  
+							  
 							  </div>
 						  </div>
 						 
