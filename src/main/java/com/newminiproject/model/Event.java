@@ -73,6 +73,7 @@ public class Event {
 	private List<Promotion> listPromotion;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Employee employee;
 	
 	

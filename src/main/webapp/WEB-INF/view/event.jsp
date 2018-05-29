@@ -505,7 +505,7 @@
 				href="javascript:formSubmit()"> Logout</a>
 		</h2>
 	
-	</c:if>
+	
 	
 	<div id="container">
 		<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
@@ -563,7 +563,7 @@
 									</c:choose>
 								</td>
 								<td>${event.createDate }</td>
-								<td><a class="edit" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_USER") %>" data-status="${event.status }" id="${event.id }" href="#">Edit</a> | 
+								<td><a class="edit" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-status="${event.status }" id="${event.id }" href="#">Edit</a> | 
 								<a class="view" id="${event.id }" href="#">View</a>
 								</td>
 							</tr>
@@ -977,6 +977,6 @@
 	
 	
 	</div>
-	
+	</c:if>
 </body>
 </html>
