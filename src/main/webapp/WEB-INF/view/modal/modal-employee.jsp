@@ -160,7 +160,7 @@ tr, td {
 	</div>	
 	
 	
-		<!-- Modal DETAIL-->
+		<!-- Modal EDIT-->
 	<div class="modal fade bd-example-modal-lg" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
@@ -176,13 +176,18 @@ tr, td {
 		      			<label>Emp Id Number</label>
 		      		</div>
 		      		<div class="col-md-4">
+		      			 <input type="hidden" id="idEdit" class="form-control">
 		      			 <input type="text" id="codeEdit" class="form-control" placeholder="Type Emp ID number"  >
 		      		</div>
 		      		<div class="col-md-2">
 		      			<label>Company Name</label>
 		      		</div>
-		      		<div class="col-md-4 id="mCompanyId">
-		      			<input type="text" class="form-control" placeholder="Type Id Company" id="idCompanyEdit"  >
+		      		<div class="col-md-4" id="idCompanyEdit">
+		      			<select class="form-control">
+		      				<c:forEach items="${listCompany}" var="company">
+									<option value="${company.id}">${company.name}</option>
+							</c:forEach>
+		    			</select>
 		      		</div>
 		      	</div>
 		      	

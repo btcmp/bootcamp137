@@ -71,36 +71,47 @@ public class Employee {
 	private List<Event> event;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="requestBy")
+	@JsonIgnore
 	private List<Design> listDesignRequest;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="approvedBy")
+	@JsonIgnore
 	private List<Design> listDesignApproved;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="assignTo")
+	@JsonIgnore
 	private List<Design> listDesignAssign;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="createdBy")
+	@JsonIgnore
 	private List<Design> listDesignCreated;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="updatedBy")
+	@JsonIgnore
 	private List<Design> listDesignUpdated;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="requestPic")
+	@JsonIgnore
 	private List<DesignItem> listDesignItemRequest;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="createdBy")
+	@JsonIgnore
 	private List<DesignItem> listDesignItemCreated;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="updatedBy")
+	@JsonIgnore
 	private List<DesignItem> listDesignItemUpdated;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="requestBy")
+	@JsonIgnore
 	private List<TransactionSouvenir> listRequestBy;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="approvedBy")
+	@JsonIgnore
 	private List<TransactionSouvenir> listApprovedBy;
 
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="receivedBy")
+	@JsonIgnore
 	private List<TransactionSouvenir> listReceivedBy;
 	
 	public List<TransactionSouvenir> getListReceivedBy() {
@@ -112,43 +123,56 @@ public class Employee {
 	}
 
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="settlementBy")
+	@JsonIgnore
 	private List<TransactionSouvenir> listSettlementBy;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="settlementAprrovedBy")
+	@JsonIgnore
 	private List<TransactionSouvenir> listSettlementApprovedBy;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "requestBy")
+	@JsonIgnore
 	private List<Promotion> listPromotionRequestBy;
 
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "approvedBy")
+	@JsonIgnore
 	private List<Promotion> listPromotionApprovedBy;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "assignTo")
+	@JsonIgnore
 	private List<Promotion> listPromotionAssignTo;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "createdBy")
+	@JsonIgnore
 	private List<Promotion> listPromotionCreatedBy;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "updatedBy")
+	@JsonIgnore
 	private List<Promotion> listPromotionUpdatedBy;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "createdBy")
+	@JsonIgnore
 	private List<PromotionItem> listPromotionItemCreatedBy;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "updatedBy")
+	@JsonIgnore
 	private List<PromotionItem> listPromotionItemUpdatedBy;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "createdBy")
+	@JsonIgnore
 	private List<PromotionItemFile> listPromotionItemFileCreatedBy;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "updatedBy")
+	@JsonIgnore
 	private List<PromotionItemFile> listPromotionItemFileUpdatedBy;
 	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "requestPic")
+	@JsonIgnore
 	private List<PromotionItem> listPromotionItemRequestPic;
 	
 	
 	@OneToOne(mappedBy="mEmployeeId")
+	@JsonIgnore
 	private User user;
 	
 	

@@ -124,7 +124,7 @@
 				id : $("#idEdit").val(), 
 				code : $('#codeEdit').val(),
 				mCompanyId : {
-					id : $('#m-company-id-edit option:selected').val()
+					id : $('#idCompanyEdit option:selected').val()
 				},
 				firstName : $('#firstNameEdit').val(),
 				lastName : $('#lastNameEdit').val(),
@@ -138,6 +138,7 @@
 				contentType : 'application/json',
 				success : function(data){
 					window.location="${pageContext.request.contextPath}/employee";
+					console.log(employee);
 					alert("Update berhasil");
 				}, error : function() {
 					alert('failed');
