@@ -131,6 +131,7 @@
 					$('#RequestDateV').val(data.requestDate);
 					$('#statusV').val(data.status);
 					$('#NoteV').val(data.note);
+					$('#EmployeeNameV').val(data.employee.firstName);
 					
 				},
 				error : function(){
@@ -138,7 +139,31 @@
 				},
 				dataType: 'json'
 			});
+			
+			
+			
 			$('#modalView').modal();
+			if($(this).attr('data-status')==1){
+				
+				document.getElementById('colLabelV').style.display = 'none';
+				document.getElementById('idEmployeeNameV').style.display = 'none';
+			}
+			if($(this).attr('data-status')==2){
+				$("#EmployeeNameV").prop('disabled', true);
+				document.getElementById('colLabelV').style.display = 'block';
+				document.getElementById('idEmployeeNameV').style.display = 'block';
+			}
+			if($(this).attr('data-status')==3){
+				$("#EmployeeNameV").prop('disabled', true);
+				document.getElementById('colLabelV').style.display = 'block';
+				document.getElementById('idEmployeeNameV').style.display = 'block';
+			}
+			if($(this).attr('data-status')==0){
+				$("#EmployeeNameV").prop('disabled', true);
+				document.getElementById('colLabelV').style.display = 'block';
+				document.getElementById('idEmployeeNameV').style.display = 'block';
+			}
+			
 		});
 		
 		
@@ -193,6 +218,7 @@
 					$("#RequestDateE").prop('disabled', true);
 					$("#NoteE").prop('disabled', false);
 					$("#EndDateE").prop('disabled', false);
+					
 					document.getElementById('req').style.display = 'none';
 					document.getElementById('RequestByE').style.display = 'none';
 					
@@ -200,7 +226,10 @@
 					document.getElementById('CloseRequest').style.display = 'none';
 					document.getElementById('approved').style.display = 'none';
 					document.getElementById('rejected').style.display = 'none';
+					
+					document.getElementById('colLabel').style.display = 'none';
 					document.getElementById('assignTOE').style.display = 'none';
+					document.getElementById('idEmployeeName').style.display = 'none';
 					
 					
 					var a = document.getElementById("statusES");
@@ -218,15 +247,23 @@
 					$("#RequestDateE").prop('disabled', true);
 					$("#NoteE").prop('disabled', true);
 					$("#EndDateE").prop('disabled', true);
+					$("#EmployeeName").prop('disabled', true);
+					
+					
+					
 					document.getElementById('req').style.display = 'block';
 					document.getElementById('RequestByE').style.display = 'block';
-					$("#EndDateE").prop('RequestByE', true);
 					
 					document.getElementById('btnedit').style.display = 'none';
 					document.getElementById('CloseRequest').style.display = 'block';
 					document.getElementById('approved').style.display = 'none';
 					document.getElementById('rejected').style.display = 'none';
+					
+					document.getElementById('colLabel').style.display = 'block';
 					document.getElementById('assignTOE').style.display = 'none';
+					document.getElementById('idEmployeeName').style.display = 'block';
+					
+					
 					
 					var a = document.getElementById("statusES");
 					a.value = "In Progress";  
@@ -245,12 +282,16 @@
 					document.getElementById('req').style.display = 'block';
 					document.getElementById('RequestByE').style.display = 'block';
 					$("#EndDateE").prop('RequestByE', true);
+					$("#EmployeeName").prop('disabled', true);
 					
 					document.getElementById('btnedit').style.display = 'none';
 					document.getElementById('CloseRequest').style.display = 'none';
 					document.getElementById('approved').style.display = 'none';
 					document.getElementById('rejected').style.display = 'none';
+					
+					document.getElementById('colLabel').style.display = 'block';
 					document.getElementById('assignTOE').style.display = 'none';
+					document.getElementById('idEmployeeName').style.display = 'block';
 					
 					var a = document.getElementById("statusES");
 					a.value = "Done"; 
@@ -317,6 +358,7 @@
 					$("#NoteE").prop('disabled', true);
 					$("#EndDateE").prop('disabled', true);
 					$("#assignTOE").prop('disabled', true);
+					$("#EmployeeName").prop('disabled', true);
 					
 					document.getElementById('btnedit').style.display = 'none';
 					document.getElementById('CloseRequest').style.display = 'none';
@@ -384,19 +426,30 @@
 					updateBy:$('#updateBy').val()
 				}
 			//console.log(event);
-		   	$.ajax({
-				url:'${pageContext.request.contextPath}/event/aprove',
-				type:'POST',
-				data:JSON.stringify(event),
-				contentType:'application/json',
-				success:function(data){
-					alert('update ok');
-					
-					window.location = '${pageContext.request.contextPath}/event'
-				},error:function(){
-					alert('gagal update');
-				}
-			});
+			var statusvalue;
+			
+			if( !$('#valueAssign').val() ) { 
+				statusvalue=0;
+				alert("assign is empty");
+			}else{
+				statusvalue=1;
+			}
+			
+			if(statusvalue==1){
+			   	$.ajax({
+					url:'${pageContext.request.contextPath}/event/aprove',
+					type:'POST',
+					data:JSON.stringify(event),
+					contentType:'application/json',
+					success:function(data){
+						alert('update ok');
+						
+						window.location = '${pageContext.request.contextPath}/event'
+					},error:function(){
+						alert('gagal update');
+					}
+				});
+			}
 		});
 		
 //close request//////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -436,20 +489,30 @@
 					updateBy:$('#updateBy').val(),
 					rejectReason:$('#reason').val()
 				}
-			console.log(event);
-			$.ajax({
-				url:'${pageContext.request.contextPath}/event/rejected',
-				type:'POST',
-				data:JSON.stringify(event),
-				contentType:'application/json',
-				success:function(data){
-					alert('update ok');
-					
-					window.location = '${pageContext.request.contextPath}/event'
-				},error:function(){
-					alert('gagal update');
-				}
-			});
+			var statusreason;
+			if($('#reason').val() == ''){
+			      	alert('Reason cannot blank');
+			     	statusreason=0;
+				}else{
+					statusreason=1;
+			   	}
+			
+			//console.log(event);
+			if(statusreason==1){
+				$.ajax({
+					url:'${pageContext.request.contextPath}/event/rejected',
+					type:'POST',
+					data:JSON.stringify(event),
+					contentType:'application/json',
+					success:function(data){
+						alert('update ok');
+						
+						window.location = '${pageContext.request.contextPath}/event'
+					},error:function(){
+						alert('gagal update');
+					}
+				});
+			}
 		});
 		
 		
@@ -569,7 +632,7 @@
 								</td>
 								<td>${event.createDate }</td>
 								<td><a class="edit" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-status="${event.status }" id="${event.id }" href="#">Edit</a> | 
-								<a class="view" id="${event.id }" href="#">View</a>
+								<a class="view" data-status="${event.status }" id="${event.id }" href="#">View</a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -762,6 +825,17 @@
 							       <input type="number" class="form-control" id="BudgetV" aria-describedby="emailHelp" placeholder="Event Budget" disabled>
 							    </div>
 							  </div>
+							  
+							  <div class="row">  
+							  	<div class="col" id="colLabelV">
+							      <label>* Assign To</label>
+							    </div>
+							  	
+							  	 <div class="col" id="idEmployeeNameV">
+							       <input type="text" class="form-control" id="EmployeeNameV" aria-describedby="emailHelp" placeholder="Type Event Name">
+							    </div>  
+							  </div>
+							  
 						  </div>
 						 
 						  <!-- bagian kanan -->
@@ -872,7 +946,7 @@
 							  </div>
 							  
 							  <div class="row">  
-							  	<div class="col">
+							  	<div class="col" id="colLabel">
 							      <label>* Assign To</label>
 							    </div>
 							  	
@@ -884,7 +958,7 @@
 							    
 							    <div class="col" id="assignTOE">
 							      <select class="custom-select" id="valueAssign">
-									 	 	<option selected>Select Employee</option>
+									 	 	<option selected value="">Select Employee</option>
 										 <c:forEach items="${listEmployee}" var="employee">
 											<option value="${employee.id }">${employee.firstName} ${employee.lastName}</option>
 										</c:forEach>
