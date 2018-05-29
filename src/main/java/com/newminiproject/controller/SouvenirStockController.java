@@ -47,7 +47,7 @@ public class SouvenirStockController {
 		model.addAttribute("listTransactionSouvenir", listTransactionSouvenir);
 		model.addAttribute("listSouvenir", listSouvenir);
 		model.addAttribute("listEmployee", listEmployee);
-		return "list-souvenir";
+		return "list-souvenir-stock";
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
