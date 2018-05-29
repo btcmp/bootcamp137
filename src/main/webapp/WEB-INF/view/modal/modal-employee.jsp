@@ -182,8 +182,8 @@ tr, td {
 		      		<div class="col-md-2">
 		      			<label>Company Name</label>
 		      		</div>
-		      		<div class="col-md-4" id="idCompanyEdit">
-		      			<select class="form-control">
+		      		<div class="col-md-4" >
+		      			<select class="form-control" id="idCompanyEdit">
 		      				<c:forEach items="${listCompany}" var="company">
 									<option value="${company.id}">${company.name}</option>
 							</c:forEach>

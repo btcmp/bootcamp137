@@ -105,7 +105,7 @@
 					success : function(obj){
 						$('#idEdit').val(obj.id);
 						$('#codeEdit').val(obj.code);
-						$('#m-company-id-edit').val(obj.mCompanyId.id);
+						$('#idCompanyEdit').val(obj.mCompanyId.id);
 						$('#firstNameEdit').val(obj.firstName);
 						$('#lastNameEdit').val(obj.lastName);
 						$('#emailEdit').val(obj.email);
