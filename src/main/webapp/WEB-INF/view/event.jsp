@@ -549,6 +549,13 @@
 				
 		});
 		
+///search///////////////////////////////////////////////////////////////////////////////////////////////////////		
+		$('#btnSearch').on('click', function(){
+			var form = $("#formrole");
+			var data = form.serialize(); //untuk mengambil semua data yang ada di table
+			console.log(data);
+			//window.location = '${pageContext.request.contextPath}/role/search?'+data;
+		});
 	});
 </script>
 
@@ -589,7 +596,34 @@
 	    
 	
 	    	<a href="#" class="btn btn-primary" id="btn-add" style="width:70px;float:right;">Add</a><br/><br/>
-	    	
+	    	<form id="formrole">
+	    	<div class="form-row" >
+	    		<div class="col-auto">
+	    			<input placeholder="Transaction Code" class="form-control" type="text" name="tcodeSearch">	
+	    		</div>
+	    		<div class="col-auto">
+	    			<input placeholder="Request By" class="form-control" type="text" name="requestSearch">	
+	    		</div>
+	    		<div class="col-auto">
+	    			<input placeholder="Request Date" class="form-control" type="text" name="requestDateSearch" onfocus="(this.type='date')" onblur="(this.type='text')">	
+	    		</div>
+	    		<div class="col">
+	    			<input placeholder="Due Date" class="form-control" type="text" name="dueDateSearch" onfocus="(this.type='date')" onblur="(this.type='text')">	
+	    		</div>
+	    		<div class="col-auto">
+	    			<input placeholder="Status" class="form-control" type="text" name="statusSearch">	
+	    		</div>
+	    		<div class="col">
+	    			<input placeholder="Created" class="form-control" type="text" name="createdSearch" onfocus="(this.type='date')" onblur="(this.type='text')">	
+	    		</div>
+	    		<div class="col">
+	    			<input placeholder="Created By" class="form-control" type="text" name="createdBysearch">	
+	    		</div>
+	    		<div class="col-auto">
+	    			<a href="#" id="btnSearch" class="btn btn-warning" style="width:70px;color:white;">Search</a>
+	    		</div>
+	    	</div>
+    	</form>
 	
 	    	
 	    	
