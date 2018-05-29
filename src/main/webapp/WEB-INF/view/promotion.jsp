@@ -72,15 +72,15 @@
 									
 						var	prependString1 = '<tr value-dsi-id = "'+ value.id +'" value-pic-id = "'+ value.requestPic.id +'">';
 								prependString1 += '<td>';
-									prependString1 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
+									prependString1 += '<input type="text" value-id="' + value.mProductId.id +'" value="' + value.mProductId.name +'" class="form-control" disabled>';
 								prependString1 += '</td>';
 								
 								prependString1 += '<td>';
-									prependString1 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
+									prependString1 += '<input type="text" value="'+ value.mProductId.description +'" class="form-control" disabled>';
 								prependString1 += '</td>';
 														
 								prependString1 += '<td>';
-									prependString1 += '<input type="text" value="' + value.title + '" class="form-control" disabled>';
+									prependString1 += '<input type="text" value="' + value.titleItem + '" class="form-control" disabled>';
 								prependString1 += '</td>';
 														
 								prependString1 += '<td>';
@@ -447,15 +447,15 @@
 							
 							var appendString2 = '<tr>';
 									appendString2 += '<td>';
-										appendString2 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
+										appendString2 += '<input type="text" value-id="' + value.mProductId.id +'" value="' + value.mProductId.name +'" class="form-control" disabled>';
 									appendString2 += '</td>';
 						
 									appendString2 += '<td>';
-										appendString2 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
+										appendString2 += '<input type="text" value="'+ value.mProductId.description +'" class="form-control" disabled>';
 									appendString2 += '</td>';
 						
 									appendString2 += '<td>';
-										appendString2 += '<input type="text" value="' + value.designItem.title + '" class="form-control" disabled>';
+										appendString2 += '<input type="text" value="' + value.designItem.titleItem + '" class="form-control" disabled>';
 									appendString2 += '</td>';
 								
 									appendString2 += '<td>';
@@ -678,11 +678,11 @@
 						
 						var appendString5 = '<tr>';
 								appendString5 += '<td>';
-									appendString5 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
+									appendString5 += '<input type="text" value-id="' + value.mProductId.id +'" value="' + value.mProductId.name +'" class="form-control" disabled>';
 								appendString5 += '</td>';
 					
 								appendString5 += '<td>';
-									appendString5 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
+									appendString5 += '<input type="text" value="'+ value.mProductId.description +'" class="form-control" disabled>';
 								appendString5 += '</td>';
 					
 								appendString5 += '<td>';
