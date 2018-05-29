@@ -19,6 +19,7 @@
   			<intercept-url pattern="/souvenir/update" access="hasRole('ROLE_ADMIN')"/>
   			<intercept-url pattern="/souvenir/delete/**" access="hasRole('ROLE_ADMIN')"/>  				
 			<intercept-url pattern="/event**" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_REQUESTER')" />
+			<intercept-url pattern="/user**" access="hasRole('ROLE_ADMIN')"/>
 			<form-login
 			    login-page="/login"
 			    default-target-url="/welcome"
