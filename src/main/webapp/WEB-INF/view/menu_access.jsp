@@ -45,11 +45,6 @@ table {
 					}
 				}
 			/* console.log(menuAccess); //deskripsi data yang dikirimkan server */
-			var arr = $('#menuAdd:checked').map(function () {
-		    	return this.value;
-		    }).get();
-		    	console.log(arr);
-		 	});
 		
 			$.ajax({
 				url: '${pageContext.request.contextPath}/menu_access/save',
@@ -219,7 +214,7 @@ table {
 		  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
 		    <div class="modal-content" style="width:50%">
 		      <div class="modal-header" style="background-color:#0069D9;color:white;">
-		        <h5 class="modal-title" id="exampleModalLongTitle">Add User</h5>
+		        <h5 class="modal-title" id="exampleModalLongTitle">Add Menu Access</h5>
 		      </div>
 		      <div class="modal-body">
 		      	<div class="form-group">
@@ -246,9 +241,9 @@ table {
 						    </div>
 						</div>
 						<div class="row">
-							<div class="col" id="m-menu-id" style="margin-left:10px;">
+							<div class="col" id="m-menu-id" name="menu-add" style="margin-left:10px;">
 							<c:forEach items="${listMenu}" var="menu">
-						      	<input type='checkbox' name='id[0]' id='menuAdd' value="${menu.id}"/>
+						      	<input type="checkbox" name="menuadd" value="${menu.id}"/>
 								<span>${menu.name}</span><br/>
 							</c:forEach>	
 						    </div>
@@ -286,11 +281,11 @@ table {
 	</div>
 	
  		<!-- Modal Edit-->
-		<div class="modal fade bd-example-modal-lg" id="modalView" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal fade bd-example-modal-lg" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
 		    <div class="modal-content" style="width:50%">
 		      <div class="modal-header" style="background-color:#0069D9;color:white;">
-		        <h5 class="modal-title" id="exampleModalLongTitle">Edit Menu Access</h5>
+		        <h5 class="modal-title" id="exampleModalLongTitle">Add User</h5>
 		      </div>
 		      <div class="modal-body">
 		      	<div class="form-group">
@@ -301,8 +296,10 @@ table {
 						  	<div class="col">
 						      <label for="name">* Role Id</label>
 						    </div>
-						    <div class="col">
-						       <input type="text" id="roleEdit" class="form-control">
+						    <div class="col" id="m-role-id">
+						       <select class="form-control" style="font-size: 12px;">
+						       		<input type="text" id="roleEdit" class="form-control" disabled>
+						       </select>
 						    </div>
 						</div>
 						
@@ -312,12 +309,11 @@ table {
 						    </div>
 						</div>
 						<div class="row">
-							<div class="col" id="menuEdit">
-						       <select class="form-control" style="font-size: 12px;">
-						       		<c:forEach items="${listMenu}" var="listMenu">
-						       			<option value="${listMenu.id}">${listMenu.name}</option>
-						       		</c:forEach>
-						       </select>
+							<div class="col" id="m-menu-id" style="margin-left:10px;">
+							<c:forEach items="${listMenu}" var="menu">
+						      	<input type='checkbox' name='id[0]' id='menuEdit' value="${menu.id}"/>
+								<span>${menu.name}</span><br/>
+							</c:forEach>	
 						    </div>
 						</div>					  
 					  </div>
@@ -326,7 +322,8 @@ table {
 				</div>
 		      </div>
 		      <div class="modal-footer">
-		      <button type="button" class="btn btn-warning" style="color:white;" data-dismiss="modal">Close</button>
+		      <button type="button" class="btn btn-primary" value="testing" id="btn-save-edit">Save</button>
+		      <button type="button" class="btn btn-warning" style="color:white;" data-dismiss="modal">Cancel</button>
 			  	
 		      </div>
 		    </div>
@@ -349,8 +346,10 @@ table {
 						  	<div class="col">
 						      <label for="name">* Role Id</label>
 						    </div>
-						    <div class="col">
-						       <input type="text" id="codeView" class="form-control" disabled>
+						    <div class="col" id="m-role-id">
+						       <select class="form-control" style="font-size: 12px;">
+						       		<input type="text" id="roleView" class="form-control" disabled>
+						       </select>
 						    </div>
 						</div>
 						
@@ -360,8 +359,11 @@ table {
 						    </div>
 						</div>
 						<div class="row">
-							<div class="col">
-						       <input type="text" id="nameView" class="form-control" disabled>
+							<div class="col" id="m-menu-id" style="margin-left:10px;">
+							<c:forEach items="${listMenu}" var="menu">
+						      	<input type='checkbox' name='id[0]' id='menuView' value="${menu.id}"/>
+								<span>${menu.name}</span><br/>
+							</c:forEach>	
 						    </div>
 						</div>					  
 					  </div>
@@ -370,7 +372,8 @@ table {
 				</div>
 		      </div>
 		      <div class="modal-footer">
-		      <button type="button" class="btn btn-warning" style="color:white;" data-dismiss="modal">Close</button>
+		      <button type="button" class="btn btn-primary" value="testing" id="btn-save-add">Save</button>
+		      <button type="button" class="btn btn-warning" style="color:white;" data-dismiss="modal">Cancel</button>
 			  	
 		      </div>
 		    </div>

@@ -3,6 +3,7 @@ package com.newminiproject.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -62,8 +63,8 @@ public class Role {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="mRoleId")
 	private List<MenuAccess> listMenuAccess;
 	
-	@ManyToMany
-	private List<User> user;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<User> listUser;
 
 	public int getId() {
 		return id;
@@ -145,13 +146,12 @@ public class Role {
 		this.listMenuAccess = listMenuAccess;
 	}
 
-	public List<User> getUser() {
-		return user;
+	public List<User> getListUser() {
+		return listUser;
 	}
 
-	public void setUser(List<User> user) {
-		this.user = user;
+	public void setListUser(List<User> listUser) {
+		this.listUser = listUser;
 	}
-	
 	
 }
