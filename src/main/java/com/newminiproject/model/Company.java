@@ -47,6 +47,7 @@ public class Company {
 	private String createBy;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="mCompanyId")
+	@JsonIgnore
 	private List<Employee> employee;
 	
 	public List<Employee> getEmployee() {

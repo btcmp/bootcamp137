@@ -486,6 +486,7 @@
 
 </head>
 <body>
+
 <c:url value="/j_spring_security_logout" var="logoutUrl" />
 	<form action="${logoutUrl}" method="post" id="logoutForm">
 		<input type="hidden" name="${_csrf.parameterName}"
@@ -562,7 +563,7 @@
 									</c:choose>
 								</td>
 								<td>${event.createDate }</td>
-								<td><a class="edit" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_USER") %>" data-status="${event.status }" id="${event.id }" href="#">Edit</a> | 
+								<td><a class="edit" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-status="${event.status }" id="${event.id }" href="#">Edit</a> | 
 								<a class="view" id="${event.id }" href="#">View</a>
 								</td>
 							</tr>

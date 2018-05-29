@@ -50,7 +50,7 @@ public class EventController {
 		model.addAttribute("listEvent", listEvent);
 		String hasil = generateCodeDate.addSeq();
 		model.addAttribute("hasil", hasil);
-		return"event";
+		return "event";
 	}
 	
 	
