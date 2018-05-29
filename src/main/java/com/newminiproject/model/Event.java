@@ -18,6 +18,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="T_EVENT")
 public class Event {
@@ -63,9 +65,11 @@ public class Event {
 	private String updateBy;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="tEventId")
+	@JsonIgnore
 	private List<Design> listDesign;
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="event")
+	@JsonIgnore
 	private List<Promotion> listPromotion;
 	
 	@ManyToOne

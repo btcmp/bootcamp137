@@ -486,6 +486,7 @@
 
 </head>
 <body>
+
 <c:url value="/j_spring_security_logout" var="logoutUrl" />
 	<form action="${logoutUrl}" method="post" id="logoutForm">
 		<input type="hidden" name="${_csrf.parameterName}"
@@ -504,7 +505,7 @@
 				href="javascript:formSubmit()"> Logout</a>
 		</h2>
 	
-	
+	</c:if>
 	
 	<div id="container">
 		<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
@@ -976,6 +977,6 @@
 	
 	
 	</div>
-	</c:if>
+	
 </body>
 </html>
