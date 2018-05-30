@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table (name = "t_promotion")
@@ -48,6 +49,7 @@ public class Promotion {
 	@JoinColumn (name = "t_design_id")
 	private Design design;
 	
+	@JsonIgnore
 	@JoinColumn (name = "request_by")
 	@ManyToOne
 	private Employee requestBy;
@@ -56,6 +58,7 @@ public class Promotion {
 	@Column (name= "request_date")
 	private Date requestDate;
 	
+	@JsonIgnore
 	@JoinColumn (name ="approved_by")
 	@ManyToOne
 	private Employee approvedBy;
@@ -64,6 +67,7 @@ public class Promotion {
 	@Column (name = "approved_date")
 	private Date approvedDate;
 	
+	@JsonIgnore
 	@JoinColumn (name = "assign_to")
 	@ManyToOne
 	private Employee assignTo;
@@ -84,6 +88,7 @@ public class Promotion {
 	@Column (name = "is_delete", length = 5, columnDefinition = "int default 0")
 	private int isDelete;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "created_by") //nullable
 	private Employee createdBy;
@@ -92,6 +97,7 @@ public class Promotion {
 	@Column (name ="created_date") //nullable
 	private Date createdDate;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "updated_by")
 	private Employee updatedBy;

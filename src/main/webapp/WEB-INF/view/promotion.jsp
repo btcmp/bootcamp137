@@ -37,12 +37,12 @@
 			var selectedValue1 = $('#event-select-option option:selected').attr('value');
 			
 			if(selectedValue1 != undefined){
+				
 				$.ajax({
 					url :'${pageContext.request.contextPath }/promotion/getdesign?id=' + selectedValue1,
 					type : 'GET',
 					dataType : 'json',
 					success : function(data){
-						
 				  		var addSelectDesign = $('#designAdd2');
 		  				var selectDiv = addSelectDesign.find('select');
 						selectDiv.find('option').not(document.getElementById('selectOption')).remove();
@@ -88,6 +88,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 				var idDesign = $('#design-select option:selected').val();
+				console.log(idDesign);
 				
 				$.ajax({
 					url : '${pageContext.request.contextPath}/promotion/getall?id=' + idDesign,
@@ -103,18 +104,17 @@
 					
 					tBody1.find('tr').remove();
 					$.each(obj.listDesignItem, function(index,value){
-									
-						var	prependString1 = '<tr value-dsi-id = "'+ value.id +'" value-pic-id = "'+ value.requestPic.id +'">';
+						var	prependString1 = '<tr value-dsi-id = "'+ value.id +'" value-pic-id = "'+ value.requestPic +'" >';
 								prependString1 += '<td>';
-									prependString1 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
+									prependString1 += '<input type="text" value-id="' + value.mProductId.id +'" value="' + value.mProductId.name +'" class="form-control" disabled>';
 								prependString1 += '</td>';
 								
 								prependString1 += '<td>';
-									prependString1 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
+									prependString1 += '<input type="text" value="'+ value.mProductId.description +'" class="form-control" disabled>';
 								prependString1 += '</td>';
 														
 								prependString1 += '<td>';
-									prependString1 += '<input type="text" value="' + value.title + '" class="form-control" disabled>';
+									prependString1 += '<input type="text" value="' + value.titleItem + '" class="form-control" disabled>';
 								prependString1 += '</td>';
 														
 								prependString1 += '<td>';
@@ -138,7 +138,7 @@
 								prependString1 += '</td>';
 														
 								prependString1 += '<td>';
-									prependString1 += '<input class = "form-control" type="text" placeholder="Note">';
+									prependString1 += '<input class = "form-control" type="text" placeholder="Note" >';
 								prependString1 += '</td>';
 														
 								prependString1 += '<td>';
@@ -325,11 +325,11 @@
 					},
 					designItem : {
 						id : $(value).attr('value-dsi-id'),
-						title : $(value).find('td').eq(2).find('input').val()	
+						titleItem : $(value).find('td').eq(2).find('input').val()	
 					},
-					requestPic : {
+					/* requestPic : {
 						id : $(value).attr('value-pic-id')
-					},
+					}, */
 					qty : $(value).find('td').eq(3).find('input').val(),
 					todo : $(value).find('td').eq(4).find('select option:selected').val(),
 					requestDueDate : $(value).find('td').eq(5).find('input').val(),
@@ -435,7 +435,6 @@
 			var promoId = $(this).attr('value-promo-id-detail');
 			var flagDsg = $(this).attr('value-flag-design')
 			
-			
 ///////////////////////////////////////////// VIEW from Design ///////////////////////////////////////////////
 			
 			if (flagDsg == 1){
@@ -445,7 +444,6 @@
 					type: 'GET',
 					dataType: 'json',
 					success : function(data){
-						
 						//promotion header
 						$('#transCodeSaveView').val(data.code);
 						$('#eventSelectSaveView').val(data.event.code);
@@ -586,7 +584,6 @@
 					type : 'GET',
 					dataType : 'json',
 					success : function (data){
-						console.log(data);
 						
 						///////////Promotion Header
 						$('#transCodeNotView').val(data.code),
@@ -595,6 +592,14 @@
 						$('#requestByNotView').val(data.reqeustBy),
 						$('#requestDateNotView').val(data.requestDate),
 						$('#noteTitleHeaderNotView').val(data.note)
+						
+						var status1 = "";
+						if(data.status == 0){
+							status1 = "Rejected";
+						} else if (data.status == 1){
+							status1 = "Submitted";
+						}
+						$('#statusBySaveNotView').val(status1);
 						
 						var oTable4 = $('#tabelItemNotView');
 						var tBody4 = oTable4.find('tbody');
@@ -680,6 +685,7 @@
 					//promotion header
 					$('#transCodeUpdate').val(data.code);
 					$('#eventSelectUpdate').val(data.event.code);
+					$('#idEdit').val(data.event.id);
 					$('#titleHeaderUpdate').val(data.titleHeader);
 					$('#requestDateUpdate').val(data.requestDate);
 					$('#noteTitleHeaderUpdate').val(data.note);
@@ -697,7 +703,7 @@
 					$('#requestByDesignUpdate').val(data.design.requestBy);
 					$('#requestDateDesignUpdate').val(data.design.requestDate);
 					$('#noteDesignHeaderUpdate').val(data.design.note);
-				
+					
 					//promotion item
 					var oTabel5 = $('#listDesignItemUpdate');
 					var tBody5 = oTabel5.find('tbody');
@@ -710,7 +716,7 @@
 							value.note
 						}
 						
-						var appendString5 = '<tr>';
+						var appendString5 = '<tr value-dsi-id = "'+ value.id +'" value-pic-id = "'+ value.requestPic +'">';
 								appendString5 += '<td>';
 									appendString5 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
 								appendString5 += '</td>';
@@ -720,7 +726,7 @@
 								appendString5 += '</td>';
 					
 								appendString5 += '<td>';
-									appendString5 += '<input type="text" value="' + value.designItem.title + '" class="form-control" disabled>';
+									appendString5 += '<input type="text" value="' + value.designItem.titleItem + '" class="form-control" disabled>';
 								appendString5 += '</td>';
 							
 								appendString5 += '<td>';
@@ -728,7 +734,7 @@
 								appendString5 += '</td>';
 						
 								appendString5 += '<td>';
-									appendString5 += '<select class = "form-control select-todo-promoItem" > <option>'+ value.todo +'</option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
+									appendString5 += '<select class = "form-control select-todo-promoItem" > <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
 								appendString5 += '</td>';
 						
 								appendString5 += '<td>';
@@ -807,7 +813,7 @@
 			$('#modalFromDesignUpdate').modal('show');
 		} 
 		
-////////////////////////////////////////////////////////////////////Edit from Design ////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////Edit NOT from Design ////////////////////////////////////////////////////////////////////
 		
 		else if (flagDsgEdit == 0){
 			
@@ -888,7 +894,60 @@
 		
 	})
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+/////////////////////////////// Update from flagDesign == 1 //////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+
+	$('#updateDesign').on('click', function(){
+		var updatePromo = {
+			code : $('#transCodeUpdate').val(),
+			event : {
+				id : $('#idEdit').val()
+			},
+			titleHeader : $('#titleHeaderUpdate').val(),
+			requestBy : $('#requestByUpdate').val(),
+			requestDate : $('#requestDateUpdate').val(),
+			note : $('#noteTitleHeaderUpdate').val(),
+			status : 1,
+			listPromotionItem : []
+		}
+		
+		_readTableDataDesignUpdate(updatePromo.listPromotionItem);
+		console.log(updatePromo);
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/promotion/'
+		})
+		
+	})
 	
+	function _readTableDataDesignUpdate(listPromotionItem){
+		$('#listDesignItemUpdate > tbody > tr').each(function(index, value){
+			var updateListPromo = {
+					product : {
+						id : $(value).find('td').eq(0).find('input').attr('value-id'),
+						name :$(value).find('td').eq(0).find('input').val(),
+						description : $(value).find('td').eq(1).find('input').val()
+					},
+					designItem : {
+						id : $(value).attr('value-dsi-id'),
+						titleItem : $(value).find('td').eq(2).find('input').val()	
+					},
+					/* requestPic : {
+						id : $(value).attr('value-pic-id')
+					}, */
+					qty : $(value).find('td').eq(3).find('input').val(),
+					todo : $(value).find('td').eq(4).find('select option:selected').val(),
+					requestDueDate : $(value).find('td').eq(5).find('input').val(),
+					startDate : $(value).find('td').eq(6).find('input').val(),
+					endDate : $(value).find('td').eq(7).find('input').val(),
+					note : $(value).find('td').eq(8).find('input').val()
+			}
+			
+			listPromotionItem.push(updateListPromo);
+		})
+	
+	}
 		
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////// Upload File //////////////////////////////////////////////

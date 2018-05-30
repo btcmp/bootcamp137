@@ -61,4 +61,10 @@ public class PromotionDaoImpl implements PromotionDao {
 		return listPromotion.get(0); // untuk mengambil data sebanyak 1, bukan list atau jamak
 	}
 
+	@Override
+	public void update(Promotion pr) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

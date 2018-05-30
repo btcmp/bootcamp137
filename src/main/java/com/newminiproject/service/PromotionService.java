@@ -70,13 +70,13 @@ public class PromotionService {
 				product.setId(pi.getProduct().getId());
 				DesignItem designItem = new DesignItem();
 				designItem.setId(pi.getDesignItem().getId());
-				Employee requestPic = new Employee();
+				/*Employee requestPic = new Employee();
 				requestPic.setId(pi.getRequestPic().getId());
-				
+				*/
 				pi1.setPromotion(pr);
 				pi1.setProduct(product);
 				pi1.setDesignItem(designItem);
-				pi1.setRequestPic(requestPic);
+				//pi1.setRequestPic(requestPic);
 				pi1.setTitle(pi.getTitle());
 				pi1.setQty(pi.getQty());
 				pi1.setTodo(pi.getTodo());
@@ -154,5 +154,67 @@ public class PromotionService {
 		
 		
 		return promotion;
+	}
+
+	public void update(Promotion promotion) {
+		// TODO Auto-generated method stub
+		//1. Untuk save ke dalam tabel promotion
+				Event event = new Event();
+				event.setId(promotion.getEvent().getId());
+				
+				Promotion pr = new Promotion();
+				pr.setCode(promotion.getCode());
+				pr.setEvent(event);
+				pr.setCreatedDate(promotion.getCreatedDate());
+				pr.setFlagDesign(promotion.getFlagDesign());
+				pr.setTitleHeader(promotion.getTitleHeader());
+				pr.setNote(promotion.getNote());
+				//pr.setRequestBy(promotion.getRequestBy());
+				pr.setRequestDate(promotion.getRequestDate());
+				pr.setStatus(promotion.getStatus());
+				
+				if(promotion.getFlagDesign() == 1) {
+					Design design = new Design ();
+					design.setId(promotion.getDesign().getId());
+					pr.setDesign(design);
+					
+					//2. untuk save ke dalam tabel promotion_item
+					for(PromotionItem pi : promotion.getListPromotionItem()) {
+						PromotionItem pi1 = new PromotionItem();
+						Product product = new Product();
+						product.setId(pi.getProduct().getId());
+						DesignItem designItem = new DesignItem();
+						designItem.setId(pi.getDesignItem().getId());
+						/*Employee requestPic = new Employee();
+						requestPic.setId(pi.getRequestPic().getId());
+						*/
+						pi1.setPromotion(pr);
+						pi1.setProduct(product);
+						pi1.setDesignItem(designItem);
+						//pi1.setRequestPic(requestPic);
+						pi1.setTitle(pi.getTitle());
+						pi1.setQty(pi.getQty());
+						pi1.setTodo(pi.getTodo());
+						pi1.setNote(pi.getNote());
+						pi1.setRequestDueDate(pi.getRequestDueDate());
+						
+						promotionItemDao.update(pi1);
+					}
+				}
+						
+				promotionDao.update(pr);
+				
+				//3. untuk save ke dalam tabel promotion_item_file
+				for(PromotionItemFile pif : promotion.getListPromotionItemFile()) {
+					PromotionItemFile pif1 = new PromotionItemFile();
+					//pif1.setFileName(pif.getFileName());
+					pif1.setPromotion(pr);
+					pif1.setNote(pif.getNote());
+					pif1.setTodo(pif.getTodo());
+					pif1.setQty(pif.getQty());
+					pif1.setRequestDueDate(pif.getRequestDueDate());
+					
+					promotionItemFileDao.update(pif1);
+				}
 	}
 }

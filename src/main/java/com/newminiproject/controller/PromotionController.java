@@ -90,7 +90,7 @@ public class PromotionController {
 	@ResponseBody
 	@RequestMapping (value = "/getdesign", method = RequestMethod.GET)
 	public Event getEvent (@RequestParam(value="id", required = false) int id) {
-		Event event = eventService.getEventById(id);
+		Event event = eventService.getEventByIdDesign(id);
 		return event;
 	}
 	
@@ -105,6 +105,13 @@ public class PromotionController {
 	@RequestMapping(value = "/getdetail", method = RequestMethod.GET)
 	public Promotion getPromotion (@RequestParam(value="id", required = false) int id) {
 		Promotion promotion = promotionService.getPromotionById(id);
+		return promotion;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	public Promotion update(@RequestBody Promotion promotion) {
+		promotionService.update(promotion);
 		return promotion;
 	}
 	

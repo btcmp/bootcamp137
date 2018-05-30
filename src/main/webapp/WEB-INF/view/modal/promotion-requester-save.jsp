@@ -59,7 +59,7 @@
 							  <div class="form-group">
 							    <span class = "float-left" style="width:35%; text-align:right;">* Request By : </span>
 							    <div class = "float-left" style="width:65%;">
-							    	<input class="form-control" type="text" id="requestBySave" value = "Noe"disabled>
+							    	<input class="form-control" type="text" id="requestBySave" value = "${pageContext.request.userPrincipal.name}" disabled>
 							    </div>
 							    
 							  </div>
@@ -491,7 +491,7 @@
 							<div style="clear:both;"></div>
 							  
 							   <div class="form-group">
-							    <span class="float-left" style="width:35%; text-align:right;">* Note :</span>
+							    <span class="float-left" style="width:35%; text-align:right;"> Note :</span>
 							    <div class="float-left" style="width:65%;">
 							     <textarea class="form-control"  type="text" id="noteTitleHeaderNot" style="width:247px;" placeholder = "Type Note"></textarea>
 							    </div>
@@ -606,13 +606,22 @@
 							<div style="clear:both;"></div>
 							  
 							   <div class="form-group">
-							    <span class="float-left" style="width:35%; text-align:right;">* Note :</span>
+							    <span class="float-left" style="width:35%; text-align:right;"> Note :</span>
 							    <div class="float-left" style="width:65%;">
-							     <textarea class="form-control"  type="text" id="noteTitleHeaderNotView" style="width:247px;" placeholder = "Type Note" disabled></textarea>
+							     <textarea class="form-control"  type="text" id="noteTitleHeaderNotView" style="width:247px;" disabled></textarea>
 							    </div>
 							  </div>
 						  </div>
 						  
+						  <div class = "float-left" style="width:30%;">
+						  	<div class="form-group">
+							    <span class = "float-left" style="width:35%; text-align:right;">Status : </span>
+							    <div class = "float-left" style="width:65%;">
+							    	<input class="form-control" type="text" id="statusBySaveNotView" disabled>
+							    </div>
+							    
+							  </div>
+						  </div>
 						  <div style="clear:both;"></div>
 						  
 						   

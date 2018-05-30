@@ -12,4 +12,6 @@ public interface PromotionItemFileDao {
 
 	List<PromotionItemFile> getPromotionItemFileByPromotion(Promotion promotion);
 
+	void update(PromotionItemFile pif1);
+
 }

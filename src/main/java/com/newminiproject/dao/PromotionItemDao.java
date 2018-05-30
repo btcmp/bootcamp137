@@ -13,4 +13,6 @@ public interface PromotionItemDao {
 
 	List<PromotionItem> getPromotionItemByPromotion(Promotion promotion);
 
+	void update(PromotionItem pi1);
+
 }

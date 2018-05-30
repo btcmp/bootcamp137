@@ -16,4 +16,6 @@ public interface PromotionDao {
 
 	Promotion getPromotionById(int id);
 
+	void update(Promotion pr);
+
 }

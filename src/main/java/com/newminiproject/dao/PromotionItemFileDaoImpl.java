@@ -42,6 +42,12 @@ public class PromotionItemFileDaoImpl implements PromotionItemFileDao {
 		
 		return listPromotionItemFile;
 	}
+
+	@Override
+	public void update(PromotionItemFile pif1) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

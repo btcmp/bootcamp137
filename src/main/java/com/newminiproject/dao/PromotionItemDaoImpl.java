@@ -42,4 +42,10 @@ public class PromotionItemDaoImpl implements PromotionItemDao{
 		return listPromotionItem;
 	}
 
+	@Override
+	public void update(PromotionItem pi1) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
