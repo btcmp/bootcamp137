@@ -107,8 +107,7 @@ table {
 				url: '${pageContext.request.contextPath}/menu/getmenu/' + editCode,
 				type: 'GET',
 				success:function(data){
-					console.log(data);
-					
+					console.log(data);	
 				},
 				error:function(){
 					alert('Data not found');
@@ -125,6 +124,10 @@ table {
 				url: '${pageContext.request.contextPath}/user/getuser?id=' + viewCode,
 				type: 'GET',
 				success:function(data){
+					$('#roleView').val(data.listRole[0].name);
+					$('#employeeView').val(data.mEmployeeId.firstName);
+					$('#usernameView').val(data.username);
+					$('#passwordView').val(data.password);
 					console.log(data);
 				},
 				error:function(){

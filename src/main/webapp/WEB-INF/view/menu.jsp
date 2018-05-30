@@ -37,7 +37,6 @@ table {
 		$(document).on('click', '#btnSave', function(event){
 			//alert('test');
 			event.preventDefault();
-			alert('testdata');
 			var menu = {
 					code: $("#codeAdd").val(),
 					name: $("#nameAdd").val(),
@@ -46,7 +45,7 @@ table {
 						id : $('#menuNameAdd option:selected').val()
 					}
 				}
-			//console.log(menu); //deskripsi data yang dikirimkan server
+			console.log(menu); //deskripsi data yang dikirimkan server
 			$.ajax({
 				url: '${pageContext.request.contextPath}/menu/save',
 				type: 'POST',

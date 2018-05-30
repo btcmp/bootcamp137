@@ -44,6 +44,9 @@
 			<intercept-url pattern="/promotion/rejected" access="hasRole('ROLE_ADMIN')"/>
 			<intercept-url pattern="/promotion/closerequest" access="hasRole('ROLE_STAFF')"/>
 			<intercept-url pattern="/souvenirstock**" access="hasRole('ROLE_ADMIN')"/>
+			<intercept-url pattern="/menu**" access="hasRole('ROLE_ADMIN')"/>
+			<intercept-url pattern="/role**" access="hasRole('ROLE_ADMIN')"/>
+			<intercept-url pattern="/unit**" access="hasRole('ROLE_ADMIN')"/>
 			<form-login
 			    login-page="/login"
 			    default-target-url="/welcome"
