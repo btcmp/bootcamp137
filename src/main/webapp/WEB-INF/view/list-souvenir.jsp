@@ -341,6 +341,7 @@ table tr td:first-child::before
 		      		</div>
 		      		<div class="col-md-4" id="m-unit-id">
 		      			<select class="form-control">
+		      				<option>- Select Unit -</option>
 		      				<c:forEach items="${listUnit }" var="unit">
 								<option value="${unit.id }">${unit.name }</option>
 							</c:forEach>
