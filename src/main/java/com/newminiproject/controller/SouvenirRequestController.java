@@ -154,9 +154,9 @@ public class SouvenirRequestController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/appsettlement", method = RequestMethod.PUT)
-	public TransactionSouvenir approvesettlement(@RequestBody TransactionSouvenir transactionSouvenir){
-		souvenirRequestService.approvesettlement(transactionSouvenir);
+	@RequestMapping(value="/approved", method = RequestMethod.PUT)
+	public TransactionSouvenir approved(@RequestBody TransactionSouvenir transactionSouvenir){
+		souvenirRequestService.approved(transactionSouvenir);
 		return transactionSouvenir;
 	}
 	

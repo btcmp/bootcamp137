@@ -81,24 +81,4 @@ public class UserController {
 		userService.delete(usr);
 		return "redirect:/user";
 	}
-	
-	/*@RequestMapping(value="/search", method=RequestMethod.GET)
-	public String search(Model model, @RequestParam(value="employeename", defaultValue="") String employeeName, @RequestParam(value="rolename", defaultValue="") String roleName, @RequestParam(value="companyname", defaultValue="") String companyName, @RequestParam(value="userName", defaultValue="") String userName, @RequestParam(value="createddate", defaultValue="") String createdDate, @RequestParam(value="createdby", defaultValue="") String createdBy ) throws ParseException {
-		System.out.println("Employee Name : "+employeeName);
-		System.out.println("Role Name : "+roleName);
-		System.out.println("Company Name : "+companyName);
-		System.out.println("Username : "+userName);
-		System.out.println("Created Date : "+createdDate);
-		System.out.println("Created By : "+createdBy);
-		Date createdDateDual= null;
-		if(!createdDate.equals("")) {
-			createdDateDual= new SimpleDateFormat("yyyy-MM-dd").parse(createdDate);
-		}
-		
-		User user= new User();
-		user.setmEmployeeId(mEmployeeId);
-		return null;
-		
-	}*/
-	
 }

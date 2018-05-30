@@ -164,15 +164,16 @@ public class SouvenirRequestService {
 		
 	}
 
-	public void approvesettlement(TransactionSouvenir transactionSouvenir) {
+	public void approved(TransactionSouvenir transactionSouvenir) {
 		TransactionSouvenir ts = new TransactionSouvenir();
 		ts.setId(transactionSouvenir.getId());
 		ts.setUpdatedDate(new Date());
 		ts.setSettlementDate(new Date());
 		ts.setRequestDueDate(transactionSouvenir.getRequestDueDate());
 		ts.setNote(transactionSouvenir.getNote());
+		ts.setApprovedDate(new Date());
 		ts.setStatus(transactionSouvenir.getStatus());
-		souvenirRequestDao.approvesettlement(ts);
+		souvenirRequestDao.approved(ts);
 	}
 
 
