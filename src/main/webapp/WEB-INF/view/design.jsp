@@ -297,7 +297,7 @@
 					
 				} 
 			} else if(statusStaff=="true"){
-				if($(this).attr('data-status')==1){
+				if($(this).attr('data-status')==2){
 					var id = $(this).attr('design-id');
 					//console.log(id);
 					$.ajax({
@@ -343,6 +343,9 @@
 									appendString += "</td>";
 									appendString += "<td>";
 										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Note' value='"+value.note+"' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='hidden' value='"+value.id+"'>";
 									appendString += "</td>";
 								appendString += "</tr>"
 								tBody.append(appendString);
@@ -463,7 +466,7 @@
 				}
 			};
 			console.log(design);
-			/* $.ajax({
+			$.ajax({
 				url : '${pageContext.request.contextPath}/design/approved',
 				type : 'POST',
 				data : JSON.stringify(design),
@@ -475,7 +478,7 @@
 				}, error : function(){
 					alert('failed')
 				}
-			}); */ 
+			}); 
 		});
 		
 		/* Rejected Confirmation */
@@ -488,22 +491,22 @@
 			var design = {
 				id : $('#idDesignApproval').val(),
 				rejectReason : $('#rejectReason').val(),
-				status : 0,
+				status : 0
 			};
 			console.log(design);
-			/* $.ajax({
-				url : '${pageContext.request.contextPath}/design/approval',
+			$.ajax({
+				url : '${pageContext.request.contextPath}/design/rejected',
 				type : 'POST',
 				data : JSON.stringify(design),
 				contentType : 'application/json',
 				success : function(data){
 					console.log(data),
-					alert('approved success'),
+					alert('rejected success'),
 					window.location = '${pageContext.request.contextPath}/design' 
 				}, error : function(){
 					alert('failed')
 				}
-			}); */
+			}); 
 		});
 		
 				
@@ -513,30 +516,30 @@
 			$('#dt-designItemClose > tbody > tr').each(function(index, value){
 				listDesignItemClose.push({
 					startDate : $(value).find('td').eq(5).find('input').val(),
-					endDate : $(value).find('td').eq(6).find('input').val()
-					//id : $(value).find('td').eq(9).find('input').val()
+					endDate : $(value).find('td').eq(6).find('input').val(),
+					id : $(value).find('td').eq(8).find('input').val()
 				}); 
 			}); 
 			var design = {
 				id : $('#idDesignClose').val(),
 				status : 3,
-				closedDate : $('#design-closedDate-edit').val(),
+				closeDate : $('#design-closedDate-edit').val(),
 				listDesignItem : listDesignItemClose
 			};
 			console.log(design);
-			/* $.ajax({
-				url : '${pageContext.request.contextPath}/design/close-request',
+			$.ajax({
+				url : '${pageContext.request.contextPath}/design/closerequest',
 				type : 'POST',
 				data : JSON.stringify(design),
 				contentType : 'application/json',
 				success : function(data){
 					console.log(data),
-					alert('approved success'),
+					alert('close request success'),
 					window.location = '${pageContext.request.contextPath}/design' 
 				}, error : function(){
 					alert('failed')
 				}
-			}); */
+			});
 		});
 		
 		/* Modal view */

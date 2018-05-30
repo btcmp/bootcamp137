@@ -19,5 +19,11 @@ public interface DesignDao {
 
 	List<Design> getDesignByEvent(Event event);
 
+	void approved(Design design);
+
+	void rejected(Design design);
+
+	void closerequest(Design design);
+
 	
 }

@@ -123,4 +123,30 @@ public class DesignService {
 		List<Design> listDesign = designDao.getDesignByEvent(event);
 		return listDesign;
 	}
+
+	public void approved(Design design) {
+		// TODO Auto-generated method stub
+		Design dsn = new Design();
+		dsn.setId(design.getId());
+		dsn.setStatus(design.getStatus());
+		dsn.setApprovedDate(new Date());
+		designDao.approved(dsn);
+	}
+
+	public void rejected(Design design) {
+		// TODO Auto-generated method stub
+		Design dsn = new Design();
+		dsn.setId(design.getId());
+		dsn.setStatus(design.getStatus());
+		designDao.rejected(dsn);
+	}
+
+	public void closerequest(Design design) {
+		// TODO Auto-generated method stub
+		Design dsn = new Design();
+		dsn.setId(design.getId());
+		dsn.setStatus(design.getStatus());
+		dsn.setCloseDate(new Date());
+		designDao.closerequest(dsn);
+	}
 }

@@ -49,17 +49,19 @@ public class DesignDaoImpl implements DesignDao{
 	public void update(Design design) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update Design d set d.tEventId=?, d.titleHeader=?, d.note=? where d.id=?";
+		String hql = "update Design d set d.tEventId=?, d.titleHeader=?, d.note=?, d.updatedDate=? where d.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, design.gettEventId());
 		query.setParameter(1, design.getTitleHeader());
 		query.setParameter(2, design.getNote());
-		query.setParameter(3, design.getId());
+		query.setParameter(3, design.getUpdatedDate());
+		query.setParameter(4, design.getId());
 		
 		query.executeUpdate();
 		System.out.println("event = "+design.gettEventId());
 		System.out.println("title header = "+design.getTitleHeader());
 		System.out.println("note = "+design.getNote());
+		System.out.println("updated date = "+design.getUpdatedDate());
 		System.out.println("id = "+design.getId());
 	}
 
@@ -90,6 +92,46 @@ public class DesignDaoImpl implements DesignDao{
 			return new ArrayList<Design>();
 		}
 		return listDesign;
+	}
+
+	@Override
+	public void approved(Design design) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update Design d set d.status=2, d.approvedDate=? where d.id=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, design.getApprovedDate());
+		query.setParameter(1, design.getId());
+		
+		query.executeUpdate();
+		System.out.println("approved date = "+design.getApprovedDate());
+		System.out.println("id = "+design.getId());
+	}
+
+	@Override
+	public void rejected(Design design) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update Design d set status=0 where d.id=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, design.getId());
+		
+		query.executeUpdate();
+		System.out.println("id = "+design.getId());
+	}
+
+	@Override
+	public void closerequest(Design design) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update Design d set d.status=3, d.closeDate=? where d.id=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, design.getCloseDate());
+		query.setParameter(1, design.getId());
+		
+		query.executeUpdate();
+		System.out.println("closed date = "+design.getCloseDate());
+		System.out.println("id = "+design.getId());
 	}
 
 }
