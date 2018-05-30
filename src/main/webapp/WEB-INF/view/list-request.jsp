@@ -643,8 +643,8 @@
 		};
 		console.log(received);
 		$.ajax({
-			url : '${pageContext.request.contextPath}/souvenirrequest/rejected',
-			type : 'POST',
+			url : '${pageContext.request.contextPath}/souvenirrequest/approved',
+			type : 'PUT',
 			data : JSON.stringify(received),
 			contentType : 'application/json',
 			success: function(data){
