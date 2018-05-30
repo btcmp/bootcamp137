@@ -9,6 +9,7 @@ import java.util.List;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.security.auth.Subject;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.newminiproject.dao.GenerateCodeDate;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
+import com.newminiproject.model.User;
 import com.newminiproject.service.EmployeeService;
 import com.newminiproject.service.EventService;
 
@@ -40,6 +42,9 @@ public class EventController {
 	
 	@Autowired
 	EmployeeService employeeService;
+	
+	@Autowired
+	HttpSession httpSession;
 	
 	@RequestMapping
 	public String index(Model model) throws Exception {
@@ -58,6 +63,9 @@ public class EventController {
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void save(@RequestBody Event event) {
+		User user = (User)httpSession.getAttribute("app-user");
+		event.setRequestBy(user.getmEmployeeId());
+		//System.out.println("tes inputan"+user.getmEmployeeId());
 		eventService.save(event);
 	}
 	
