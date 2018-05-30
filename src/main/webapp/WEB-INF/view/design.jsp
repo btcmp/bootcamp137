@@ -43,7 +43,9 @@
 	    });
 	*/
 	$(document).ready(function(){
-		$('#info-saved').modal('hide');
+		var statusAdmin = $(this).attr('data-role-admin');
+		var statusRequestor = $(this).attr('data-role-requestor');
+		var statusStaff = $(this).attr('data-role-staff');
 		
 		/* Modal Add */	
 		$('#btn-add-modal').on('click', function(){
@@ -694,13 +696,13 @@
 							<td>${design.createdDate }</td>
 							<td>${design.createdBy.firstName } ${design.createdBy.lastName }</td>
 							<td>
-								<a href="#" val class="btn-view-modal" title="View Design Request" design-id="${design.id }"><i class="fas fa-search"></i></a> 
+								<a href="#" val class="btn-view-modal" title="View Design Request" design-id="${design.id }" ><i class="fas fa-search"></i></a> 
 								| 
-								<a href="#" class="btn-edit-modal" title="Edit Design Request" design-id="${design.id }"><i class="fas fa-pencil-alt"></i></a>
+								<a href="#" class="btn-edit-modal" title="Edit Design Request" design-id="${design.id }" data-role-requestor="<%= request.isUserInRole("ROLE_REQUESTER") %>"><i class="fas fa-pencil-alt"></i></a>
 								|
-								<a href="#" class="btn-approval-modal" title="Approval Design Request" design-id="${design.id }"><i class="fas fa-check-circle"></i></a>
+								<a href="#" class="btn-approval-modal" title="Approval Design Request" design-id="${design.id }" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>"><i class="fas fa-check-circle"></i></a>
 								|
-								<a href="#" class="btn-close-request-modal" title="Close Design Request" design-id="${design.id }"><i class="fas fa-times-circle"></i></a>
+								<a href="#" class="btn-close-request-modal" title="Close Design Request" design-id="${design.id }" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"><i class="fas fa-times-circle"></i></a>
 							</td>
 						</tr>	
 						</c:forEach>
