@@ -42,7 +42,20 @@ public class UserService {
 
 	public User getUserById(int id) {
 		// TODO Auto-generated method stubuser.getListRole().get(0).getId()
-		return userDao.getUserById(id);
+		User user2 = new User();
+		User us = new User();
+		us.setId(id);
+		User user1 = userDao.getUserById(us);
+		Role role= roleDao.getRoleById(user1.getListRole().get(0).getId());
+		List<Role> listRole= new ArrayList();
+		listRole.add(role);
+		user2.setId(id);
+		user2.setListRole(listRole);
+		user2.setmEmployeeId(user1.getmEmployeeId());
+		user2.getmEmployeeId().setUser(null);
+		user2.setUsername(user1.getUsername());
+		user2.setPassword(user1.getPassword());
+		return user2;
 	}
 
 	public void update(User user) {

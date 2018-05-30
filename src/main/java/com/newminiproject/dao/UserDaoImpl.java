@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.newminiproject.dao.UserDao;
 import com.newminiproject.model.User;
 
 @Repository
@@ -35,12 +36,13 @@ public class UserDaoImpl implements UserDao{
 		session.flush();
 	}
 
-	public User getUserById(int id) {
+	public User getUserById(User user) {
 		// TODO Auto-generated method stub
 		Session session= sessionFactory.getCurrentSession();
-		String hql = "from User us where us.id = :id";
+		
+		String hql = "from User us where us.id=:id";
 		Query query = session.createQuery(hql);
-		query.setParameter("id", id);
+		query.setParameter("id", user.getId());
 		List<User> listUser= query.list();
 		if(listUser.isEmpty()) {
 			return new User();
@@ -66,9 +68,8 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public User findUserByUsername(String username) {
 		// TODO Auto-generated method stub
+		String hql="from User us where us.username= :usr";
 		Session session= sessionFactory.getCurrentSession();
-		String hql="from User us where us.username =:usr";
-		
 		Query query= session.createQuery(hql);
 		query.setParameter("usr", username);
 		List<User> listUser= query.list();
@@ -79,3 +80,4 @@ public class UserDaoImpl implements UserDao{
 	}
 
 }
+
