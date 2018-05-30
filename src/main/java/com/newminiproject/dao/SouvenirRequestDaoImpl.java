@@ -138,7 +138,7 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 	}
 
 	@Override
-	public void approvesettlement(TransactionSouvenir ts) {
+	public void approved(TransactionSouvenir ts) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "update TransactionSouvenir ts set ts.status=? where ts.id=?";

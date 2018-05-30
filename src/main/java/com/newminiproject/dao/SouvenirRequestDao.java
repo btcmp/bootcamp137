@@ -27,7 +27,7 @@ public interface SouvenirRequestDao {
 
 	void savesettlement(TransactionSouvenir ts);
 
-	void approvesettlement(TransactionSouvenir ts);
+	void approved(TransactionSouvenir ts);
 
 
 }
