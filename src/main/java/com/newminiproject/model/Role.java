@@ -30,26 +30,26 @@ public class Role {
 	private int id;
 	
 	@NotNull
-	@Column(name="code", length=50, nullable=false)
+	@Column(name="code", length=50)
 	private String code;
 	
 	@NotNull
-	@Column(name="name", length=50, nullable=false)
+	@Column(name="name", length=50)
 	private String name;
 	
 	@Column(name="description", length=255)
 	private String description;
 	
 	@NotNull
-	@Column(name="is_delete", nullable=false)
+	@Column(name="is_delete")
 	private boolean isDelete;
 	
 	@NotNull
-	@Column(name="created_by", nullable=false)
+	@Column(name="created_by")
 	private String createdBy;
 	
 	@NotNull
-	@Column(name="created_date", nullable=false)
+	@Column(name="created_date")
 	@Temporal(TemporalType.DATE)
 	private Date createdDate;
 	
