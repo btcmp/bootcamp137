@@ -10,28 +10,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
   <title>List Event</title>
-  
-  	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  	
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-  
-  
-  
 	  <!-- Tell the browser to be responsive to screen width -->
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <!-- Font Awesome -->
@@ -54,10 +40,39 @@
 	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 	  <!-- Google Font: Source Sans Pro -->
 	  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style>
+  input.parsley-error
+{
+	color: #B94A48 !important;
+	background-color: #F2DEDE !important;
+	border: 1px solid #EED3D7 !important;
+}
+  </style>
+  
+  	
+  	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
+  	
+  	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	
+	
+	
+	
+  
+  
+  
+	
 	  
 	  
 	  <script type="text/javascript">
 	$(document).ready(function(){
+	
+	//alert('tes');
 /////////save or insert////////////////////////////////////////////////////////////////////////////
 		$('#btn-add').on('click', function(){
 			$('#modalSave').modal();
@@ -80,8 +95,71 @@
 					createBy:$('#createBy').val()
 				}
 				console.log(event);
-					//ajax contohnya
-			var status1=0;
+			
+			var oCode1 = $('#EventNameS').parsley( {
+				required : true,
+				requiredMessage : ' name !!',
+				minlengthMessage: ' must more than 5 character',
+				typeMessage: ' must be email character',
+				minlength: 5
+			} );
+			
+			var oCode2 = $('#EventPlaceS').parsley( {
+				required : true,
+				requiredMessage : ' place !!',
+				minlengthMessage: ' must more than 5 character',
+				typeMessage: ' must be email character',
+				minlength: 5
+				
+			} );
+			
+			/* var oCode3 = $('#StartDate').parsley( {
+				required : true,
+				requiredMessage : ' Start Date !!',
+				minlengthMessage: ' must more than 5 character',
+				typeMessage: ' must be email character',
+				minlength: 5,
+				type:"text"
+			} );
+			
+			var oCode4 = $('#EndDate').parsley( {
+				required : true,
+				requiredMessage : ' End Date !!',
+				minlengthMessage: ' must more than 5 character',
+				typeMessage: ' must be email character',
+				minlength: 5,
+				type:"text"
+			} );
+			
+			var oCode5 = $('#Budget').parsley( {
+				required : true,
+				requiredMessage : ' Budget !!',
+				minlengthMessage: ' must more than 5 character',
+				typeMessage: ' must be email character',
+				minlength: 5,
+				type:"text"
+			} ); */
+			
+			
+			
+			
+		
+			var valid = getValid(oCode1);
+			valid = getValid(oCode2);
+		/* 	valid = getValid(oCode3);
+			valid = getValid(oCode4);
+			valid = getValid(oCode5); */
+			/* valid = valid && getValid(oTitle);
+			valid = valid && getValid(oIsbn); */
+			if(valid){
+				alert('save');
+			}
+			function getValid(validate){
+				validate.validate();	
+				return validate.isValid();
+			}
+			//ajax contohnya
+			/* var status1=0;
 			if($('#EventNameS').val() == ''){
 			      alert('Event name can not be left blank');
 			  		status1=0;
@@ -119,11 +197,11 @@
 			  		status5=0;
 				}else{
 				    status5=1;
-			   	}
+			   	} */
 				
 					
-				if(status1 == 1 && status2 == 1 && status3 == 1 && status4 == 1 && status5 == 1){
-					$.ajax({
+				//if(status1 == 1 && status2 == 1 && status3 == 1 && status4 == 1 && status5 == 1){
+					/* $.ajax({
 						url:'${pageContext.request.contextPath}/event/save',
 						type:'POST',
 						data:JSON.stringify(event),
@@ -135,8 +213,8 @@
 						},error:function(){
 							alert('gagal save');
 						}
-					});
-				}
+					}); */
+				//}
 			});
 //////////view/////////////////////////////////////////////////////////////////////////////////////////////////////
 		//view even listener
@@ -589,34 +667,30 @@
 	  
 </head>
 <body class="hold-transition sidebar-mini">
+	<form action="${logoutUrl}" method="post" id="logoutForm">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
+	</form>
+		<script>
+			function formSubmit() {
+				document.getElementById("logoutForm").submit();
+			}
+		</script>
+
+	<c:if test="${pageContext.request.userPrincipal.name != null}">
+
+
+
 <div class="wrapper">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
-    </ul>
+    <div style="height:40px;background-color:#0069D9;margin-bottom:10px">
+		<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Company</h5>
+	</div>
 
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
+    
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -1045,19 +1119,9 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v2</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+      <div style="height:40px;background-color:#0069D9;margin-bottom:10px">
+			<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Company</h5>
+		</div>
     </div>
     <!-- /.content-header -->
 
@@ -1066,29 +1130,14 @@
       <div class="container-fluid">
        
        <c:url value="/j_spring_security_logout" var="logoutUrl" />
-	<form action="${logoutUrl}" method="post" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-	</form>
-	<script>
-		function formSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-	</script>
-
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
+	
 		
-		<h2>
-			Welcome : ${pageContext.request.userPrincipal.name} | <a
-				href="javascript:formSubmit()"> Logout</a>
-		</h2>
+		
 	
 	
 	
 	<div id="container">
-		<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
-			<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Event Request</h5>
-		</div>
+		
 		
 		<div style="width:98%;margin:auto;">
 			<ol class="breadcrumb">
@@ -1210,7 +1259,7 @@
 							      <label>* Event Name</label>
 							    </div>
 							    <div class="col">
-							       <input type="text" class="form-control" id="EventNameS" aria-describedby="emailHelp" placeholder="Type Event Name">
+							       <input  data-parsley-required="true" type="text" class="form-control" id="EventNameS" aria-describedby="emailHelp" placeholder="Type Event Name">
 							    </div>
 							</div>
 							
@@ -1627,42 +1676,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="${pageContext.request.contextPath }/assets/plugins/jquery/jquery.min.js"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-  $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="${pageContext.request.contextPath }/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Morris.js charts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="plugins/morris/morris.min.js"></script>
-<!-- Sparkline -->
-<script src="${pageContext.request.contextPath }/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
-<!-- jvectormap -->
-<script src="${pageContext.request.contextPath }/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="${pageContext.request.contextPath }/assets/plugins/knob/jquery.knob.js"></script>
-<!-- daterangepicker -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-<script src="${pageContext.request.contextPath }/assets/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- datepicker -->
-<script src="${pageContext.request.contextPath }/assets/plugins/datepicker/bootstrap-datepicker.js"></script>
-<!-- Bootstrap WYSIHTML5 -->
-<script src="${pageContext.request.contextPath }/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-<!-- Slimscroll -->
-<script src="${pageContext.request.contextPath }/assets/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="${pageContext.request.contextPath }/assets/plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="${pageContext.request.contextPath }/assets/dist/js/adminlte.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="${pageContext.request.contextPath }/assets/dist/js/pages/dashboard.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="${pageContext.request.contextPath }/assets/dist/js/demo.js"></script>
+
 </body>
 </html>
