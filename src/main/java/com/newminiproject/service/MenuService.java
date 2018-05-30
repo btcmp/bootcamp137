@@ -3,12 +3,15 @@ package com.newminiproject.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.newminiproject.dao.MenuDao;
 import com.newminiproject.model.Menu;
+import com.newminiproject.model.User;
 
 @Transactional
 @Service
@@ -17,7 +20,12 @@ public class MenuService {
 	@Autowired
 	MenuDao menuDao;
 	
+	@Autowired
+	HttpSession httpSession;
+	
 	public void save(Menu menu) {
+		User user = (User) httpSession.getAttribute("app-user");
+		
 		// TODO Auto-generated method stub
 		//Hibernate error minta objek baru
 		Menu menuSave = new Menu(); 
@@ -26,9 +34,8 @@ public class MenuService {
 		menuSave.setName(menu.getName());
 		menuSave.setController(menu.getController());
 		menuSave.setCreatedDate(new Date());
-		menuSave.setCreatedBy("Admin");
-		//menuSave.setCreatedBy(user.getUsername());
-		menuDao.save(menu);
+		menuSave.setCreatedBy(user.getUsername());
+		menuDao.save(menuSave);
 	}
 
 	public List<Menu> getAllMenu() {

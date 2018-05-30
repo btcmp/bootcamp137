@@ -41,6 +41,7 @@ table {
 					code: $("#codeAdd").val(),
 					name: $("#nameAdd").val(),
 					controller: $("#controllerAdd").val(),
+					createdBy : $("#username").val(),
 					parentId: {
 						id : $('#menuNameAdd option:selected').val()
 					}
@@ -76,6 +77,7 @@ table {
 		
 		//view icon
 		$(document).on('click', '.iconView', function(){
+			//$('#menuNameAdd').val(0);
 			var viewCode = $(this).attr('view-id');
 			$.ajax({
 				url: '${pageContext.request.contextPath}/menu/getmenu/' + viewCode,
@@ -85,7 +87,11 @@ table {
 					$('#codeView').val(data.code);
 					$('#nameView').val(data.name);
 					$('#controllerView').val(data.controller);
-					$('#menuNameView').val(data.parentId.id);
+					var parentId = 0;
+ 					if(data.parentId != null){
+						parentId = data.parentId.id;
+					}
+					$('#menuNameView').val(parentId);
 					console.log(data);
 				},
 				error:function(){
@@ -145,8 +151,13 @@ table {
 		$('#btnSearch').on('click', function(){
 			var form = $("#formmenu");
 			var data = form.serialize();
-			console.log(data);
-			window.location = '${pageContext.request.contextPath}/menu/search?'+data;
+			//console.log(data);
+			if(data == "menucode=&menuname=&menucreatedby="){
+				window.location = '${pageContext.request.contextPath}/menu'	
+			}
+			else{
+				window.location = '${pageContext.request.contextPath}/menu/search?'+data;	
+			}
 		});
 		
 	});
@@ -154,6 +165,24 @@ table {
 
 </head>
 <body>
+
+	<!-- Logout -->
+	<form action="${logoutUrl}" method="post" id="logoutForm">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
+	</form>
+	<script>
+		function formSubmit() {
+			document.getElementById("logoutForm").submit();
+		}
+	</script>
+
+	<c:if test="${pageContext.request.userPrincipal.name != null}">
+		<h2>
+			Welcome : ${pageContext.request.userPrincipal.name} | <a
+				href="javascript:formSubmit()"> Logout</a>
+		</h2>
+	
 
 	<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
 		<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Menu</h5>
@@ -246,6 +275,7 @@ table {
 			    </div>
 			    <div class="col">
 			      * Controller Name <input type="text" id="controllerAdd" class="form-control" placeholder="Type Controller">
+			      <input type="hidden" id="username" value="${pageContext.request.userPrincipal.name} ">
 			    </div>
 			    <div class="col">
 			      		* Parent 
@@ -374,6 +404,6 @@ table {
 	    </div>
 	  </div>
 	</div>
-
+</c:if>
 </body>
 </html>
