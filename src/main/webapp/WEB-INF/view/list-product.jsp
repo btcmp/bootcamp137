@@ -3,9 +3,7 @@
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
-
-<%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.css"> --%>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -14,7 +12,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <title>P.R.O.D.U.C.T</title>
 </head>
-
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -29,21 +26,31 @@
 					description : $('#des').val()
 			}
 			
+			var statusname=0;
+			if($('#nme').val() == ''){
+			     alert('Name can not be left blank');
+			     statusname=0;
+			}else{
+				statusname=1;
+			}
+			
 			console.log(product);
 			
-			$.ajax({
-				url: '${pageContext.request.contextPath}/product/save',
-				type: 'POST',
-				contentType : 'application/json',
-				data : JSON.stringify(product),
-				success : function(data){
-					$('.alert').alert()
-					window.location = '${pageContext.request.contextPath}/product'
-				},
-				error : function(){
-					alert('Error Update');
-				}
-			});
+			if(statusname==1){
+				$.ajax({
+					url: '${pageContext.request.contextPath}/product/save',
+					type: 'POST',
+					contentType : 'application/json',
+					data : JSON.stringify(product),
+					success : function(data){
+						$('.alert').alert()
+						window.location = '${pageContext.request.contextPath}/product'
+					},
+					error : function(){
+						alert('Error Update');
+					}
+				});
+			};
 		});
 		
 		var deleteid;
