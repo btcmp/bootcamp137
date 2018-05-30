@@ -236,36 +236,43 @@
 				success : function(obj){
 					$('#id-edit').val(obj.id);
 					$('#id-admin').val(obj.id);
+					$('#id-received').val(obj.id);
 					$('#id-set').val(obj.id);
 					$('#id-apset').val(obj.id);
 					$('#id-close').val(obj.id);
 					$('#code-edit').val(obj.code);
 					$('#code-admin').val(obj.code);
+					$('#code-received').val(obj.code);
 					$('#code-set').val(obj.code);
 					$('#code-apset').val(obj.code);
 					$('#code-close').val(obj.code);
 					$('#event-code-edit').val(obj.tEventId.id);
 					$('#event-code-admin').val(obj.tEventId.id);
+					$('#event-code-received').val(obj.tEventId.id);
 					$('#event-code-set').val(obj.tEventId.id);
 					$('#event-code-apset').val(obj.tEventId.id);
 					$('#event-code-close').val(obj.tEventId.id);
 					$('#requestbyedit').val(obj.requestBy.firstName);
 					$('#requestbyadmin').val(obj.requestBy.firstName);
+					$('#requestbyreceived').val(obj.requestBy.firstName);
 					$('#requestbyset').val(obj.requestBy.firstName);
 					$('#requestbyapset').val(obj.requestBy.firstName);
 					$('#requestbyclose').val(obj.requestBy.firstName);
 					$('#requestdateedit').val(obj.requestDate);
 					$('#requestdateadmin').val(obj.requestDate);
+					$('#requestdatereceived').val(obj.requestDate);
 					$('#requestdateset').val(obj.requestDate);
 					$('#requestdateapset').val(obj.requestDate);
 					$('#requestdateclose').val(obj.requestDate);
 					$('#duedateedit').val(obj.requestDueDate);
 					$('#duedateadmin').val(obj.requestDueDate);
+					$('#duedatereceived').val(obj.requestDueDate);
 					$('#duedateset').val(obj.requestDueDate);
 					$('#duedateapset').val(obj.requestDueDate);
 					$('#duedateclose').val(obj.requestDueDate);
 					$('#noteedit').val(obj.note);
 					$('#noteadmin').val(obj.note);
+					$('#notereceived').val(obj.note);
 					$('#noteset').val(obj.note);
 					$('#noteapset').val(obj.note);
 					$('#noteclose').val(obj.note);
@@ -303,6 +310,38 @@
 					
 /* ---------------------------ketika status 1 (Admin)--------------------------------- */					
 					var oTable2 = $('#dataitemadmin');
+					var tBody2 = oTable2.find('tbody');
+					tBody2.find('tr').remove();
+					$.each(obj.transactionSouvenirItem, function(index, value){
+						//console.log(index,value);
+						
+						var souvenir = value.mSouvenirId;
+						var appendString2 = "<tr>";
+								appendString2 += "<td>";
+									appendString2 += "<select class='form-control' id='souveniredit_"+souvenir.id+"' value='"+souvenir.name+"' disabled><c:forEach items='${listSouvenirItem }' var='item'><option value='${item.id }'>${item.name }</option></c:forEach></select>";
+								appendString2 += "</td>";
+								appendString2 += "<td>";
+									appendString2 += "<input class='form-control' id='qty-item-edit' value='"+value.qty+"' disabled>";
+								appendString2 += "</td>";
+								appendString2 += "<td>";
+									appendString2 += "<input class='form-control' id='note-item-edit' value='"+value.note+"' disabled>";
+								appendString2 += "</td>";
+								appendString2 += "<td>";
+									appendString2 += "<a data-id='${souvenir.id }' id='btn-edit-edit' href='#' style='color:inherit;'><i class='fas fa-pencil-alt'></i></a> <a class='btn-delete-edit' href='#' style='color:inherit;'><i class='fas fa-trash'></i></a>";
+								appendString2 += "</td>";
+								appendString2 += "<td>";
+									appendString2 += "<input type='hidden' id='id-edit-item' value='"+value.id+"'>";
+								appendString2 += "</td>";
+							appendString2 += "</tr>";
+							
+							
+						tBody2.append(appendString2);
+						$('#souveniredit_'+souvenir.id).val(souvenir.id);
+					});
+					
+
+/* ---------------------------ketika status 2 (Requester)--------------------------------- */					
+					var oTable2 = $('#dataitemreceived');
 					var tBody2 = oTable2.find('tbody');
 					tBody2.find('tr').remove();
 					$.each(obj.transactionSouvenirItem, function(index, value){
@@ -435,9 +474,10 @@
 				var status = document.getElementById('statusadmin');
 				status.value = "Submitted";
 				$('#modal-admin-transaksi').modal();
-			} else if($(this).attr('data-status') == 2 ){
-				var status = document.getElementById('statusedit');
+			} else if($(this).attr('data-status') == 2 && statusRequester=="true"){
+				var status = document.getElementById('statusreceived');
 				status.value = "In Progress";
+				$('#modal-received-transaksi').modal();
 			} else if($(this).attr('data-status') == 3){
 				var status = document.getElementById('statusset');
 				status.value = "Received By Requester";
@@ -575,6 +615,69 @@
 			url : '${pageContext.request.contextPath}/souvenirrequest/approved',
 			type : 'PUT',
 			data : JSON.stringify(approved),
+			contentType : 'application/json',
+			success: function(data){
+			console.log(data);
+			window.location = '${pageContext.request.contextPath}/souvenirrequest'
+				}, error : function(){
+					alert('error');
+			},
+			dataType:'json'
+			});		
+		});
+	
+	//RECEIVED BY REQUESTER
+	$(document).on('click','#btn-received', function(){
+
+		var received = {
+			id : $('#id-received').val(),
+			code : $('#code-received').val(),
+			requestBy : {
+				id : 1 //$('#requestby').val()
+			},
+			requestDate : new Date($('#requestdatereceived').val()),
+			requestDueDate : new Date($('#duedatereceived').val()),
+			note : $('#notereceived').val(),
+			status : 3,
+			transactionSouvenirItem : []
+		};
+		console.log(received);
+		$.ajax({
+			url : '${pageContext.request.contextPath}/souvenirrequest/approved',
+			type : 'PUT',
+			data : JSON.stringify(received),
+			contentType : 'application/json',
+			success: function(data){
+			console.log(data);
+			window.location = '${pageContext.request.contextPath}/souvenirrequest'
+				}, error : function(){
+					alert('error');
+			},
+			dataType:'json'
+			});		
+		});
+	
+	
+	//REJECTED BY ADMIN
+	$(document).on('click','#btn-rejected', function(){
+
+		var rejected = {
+			id : $('#id-admin').val(),
+			code : $('#code-admin').val(),
+			requestBy : {
+				id : 1 //$('#requestby').val()
+			},
+			requestDate : new Date($('#requestdateadmin').val()),
+			requestDueDate : new Date($('#duedateadmin').val()),
+			note : $('#noteadmin').val(),
+			status : 0,
+			transactionSouvenirItem : []
+		};
+		console.log(rejected);
+		$.ajax({
+			url : '${pageContext.request.contextPath}/souvenirrequest/approved',
+			type : 'PUT',
+			data : JSON.stringify(rejected),
 			contentType : 'application/json',
 			success: function(data){
 			console.log(data);
@@ -1121,6 +1224,145 @@
 		      </div>
 		      
 	      <div class="modal-footer">
+	        <button type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	
+	
+	<!--/////////////////////////////// Modal Received Requester \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
+	<div class="modal fade bd-example-modal-lg" id="modal-received-transaksi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header" style="background-color:#0069D9;color:white;">
+	        <h5 class="modal-title" id="exampleModalLongTitle">View Souvenir Request</h5>
+	      </div>
+	      	<div class="modal-body">
+		    	  	
+		      <div class="body-top" style="width:95%;margin:auto auto 5px auto;border:1px;border-style:solid;border-color:#E9ECEF;border-radius:5px;">
+		      	<form>
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;margin-top:5px;">
+		      					<label>*Transaction Code</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;margin-top:5px;">
+		      					<input type="hidden" id="id-received">
+		      					<input type="text" id="code-received" name="code" placeholder="${hasil }" value="${hasil }" class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Event Code</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<select class="form-control" id="event-code-received" disabled>
+				      				<c:forEach items="${listEvent }" var="event">
+										<option value="${event.id }">${event.code } - ${event.eventName }</option>
+									</c:forEach>
+				    			</select>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Request By</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input type="text" id="requestbyreceived" name="request-by" placeholder="Request By" class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Request Date</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input value="<%= format.format(date) %>" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="requestdatereceived" disabled>	
+		      					
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Due Date</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input placeholder="Select Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="duedatereceived" disabled>	
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>Note</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<textarea style="height:100px;" id="notereceived" placeholder="Type Note" class="form-control" disabled></textarea>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>Status</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input id="statusreceived" class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      	</form>	     	
+	        	
+		      </div>
+		      
+		      <div class="body-bottom" style="width:95%;margin:auto auto 5px auto;border:1px;border-style:solid;border-color:#E9ECEF;border-radius:5px;">
+		      	<div style="margin-left:10px;margin-top:10px;">
+		      		
+		      		<table id="dataitemreceived" class="display" style="width:100%;text-align:center;">
+						<thead>
+							<tr>
+								<th>Souvenir Name</th>
+								<th style="width:60px;">Qty</th>
+								<th>Note</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+		      	</div>
+		      </div>
+		      
+	      <div class="modal-footer">
+	        <button id="btn-received" type="button" class="btn btn-primary" data-dismiss="modal" style="color:white;">Received</button>
 	        <button type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Cancel</button>
 	      </div>
 	    </div>
