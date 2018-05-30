@@ -14,6 +14,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+<!-- Data Tables Jquery -->
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/jquery.dataTables.js" type="text/javascript"></script>
+<!-- End Data Tables Jquery -->
+<!-- Validasi field pada saat save -->
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
+<!-- End Validasi -->
 
 <style type="text/css">
 table {
@@ -23,11 +31,26 @@ table {
     content: counter(tableCount); 
     counter-increment: tableCount; 
 }
+input.parsley-error {
+	color: #B94A48 !important;
+	background-color: #F2DEDE !important;
+	border: 1px solid #EED3D7 !important;
+}
 </style>
 
 <script>
 	$(document).ready(function(){
 
+		//data tables
+		$('#data-menu').DataTable({
+	      "paging": true,
+	      "lengthChange": false,
+	      "searching": false,
+	      "ordering": true,
+	      "info": true,
+	      "autoWidth": false
+	    });
+		
 		//add data event listener
 		$(document).on('click', '.btn-add', function(event){
 			$('#btnAddModal').modal();
@@ -46,20 +69,44 @@ table {
 						id : $('#menuNameAdd option:selected').val()
 					}
 				}
-			console.log(menu); //deskripsi data yang dikirimkan server
-			$.ajax({
-				url: '${pageContext.request.contextPath}/menu/save',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify(menu),
-				success:function(data){
-					console.log(data);
-					window.location = '${pageContext.request.contextPath}/menu'
-				},
-				error:function(){
-					alert('error');
-				}
+			//console.log(menu); //deskripsi data yang dikirimkan server
+			
+			//validasi field pada saat save
+			var nameValidate = $("#nameAdd").parsely({
+				required : true,
+				requiredMessage : 'Name must be filled!'
 			});
+			var controllerValidate = $("#controllerAdd").parsely({
+				required : true,
+				requiredMessage : 'Controller must be filled!'
+			});
+			
+			//function validate
+			function getValid(validate){
+				validate.validate();	
+				return validate.isValid();
+			}
+			
+			var valid = getValid(nameValidate);
+				valid = getValid(controllerValidate);
+			if(valid){
+				$.ajax({
+					url: '${pageContext.request.contextPath}/menu/save',
+					type: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify(menu),
+					success:function(data){
+						console.log(data);
+						window.location = '${pageContext.request.contextPath}/menu'
+					},
+					error:function(){
+						alert('Failed to save data!');
+					}
+				});
+			}
+			else{
+				alert('Fill all data first!')
+			}
 		});
 		
 		//delete icon
