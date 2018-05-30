@@ -27,7 +27,7 @@ table {
 
 <script>
 	$(document).ready(function(){
-		
+
 		//add data event listener
 		$(document).on('click', '.btn-add', function(event){
 			$('#btnAddModal').modal();
@@ -35,15 +35,18 @@ table {
 		
 		//button save when click button add
 		$(document).on('click', '#btnSave', function(event){
+			//alert('test');
 			event.preventDefault();
+			alert('testdata');
 			var menu = {
-					id : $('#idAdd').val(),
 					code: $("#codeAdd").val(),
 					name: $("#nameAdd").val(),
 					controller: $("#controllerAdd").val(),
-					parentId: $('#parentAdd option:selected').val()
+					parentId: {
+						id : $('#menuNameAdd option:selected').val()
+					}
 				}
-			//console.log(menu); //deskripsi data yang dikirimkan server
+			console.log(menu); //deskripsi data yang dikirimkan server
 			$.ajax({
 				url: '${pageContext.request.contextPath}/menu/save',
 				type: 'POST',
@@ -51,7 +54,7 @@ table {
 				data: JSON.stringify(menu),
 				success:function(data){
 					console.log(data);
-					//window.location = '${pageContext.request.contextPath}/menu'
+					window.location = '${pageContext.request.contextPath}/menu'
 				},
 				error:function(){
 					alert('error');
@@ -180,7 +183,7 @@ table {
 	    			<select id="data-menu-name" class="form-control" name="menuname">
 	    				<option value="" selected>- Select Menu Name -</option>
 	    				<c:forEach items="${listMenuComponent}" var="menu">
-	    					<option value="${menu.name }">${menu.name}</option>
+	    					<option value="${menu.name}">${menu.name}</option>
 	    				</c:forEach>
 	    			</select>
 	    		</div>
@@ -250,9 +253,9 @@ table {
 <!-- 			      		<input type="text" id="parentView" class="form-control" disabled> -->
 							<input type="hidden" id="idAdd">
 							<select id="menuNameAdd" class="form-control" name="menuname">
-	    						<option value="" selected>- Select Menu Code -</option>
+	    						<option value=0>- Select Menu Code -</option>
 	    						<c:forEach items="${listMenu}" var="menu">
-	    						<option value="${menu.code}">${menu.name}</option>
+	    						<option value="${menu.id }">${menu.name}</option>
 	    						</c:forEach>
 	    					</select>
 			    </div>
@@ -356,8 +359,9 @@ table {
 <!-- 			      	<input type="text" id="parentView" class="form-control" disabled> -->
 					<input type="hidden" id="idView">
 			      	<select id="menuNameView" class="form-control" name="menuname">
+			      				<option value="" selected>- Select Menu Code -</option>
 	    						<c:forEach items="${listMenu}" var="menu">
-	    						<option value="${menu.name}">${menu.name}</option>
+	    						<option value="${menu.id}">${menu.name}</option>
 	    						</c:forEach>
 	    			</select>
 			    </div>
