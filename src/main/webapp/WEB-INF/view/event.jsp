@@ -742,7 +742,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
           <a href="#" class="d-block">${pageContext.request.userPrincipal.name}</a>
-          
+          <a href="${pageContext.request.contextPath }/company" class="d-block">company</a>
         </div>
       </div>
 
