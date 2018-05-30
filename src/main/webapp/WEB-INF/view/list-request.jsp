@@ -234,24 +234,31 @@
 					$('#id-edit').val(obj.id);
 					$('#id-set').val(obj.id);
 					$('#id-apset').val(obj.id);
+					$('#id-close').val(obj.id);
 					$('#code-edit').val(obj.code);
 					$('#code-set').val(obj.code);
 					$('#code-apset').val(obj.code);
+					$('#code-close').val(obj.code);
 					$('#event-code-edit').val(obj.tEventId.id);
 					$('#event-code-set').val(obj.tEventId.id);
 					$('#event-code-apset').val(obj.tEventId.id);
+					$('#event-code-close').val(obj.tEventId.id);
 					$('#requestbyedit').val(obj.requestBy.firstName);
 					$('#requestbyset').val(obj.requestBy.firstName);
 					$('#requestbyapset').val(obj.requestBy.firstName);
+					$('#requestbyclose').val(obj.requestBy.firstName);
 					$('#requestdateedit').val(obj.requestDate);
 					$('#requestdateset').val(obj.requestDate);
 					$('#requestdateapset').val(obj.requestDate);
+					$('#requestdateclose').val(obj.requestDate);
 					$('#duedateedit').val(obj.requestDueDate);
 					$('#duedateset').val(obj.requestDueDate);
 					$('#duedateapset').val(obj.requestDueDate);
+					$('#duedateclose').val(obj.requestDueDate);
 					$('#noteedit').val(obj.note);
 					$('#noteset').val(obj.note);
 					$('#noteapset').val(obj.note);
+					$('#noteclose').val(obj.note);
 					
 /* ---------------------------ketika status 1--------------------------------- */					
 					var oTable2 = $('#dataitemedit');
@@ -342,6 +349,34 @@
 							appendString1 += "</tr>";
 						tBody1.append(appendString1);
 					});
+					
+/* --------------------ketika status 5--------------------------------- */
+						var oTable1 = $('#dataclose');
+						var tBody1 = oTable1.find('tbody');
+						tBody1.find('tr').remove();
+						console.log(obj);
+						$.each(obj.transactionSouvenirItem, function(index, value){
+						console.log(value);
+						var souvenir = value.mSouvenirId;
+						var appendString1 = "<tr>";
+							appendString1 += "<td>";
+								appendString1 += "<input class='form-control' id='nameSouvenirItem' value='"+value.mSouvenirId.name+"' disabled>";
+							appendString1 += "</td>";
+							appendString1 += "<td>";
+								appendString1 += "<input class='form-control' id='qtySouvenirItem' value='"+value.qty+"'disabled> " ;
+							appendString1 += "</td>";
+							appendString1 += "<td>";
+								appendString1 += "<input class='form-control' id='qtySettlementItem' value='"+value.qtySettlement+"' disabled> ";
+							appendString1 += "</td>"; 
+							appendString1 += "<td>";
+								appendString1 += "<input class='form-control' id='noteSouvenirItem' value='"+value.note+"'disabled > ";
+							appendString1 += "</td>";
+							appendString1 += "<td>";
+								appendString1 += "<input type='hidden' lass='form-control' value='"+value.id+"' disabled>";
+							appendString1 += "</td>";
+						appendString1 += "</tr>";
+						tBody1.append(appendString1);
+					});
 				}, error : function(){
 					alert('Error');
 				},
@@ -367,8 +402,9 @@
 				status.value = "Settlement";
 				$('#modal-approvement-settlement').modal();
 			} else if($(this).attr('data-status') == 5){
-				var status = document.getElementById('statusedit');
+				var status = document.getElementById('statusclose');
 				status.value = "Approved Settlement";
+				$('#modal-close-request').modal();
 			} else if($(this).attr('data-status') == 6){
 				var status = document.getElementById('statusedit');
 				status.value = "Close Request";
@@ -596,7 +632,41 @@
 		
 		});
 
-	
+	//Close Request
+	$(document).on('click','#closerequest', function(){
+
+		var settlement = {
+			id : $('#id-close').val(),
+			code : $('#code-close').val(),
+			requestBy : {
+				id : 1 //$('#requestby').val()
+			},
+			requestDate : new Date($('#requestdateclose').val()),
+			requestDueDate : new Date($('#duedateclose').val()),
+			note : $('#noteclose').val(),
+			status : 6,
+			transactionSouvenirItem : []
+		};
+				
+		_readTableDataSettlement(settlement.transactionSouvenirItem);
+		console.log(settlement);
+
+		$.ajax({
+			url : '${pageContext.request.contextPath}/souvenirrequest/appsettlement',
+			type : 'PUT',
+			data : JSON.stringify(settlement),
+			contentType : 'application/json',
+			success: function(data){
+			console.log(data);
+			//window.location = '${pageContext.request.contextPath}/souvenirrequest'
+				}, error : function(){
+					alert('error');
+			},
+			dataType:'json'
+			});
+		
+		});
+
 
 </script>
 </head>
@@ -1144,6 +1214,8 @@
 	</div>
 	
 	
+	
+	
 	<!-- Modal Delete Edit -->
 	<div class="modal fade bd-example-modal-sm" id="modal-delete-edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered modal-dialog modal-sm" role="document">
@@ -1442,7 +1514,141 @@
 	  </div>
 	</div>
 	</div>
-	
+
+		<!------------------------------------------------- Modal Close Request---------------------------------------------------->
+	<div class="modal fade bd-example-modal-lg" id="modal-close-request" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header" style="background-color:#0069D9;color:white;">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Approval Souvenir Request</h5>
+	      </div>
+	      	<div class="modal-body">
+		    	  	
+		      <div class="body-top" style="width:95%;margin:auto auto 5px auto;border:1px;border-style:solid;border-color:#E9ECEF;border-radius:5px;">
+		      	<form>
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;margin-top:5px;">
+		      					<label>*Transaction Code</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;margin-top:5px;">
+		      					<input type="hidden" id="id-close">
+		      					<input type="text" id="code-close" name="code"  class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Event Code</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      						<input type="text" id="event-code-close" name="code"  class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Request By</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input type="text" id="requestbyclose" name="request-by" placeholder="Request By" class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Request Date</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input value="<%= format.format(date) %>" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="requestdateclose" disabled>	
+		      					
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Due Date</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input placeholder="Select Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="duedateclose" disabled>	
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>Note</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<textarea style="height:100px;" id="noteclose" placeholder="Type Note" class="form-control" disabled></textarea>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>Status</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input id=statusclose class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      	</form>	     	
+	        	
+		      </div>
+		      
+		      <div class="body-bottom" style="width:95%;margin:auto auto 5px auto;border:1px;border-style:solid;border-color:#E9ECEF;border-radius:5px;">
+		      	<div style="margin-left:10px;margin-top:10px;">
+		      		
+		      		<table id="dataclose" class="display" style="width:100%;text-align:center;">
+						<thead>
+							<tr>
+								<th>Souvenir Name</th>
+								<th style="width:60px;">Qty</th>
+								<th style="width:60px;" id="label-qty-act">Qty Actual</th>
+								<th>Note</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+		      	</div>
+		      </div>
+		      
+	      <div class="modal-footer">
+	        <button type="button" id="closerequest" class="btn btn-primary">Close Request</button>
+	        <button type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</div>
 	
 	
 </body>
