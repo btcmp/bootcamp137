@@ -82,8 +82,8 @@ table {
 				type: 'GET',
 				success:function(data){
 					
-					$('#codeView').val(data.mRoleId.name);
-					$('#nameView').val(data.mMenuId.name);
+					$('#roleView').val(data.mRoleId.name);
+					$('#menuView').val(data.mMenuId.name);
 					//console.log(data);
 				},
 				error:function(){
@@ -99,14 +99,12 @@ table {
 			var editCode = $(this).attr('edit-id');
 			console.log(editCode);
 			$.ajax({
-				url: '${pageContext.request.contextPath}/menu/getmenu/' + editCode,
+				url: '${pageContext.request.contextPath}/menu_access/getmenuaccess?id=' + editCode,
 				type: 'GET',
 				success:function(data){
 					$('#id').val(data.id);
-					$('#codeEdit').val(data.code);
-					$('#nameEdit').val(data.name);
-					$('#controllerEdit').val(data.controller);
-					$('#parentEdit').val(data.parentId);
+					$('#roleEdit').val(data.mRoleId.name);
+					$('#menuEdit').val(data.mMenuId.name);
 					
 				},
 				error:function(){
