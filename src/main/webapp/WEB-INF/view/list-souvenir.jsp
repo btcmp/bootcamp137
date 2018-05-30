@@ -159,7 +159,7 @@ table tr td:first-child::before
 				document.getElementById("logoutForm").submit();
 			}
 		</script>
-	
+	 
 		<c:if test="${pageContext.request.userPrincipal.name != null}">
 			<h2>
 				Welcome : ${pageContext.request.userPrincipal.name} | <a
