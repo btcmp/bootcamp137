@@ -34,7 +34,6 @@ public class RoleController {
 	SequenceDaoRole seqDao;
 	
 	@RequestMapping
-	//@ResponseBody
 	public String index(Model model){
 		List<Role> listRole = roleService.getAllRole();
 		model.addAttribute("listRoleComponent", listRole);
