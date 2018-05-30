@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="m_souvenir")
 public class Souvenir {
@@ -61,6 +63,7 @@ public class Souvenir {
 	@Temporal(TemporalType.DATE)
 	private Date updatedDate;
 	
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="mSouvenirId")
 	private List<TransactionSouvenirItem> listmSouvenirId;
 

@@ -16,6 +16,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="m_unit")
 public class Unit {
@@ -55,6 +57,7 @@ public class Unit {
 	@Temporal(TemporalType.DATE)
 	private Date updateDate;
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="mUnitId")
 	private List<Souvenir> listSouvenir;
 	
