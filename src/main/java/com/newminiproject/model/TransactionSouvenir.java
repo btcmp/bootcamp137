@@ -35,7 +35,7 @@ public class TransactionSouvenir {
 	private String type;
 	
 	@ManyToOne
-	@JoinColumn(name="t_event_id", nullable=false)
+	@JoinColumn(name="t_event_id")
 	private Event tEventId;
 	
 	@ManyToOne
@@ -62,6 +62,7 @@ public class TransactionSouvenir {
 	private Employee receivedBy;
 	
 	@Column(name="received_date")
+	@Temporal(TemporalType.DATE)
 	private Date receivedDate;
 	
 	@ManyToOne
@@ -99,6 +100,7 @@ public class TransactionSouvenir {
 	private long updatedBy;
 	
 	@Column(name="updated_date")
+	@Temporal(TemporalType.DATE)
 	private Date updatedDate;
 	
 	
