@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>   
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import = "java.io.*,java.util.*" %>
 <%@ page import = "javax.servlet.*,java.text.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,35 +16,34 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/assets/css/bootstrap/bootstrap.css"/>
 <!-- css fontawesome -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<style>
+	input.parsley-error{
+		color: #B94A48 !important;
+		background-color: #F2DEDE !important;
+		border: 1px solid #EED3D7 !important;
+	}
+	select.parsley-error{
+		color: #B94A48 !important;
+		background-color: #F2DEDE !important;
+		border: 1px solid #EED3D7 !important;
+	}
+</style>
 
-<!-- css datepicker -->
-<%--<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/bootstrap/bootstrap-datetimepicker.min.css" media="screen">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/datepicker/bootstrap/css/bootstrap.min.css" media="screen"> --%>
+<!-- 	ini di copy buat validasi -->
+  	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
+<!-- 	ini di copy buat validasi -->
 
-<!-- js datepicker -->
-<%-- <script src="${pageContext.request.contextPath }/assets/datepicker/jquery/jquery-1.8.3.min.js" charset="UTF-8"></script>
-<script src="${pageContext.request.contextPath }/assets/datepicker/bootstrap/js/bootstrap.min.js" charset="UTF-8"></script>
-<script src="${pageContext.request.contextPath }/assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script> --%>
+<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/bootstrap.js" ></script>
 <script type="text/javascript">
 	var delObj = null;
-	/* $( function() {
-		$('#requestDatepicker').datepicker();
-	}); 
-	$('.form_date').datetimepicker({
-	        //language:  'id',
-	        weekStart: 1,
-	        todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 2,
-			minView: 2,
-			forceParse: 0
-	    });
-	*/
+	
 	$(document).ready(function(){
 		
 		/* Modal Add */	
@@ -64,7 +66,7 @@
 					appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='product description' disabled>";
 				appendString += "</td>";
 				appendString += "<td>";
-					appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title'>";
+					appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' id='validateTitleItemAdd'>";
 				appendString += "</td>";
 				appendString += "<td>";
 					appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC'>";
@@ -108,7 +110,8 @@
 		
 		/* submit save design */
 		$(document).on('click','#btn-save-design-request', function(){
-			/* membaca list design item */	
+			/* membaca list design item */
+			
 			var listDesignItem = []
 			$('#dt-designItem > tbody > tr').each(function(index, value){
 				listDesignItem.push({
@@ -143,21 +146,38 @@
 				listDesignItem : listDesignItem
 			};
 			console.log(design);
-			/* kirim data ke server */
-			$.ajax({
-				url : '${pageContext.request.contextPath}/design/save',
-				type : 'POST',
-				data : JSON.stringify(design),
-				contentType : 'application/json',
-				success : function(data){
-					console.log(data),
-					//$('#info-saved').modal('show'),
-					window.location = '${pageContext.request.contextPath}/design'
-					
-				}, error : function(){
-					alert('gagal')
-				}
-			}); 
+			
+			/* validasi di modal add */
+			var validateTitleAdd = $('#designTitle').parsley( {
+				required : true,
+				requiredMessage : 'cant be Empty'
+			} );		
+			//validate function
+			function getValid(validate){
+				validate.validate();	
+				return validate.isValid();
+			}
+			
+			var valid = getValid(validateTitleAdd);
+			
+			if(valid){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/design/save',
+					type : 'POST',
+					data : JSON.stringify(design),	//convert objek ke string
+					contentType : 'application/json',
+					success : function(data){
+						console.log(data),
+						alert('success'),
+						window.location = '${pageContext.request.contextPath}/design'
+					}, error : function(){
+						alert('failed')
+					}
+				}); 
+			} else{
+				alert('Please Complete the Blank Field(s)');
+			}
+		
 		});
 		
 		/* Search event */
@@ -168,16 +188,17 @@
 			window.location = '${pageContext.request.contextPath}/design/search?'+data;		//data diambil dari form.serialize() 
 		});
 		
-		/* Modal edit */
+		
+		/* Penentuan Role */
 		$(document).on('click', '.btn-edit-modal', function(){
-			var id = $(this).attr('design-id');
 			var statusAdmin = $(this).attr('data-role-admin');
 			var statusRequester = $(this).attr('data-role-requester');
 			var statusStaff = $(this).attr('data-role-staff');
 			console.log(id);
-			
+			/* Modal edit */
 			if(statusRequester=="true"){
 				if($(this).attr('data-status')==1){
+					var id = $(this).attr('design-id');
 					$.ajax({
 						url : '${pageContext.request.contextPath }design/getById?id='+id,
 						type : 'GET',
@@ -238,6 +259,7 @@
 					});
 					$('#modalEditRequest').modal();
 				} 
+			/* Modal Approval */	
 			} else if(statusAdmin=="true"){
 				if($(this).attr('data-status')==1){
 					var id = $(this).attr('design-id');
@@ -597,9 +619,14 @@
 			
 			$('#modalViewRequest').modal();
 		});
-		
-		
-		
+	/* var statusAdmin = $(this).attr('role-admin');
+	var statusRequester = $(this).attr('role-requester');
+	var statusStaff = $(this).attr('role-staff');
+	if(statusAdmin=="true"){
+		document.getElementById('btn-add-modal').style.display = 'none';
+	}else if (statusStaff=="true"){
+		document.getElementById('btn-add-modal').style.display = 'none';
+	} */
 	});
 </script>
 <style type="text/css">
@@ -645,6 +672,7 @@
 	  			<li><a href="#"> Master </a>/ </li>
 	 		 	<li class="active"> List Design Request</li>
 			</ol>
+			<%-- <input type="hidden" role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"/> --%>
 	    	<button type="button" class="btn btn-primary" id="btn-add-modal" style="width:70px;float:right;">Add</button><br/><br/>
 	    	<form id="formSearch"> 
 	    		<div class="form-row" style="overflow: auto">
