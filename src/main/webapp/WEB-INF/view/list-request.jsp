@@ -474,7 +474,7 @@
 				var status = document.getElementById('statusadmin');
 				status.value = "Submitted";
 				$('#modal-admin-transaksi').modal();
-			} else if($(this).attr('data-status') == 2 && statusAdmin=="true"){
+			} else if($(this).attr('data-status') == 2 && statusRequester=="true"){
 				var status = document.getElementById('statusreceived');
 				status.value = "In Progress";
 				$('#modal-received-transaksi').modal();
@@ -569,7 +569,7 @@
 				contentType : 'application/json',
 				success : function(data){
 					console.log(data);
-					//window.location = '${pageContext.request.contextPath}/souvenirrequest'
+					window.location = '${pageContext.request.contextPath}/souvenirrequest'
 				}, error : function(){
 					alert('failed');
 				}
