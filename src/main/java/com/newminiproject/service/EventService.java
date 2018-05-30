@@ -1,5 +1,6 @@
 package com.newminiproject.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.newminiproject.dao.EventDao;
+import com.newminiproject.model.Design;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
 import com.newminiproject.model.User;
@@ -22,6 +24,9 @@ public class EventService {
 	EventDao eventDao;
 	@Autowired
 	HttpSession httpSession;
+	
+	@Autowired
+	DesignService designService;
 
 	public void save(Event event) {
 		// TODO Auto-generated method stub
@@ -79,6 +84,26 @@ public class EventService {
 		event.setUpdate_date(new Date());
 		eventDao.rejected(event);
 		
+	}
+	
+	public Event getEventByIdDesign(int id) {
+		// TODO Auto-generated method stub
+		Event event = eventDao.getEventById(id);
+		List<Design> listDisgn = designService.getDesignByEvent(event);
+		List<Design> lastDs = new ArrayList<>();
+		for(Design ds: listDisgn) {
+			Design ds1 = new Design();
+			ds1.setId(ds.getId());
+			ds1.setCode(ds.getCode());
+			ds1.setTitleHeader(ds.getTitleHeader());
+			ds1.setRequestBy(ds.getRequestBy());
+			ds1.setRequestDate(ds.getRequestDate());
+			ds1.setNote(ds.getNote());
+			lastDs.add(ds1);
+		}
+		event.setListDesign(lastDs);
+		
+		return event;
 	}
 
 }
