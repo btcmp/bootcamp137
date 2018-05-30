@@ -52,6 +52,9 @@ public class TransactionSouvenirItemStockDaoImpl implements TransactionSouvenirI
 		query.setParameter(2, tsi2.getNote());
 		query.setParameter(3, tsi2.getId());
 		query.executeUpdate();
+		//System.out.println("Qty :" + tsi2.getQty());
+		//System.out.println("Note :" + tsi2.getNote());
+		//System.out.println("Id :" + tsi2.getId());
 	}
 
 	@Override
