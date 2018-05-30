@@ -170,7 +170,18 @@ public class Employee {
 	@JsonIgnore
 	private List<PromotionItem> listPromotionItemRequestPic;
 	
+	@OneToMany (fetch = FetchType.LAZY, mappedBy = "requestBy")
+	@JsonIgnore
+	private List<Event> listEventRequestBy;
 	
+	public List<Event> getListEventRequestBy() {
+		return listEventRequestBy;
+	}
+
+	public void setListEventRequestBy(List<Event> listEventRequestBy) {
+		this.listEventRequestBy = listEventRequestBy;
+	}
+
 	@OneToOne(mappedBy="mEmployeeId")
 	@JsonIgnore
 	private User user;
