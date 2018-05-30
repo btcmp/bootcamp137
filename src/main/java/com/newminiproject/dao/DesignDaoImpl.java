@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.newminiproject.model.Design;
+import com.newminiproject.model.Event;
 
 @Repository
 public class DesignDaoImpl implements DesignDao{
@@ -37,6 +38,7 @@ public class DesignDaoImpl implements DesignDao{
 		String hql = "from Design d where d.id = :id";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
+		System.out.println("id : "+id);
 		listDesign = query.list();
 		if(listDesign.isEmpty()){
 			return new Design();
@@ -73,6 +75,20 @@ public class DesignDaoImpl implements DesignDao{
 		if(listDesign.isEmpty()) {
 			return new ArrayList<Design>();
 		} 
+		return listDesign;
+	}
+
+	@Override
+	public List<Design> getDesignByEvent(Event event) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Design ds where ds.tEventId = :event";
+		Query query = session.createQuery(hql);
+		query.setParameter("event", event);
+		List<Design> listDesign = query.list();
+		if(listDesign.isEmpty()) {
+			return new ArrayList<Design>();
+		}
 		return listDesign;
 	}
 

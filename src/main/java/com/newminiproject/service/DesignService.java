@@ -69,7 +69,7 @@ public class DesignService {
 		// TODO Auto-generated method stub
 		Design design = designDao.getDesignById(id);
 		List<DesignItem> listDesignItem = designItemService.getDesignItemByDesign(design);
-		List<DesignItem> lastDI = new ArrayList<DesignItem>();
+		List<DesignItem> lastDI = new ArrayList<>();
 		for(DesignItem di : listDesignItem) {
 			DesignItem di2 = new DesignItem();
 			di2.setId(di.getId());
@@ -119,4 +119,8 @@ public class DesignService {
 		return designDao.search(design);
 	}
 
+	public List<Design> getDesignByEvent(Event event){
+		List<Design> listDesign = designDao.getDesignByEvent(event);
+		return listDesign;
+	}
 }
