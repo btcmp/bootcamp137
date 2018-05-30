@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -46,13 +47,17 @@ public class Event {
 	private Date startDate;
 	@Temporal(TemporalType.DATE)
 	private Date closeDate;
-	private String requestBy;
+	
 	private String note;
 	private long budget;
 	private int isDelete;
 	@Temporal(TemporalType.DATE)
 	private Date update_date;
 	private String updateBy;
+	
+	@ManyToOne
+	@JoinColumn(name="request_by")
+	private Employee requestBy;
 	
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="tEventId")
@@ -63,10 +68,15 @@ public class Event {
 	private List<Promotion> listPromotion;
 	
 	@ManyToOne
-	private Employee employee;
+	private Employee employee;//ini assign to
 	
 	
-	
+	public Employee getRequestBy() {
+		return requestBy;
+	}
+	public void setRequestBy(Employee requestBy) {
+		this.requestBy = requestBy;
+	}
 	public List<Design> getListDesign() {
 		return listDesign;
 	}
@@ -176,12 +186,7 @@ public class Event {
 	public void setEventPlace(String eventPlace) {
 		this.eventPlace = eventPlace;
 	}
-	public String getRequestBy() {
-		return requestBy;
-	}
-	public void setRequestBy(String requestBy) {
-		this.requestBy = requestBy;
-	}
+	
 	public String getNote() {
 		return note;
 	}
