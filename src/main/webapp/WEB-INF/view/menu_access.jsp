@@ -370,7 +370,6 @@ table {
 				</div>
 		      </div>
 		      <div class="modal-footer">
-		      <button type="button" class="btn btn-primary" value="testing" id="btn-save-add">Save</button>
 		      <button type="button" class="btn btn-warning" style="color:white;" data-dismiss="modal">Cancel</button>
 			  	
 		      </div>
