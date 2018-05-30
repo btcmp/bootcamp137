@@ -9,12 +9,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Table(name="m_menu")
@@ -37,8 +42,10 @@ public class Menu {
 	@Column(name="controller", length=150)
 	private String controller;
 	
-	@Column(name="parent_id", length=11)
-	private int parentId;
+	@NotFound(action = NotFoundAction.IGNORE)
+	@ManyToOne
+	@JoinColumn(name="parent_id")
+	private Menu parentId;
 	
 	@NotNull
 	@Column(name="is_delete")
@@ -95,11 +102,11 @@ public class Menu {
 		this.controller = controller;
 	}
 
-	public int getParentId() {
+	public Menu getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(int parentId) {
+	public void setParentId(Menu parentId) {
 		this.parentId = parentId;
 	}
 
