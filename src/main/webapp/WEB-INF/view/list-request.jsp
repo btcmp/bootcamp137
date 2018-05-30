@@ -148,10 +148,11 @@
 				url : '${pageContext.request.contextPath}/souvenirrequest/gettransactionsouvenir?id=' + id,
 				type : 'GET',
 				success : function(obj){
+					var fullName = obj.requestBy.firstName + ' ' + obj.requestBy.lastName;
 					$('#id-view').val(obj.id);
 					$('#code-view').val(obj.code);
 					$('#event-code-view').val(obj.tEventId.id);
-					$('#requestbyview').val(obj.requestBy.firstName);
+					$('#requestbyview').val(fullName);
 					$('#requestdateview').val(obj.requestDate);
 					$('#duedateview').val(obj.requestDueDate);
 					$('#noteview').val(obj.note);
