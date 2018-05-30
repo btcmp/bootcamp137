@@ -88,6 +88,13 @@ public class PromotionController {
 	}
 	
 	@ResponseBody
+	@RequestMapping (value = "/getdesign", method = RequestMethod.GET)
+	public Event getEvent (@RequestParam(value="id", required = false) int id) {
+		Event event = eventService.getEventById(id);
+		return event;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public Promotion save (@RequestBody Promotion promotion) {
 		promotionService.save(promotion);

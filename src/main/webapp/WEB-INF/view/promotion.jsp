@@ -1,4 +1,4 @@
-	<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored = "false" %>
@@ -33,6 +33,40 @@
 			$('#modalAdd').modal();
 		})
 		
+		$('#event-select-option').on('click', function(){
+			var selectedValue1 = $('#event-select-option option:selected').attr('value');
+			
+			if(selectedValue1 != undefined){
+				$.ajax({
+					url :'${pageContext.request.contextPath }/promotion/getdesign?id=' + selectedValue1,
+					type : 'GET',
+					dataType : 'json',
+					success : function(data){
+						
+				  		var addSelectDesign = $('#designAdd2');
+		  				var selectDiv = addSelectDesign.find('select');
+						selectDiv.find('option').not(document.getElementById('selectOption')).remove();
+		  				
+		  				$.each(data.listDesign, function(index, value){
+		  					var addSelectDesign = $('#designAdd2');
+			  				var selectDiv = addSelectDesign.find('select');
+			  		
+							var	appendString0 = '<option value="' + value.id + '" value-design-code="'+ value.code+'"> '+ value.code +' - '+ value.titleHeader +'</option>';
+														
+							selectDiv.append(appendString0);	
+						
+		  				})
+		  				
+					},
+					error : function(){
+						alert('error');
+					}
+				})
+			}
+			
+		})
+		
+	
 		$('#design-select-option').change(function(){
 			designSelectOption = $('#design-select-option option:selected').val();
 			
@@ -72,15 +106,15 @@
 									
 						var	prependString1 = '<tr value-dsi-id = "'+ value.id +'" value-pic-id = "'+ value.requestPic.id +'">';
 								prependString1 += '<td>';
-									prependString1 += '<input type="text" value-id="' + value.mProductId.id +'" value="' + value.mProductId.name +'" class="form-control" disabled>';
+									prependString1 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
 								prependString1 += '</td>';
 								
 								prependString1 += '<td>';
-									prependString1 += '<input type="text" value="'+ value.mProductId.description +'" class="form-control" disabled>';
+									prependString1 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
 								prependString1 += '</td>';
 														
 								prependString1 += '<td>';
-									prependString1 += '<input type="text" value="' + value.titleItem + '" class="form-control" disabled>';
+									prependString1 += '<input type="text" value="' + value.title + '" class="form-control" disabled>';
 								prependString1 += '</td>';
 														
 								prependString1 += '<td>';
@@ -447,15 +481,15 @@
 							
 							var appendString2 = '<tr>';
 									appendString2 += '<td>';
-										appendString2 += '<input type="text" value-id="' + value.mProductId.id +'" value="' + value.mProductId.name +'" class="form-control" disabled>';
+										appendString2 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
 									appendString2 += '</td>';
 						
 									appendString2 += '<td>';
-										appendString2 += '<input type="text" value="'+ value.mProductId.description +'" class="form-control" disabled>';
+										appendString2 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
 									appendString2 += '</td>';
 						
 									appendString2 += '<td>';
-										appendString2 += '<input type="text" value="' + value.designItem.titleItem + '" class="form-control" disabled>';
+										appendString2 += '<input type="text" value="' + value.designItem.title + '" class="form-control" disabled>';
 									appendString2 += '</td>';
 								
 									appendString2 += '<td>';
@@ -678,11 +712,11 @@
 						
 						var appendString5 = '<tr>';
 								appendString5 += '<td>';
-									appendString5 += '<input type="text" value-id="' + value.mProductId.id +'" value="' + value.mProductId.name +'" class="form-control" disabled>';
+									appendString5 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
 								appendString5 += '</td>';
 					
 								appendString5 += '<td>';
-									appendString5 += '<input type="text" value="'+ value.mProductId.description +'" class="form-control" disabled>';
+									appendString5 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
 								appendString5 += '</td>';
 					
 								appendString5 += '<td>';
@@ -1042,12 +1076,9 @@
 				  
 				  <div style="display:none;" id="designAddDiv" >
 				  	<span id = "designAdd" class = "float-left" style="width:35%; text-align:right;">* Select Design : </span>
-					  	<div id="designAdd" style="width:65%;" class = "float-left">
+					  	<div id="designAdd2" style="width:65%;" class = "float-left">
 					  		<select class="form-control" id='design-select' >
-					  				<option>- Select Design-</option>
-					  			<c:forEach items="${listDesign }" var = "design">
-					  				<option value="${design.id}" value-design-code="${design.code}"> ${design.code} - ${design.titleHeader}</option>
-					  			</c:forEach>
+					  			<option id="selectOption">- Select Design-</option>
 					  		</select>
 					  	</div>
 				  </div>
