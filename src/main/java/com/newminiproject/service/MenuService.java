@@ -19,8 +19,14 @@ public class MenuService {
 	
 	public void save(Menu menu) {
 		// TODO Auto-generated method stub
-		menu.setCreatedBy("Administration");
-		menu.setCreatedDate(new Date());
+		//Hibernate error minta objek baru
+		Menu menuSave = new Menu(); 
+		menuSave.setParentId(menu.getParentId());
+		menuSave.setCode(menu.getCode());
+		menuSave.setName(menu.getName());
+		menuSave.setController(menu.getController());
+		menuSave.setCreatedDate(new Date());
+		//menuSave.setCreatedBy(user.getUsername());
 		menuDao.save(menu);
 	}
 

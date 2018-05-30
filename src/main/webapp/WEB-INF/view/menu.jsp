@@ -37,7 +37,6 @@ table {
 		$(document).on('click', '#btnSave', function(event){
 			//alert('test');
 			event.preventDefault();
-			alert('testdata');
 			var menu = {
 					code: $("#codeAdd").val(),
 					name: $("#nameAdd").val(),
