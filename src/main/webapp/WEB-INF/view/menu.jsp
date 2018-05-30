@@ -114,8 +114,12 @@ table {
 					$('#codeEdit').val(data.code);
 					$('#nameEdit').val(data.name);
 					$('#controllerEdit').val(data.controller);
-					$('#menuNameEdit').val(data.parentId.id);
-					
+					var parentId = 0;
+ 					if(data.parentId != null){
+						parentId = data.parentId.id;
+					}
+					$('#menuNameEdit').val(parentId);
+					console.log(data);
 				},
 				error:function(){
 					alert('Data not found');
@@ -130,7 +134,10 @@ table {
 			var menu = {
 				id: $('#id').val(),
 				name: $('#nameEdit').val(),
-				controller: $('#controllerEdit').val()
+				controller: $('#controllerEdit').val(),
+				parentId: {
+						id : $('#menuNameEdit option:selected').val()
+					}
 			}
 			$.ajax({
 				url:'${pageContext.request.contextPath}/menu/update',
@@ -151,7 +158,7 @@ table {
 		$('#btnSearch').on('click', function(){
 			var form = $("#formmenu");
 			var data = form.serialize();
-			//console.log(data);
+			console.log(data);
 			if(data == "menucode=&menuname=&menucreatedby="){
 				window.location = '${pageContext.request.contextPath}/menu'	
 			}
@@ -216,7 +223,7 @@ table {
 	    			</select>
 	    		</div>
 	    		<div class="col-auto">
-	    			<input placeholder="Created" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="create-date" menu="menucreateddate">	
+	    			<input placeholder="Created" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="create-date" name="menucreateddate">	
 	    		</div>
 	    		<div class="col-auto">
 	    			<input placeholder="Created By" class="form-control" type="text" name="menucreatedby">	
@@ -345,9 +352,9 @@ table {
 <!-- 			      		<input type="text" id="parentView" class="form-control" disabled> -->
 							<input type="hidden" id="idEdit">
 							<select id="menuNameEdit" class="form-control" name="menucode">
-	    						<option value="" selected>- Select Menu Code -</option>
+	    						<option value=0 selected></option>
 	    						<c:forEach items="${listMenu}" var="menu">
-	    						<option value="${menu.name}">${menu.name}</option>
+	    						<option value="${menu.id}">${menu.name}</option>
 	    						</c:forEach>
 	    					</select>
 			    	</div>
@@ -387,8 +394,8 @@ table {
 			      * Parent 
 <!-- 			      	<input type="text" id="parentView" class="form-control" disabled> -->
 					<input type="hidden" id="idView">
-			      	<select id="menuNameView" class="form-control" name="menuname">
-			      				<option value=0 selected>- Select Menu Code -</option>
+			      	<select id="menuNameView" class="form-control" name="menuname" disabled>
+			      				<option value=0 selected></option>
 	    						<c:forEach items="${listMenu}" var="menu">
 	    						<option value="${menu.id}">${menu.name}</option>
 	    						</c:forEach>
