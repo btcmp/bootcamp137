@@ -141,17 +141,12 @@ table {
 			var form = $("#formrole");
 			var data = form.serialize(); //untuk mengambil semua data yang ada di table
 			console.log(data);
-			//var roleName = $("#roleNameSearch").val();
-			//var roleCode = $("#roleCodeSearch").val();
- 			window.location = '${pageContext.request.contextPath}/role/search?'+data;
-// 			$.ajax({
-// 				url: '${pageContext.request.contextPath}/role/search?rolename=',
-// 				type: 'GET',
-// 				success:function(data){
-// 					console.log(data);
-// 				}
-// 			});
-			
+			if(data == "rolecode=&rolename=&rolecreateddate=&rolecreatedby="){
+				window.location = '${pageContext.request.contextPath}/role';
+			}
+			else{
+				window.location = '${pageContext.request.contextPath}/role/search?'+data;	
+			} 			
 		});
 		
 	});

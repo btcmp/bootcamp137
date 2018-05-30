@@ -159,7 +159,7 @@ table {
 			var form = $("#formmenu");
 			var data = form.serialize();
 			console.log(data);
-			if(data == "menucode=&menuname=&menucreatedby="){
+			if(data == "menucode=&menuname=&menucreateddate=&menucreatedby="){
 				window.location = '${pageContext.request.contextPath}/menu'	
 			}
 			else{
