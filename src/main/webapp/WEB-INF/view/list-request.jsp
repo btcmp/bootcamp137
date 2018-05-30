@@ -939,7 +939,7 @@
 					<tr>
 						<td scope="col"></td>
 						<td scope="col">${transaction.code }</td>
-						<td scope="col">${transaction.requestBy.firstName }</td>
+						<td scope="col">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</td>
 						<td scope="col">${transaction.requestDate }</td>
 						<td scope="col">${transaction.requestDueDate }</td>
 						<td scope="col">
