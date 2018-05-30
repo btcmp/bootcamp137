@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.newminiproject.model.Role;
+import com.newminiproject.model.User;
 	
 @Repository
 public class RoleDaoImpl implements RoleDao{
@@ -80,6 +81,23 @@ public class RoleDaoImpl implements RoleDao{
 		query.setParameter("rolecreateddate", role.getCreatedDate());
 		List<Role> listRole = query.list();
 		if(listRole.isEmpty()) {
+			return new ArrayList<>();
+		}
+		
+		return listRole;
+	}
+
+	@Override
+	public List<Role> getRoleByUser(User user) {
+		System.out.println("user id : " + user.getId());
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select ";
+		Query query = session.createQuery(hql);
+		query.setParameter("user", user.getId());
+		List<Role> listRole = query.list();
+		if(listRole.isEmpty()) {
+			System.out.println("tidak dapat");
 			return new ArrayList<>();
 		}
 		

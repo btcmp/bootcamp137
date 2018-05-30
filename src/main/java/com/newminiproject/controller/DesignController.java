@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.SimpleFormatter;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,7 @@ import com.newminiproject.model.Design;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
 import com.newminiproject.model.Product;
+import com.newminiproject.model.User;
 import com.newminiproject.service.DesignItemService;
 import com.newminiproject.service.DesignService;
 import com.newminiproject.service.EmployeeService;
@@ -53,6 +56,9 @@ public class DesignController {
 	@Autowired
 	SeqDaoDesign seqDao;
 	
+	@Autowired
+	HttpSession httpSession;
+	
 	@RequestMapping
 	public String index(Model model) {
 		List<Event> listEvent = eventService.getAll();
@@ -72,6 +78,7 @@ public class DesignController {
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseBody												//agar keluar nya data
 	public Design save(@RequestBody Design design) {
+		
 		designService.save(design);
 		return design;
 	}

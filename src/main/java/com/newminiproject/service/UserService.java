@@ -25,7 +25,8 @@ public class UserService {
 	
 	public List<User> getAll() {
 		// TODO Auto-generated method stub
-		return userDao.getAll();
+		List<User> users= userDao.getAll();
+		return users;
 	}
 
 	public void save(User user) {

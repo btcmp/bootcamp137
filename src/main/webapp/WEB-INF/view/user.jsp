@@ -220,8 +220,8 @@ table {
 							<td class="counterCell"></td>
 							<td>${user.mEmployeeId.firstName} ${user.mEmployeeId.lastName}</td>
 							<td>
-							<c:forEach items="${user.listRole}" var="roles">
-								<a>${roles.name}</a>
+							<c:forEach items="${user.listRole}" var="role">
+								<a>${role.name}</a>
 							</c:forEach>
 							</td>
 							<td>${user.mEmployeeId.mCompanyId.name}</td>

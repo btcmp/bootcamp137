@@ -3,6 +3,7 @@ package com.newminiproject.dao;
 import java.util.List;
 
 import com.newminiproject.model.Role;
+import com.newminiproject.model.User;
 
 public interface RoleDao {
 
@@ -17,5 +18,7 @@ public interface RoleDao {
 	void update(Role role);
 
 	List<Role> search(Role role);
+
+	List<Role> getRoleByUser(User user);
 
 }
