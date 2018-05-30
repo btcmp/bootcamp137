@@ -8,12 +8,46 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Role</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	  <!-- Tell the browser to be responsive to screen width -->
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <!-- Font Awesome -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/font-awesome/css/font-awesome.min.css">
+	  <!-- Ionicons -->
+	  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	  <!-- Theme style -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/dist/css/adminlte.min.css">
+	  <!-- iCheck -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/iCheck/flat/blue.css">
+	  <!-- Morris chart -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/morris/morris.css">
+	  <!-- jvectormap -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+	  <!-- Date Picker -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/datepicker/datepicker3.css">
+	  <!-- Daterange picker -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/daterangepicker/daterangepicker-bs3.css">
+	  <!-- bootstrap wysihtml5 - text editor -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+	  <!-- Google Font: Source Sans Pro -->
+	  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+<!-- 	ini di copy buat validasi -->
+  	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
+<!-- 	ini di copy buat validasi -->
+  	
+  	
+  	
+  	
+  	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
 <style type="text/css">
 table {
@@ -23,10 +57,25 @@ table {
     content: counter(tableCount); 
     counter-increment: tableCount; 
 }
+input.parsley-error {
+	color: #B94A48 !important;
+	background-color: #F2DEDE !important;
+	border: 1px solid #EED3D7 !important;
+}
 </style>
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		//data tables
+		$('#data-menu').DataTable({
+	      "paging": true,
+	      "lengthChange": false,
+	      "searching": false,
+	      "ordering": true,
+	      "info": true,
+	      "autoWidth": false
+	    });
 		
 		//add data event listener
 		$(document).on('click', '.btn-add', function(event){
@@ -42,18 +91,37 @@ table {
 					description: $("#descriptionAdd").val()
 				}
 			//console.log(role);
-			$.ajax({
-				url: '${pageContext.request.contextPath}/role/save',
-				type: 'POST',
-				contentType: 'application/json',
-				data: JSON.stringify(role),
-				success:function(data){
-					window.location = '${pageContext.request.contextPath}/role'
-				},
-				error:function(){
-					alert('error');
-				}
+			
+			//validasi field pada saat save
+			var nameValidate = $("#nameAdd").parsley({
+				required : true,
+				requiredMessage : 'Name must be filled!'
 			});
+			
+			//function validate
+			function getValid(validate){
+				validate.validate();	
+				return validate.isValid();
+			}
+			
+			var valid = getValid(nameValidate);
+			if(valid){
+				$.ajax({
+					url: '${pageContext.request.contextPath}/role/save',
+					type: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify(role),
+					success:function(data){
+						window.location = '${pageContext.request.contextPath}/role'
+					},
+					error:function(){
+						alert('error');
+					}
+				});
+			}
+			else{
+				alert('Fill all data first!')
+			}
 		});
 		
 		//delete icon
