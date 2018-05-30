@@ -29,18 +29,18 @@ table tr td:first-child::before
     margin-right: 0.5em;
 }
 </style>
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- 	ini di copy buat validasi -->
+  	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
+<!-- 	ini di copy buat validasi -->
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
-<!-- validasi -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
-<!--  -->
+
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#btn-add').on('click', function(){
+		$(document).on('click', '#btn-add', function(){
 			$('#modal-add').modal();
 		});
 		
@@ -56,20 +56,49 @@ table tr td:first-child::before
 					},
 					name : $('#name').val(),
 					description : $('#description').val()
-				}
+				};
+			
+			//validasi field di  modal add
+			var validateCode = $('#code').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			var validateUnit = $('#m-unit-id').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			var validateName = $('#name').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			
+			//validate function
+			function getValid(validate){
+				validate.validate();
+				return validate.isValid();
+			}
+			
+			var valid = getValid(validateCode);
+				valid = getValid(validateUnit);
+				valid = getValid(validateName);
+			
 				//ajax (asynchronous javascript and xml)
-				$.ajax({
-					url : '${pageContext.request.contextPath}/souvenir/save',
-					type : 'POST',
-					contentType : 'application/json',
-					data : JSON.stringify(souvenir), //converst objek ke string
-					success : function(data){
-						console.log(data);
-						window.location = '${pageContext.request.contextPath}/souvenir'
-					}, error: function(){
-						alert('error');
-					}
-				});
+				if(valid){
+					$.ajax({
+						url : '${pageContext.request.contextPath}/souvenir/save',
+						type : 'POST',
+						contentType : 'application/json',
+						data : JSON.stringify(souvenir), //converst objek ke string
+						success : function(data){
+							console.log(data);
+							window.location = '${pageContext.request.contextPath}/souvenir'
+						}, error: function(){
+							alert('error');
+						}
+					});
+				} else {
+					alert('Please Complete the Blank Field(s)');
+				}
 		});
 		
 		$(document).on('click', '#btn-edit', function(){
