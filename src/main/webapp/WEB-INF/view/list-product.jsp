@@ -60,8 +60,8 @@
 		});
 		
 		$('#btn-delete-yes').on('click', function(){
-			//console.log(deleteid);
-			//window.location='${pageContext.request.contextPath}/product/delete/'+deleteid;
+			console.log(deleteid);
+			window.location='${pageContext.request.contextPath}/product/delete/'+deleteid;
 		});
 		
 		$('.edit').on('click', function(){
