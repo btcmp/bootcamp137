@@ -26,6 +26,7 @@ public class MenuService {
 		menuSave.setName(menu.getName());
 		menuSave.setController(menu.getController());
 		menuSave.setCreatedDate(new Date());
+		menuSave.setCreatedBy("Admin");
 		//menuSave.setCreatedBy(user.getUsername());
 		menuDao.save(menu);
 	}
