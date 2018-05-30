@@ -160,4 +160,11 @@ public class SouvenirRequestController {
 		return transactionSouvenir;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/rejected", method = RequestMethod.POST)
+	public TransactionSouvenir rejected(@RequestBody TransactionSouvenir transactionSouvenir){
+		souvenirRequestService.rejected(transactionSouvenir);
+		return transactionSouvenir;
+	}
+	
 }
