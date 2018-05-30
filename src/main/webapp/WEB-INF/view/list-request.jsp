@@ -954,7 +954,7 @@
 							</c:choose>
 						</td>
 						<td scope="col">${transaction.createdDate }</td>
-						<td scope="col">${transaction.createdBy }</td>
+						<td scope="col">${pageContext.request.userPrincipal.name}</td>
 						<td scope="col">
 							<a data-id="${transaction.id }"  data-status="${transaction.status }" id="btn-view-transaksi" href="#" style="color:inherit;"><i class="fas fa-search"></i></a>
 		  					<a data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-id="${transaction.id }" data-status="${transaction.status }" id="btn-edit-transaksi" href="#" style="color:inherit;"><i class="fas fa-pencil-alt"></i></a>

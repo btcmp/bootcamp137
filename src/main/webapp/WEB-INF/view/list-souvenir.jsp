@@ -240,7 +240,7 @@ table tr td:first-child::before
 						<td scope="col">${souvenir.name }</td>
 						<td scope="col">${souvenir.mUnitId.name }</td>
 						<td scope="col">${souvenir.createdDate }</td>
-						<td scope="col">${souvenir.createdBy }</td>
+						<td scope="col">${pageContext.request.userPrincipal.name}</td>
 						<td scope="col">
 							<a data-id="${souvenir.id }" id="btn-view" href="#" style="color:inherit;"><i class="fas fa-search"></i></a>
 		  					<a data-id="${souvenir.id }" id="btn-edit" href="#" style="color:inherit;"><i class="fas fa-pencil-alt"></i></a>
