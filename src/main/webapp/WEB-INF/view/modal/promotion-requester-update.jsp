@@ -37,6 +37,7 @@
 						    <div>
 							    <input class = "form-control float-left" style="width:65%;" type="text" id="transCodeUpdate" disabled>
 							    <input type="hidden" id="idEdit" >
+							    <input type="hidden" id="flagDesignEdit" >
 						    </div>
 						    
 						  </div>
@@ -253,6 +254,9 @@
 						  	<span class = "float-left" style="width:35%; text-align:right;">* Transaction Code : </span>
 						    <div>
 							    <input class = "form-control float-left" style="width:65%;" type="text" id="transCodeNotUpdate" disabled>
+								<input type="hidden" id="idEditNot" >
+							    <input type="hidden" id="flagDesignEditNot" >
+							
 							</div>
 						    
 						  </div>

@@ -109,7 +109,7 @@ public class PromotionController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public Promotion update(@RequestBody Promotion promotion) {
 		promotionService.update(promotion);
 		return promotion;

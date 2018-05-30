@@ -74,6 +74,10 @@ public class PromotionDaoImpl implements PromotionDao {
 		query.setParameter(2, pr.getId());
 		
 		query.executeUpdate();
-	}
+		
+	/*	System.out.println("title header :" + pr.getTitleHeader());
+		System.out.println("title note :" + pr.getNote());
+		System.out.println("title id :" + pr.getId());
+	*/}
 
 }

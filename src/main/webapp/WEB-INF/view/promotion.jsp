@@ -685,10 +685,11 @@
 					//promotion header
 					$('#transCodeUpdate').val(data.code);
 					$('#eventSelectUpdate').val(data.event.code);
-					$('#idEdit').val(data.event.id);
+					$('#idEdit').val(data.id);
 					$('#titleHeaderUpdate').val(data.titleHeader);
 					$('#requestDateUpdate').val(data.requestDate);
 					$('#noteTitleHeaderUpdate').val(data.note);
+					$('#flagDesignEdit').val(data.flagDesign);
 					var status = "";
 					if(data.status == 0){
 						status = "Rejected";
@@ -766,8 +767,8 @@
 					var tBody6 = oTable6.find('tbody');
 					tBody6.find('tr').remove();
 					$.each(data.listPromotionItemFile, function(index,value){
-						
-						var appendString6 = "<tr>";
+					
+						var appendString6 = "<tr value-pif-id = '"+ value.id +"'>";
 								appendString6 += "<td>";
 									appendString6 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' >";
 								appendString6 += "</td>";
@@ -777,7 +778,7 @@
 								appendString6 += "</td>";
 							
 								appendString6 += "<td>";
-									appendString6 += "<select class = 'form-control selectOption' > <option> '"+ value.todo +"' </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>" ;
+									appendString6 += "<select class = 'form-control selectOption' > <option> "+ value.todo +" </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>" ;
 								appendString6 += "</td>";
 								
 								appendString6 += "<td>";
@@ -823,10 +824,11 @@
 				type : 'GET',
 				dataType : 'json',
 				success : function (data){
-					console.log(data);
 					
 					///////////Promotion Header
 					$('#transCodeNotUpdate').val(data.code),
+					$('#flagDesignEditNot').val(data.flagDesign),
+					$('#idEditNot').val(data.id),
 					$('#eventSelectUpdateNot').val(data.event.code),
 					$('#titleHeaderNotUpdate').val(data.titleHeader),
 					$('#requestByNotUpdate').val(data.reqeustBy),
@@ -844,7 +846,7 @@
 							value.note
 						}
 						
-						var appendString7 = '<tr>';
+						var appendString7 = '<tr value-pif-id = "'+ value.id +'">';
 								appendString7 += '<td>';
 									appendString7 += '<input type="file" class="filestyle uploadFile" data-buttonBefore="true" >' ;
 								appendString7 += '</td>';
@@ -854,7 +856,7 @@
 								appendString7 += '</td>';
 						
 								appendString7 += '<td>';
-									appendString7 += '<select class = "form-control selectOption" > <option> "'+ value.todo +'" </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>' ;
+									appendString7 += '<select class = "form-control selectOption" > <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>' ;
 								appendString7 += '</td>';
 						
 								appendString7 += '<td>';
@@ -900,28 +902,29 @@
 
 	$('#updateDesign').on('click', function(){
 		var updatePromo = {
+			id : $('#idEdit').val(),
 			code : $('#transCodeUpdate').val(),
-			event : {
-				id : $('#idEdit').val()
-			},
 			titleHeader : $('#titleHeaderUpdate').val(),
 			requestBy : $('#requestByUpdate').val(),
 			requestDate : $('#requestDateUpdate').val(),
 			note : $('#noteTitleHeaderUpdate').val(),
 			status : 1,
-			listPromotionItem : []
+			flagDesign : $('#flagDesignEdit').val(),
+			listPromotionItem : [],
+			listPromotionItemFile : []
 		}
 		
 		_readTableDataDesignUpdate(updatePromo.listPromotionItem);
-		//console.log(updatePromo);
+		_readTableDataNotDesignUpdate(updatePromo.listPromotionItemFile);
+		console.log(updatePromo);
 		
 		$.ajax({
 			url : '${pageContext.request.contextPath}/promotion/update',
-			type : 'PUT',
+			type : 'POST',
 			data : JSON.stringify(updatePromo),
 			contentType : 'application/json',
 			success : function (data){
-				alert('update sukses');
+				window.location = '${pageContext.request.contextPath}/promotion';
 			},
 			error : function (){
 				alert('error');
@@ -933,6 +936,7 @@
 	function _readTableDataDesignUpdate(listPromotionItem){
 		$('#listDesignItemUpdate > tbody > tr').each(function(index, value){
 			var updateListPromo = {
+					id : $(value).attr('value-dsi-id'),
 					product : {
 						id : $(value).find('td').eq(0).find('input').attr('value-id'),
 						name :$(value).find('td').eq(0).find('input').val(),
@@ -957,7 +961,73 @@
 		})
 	
 	}
+	
+	function _readTableDataNotDesignUpdate(listPromotionItemFile) {
+		$('#tabelItemUpdate > tbody > tr').each(function(index, value){
+			var updateFile = {
+				id : $(value).attr('value-pif-id'),
+				note : $(value).find('td').eq(6).find('input').val(),
+				qty : $(value).find('td').find('input').eq(1).val(),
+				requestDueDate : $(value).find('td').eq(3).find('input').val(),
+				todo : $(value).find('td').eq(2).find('select').val()
+			}
+			
+			listPromotionItemFile.push(updateFile);
+		})
+	}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// Update from flagDesign == 0 //////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	$('#updateNotDesign').on('click', function(){
+		var updatePromoNot = {
+			id : $('#idEditNot').val(),
+			code : $('#transCodeNotUpdate').val(),
+			titleHeader : $('#titleHeaderNotUpdate').val(),
+			requestBy : $('#requestByNotUpdate').val(),
+			requestDate : $('#requestDateNotUpdate').val(),
+			note : $('#noteTitleHeaderNotUpdate').val(),
+			status : 1,
+			flagDesign : $('#flagDesignEditNot').val(),
+			listPromotionItemFile : []
+		}
 		
+		_readTableDataNotDesignUpdate(updatePromoNot.listPromotionItemFile);
+		console.log(updatePromoNot);
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/promotion/update',
+			type : 'POST',
+			data : JSON.stringify(updatePromoNot),
+			contentType : 'application/json',
+			success : function (data){
+				window.location = '${pageContext.request.contextPath}/promotion';
+			},
+			error : function (){
+				alert('error');
+			}
+		})
+		
+	})
+
+	
+	function _readTableDataNotDesignUpdate(listPromotionItemFile) {
+		$('#tabelItemNotUpdate > tbody > tr').each(function(index, value){
+			var updateFileNot = {
+				id : $(value).attr('value-pif-id'),
+				note : $(value).find('td').eq(6).find('input').val(),
+				qty : $(value).find('td').find('input').eq(1).val(),
+				requestDueDate : $(value).find('td').eq(3).find('input').val(),
+				todo : $(value).find('td').eq(2).find('select').val()
+			}
+			
+			listPromotionItemFile.push(updateFileNot);
+		})
+	}
+	
+	
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////// Upload File //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -58,7 +58,13 @@ public class PromotionItemFileDaoImpl implements PromotionItemFileDao {
 		query.setParameter(4, pif1.getId());
 		
 		query.executeUpdate();
-	}
+		
+	/*	System.out.println("qty : " + pif1.getQty());
+		System.out.println("requestDueDate : " + pif1.getRequestDueDate());
+		System.out.println("todo : " + pif1.getTodo());
+		System.out.println("Note : " + pif1.getNote());
+		System.out.println("Id : " +pif1.getId());
+	*/}
 	
 	
 }

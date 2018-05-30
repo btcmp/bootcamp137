@@ -56,6 +56,13 @@ public class PromotionItemDaoImpl implements PromotionItemDao{
 		query.setParameter(4, pi1.getId());
 		
 		query.executeUpdate();
+		
+		/*System.out.println("get qty"+ pi1.getQty());
+		System.out.println("get todo"+ pi1.getTodo());
+		System.out.println("get request DUe Date"+ pi1.getRequestDueDate());
+		System.out.println("get Note"+ pi1.getNote());
+		System.out.println("get id"+ pi1.getId());
+		*/
 	}
 
 }
