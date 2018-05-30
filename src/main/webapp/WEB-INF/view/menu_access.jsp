@@ -45,7 +45,15 @@ table {
 					}
 				}
 			/* console.log(menuAccess); //deskripsi data yang dikirimkan server */
-		
+			var arrayCheckboxValue = []; // buat array
+			$('input[name=menuAdd]').each(function(){ // panggil variabel checkbox
+				if($(this).prop('checked')){ // check yg udah dichecklist aja
+					arrayCheckboxValue.push($(this).val()); // binding datanya ke arrayCheckboxValue
+				}
+			});
+			
+			console.log(arrayCheckboxValue);
+			
 			$.ajax({
 				url: '${pageContext.request.contextPath}/menu_access/save',
 				type: 'POST',
@@ -53,7 +61,7 @@ table {
 				data: JSON.stringify(menuAccess),
 				success:function(data){
 					console.log(data);
-					//window.location = '${pageContext.request.contextPath}/menu_access'
+					window.location = '${pageContext.request.contextPath}/menu_access'
 				},
 				error:function(){
 					alert('error');

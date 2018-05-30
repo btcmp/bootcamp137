@@ -107,6 +107,11 @@ table {
 				url: '${pageContext.request.contextPath}/menu/getmenu/' + editCode,
 				type: 'GET',
 				success:function(data){
+					$('#id').val(data.id);
+					$('#roleEdit').val(data.listRole[0].name);
+					$('#employeeEdit').val(data.mEmployeeId.firstName);
+					$('#usernameEdit').val(data.username);
+					$('#passwordEdit').val(data.password);
 					console.log(data);	
 				},
 				error:function(){
@@ -215,8 +220,8 @@ table {
 							<td class="counterCell"></td>
 							<td>${user.mEmployeeId.firstName} ${user.mEmployeeId.lastName}</td>
 							<td>
-							<c:forEach items="${user.listRole}" var="role">
-								<a>${role.name}</a> 
+							<c:forEach items="${user.listRole}" var="roles">
+								<a>${roles.name}</a>
 							</c:forEach>
 							</td>
 							<td>${user.mEmployeeId.mCompanyId.name}</td>
@@ -334,7 +339,7 @@ table {
 						  	<div class="col">
 						      <label for="name">* Role Name</label>
 						    </div>
-						    <div class="col" id="role-edit">
+						    <div class="col" id="roleEdit">
 						        <select class="form-control" style="font-size: 12px;">
 						       		<c:forEach items="${listRole}" var="role">
 						       			<option value="${role.id}">${role.name}</option>
@@ -347,7 +352,7 @@ table {
 						  	<div class="col">
 						      <label for="name">* Employee Name</label>
 						    </div>
-						    <div class="col" id="employee-edit">
+						    <div class="col" id="employeeEdit">
 						       <select class="form-control" style="font-size: 12px;">
 						       		<c:forEach items="${listEmployee}" var="employee">
 						       			<option value="${employee.id}">${employee.firstName} ${employee.lastName}</option>
@@ -363,7 +368,7 @@ table {
 						      <label for="name">* Username</label>
 						    </div>
 						    <div class="col">
-						       <input type="text" class="form-control" id="username-edit" aria-describedby="emailHelp">
+						       <input type="text" class="form-control" id="usernameEdit" aria-describedby="emailHelp">
 						    </div>
 						  </div>
 						  
@@ -372,18 +377,18 @@ table {
 						      <label for="name">* Password</label>
 						    </div>
 						    <div class="col">
-						       <input type="password" class="form-control" id="password-edit" aria-describedby="emailHelp">
+						       <input type="password" class="form-control" id="passwordEdit" aria-describedby="emailHelp">
 						    </div>
 						  </div>
 						  
-						  <div class="row">  
+						  <!-- <div class="row">  
 						  	<div class="col">
 						      <label for="name">* Re-Type Password</label>
 						    </div>
 						    <div class="col">
 						       <input type="password" class="form-control" id="repassword-edit" aria-describedby="emailHelp">
 						    </div>
-						  </div>
+						  </div> -->
 						  
 						 </div>
 					</div>

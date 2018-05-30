@@ -38,8 +38,6 @@ public class User {
 	//@ColumnTransformer(read = "decode(password, 'password')", write = "encode(?, 'password')")
     @Column(name = "password", length=50, nullable=false)
 	private String password;
-    
-    private String repassword;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
@@ -171,15 +169,4 @@ public class User {
 	public void setMenus(List<String> menus) {
 		this.menus = menus;
 	}
-
-	public String getRepassword() {
-		return repassword;
-	}
-
-	public void setRepassword(String repassword) {
-		this.repassword = repassword;
-	}
-	
-	
-	
 }
