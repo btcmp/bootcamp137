@@ -46,6 +46,16 @@ public class PromotionItemDaoImpl implements PromotionItemDao{
 	public void update(PromotionItem pi1) {
 		// TODO Auto-generated method stub
 		
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PromotionItem pri set pri.qty=?, pri.todo=?, pri.requestDueDate=?, pri.note=? where pri.id=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, pi1.getQty());
+		query.setParameter(1, pi1.getTodo());
+		query.setParameter(2, pi1.getRequestDueDate());
+		query.setParameter(3, pi1.getNote());
+		query.setParameter(4, pi1.getId());
+		
+		query.executeUpdate();
 	}
 
 }

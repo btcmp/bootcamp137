@@ -47,6 +47,17 @@ public class PromotionItemFileDaoImpl implements PromotionItemFileDao {
 	public void update(PromotionItemFile pif1) {
 		// TODO Auto-generated method stub
 		
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PromotionItemFile pif set pif.qty=?, pif.requestDueDate=?, pif.todo=?, pif.note=? where pif.id=?";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter(0, pif1.getQty());
+		query.setParameter(1, pif1.getRequestDueDate());
+		query.setParameter(2, pif1.getTodo());
+		query.setParameter(3, pif1.getNote());
+		query.setParameter(4, pif1.getId());
+		
+		query.executeUpdate();
 	}
 	
 	

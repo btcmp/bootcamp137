@@ -65,6 +65,15 @@ public class PromotionDaoImpl implements PromotionDao {
 	public void update(Promotion pr) {
 		// TODO Auto-generated method stub
 		
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update Promotion pr set pr.titleHeader=?, pr.note=? where pr.id=?";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter(0, pr.getTitleHeader());
+		query.setParameter(1, pr.getNote());
+		query.setParameter(2, pr.getId());
+		
+		query.executeUpdate();
 	}
 
 }
