@@ -56,12 +56,13 @@ public class TransactionSouvenirStockDaoImpl implements TransactionSouvenirStock
 	public void update(TransactionSouvenir ts) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update TransactionSouvenir ts set ts.receivedBy=?, ts.receivedDate=?, ts.note=? where ts.id=?";
+		String hql = "update TransactionSouvenir ts set ts.receivedBy=?, ts.receivedDate=?, ts.updatedDate=?, ts.note=? where ts.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, ts.getReceivedBy());
 		query.setParameter(1, ts.getReceivedDate());
-		query.setParameter(2, ts.getNote());
-		query.setParameter(3, ts.getId());
+		query.setParameter(2, ts.getUpdatedDate());
+		query.setParameter(3, ts.getNote());
+		query.setParameter(4, ts.getId());
 		query.executeUpdate();
 		//cek data sudah masuk atau belum
 		//System.out.println("Recived By : "+ ts.getReceivedBy());

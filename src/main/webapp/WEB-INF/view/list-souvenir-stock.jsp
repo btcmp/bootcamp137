@@ -124,6 +124,7 @@
 					var aTable2 = $('#edit-item-table');
 					var tBody2 = aTable2.find('tbody');
 					tBody2.find('tr').remove();
+					var i = 0;
 					$.each(object.transactionSouvenirItem, function(index, value){
 						//console.log(index, value);
 							var souvenir = value.mSouvenirId;
@@ -131,7 +132,7 @@
 							var appendString2 = "<tr>";
 							
 								appendString2 += "<td>";
-									appendString2 += '<select id="souvenir_'+souvenir.id+'" value="'+souvenir.name+'" class="form-control"><option>- List Souvenir -</option><c:forEach items="${listSouvenir}" var="souvenir"><option value="${souvenir.id}">${souvenir.name}</option></c:forEach></select>';
+									appendString2 += '<select id="souvenir_'+souvenir.id+'_'+i+'" class="form-control"><option>- List Souvenir -</option><c:forEach items="${listSouvenir}" var="souvenir"><option value="${souvenir.id}">${souvenir.name}</option></c:forEach></select>';
 								appendString2 += "</td>";
 								
 								appendString2 += "<td width=60px;>";
@@ -153,8 +154,9 @@
 							appendString2 += "</tr>";	
 							
 							tBody2.append(appendString2);
-							$('#souvenir_'+souvenir.id).val(souvenir.id);
+							$('#souvenir_'+souvenir.id+'_'+i).val(souvenir.id);
 							console.log(souvenir.id);
+							i++;
 					});
 					//console.log(object);
 				},

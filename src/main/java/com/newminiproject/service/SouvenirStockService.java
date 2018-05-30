@@ -109,10 +109,10 @@ public class SouvenirStockService {
 		ts.setCode(transactionSouvenir.getCode());
 		ts.setReceivedBy(emp);
 		ts.setType("Additional");
-		//ts.setUpdatedDate(new Date());
+		ts.setUpdatedDate(new Date());
 		ts.setReceivedDate(transactionSouvenir.getReceivedDate());
 		ts.setNote(transactionSouvenir.getNote());
-		//System.out.println("String yang di update :" + ts.getNote());
+		System.out.println("Update Date :" + ts.getUpdatedDate());
 		
 		transactionSouvenirStockDao.update(ts);
 		//2. save table transaction souvenir item
