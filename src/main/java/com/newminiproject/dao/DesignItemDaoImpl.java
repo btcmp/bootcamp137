@@ -41,13 +41,13 @@ public class DesignItemDaoImpl implements DesignItemDao {
 	public void update(DesignItem di2) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update DesignItem di set di.mProductId=?, di.titleItem=?, di.note=? where di.id=?";
+		String hql = "update DesignItem di set di.mProductId=?, di.titleItem=?, di.requestDueDate=?, di.note=? where di.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, di2.getmProductId());
 		query.setParameter(1, di2.getTitleItem());
-		//query.setParameter(2, di2.getRequestDueDate());
-		query.setParameter(2, di2.getNote());
-		query.setParameter(3, di2.getId());
+		query.setParameter(2, di2.getRequestDueDate());
+		query.setParameter(3, di2.getNote());
+		query.setParameter(4, di2.getId());
 		System.out.println("list Product = "+di2.getmProductId());
 		System.out.println("title header = "+di2.getTitleItem());
 		//System.out.println("request due date = "+di2.getRequestDueDate());

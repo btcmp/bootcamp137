@@ -56,7 +56,7 @@ public class DesignService {
 			product.setId(di.getmProductId().getId());
 			di2.setmProductId(product);
 			di2.setTitleItem(di.getTitleItem());
-			di2.setRequestDueDate(new Date());
+			di2.setRequestDueDate(di.getRequestDueDate());
 			di2.setCreatedDate(new Date());
 			di2.setNote(di.getNote());
 			di2.settDesignId(dsn);
@@ -105,7 +105,7 @@ public class DesignService {
 			di2.setmProductId(product);
 			di2.setId(di.getId());
 			di2.setTitleItem(di.getTitleItem());
-			//di2.setRequestDueDate(di.getRequestDueDate());
+			di2.setRequestDueDate(di.getRequestDueDate());
 			di.setUpdatedDate(new Date());
 			di2.setNote(di.getNote());
 			di2.settDesignId(dsn);

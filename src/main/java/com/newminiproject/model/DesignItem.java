@@ -78,7 +78,7 @@ public class DesignItem {
 	@Column(name="updated_date")
 	private Date updatedDate;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="designItem")
 	private List<PromotionItem> listPromotionItem;
 

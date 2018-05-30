@@ -43,9 +43,6 @@
 	    });
 	*/
 	$(document).ready(function(){
-		var statusAdmin = $(this).attr('data-role-admin');
-		var statusRequestor = $(this).attr('data-role-requestor');
-		var statusStaff = $(this).attr('data-role-staff');
 		
 		/* Modal Add */	
 		$('#btn-add-modal').on('click', function(){
@@ -174,66 +171,189 @@
 		/* Modal edit */
 		$(document).on('click', '.btn-edit-modal', function(){
 			var id = $(this).attr('design-id');
+			var statusAdmin = $(this).attr('data-role-admin');
+			var statusRequester = $(this).attr('data-role-requester');
+			var statusStaff = $(this).attr('data-role-staff');
 			console.log(id);
-			$.ajax({
-				url : '${pageContext.request.contextPath }design/getById?id='+id,
-				type : 'GET',
-				dataType : 'json',
-				success : function(obj){
-					//menampilkan data design berdasarkan id design 
-					$('#idDesignEdit').val(obj.id);
-					$('#design-code-edit').val(obj.code);
-					$('#event-code-edit').val(obj.tEventId.id);
-					$('#design-title-edit').val(obj.titleHeader);
-					$('#design-status-edit').val(obj.status);
-					$('#design-requestDate-edit').val(obj.requestDate);
-					$('#design-note-edit').val(obj.note);
-					console.log(obj);
-					var oTable = $('#dt-designItemEdit');
-					var tBody = oTable.find('tbody');
-					oTable.find('tr').remove();
-					$.each(obj.listDesignItem, function(index, value) {
-						var product = value.mProductId;
-						var appendString = "<tr>";
-							appendString += "<td>";
-								appendString += "<select class='form-control product-name' id='prod_"+product.id+"' style='font-size: 12px;' value='"+product.name+"'><c:forEach items='${listProduct }' var='product' > <option value-desc='${product.description }' value='${product.id }'>${product.name }</option> </c:forEach></select>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' value='"+product.description+"' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"'>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC'>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input placeholder='Due Date' class='form-control' type='date' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"'>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='text' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input placeholder='End Date' style='font-size: 12px' class='form-control' type='text' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Note' value='"+value.note+"'>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<a href='#'><i class='fas fa-pencil-alt'></i></a> <a href='#' class='btn-delete-item'><i class='fas fa-trash'></i></a>";
-							appendString += "</td>"; 
-							appendString += "<td>";
-								appendString += "<input type='hidden' value='"+value.id+"'>";
-							appendString += "</td>"; 
-						appendString += "</tr>"
-						tBody.append(appendString);
-						$('#prod_'+product.id).val(product.id);		//menampilkan data product berdasarkan id product yang telah disimpan 
-					}); 
-				}, error : function(){
-					alert('failed');
-				}
-			});
-			$('#modalEditRequest').modal();
+			
+			if(statusRequester=="true"){
+				if($(this).attr('data-status')==1){
+					$.ajax({
+						url : '${pageContext.request.contextPath }design/getById?id='+id,
+						type : 'GET',
+						dataType : 'json',
+						success : function(obj){
+							//menampilkan data design berdasarkan id design 
+							$('#idDesignEdit').val(obj.id);
+							$('#design-code-edit').val(obj.code);
+							$('#event-code-edit').val(obj.tEventId.id);
+							$('#design-title-edit').val(obj.titleHeader);
+							$('#design-status-edit').val(obj.status);
+							$('#design-requestDate-edit').val(obj.requestDate);
+							$('#design-note-edit').val(obj.note);
+							console.log(obj);
+							var oTable = $('#dt-designItemEdit');
+							var tBody = oTable.find('tbody');
+							oTable.find('tr').remove();
+							$.each(obj.listDesignItem, function(index, value) {
+								var product = value.mProductId;
+								var appendString = "<tr>";
+									appendString += "<td>";
+										appendString += "<select class='form-control product-name' id='prod_"+product.id+"' style='font-size: 12px;' value='"+product.name+"'><c:forEach items='${listProduct }' var='product' > <option value-desc='${product.description }' value='${product.id }'>${product.name }</option> </c:forEach></select>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' value='"+product.description+"' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"'>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC'>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input placeholder='Due Date' class='form-control' type='date' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"'>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='text' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input placeholder='End Date' style='font-size: 12px' class='form-control' type='text' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Note' value='"+value.note+"'>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<a href='#'><i class='fas fa-pencil-alt'></i></a> <a href='#' class='btn-delete-item'><i class='fas fa-trash'></i></a>";
+									appendString += "</td>"; 
+									appendString += "<td>";
+										appendString += "<input type='hidden' value='"+value.id+"'>";
+									appendString += "</td>"; 
+								appendString += "</tr>"
+								tBody.append(appendString);
+								$('#prod_'+product.id).val(product.id);		//menampilkan data product berdasarkan id product yang telah disimpan 
+							}); 
+						}, error : function(){
+							alert('failed');
+						}
+					});
+					$('#modalEditRequest').modal();
+				} 
+			} else if(statusAdmin=="true"){
+				if($(this).attr('data-status')==1){
+					var id = $(this).attr('design-id');
+					//console.log(id);
+					$.ajax({
+						url : '${pageContext.request.contextPath }design/getById?id='+id,
+						type : 'GET',
+						dataType : 'json',
+						success : function(data){
+							//console.log(data);
+							$('#idDesignApproval').val(data.id);
+							$('#design-code-approval').val(data.code);
+							$('#event-code-approval').val(data.tEventId.code);
+							$('#design-title-approval').val(data.titleHeader);
+							$('#design-status-approval').val(data.status);
+							$('#design-requestDate-approval').val(data.requestDate);
+							$('#design-note-approval').val(data.note);
+							
+							var oTable = $('#dt-designItemApproval');
+							var tBody = oTable.find('tbody');
+							tBody.find('tr').remove();
+							
+							$.each(data.listDesignItem, function(index, value){ 		
+								var appendString = "<tr>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.mProductId.name+"' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='product description' value='"+value.mProductId.description+"' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input placeholder='Select Date' class='form-control' type='text' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='text' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input placeholder='End Date' style='font-size: 12px' class='form-control' type='text' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Note' value='"+value.note+"' disabled>";
+									appendString += "</td>";
+								appendString += "</tr>"
+								tBody.append(appendString);
+							});
+						}, error : function(){
+							alert('failed');
+						}
+					});
+					$('#modalApprovalRequest').modal();
+					
+				} 
+			} else if(statusStaff=="true"){
+				if($(this).attr('data-status')==1){
+					var id = $(this).attr('design-id');
+					//console.log(id);
+					$.ajax({
+						url : '${pageContext.request.contextPath }design/getById?id='+id,
+						type : 'GET',
+						dataType : 'json',
+						success : function(data){
+							//console.log(data);
+							$('#idDesignClose').val(data.id);
+							$('#design-code-close').val(data.code);
+							$('#event-code-close').val(data.tEventId.code);
+							$('#design-title-close').val(data.titleHeader);
+							$('#design-status-close').val(data.status);
+							$('#design-requestDate-close').val(data.requestDate);
+							$('#design-note-close').val(data.note);
+							
+							var oTable = $('#dt-designItemClose');
+							var tBody = oTable.find('tbody');
+							tBody.find('tr').remove();
+							
+							$.each(data.listDesignItem, function(index, value){ 		
+								var appendString = "<tr>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.mProductId.name+"' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='product description' value='"+value.mProductId.description+"' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input placeholder='Due Date' class='form-control' type='text' style='font-size: 12px;' value='"+value.requestDueDate+"' disabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='date' enabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input placeholder='End Date' style='font-size: 12px' class='form-control' type='date' enabled>";
+									appendString += "</td>";
+									appendString += "<td>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Note' value='"+value.note+"' disabled>";
+									appendString += "</td>";
+								appendString += "</tr>"
+								tBody.append(appendString);
+							});
+						}, error : function(){
+							alert('failed');
+						}
+					});
+					$('#modalCloseRequest').modal();
+				} 
+			}
 		});
 		
 		/* Add design item in Edit Modal */
@@ -298,7 +418,7 @@
 					requestPic : {
 						id : parseInt($(value).find('td').eq(3).find('input').val())
 					},
-					//requestDueDate : $(value).find('td').eq(4).find('input').val(),
+					requestDueDate : $(value).find('td').eq(4).find('input').val(),
 					note : $(value).find('td').eq(7).find('input').val(),
 					id : $(value).find('td').eq(9).find('input').val()
 				}); 
@@ -331,7 +451,94 @@
 				}
 			});
 		});
+			
+		/* submit Approved */
+		$('#btn-approved').on('click', function(){
+			var design = {
+				id : $('#idDesignApproval').val(),
+				status : 2,
+				approvedDate : $('#design-approvedDate-edit').val(),
+				assignTo : {
+					id : $('#design-assign-to option:selected').val()
+				}
+			};
+			console.log(design);
+			/* $.ajax({
+				url : '${pageContext.request.contextPath}/design/approved',
+				type : 'POST',
+				data : JSON.stringify(design),
+				contentType : 'application/json',
+				success : function(data){
+					console.log(data),
+					alert('approved success'),
+					window.location = '${pageContext.request.contextPath}/design' 
+				}, error : function(){
+					alert('failed')
+				}
+			}); */ 
+		});
+		
+		/* Rejected Confirmation */
+		$(document).on('click','#btn-rejected', function(){
+			$('#modalRejected').modal();
+		});
+		
+		/* submit Rejected */
+		$(document).on('click', '#btn-rejected-agree', function(){
+			var design = {
+				id : $('#idDesignApproval').val(),
+				rejectReason : $('#rejectReason').val(),
+				status : 0,
+			};
+			console.log(design);
+			/* $.ajax({
+				url : '${pageContext.request.contextPath}/design/approval',
+				type : 'POST',
+				data : JSON.stringify(design),
+				contentType : 'application/json',
+				success : function(data){
+					console.log(data),
+					alert('approved success'),
+					window.location = '${pageContext.request.contextPath}/design' 
+				}, error : function(){
+					alert('failed')
+				}
+			}); */
+		});
+		
 				
+		/* submit Close Request */
+		$('#btn-close-request').on('click', function(){
+			var listDesignItemClose = []
+			$('#dt-designItemClose > tbody > tr').each(function(index, value){
+				listDesignItemClose.push({
+					startDate : $(value).find('td').eq(5).find('input').val(),
+					endDate : $(value).find('td').eq(6).find('input').val()
+					//id : $(value).find('td').eq(9).find('input').val()
+				}); 
+			}); 
+			var design = {
+				id : $('#idDesignClose').val(),
+				status : 3,
+				closedDate : $('#design-closedDate-edit').val(),
+				listDesignItem : listDesignItemClose
+			};
+			console.log(design);
+			/* $.ajax({
+				url : '${pageContext.request.contextPath}/design/close-request',
+				type : 'POST',
+				data : JSON.stringify(design),
+				contentType : 'application/json',
+				success : function(data){
+					console.log(data),
+					alert('approved success'),
+					window.location = '${pageContext.request.contextPath}/design' 
+				}, error : function(){
+					alert('failed')
+				}
+			}); */
+		});
+		
 		/* Modal view */
 		$(document).on('click', '.btn-view-modal', function(){
 			var id = $(this).attr('design-id');
@@ -388,198 +595,7 @@
 			$('#modalViewRequest').modal();
 		});
 		
-		/* Modal Approval */
-		$(document).on('click', '.btn-approval-modal', function(){
-			var id = $(this).attr('design-id');
-			//console.log(id);
-			$.ajax({
-				url : '${pageContext.request.contextPath }design/getById?id='+id,
-				type : 'GET',
-				dataType : 'json',
-				success : function(data){
-					//console.log(data);
-					$('#idDesignApproval').val(data.id);
-					$('#design-code-approval').val(data.code);
-					$('#event-code-approval').val(data.tEventId.code);
-					$('#design-title-approval').val(data.titleHeader);
-					$('#design-status-approval').val(data.status);
-					$('#design-requestDate-approval').val(data.requestDate);
-					$('#design-note-approval').val(data.note);
-					
-					var oTable = $('#dt-designItemApproval');
-					var tBody = oTable.find('tbody');
-					tBody.find('tr').remove();
-					
-					$.each(data.listDesignItem, function(index, value){ 		
-						var appendString = "<tr>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.mProductId.name+"' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='product description' value='"+value.mProductId.description+"' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input placeholder='Select Date' class='form-control' type='text' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='text' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input placeholder='End Date' style='font-size: 12px' class='form-control' type='text' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Note' value='"+value.note+"' disabled>";
-							appendString += "</td>";
-						appendString += "</tr>"
-						tBody.append(appendString);
-					});
-				}, error : function(){
-					alert('failed');
-				}
-			});
-			$('#modalApprovalRequest').modal();
-		});
 		
-		/* submit Approved */
-		$('#btn-approved').on('click', function(){
-			var design = {
-				id : $('#idDesignApproval').val(),
-				status : 2,
-				approvedDate : $('#design-approvedDate-edit').val(),
-				assignTo : {
-					id : $('#design-assign-to option:selected').val()
-				}
-			};
-			console.log(design);
-			/* $.ajax({
-				url : '${pageContext.request.contextPath}/design/approval',
-				type : 'POST',
-				data : JSON.stringify(design),
-				contentType : 'application/json',
-				success : function(data){
-					console.log(data),
-					alert('approved success'),
-					window.location = '${pageContext.request.contextPath}/design' 
-				}, error : function(){
-					alert('failed')
-				}
-			}); */
-		});
-		
-		/* Rejected Confirmation */
-		$(document).on('click','#btn-rejected', function(){
-			$('#modalRejected').modal();
-		});
-		
-		/* submit Rejected */
-		$(document).on('click', '#btn-rejected-agree', function(){
-			var design = {
-				id : $('#idDesignApproval').val(),
-				rejectReason : $('#rejectReason').val(),
-				status : 0,
-			};
-			console.log(design);
-			/* $.ajax({
-				url : '${pageContext.request.contextPath}/design/approval',
-				type : 'POST',
-				data : JSON.stringify(design),
-				contentType : 'application/json',
-				success : function(data){
-					console.log(data),
-					alert('approved success'),
-					window.location = '${pageContext.request.contextPath}/design' 
-				}, error : function(){
-					alert('failed')
-				}
-			}); */
-		});
-		
-		/* Modal Close Request */
-		$(document).on('click', '.btn-close-request-modal', function(){
-			var id = $(this).attr('design-id');
-			//console.log(id);
-			$.ajax({
-				url : '${pageContext.request.contextPath }design/getById?id='+id,
-				type : 'GET',
-				dataType : 'json',
-				success : function(data){
-					//console.log(data);
-					$('#idDesignClose').val(data.id);
-					$('#design-code-close').val(data.code);
-					$('#event-code-close').val(data.tEventId.code);
-					$('#design-title-close').val(data.titleHeader);
-					$('#design-status-close').val(data.status);
-					$('#design-requestDate-close').val(data.requestDate);
-					$('#design-note-close').val(data.note);
-					
-					var oTable = $('#dt-designItemClose');
-					var tBody = oTable.find('tbody');
-					tBody.find('tr').remove();
-					
-					$.each(data.listDesignItem, function(index, value){ 		
-						var appendString = "<tr>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.mProductId.name+"' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='product description' value='"+value.mProductId.description+"' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input placeholder='Select Date' class='form-control' type='text' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"' disabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='text' enabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input placeholder='End Date' style='font-size: 12px' class='form-control' type='text' enabled>";
-							appendString += "</td>";
-							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Note' value='"+value.note+"' disabled>";
-							appendString += "</td>";
-						appendString += "</tr>"
-						tBody.append(appendString);
-					});
-				}, error : function(){
-					alert('failed');
-				}
-			});
-			$('#modalCloseRequest').modal();
-		});
-		
-		/* submit Close Request */
-		$('#btn-close-request').on('click', function(){
-			var design = {
-				id : $('#idDesignClose').val(),
-				status : 3,
-				closedDate : $('#design-closedDate-edit').val()
-			};
-			console.log(design);
-			/* $.ajax({
-				url : '${pageContext.request.contextPath}/design/close-request',
-				type : 'POST',
-				data : JSON.stringify(design),
-				contentType : 'application/json',
-				success : function(data){
-					console.log(data),
-					alert('approved success'),
-					window.location = '${pageContext.request.contextPath}/design' 
-				}, error : function(){
-					alert('failed')
-				}
-			}); */
-		});
 		
 	});
 </script>
@@ -679,6 +695,7 @@
 					<tbody>
 					<br/>
 						<c:forEach items="${listDesign }" var="design">
+
 						<tr>
 							<td>1</td>
 							<td>${design.code }</td>
@@ -698,11 +715,11 @@
 							<td>
 								<a href="#" val class="btn-view-modal" title="View Design Request" design-id="${design.id }" ><i class="fas fa-search"></i></a> 
 								| 
-								<a href="#" class="btn-edit-modal" title="Edit Design Request" design-id="${design.id }" data-role-requestor="<%= request.isUserInRole("ROLE_REQUESTER") %>"><i class="fas fa-pencil-alt"></i></a>
+								<a href="#" class="btn-edit-modal" title="Edit Design Request" design-id="${design.id }" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"data-status="${design.status }"><i class="fas fa-pencil-alt"></i></a>
+								<%-- |
+								<a href="#" id="btn-approve" class="btn-approval-modal" title="Approval Design Request" design-id="${design.id }" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>"><i class="fas fa-check-circle"></i></a>
 								|
-								<a href="#" class="btn-approval-modal" title="Approval Design Request" design-id="${design.id }" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>"><i class="fas fa-check-circle"></i></a>
-								|
-								<a href="#" class="btn-close-request-modal" title="Close Design Request" design-id="${design.id }" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"><i class="fas fa-times-circle"></i></a>
+								<a href="#" id="btn-close" class="btn-close-request-modal" title="Close Design Request" design-id="${design.id }" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"><i class="fas fa-times-circle"></i></a> --%>
 							</td>
 						</tr>	
 						</c:forEach>

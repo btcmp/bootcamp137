@@ -90,6 +90,13 @@ public class DesignController {
 		return design;
 	}
 	
+	/*@RequestMapping(value="/approved", method=RequestMethod.POST)
+	@ResponseBody
+	public Design approved(@RequestBody Design design) {
+		designService.approved(design);
+		return design;
+	}*/
+	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	public String search(Model model, @RequestParam(value="designCode", defaultValue="")String designCode, @RequestParam(value="requestBy", defaultValue="")String requestBy, @RequestParam(value="requestDate", defaultValue="")String requestDate, @RequestParam(value="assignTo", defaultValue="")String assignTo, @RequestParam(value="status", defaultValue="")String status, @RequestParam(value="createdDate", defaultValue="")String createdDate, @RequestParam(value="createdBy", defaultValue="")String createdBy) throws Exception {
 		System.out.println("Design Code : "+designCode);

@@ -94,7 +94,7 @@ public class Design {
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="tDesignId")
 	private List<DesignItem> listDesignItem;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="design")
 	private List<Promotion> listPromotion;
 	
