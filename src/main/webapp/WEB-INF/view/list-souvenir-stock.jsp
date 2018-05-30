@@ -29,11 +29,11 @@
 			},
 			receivedDate : new Date($('#received-date-save-souvenir-stock').val()),
 			note : $('#note-save-souvenir-stock').val(),
-			listtransactionSouvenirItem : []
+			transactionSouvenirItem : []
 		};
 		
-		_readTableData(stock.listtransactionSouvenirItem);
-		//console.log(stock);
+		_readTableData(stock.transactionSouvenirItem);
+		console.log(stock);
 			
 		$.ajax({
 			url : '${pageContext.request.contextPath}/souvenirstock/save',
@@ -49,7 +49,7 @@
 		});
 	});
 		
-		function _readTableData(listtransactionSouvenirItem){
+		function _readTableData(transactionSouvenirItem){
 			$('#add-item-table > tbody > tr').each(function(index, value){
 				var transactionitem ={
 						mSouvenirId : {
@@ -59,7 +59,7 @@
 						note : $(value).find('td').eq(2).find('input').val()
 				};
 				console.log(transactionitem);
-				listtransactionSouvenirItem.push(transactionitem);
+				transactionSouvenirItem.push(transactionitem);
 			});
 		}
 		
@@ -124,7 +124,7 @@
 					var aTable2 = $('#edit-item-table');
 					var tBody2 = aTable2.find('tbody');
 					tBody2.find('tr').remove();
-					$.each(object.listtransactionSouvenirItem, function(index, value){
+					$.each(object.transactionSouvenirItem, function(index, value){
 						//console.log(index, value);
 							var souvenir = value.mSouvenirId;
 							//console.log(souvenir);
@@ -175,10 +175,10 @@
 					},
 					receivedDate : new Date($('#received-date-edit-souvenir-stock').val()),
 					note : $('#note-edit-souvenir-stock').val(),
-					listtransactionSouvenirItem : []
+					transactionSouvenirItem : []
 				};
 			
-			_readTableData1(stock.listtransactionSouvenirItem);
+			_readTableData1(stock.transactionSouvenirItem);
 			
 			//console.log(stock);
 			$.ajax({
@@ -195,7 +195,7 @@
 			});			
 		});
 		
-		function _readTableData1(listtransactionSouvenirItem){
+		function _readTableData1(transactionSouvenirItem){
 			$('#edit-item-table > tbody > tr').each(function(index, value){
 				var transactionitem ={
 						id : $(value).find('td').eq(4).find('input').val(),
@@ -206,7 +206,7 @@
 						note : $(value).find('td').eq(2).find('input').val()
 				};
 				console.log(transactionitem);
-				listtransactionSouvenirItem.push(transactionitem);
+				transactionSouvenirItem.push(transactionitem);
 			});
 		}
 		
@@ -265,7 +265,7 @@
 					var aTable1 = $('#view-item-table');
 					var tBody1 = aTable1.find('tbody');
 					tBody1.find('tr').remove();
-					$.each(object.listtransactionSouvenirItem, function(index, value){
+					$.each(object.transactionSouvenirItem, function(index, value){
 						console.log(index, value);
 							
 							var appendString1 = "<tr>";

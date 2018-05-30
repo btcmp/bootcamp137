@@ -12,6 +12,7 @@ import com.newminiproject.dao.SouvenirDao;
 import com.newminiproject.dao.TransactionSouvenirItemStockDao;
 import com.newminiproject.dao.TransactionSouvenirStockDao;
 import com.newminiproject.model.Employee;
+import com.newminiproject.model.Event;
 import com.newminiproject.model.Souvenir;
 import com.newminiproject.model.TransactionSouvenir;
 import com.newminiproject.model.TransactionSouvenirItem;
@@ -41,13 +42,19 @@ public class SouvenirStockService {
 	public void save(TransactionSouvenir transactionSouvenir) {
 		// TODO Auto-generated method stub
 		Employee emp = new Employee();
+		Event event = new Event();
+		event.setId(52);
 		emp.setId(transactionSouvenir.getReceivedBy().getId()); 
 		TransactionSouvenir ts = new TransactionSouvenir();
 		ts.setCode(transactionSouvenir.getCode());
 		ts.setReceivedBy(emp);
-		ts.setType("Show");
+		ts.setType("Additional");
 		ts.setReceivedDate(transactionSouvenir.getReceivedDate());
 		ts.setNote(transactionSouvenir.getNote());
+		ts.setCreatedDate(new Date());
+		ts.settEventId(event);
+		
+		//System.out.println("Event :" + event.getId());
 		
 		transactionSouvenirStockDao.save(ts);
 		//2. save table transaction souvenir item
@@ -59,7 +66,7 @@ public class SouvenirStockService {
 			tsi2.setmSouvenirId(souvenir);
 			tsi2.setNote(tsi.getNote());
 			tsi2.settSouvenirId(ts);
-			
+			System.out.println("hello");
 			transactionSouvenirItemDao.save(tsi2);
 		}
 	}
@@ -101,14 +108,16 @@ public class SouvenirStockService {
 		ts.setId(transactionSouvenir.getId());
 		ts.setCode(transactionSouvenir.getCode());
 		ts.setReceivedBy(emp);
-		ts.setType("Show");
+		ts.setType("Additional");
+		//ts.setUpdatedDate(new Date());
 		ts.setReceivedDate(transactionSouvenir.getReceivedDate());
 		ts.setNote(transactionSouvenir.getNote());
-		System.out.println("String yang di update :" + ts.getNote());
+		//System.out.println("String yang di update :" + ts.getNote());
 		
 		transactionSouvenirStockDao.update(ts);
 		//2. save table transaction souvenir item
 			for(TransactionSouvenirItem tsi: transactionSouvenir.getTransactionSouvenirItem()) {
+				//System.out.println("String yang di update :" + ts.getNote());
 				TransactionSouvenirItem tsi2 = new TransactionSouvenirItem();
 				Souvenir souvenir = new Souvenir();
 				souvenir.setId(tsi.getmSouvenirId().getId());
