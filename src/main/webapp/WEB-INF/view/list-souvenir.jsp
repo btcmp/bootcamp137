@@ -144,6 +144,16 @@ table tr td:first-child::before
 				});
 			});
 		});
+		
+		//search listener
+		$('.search').on('click', function(){
+			var form = $('#form-master-souvenir');
+			var data = form.serialize();
+			
+			console.log(data);
+			
+			window.location='${pageContext.request.contextPath }/souvenir/search?'+data;
+		});
 	});
 </script>
 </head>
@@ -181,16 +191,17 @@ table tr td:first-child::before
 
     	<a href="#" class="btn btn-primary" id="btn-add" style="width:70px;float:right;">Add</a><br/><br/>
 
+		<form id="form-master-souvenir">
     	<div class="form-row">
     		<div class="col">
-    			<input type="text" class="form-control" id="souvenir-code" placeholder="Souvenir Code">
+    			<input type="text" class="form-control" name="souvenircode" id="souvenir-code" placeholder="Souvenir Code">
     		</div>
     		<div class="col">
-    			<input type="text" class="form-control" id="souvenir-name" placeholder="Souvenir Name">
+    			<input type="text" class="form-control" name="souvenirname" id="souvenir-name" placeholder="Souvenir Name">
     		</div>
     		<div id="data-unit">
     			<div class="col-auto">
-	  				<select class="form-control">
+	  				<select class="form-control" name="unitname">
 	      				<c:forEach items="${listUnit }" var="unit">
 								<option value="${unit.id }">${unit.name }</option>
 							</c:forEach>
@@ -198,15 +209,16 @@ table tr td:first-child::before
 	    		</div>
   			</div>
     		<div class="col-auto">
-    			<input placeholder="Created" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="created-date">	
+    			<input placeholder="Created" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="createddate" id="created-date">	
     		</div>
     		<div class="col-auto">
-    			<input type="text" class="form-control" id="created-by" placeholder="Created By">
+    			<input type="text" class="form-control" name="createdby" id="created-by" placeholder="Created By">
     		</div>
     		<div class="col-auto">
-    			<a href="#" class="btn btn-warning" style="width:70px;color:white;">Search</a>
+    			<a href="#" class="btn btn-warning search" style="width:70px;color:white;">Search</a>
     		</div>	
     	</div>
+    	</form>
     	
     	<table class="table">
 			<thead>

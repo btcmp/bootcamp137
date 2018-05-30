@@ -1,5 +1,8 @@
 package com.newminiproject.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +75,35 @@ public class SouvenirController {
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@RequestBody Souvenir souvenir){
 		souvenirService.update(souvenir);
+	}
+	
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public String search(Model model, @RequestParam(value="souvenircode", defaultValue="")String souvenirCode, @RequestParam(value="souvenirname", defaultValue="")String souvenirName, @RequestParam(value="createddate", defaultValue="")String createdDate) throws ParseException{
+		
+		Date createdDateDual = null;
+		
+		if (!createdDate.equals("")) {
+			createdDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(createdDate);
+		}
+		
+		Souvenir souvenir = new Souvenir();
+		souvenir.setCode(souvenirCode);
+		//transactionSouvenir.setRequestBy(requestBy);
+		souvenir.setName(souvenirName);
+		souvenir.setCreatedDate(createdDateDual);
+		//transactionSouvenir.setStatus(status);
+		//transactionSouvenir.setCreatedBy(createdBy);
+		
+		List<Souvenir> listSouvenir = souvenirService.getAllSouvenir();
+		List<Souvenir> listSouvenirFilter = souvenirService.search(souvenir);
+	
+		model.addAttribute("listSouvenir", listSouvenirFilter);
+		model.addAttribute("listSouvenirFilter", listSouvenir);
+		
+		String result = codeGenerator.sequence();
+		model.addAttribute("result", result);
+		
+		return "list-souvenir";
 	}
 	
 }

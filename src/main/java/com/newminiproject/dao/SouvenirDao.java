@@ -19,4 +19,6 @@ public interface SouvenirDao {
 
 	void update(Souvenir souvenir);
 
+	List<Souvenir> search(Souvenir souvenir);
+
 }

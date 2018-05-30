@@ -82,4 +82,19 @@ public class SouvenirDaoImpl implements SouvenirDao {
 		query.executeUpdate();
 	}
 
+	@Override
+	public List<Souvenir> search(Souvenir souvenir) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Souvenir sv where sv.code=:souvenircode or sv.name=:souvenirname";
+		Query query = session.createQuery(hql);
+		query.setParameter("souvenircode", souvenir.getCode());
+		query.setParameter("souvenirname", souvenir.getName());
+		List<Souvenir> listSouvenir = query.list();
+		if (listSouvenir.isEmpty()) {
+			return new ArrayList<>();
+		}
+		return listSouvenir;
+	}
+
 }

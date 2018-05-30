@@ -50,4 +50,9 @@ public class SouvenirService {
 		souvenirDao.update(souvenir);
 	}
 
+	public List<Souvenir> search(Souvenir souvenir) {
+		// TODO Auto-generated method stub
+		return souvenirDao.search(souvenir);
+	}
+
 }
