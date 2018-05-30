@@ -59,11 +59,11 @@ public class Event {
 	@JoinColumn(name="request_by")
 	private Employee requestBy;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="tEventId")
 	private List<Design> listDesign;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="event")
 	private List<Promotion> listPromotion;
 	
