@@ -100,16 +100,17 @@ table {
 			});
 		});
 		
+		//icon edit
 		$('.edit').on('click', function(){
 			var editCode = $(this).attr('edit-id');
 			console.log(editCode);
 			$.ajax({
-				url: '${pageContext.request.contextPath}/menu/getmenu/' + editCode,
+				url: '${pageContext.request.contextPath}/user/getuser?id=' + editCode,
 				type: 'GET',
 				success:function(data){
 					$('#id').val(data.id);
-					$('#roleEdit').val(data.listRole[0].name);
-					$('#employeeEdit').val(data.mEmployeeId.firstName);
+					$('#roleEdit').val(data.listRole[0].id);
+					$('#employeeEdit').val(data.mEmployeeId.id);
 					$('#usernameEdit').val(data.username);
 					$('#passwordEdit').val(data.password);
 					console.log(data);	
@@ -120,6 +121,35 @@ table {
 				dataType: 'JSON'
 			});
 			$('#modalEdit').modal();
+		});
+		
+		//button update function
+		$('#btn-save-update').on('click', function(){
+			var user = {
+				id: $('#id').val(),
+				mEmployeeId:{
+					id : $('#employeeEdit option:selected').val()
+				},
+				listRole:[],
+				username: $('#username-add').val(),
+				password: $('#password-add').val()
+			}
+			user.listRole.push({
+				id: $('#roleEdit option:selected').val()
+			});
+			$.ajax({
+				url:'${pageContext.request.contextPath}/user/update',
+				type:'POST',
+				data:JSON.stringify(user),
+				contentType:'application/json',
+				success:function(data){
+					alert('update ok');
+					console.log(data);
+					window.location = '${pageContext.request.contextPath}/user'
+				},error:function(){
+					alert('gagal update');
+				}
+			});
 		});
 		
 		//view data
