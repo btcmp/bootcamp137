@@ -118,6 +118,8 @@ table tr td:first-child::before
 			$('#modal-edit').modal();
 		});
 		
+		
+		
 		$(document).on('click', '#update-btn', function(){
 			var souvenir = {
 					id : $('#id-edit').val(),
@@ -128,19 +130,47 @@ table tr td:first-child::before
 					name : $('#name-edit').val(),
 					description : $('#description-edit').val()
 			}
+			
+			//validasi field di  modal edit
+			var validateCodeEdit = $('#code-edit').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			var validateUnitEdit = $('#unit-edit').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			var validateNameEdit = $('#name-edit').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			
+			//validate function
+			function getValid(validate){
+				validate.validate();
+				return validate.isValid();
+			}
+			
+			var valid = getValid(validateCodeEdit);
+				valid = getValid(validateUnitEdit);
+				valid = getValid(validateNameEdit);
 		
 			//do ajax
-			$.ajax({
-				url : '${pageContext.request.contextPath}/souvenir/update',
-				type : 'PUT',
-				data : JSON.stringify(souvenir),
-				contentType : 'application/json',
-				success : function(data){
-					window.location = '${pageContext.request.contextPath}/souvenir'
-				}, error : function(){
-					alert('failed');
-				}
-			});
+			if(valid){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/souvenir/update',
+					type : 'PUT',
+					data : JSON.stringify(souvenir),
+					contentType : 'application/json',
+					success : function(data){
+						window.location = '${pageContext.request.contextPath}/souvenir'
+					}, error : function(){
+						alert('failed');
+					}
+				});
+			} else {
+				alert('Please Complete the Blank Field(s)');
+			}
 		});
 		
 		$(document).on('click', '#btn-view', function(){
