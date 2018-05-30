@@ -18,10 +18,10 @@
   			<intercept-url pattern="/souvenirrequest" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_REQUESTER')" />
   			<intercept-url pattern="/souvenirrequest/gettransactionsouvenir" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_REQUESTER')" />
   			<intercept-url pattern="/souvenirrequest/search" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_REQUESTER')" />
-  			<intercept-url pattern="/souvenirrequest/save" access="hasRole('ROLE_REQUESTER')" />
+  			<intercept-url pattern="/souvenirrequest/save" access="hasRole('ROLE_REQUESTER')"  />
   			<intercept-url pattern="/souvenirrequest/update" access="hasRole('ROLE_REQUESTER')" />
   			<intercept-url pattern="/souvenirrequest/approved" access="hasRole('ROLE_ADMIN')" />
-  			<intercept-url pattern="/souvenirrequest/rejected" access="hasRole('ROLE_ADMIN')" />
+  			<intercept-url pattern="/souvenirrequest/statusupdate" access="hasRole('ROLE_REQUESTER')" />
   			<intercept-url pattern="/souvenirrequest/closerequest" access="hasRole('ROLE_REQUESTER')" />
   			<intercept-url pattern="/event**" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_REQUESTER')" />
 			<intercept-url pattern="/user/**" access="hasRole('ROLE_ADMIN')"/>

@@ -474,7 +474,7 @@
 				var status = document.getElementById('statusadmin');
 				status.value = "Submitted";
 				$('#modal-admin-transaksi').modal();
-			} else if($(this).attr('data-status') == 2 && statusRequester=="true"){
+			} else if($(this).attr('data-status') == 2 && statusAdmin=="true"){
 				var status = document.getElementById('statusreceived');
 				status.value = "In Progress";
 				$('#modal-received-transaksi').modal();
@@ -643,8 +643,8 @@
 		};
 		console.log(received);
 		$.ajax({
-			url : '${pageContext.request.contextPath}/souvenirrequest/approved',
-			type : 'PUT',
+			url : '${pageContext.request.contextPath}/souvenirrequest/statusupdate',
+			type : 'POST',
 			data : JSON.stringify(received),
 			contentType : 'application/json',
 			success: function(data){
@@ -832,7 +832,7 @@
 		console.log(settlement);
 
 		$.ajax({
-			url : '${pageContext.request.contextPath}/souvenirrequest/approved',
+			url : '${pageContext.request.contextPath}/souvenirrequest/statusupdate',
 			type : 'PUT',
 			data : JSON.stringify(settlement),
 			contentType : 'application/json',
