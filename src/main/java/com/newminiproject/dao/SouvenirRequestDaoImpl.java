@@ -125,4 +125,28 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 		//session.update(ts);
 	}
 
+	@Override
+	public void savesettlement(TransactionSouvenir ts) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update TransactionSouvenir ts set ts.status=? where ts.id=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, ts.getStatus());
+		query.setParameter(1, ts.getId());
+		
+		query.executeUpdate();
+	}
+
+	@Override
+	public void approvesettlement(TransactionSouvenir ts) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update TransactionSouvenir ts set ts.status=? where ts.id=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, ts.getStatus());
+		query.setParameter(1, ts.getId());
+		
+		query.executeUpdate();
+	}
+
 }

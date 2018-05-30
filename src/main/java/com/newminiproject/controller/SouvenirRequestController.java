@@ -138,4 +138,18 @@ public class SouvenirRequestController {
 		return "list-request";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/settlement", method = RequestMethod.PUT)
+	public TransactionSouvenir savesettlement(@RequestBody TransactionSouvenir transactionSouvenir){
+		souvenirRequestService.savesettlement(transactionSouvenir);
+		return transactionSouvenir;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/appsettlement", method = RequestMethod.PUT)
+	public TransactionSouvenir approvesettlement(@RequestBody TransactionSouvenir transactionSouvenir){
+		souvenirRequestService.approvesettlement(transactionSouvenir);
+		return transactionSouvenir;
+	}
+	
 }

@@ -232,14 +232,28 @@
 				type : 'GET',
 				success : function(obj){
 					$('#id-edit').val(obj.id);
+					$('#id-set').val(obj.id);
+					$('#id-apset').val(obj.id);
 					$('#code-edit').val(obj.code);
+					$('#code-set').val(obj.code);
+					$('#code-apset').val(obj.code);
 					$('#event-code-edit').val(obj.tEventId.id);
+					$('#event-code-set').val(obj.tEventId.id);
+					$('#event-code-apset').val(obj.tEventId.id);
 					$('#requestbyedit').val(obj.requestBy.firstName);
+					$('#requestbyset').val(obj.requestBy.firstName);
+					$('#requestbyapset').val(obj.requestBy.firstName);
 					$('#requestdateedit').val(obj.requestDate);
+					$('#requestdateset').val(obj.requestDate);
+					$('#requestdateapset').val(obj.requestDate);
 					$('#duedateedit').val(obj.requestDueDate);
+					$('#duedateset').val(obj.requestDueDate);
+					$('#duedateapset').val(obj.requestDueDate);
 					$('#noteedit').val(obj.note);
-					//$('#statusedit').val(obj.status);
-					//console.log(obj.transactionSouvenirItem);
+					$('#noteset').val(obj.note);
+					$('#noteapset').val(obj.note);
+					
+/* ---------------------------ketika status 1--------------------------------- */					
 					var oTable2 = $('#dataitemedit');
 					var tBody2 = oTable2.find('tbody');
 					tBody2.find('tr').remove();
@@ -270,23 +284,88 @@
 						$('#souveniredit_'+souvenir.id).val(souvenir.id);
 					});
 					
+/* --------------------ketika status 3--------------------------------- */
+					var oTable1 = $('#dataitemset');
+					var tBody1 = oTable1.find('tbody');
+					tBody1.find('tr').remove();
+					console.log(obj);
+					$.each(obj.transactionSouvenirItem, function(index, value){
+						console.log(value);
+						
+						var souvenir = value.mSouvenirId;
+						var appendString1 = "<tr>";
+								appendString1 += "<td>";
+									appendString1 += "<input class='form-control' id='nameSouvenirItem' value='"+value.mSouvenirId.name+"' disabled>";
+								appendString1 += "</td>";
+								appendString1 += "<td>";
+									appendString1 += "<input class='form-control' id='qtySouvenirItem' value='"+value.qty+"'disabled> " ;
+								appendString1 += "</td>";
+								appendString1 += "<td>";
+									appendString1 += "<input class='form-control' id='qtySettlementItem' value='"+value.qtySettlement+"'> ";
+								appendString1 += "</td>"; 
+								appendString1 += "<td>";
+									appendString1 += "<input class='form-control' id='noteSouvenirItem' value='"+value.note+"'disabled > ";
+								appendString1 += "</td>";
+								appendString1 += "<td>";
+									appendString1 += "<input type='hidden' lass='form-control' value='"+value.id+"' disabled>";
+								appendString1 += "</td>";
+								
+							appendString1 += "</tr>";
+						tBody1.append(appendString1);
+					});
 					
+/* --------------------ketika status 4--------------------------------- */
+					var oTable1 = $('#dataitemapset');
+					var tBody1 = oTable1.find('tbody');
+					tBody1.find('tr').remove();
+					console.log(obj);
+					$.each(obj.transactionSouvenirItem, function(index, value){
+						console.log(value);
+						var souvenir = value.mSouvenirId;
+						var appendString1 = "<tr>";
+								appendString1 += "<td>";
+									appendString1 += "<input class='form-control' id='nameSouvenirItem' value='"+value.mSouvenirId.name+"' disabled>";
+								appendString1 += "</td>";
+								appendString1 += "<td>";
+									appendString1 += "<input class='form-control' id='qtySouvenirItem' value='"+value.qty+"'disabled> " ;
+								appendString1 += "</td>";
+								appendString1 += "<td>";
+									appendString1 += "<input class='form-control' id='qtySettlementItem' value='"+value.qtySettlement+"' disabled> ";
+								appendString1 += "</td>"; 
+								appendString1 += "<td>";
+									appendString1 += "<input class='form-control' id='noteSouvenirItem' value='"+value.note+"'disabled > ";
+								appendString1 += "</td>";
+								appendString1 += "<td>";
+									appendString1 += "<input type='hidden' lass='form-control' value='"+value.id+"' disabled>";
+								appendString1 += "</td>";
+								
+							appendString1 += "</tr>";
+						tBody1.append(appendString1);
+					});
 				}, error : function(){
 					alert('Error');
-				}
-			});
+				},
+		dataType : 'json'
+		});
+
+			
+			
+/* --------------Status sebagai penentu tampilan modal------------- */			
 			if($(this).attr('data-status') == 1){
 				var status = document.getElementById('statusedit');
 				status.value = "Submitted";
-			} else if($(this).attr('data-status') == 2){
+				$('#modal-edit-transaksi').modal();
+			} else if($(this).attr('data-status') == 2 ){
 				var status = document.getElementById('statusedit');
 				status.value = "In Progress";
 			} else if($(this).attr('data-status') == 3){
-				var status = document.getElementById('statusedit');
+				var status = document.getElementById('statusset');
 				status.value = "Received By Requester";
+				$('#modal-settlement-transaksi').modal();
 			} else if($(this).attr('data-status') == 4){
-				var status = document.getElementById('statusedit');
+				var status = document.getElementById('statusapset');
 				status.value = "Settlement";
+				$('#modal-approvement-settlement').modal();
 			} else if($(this).attr('data-status') == 5){
 				var status = document.getElementById('statusedit');
 				status.value = "Approved Settlement";
@@ -297,7 +376,7 @@
 				var status = document.getElementById('statusedit');
 				status.value = "Rejected";
 			}
-			$('#modal-edit-transaksi').modal();
+		
 		});
 		
 		//add Item di modal edit
@@ -395,6 +474,130 @@
 		};
 	});
 	
+	//SUBMIT settlement
+	$(document).on('click','#submit-btn-settlement', function(){
+		
+		
+		var settlement = {
+			id : $('#id-set').val(),
+			code : $('#code-set').val(),
+			requestBy : {
+				id : 1 //$('#requestby').val()
+			},
+			requestDate : new Date($('#requestdateset').val()),
+			requestDueDate : new Date($('#duedateset').val()),
+			note : $('#noteset').val(),
+			status : 4,
+			transactionSouvenirItem : []
+		};
+				
+		_readTableDataSettlement(settlement.transactionSouvenirItem);
+		console.log(settlement);
+
+		$.ajax({
+			url : '${pageContext.request.contextPath}/souvenirrequest/settlement',
+			type : 'PUT',
+			data : JSON.stringify(settlement),
+			contentType : 'application/json',
+			success: function(data){
+			console.log(data);
+			window.location = '${pageContext.request.contextPath}/souvenirrequest'
+				}, error : function(){
+					alert('error');
+			},
+			dataType:'json'
+			});
+		
+		});
+			
+		function _readTableDataSettlement(transactionSouvenirItem){
+			$('#dataitemset > tbody > tr').each(function(index, value){
+				var transactionItem = {
+					qtySettlement : $(value).find('td').eq(2).find('input').val(),
+					id :$(value).find('td').eq(4).find('input').val(),
+					mSouvenirId:{
+						id : $(value).find('td').eq(4).find('input').val()
+					},
+					qty :  $(value).find('td').eq(1).find('input').val(),
+					note :  $(value).find('td').eq(3).find('input').val()
+				}; 
+					transactionSouvenirItem.push(transactionItem);
+				});
+			};
+			
+			
+	//SUBMIT approveval settlement
+	$(document).on('click','#approveSettlement', function(){
+
+		var settlement = {
+			id : $('#id-apset').val(),
+			code : $('#code-apset').val(),
+			requestBy : {
+				id : 1 //$('#requestby').val()
+			},
+			requestDate : new Date($('#requestdateapset').val()),
+			requestDueDate : new Date($('#duedateapset').val()),
+			note : $('#noteapset').val(),
+			status : 5,
+			transactionSouvenirItem : []
+		};
+				
+		_readTableDataSettlement(settlement.transactionSouvenirItem);
+		console.log(settlement);
+
+		$.ajax({
+			url : '${pageContext.request.contextPath}/souvenirrequest/appsettlement',
+			type : 'PUT',
+			data : JSON.stringify(settlement),
+			contentType : 'application/json',
+			success: function(data){
+			console.log(data);
+			window.location = '${pageContext.request.contextPath}/souvenirrequest'
+				}, error : function(){
+					alert('error');
+			},
+			dataType:'json'
+			});		
+		});
+	
+	
+	//REJECT settlement
+	$(document).on('click','#rejectSettlement', function(){
+
+		var settlement = {
+			id : $('#id-apset').val(),
+			code : $('#code-apset').val(),
+			requestBy : {
+				id : 1 //$('#requestby').val()
+			},
+			requestDate : new Date($('#requestdateapset').val()),
+			requestDueDate : new Date($('#duedateapset').val()),
+			note : $('#noteapset').val(),
+			status : 0,
+			transactionSouvenirItem : []
+		};
+				
+		_readTableDataSettlement(settlement.transactionSouvenirItem);
+		console.log(settlement);
+
+		$.ajax({
+			url : '${pageContext.request.contextPath}/souvenirrequest/appsettlement',
+			type : 'PUT',
+			data : JSON.stringify(settlement),
+			contentType : 'application/json',
+			success: function(data){
+			console.log(data);
+			//window.location = '${pageContext.request.contextPath}/souvenirrequest'
+				}, error : function(){
+					alert('error');
+			},
+			dataType:'json'
+			});
+		
+		});
+
+	
+
 </script>
 </head>
 <body>
@@ -965,5 +1168,282 @@
 	<div class="alert alert-primary" id="success-alert" role="alert">
 	  This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
 	</div>
+	
+	
+	
+	<!------------------------------------------------- Modal SETTLEMENT Requester----------------------------------------------------->
+	<div class="modal fade bd-example-modal-lg" id="modal-settlement-transaksi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header" style="background-color:#0069D9;color:white;">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Settlement Souvenir Request</h5>
+	      </div>
+	      	<div class="modal-body">
+		    	  	
+		      <div class="body-top" style="width:95%;margin:auto auto 5px auto;border:1px;border-style:solid;border-color:#E9ECEF;border-radius:5px;">
+		      	<form>
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;margin-top:5px;">
+		      					<label>*Transaction Code</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;margin-top:5px;">
+		      					<input type="hidden" id="id-set">
+		      					<input type="text" id="code-set" name="code"  class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Event Code</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      						<input type="text" id="event-code-set" name="code"  class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Request By</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input type="text" id="requestbyset" name="request-by" placeholder="Request By" class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Request Date</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input value="<%= format.format(date) %>" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="requestdateset" disabled>	
+		      					
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Due Date</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input placeholder="Select Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="duedateset" disabled>	
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>Note</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<textarea style="height:100px;" id="noteset" placeholder="Type Note" class="form-control" disabled></textarea>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>Status</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input id=statusset class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      	</form>	     	
+	        	
+		      </div>
+		      
+		      <div class="body-bottom" style="width:95%;margin:auto auto 5px auto;border:1px;border-style:solid;border-color:#E9ECEF;border-radius:5px;">
+		      	<div style="margin-left:10px;margin-top:10px;">
+		      		
+		      		<table id="dataitemset" class="display" style="width:100%;text-align:center;">
+						<thead>
+							<tr>
+								<th>Souvenir Name</th>
+								<th style="width:60px;">Qty</th>
+								<th style="width:60px;" id="label-qty-act">Qty Actual</th>
+								<th>Note</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+		      	</div>
+		      </div>
+		      
+	      <div class="modal-footer">
+	        <button type="button" id="submit-btn-settlement" class="btn btn-primary">Save</button>
+	        <button type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	
+	
+		<!------------------------------------------------- Modal SETTLEMENT Approvement----------------------------------------------------->
+	<div class="modal fade bd-example-modal-lg" id="modal-approvement-settlement" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header" style="background-color:#0069D9;color:white;">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Approval Souvenir Request</h5>
+	      </div>
+	      	<div class="modal-body">
+		    	  	
+		      <div class="body-top" style="width:95%;margin:auto auto 5px auto;border:1px;border-style:solid;border-color:#E9ECEF;border-radius:5px;">
+		      	<form>
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;margin-top:5px;">
+		      					<label>*Transaction Code</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;margin-top:5px;">
+		      					<input type="hidden" id="id-apset">
+		      					<input type="text" id="code-apset" name="code"  class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Event Code</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      						<input type="text" id="event-code-apset" name="code"  class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Request By</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input type="text" id="requestbyapset" name="request-by" placeholder="Request By" class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Request Date</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input value="<%= format.format(date) %>" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="requestdateapset" disabled>	
+		      					
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>*Due Date</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input placeholder="Select Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="duedateapset" disabled>	
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>Note</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<textarea style="height:100px;" id="noteapset" placeholder="Type Note" class="form-control" disabled></textarea>
+		      				</div>
+		      			</div>
+		      		</div>
+		      		
+		      		<div class="row">
+		      			<div class="col-sm-3">
+		      				<div style="text-align:right;">
+		      					<label>Status</label>
+		      				</div>
+		      			</div>
+		      			<div class="col-sm-6">
+		      				<div style="margin-bottom:5px;">
+		      					<input id=statusapset class="form-control" disabled>
+		      				</div>
+		      			</div>
+		      		</div>
+		      	</form>	     	
+	        	
+		      </div>
+		      
+		      <div class="body-bottom" style="width:95%;margin:auto auto 5px auto;border:1px;border-style:solid;border-color:#E9ECEF;border-radius:5px;">
+		      	<div style="margin-left:10px;margin-top:10px;">
+		      		
+		      		<table id="dataitemapset" class="display" style="width:100%;text-align:center;">
+						<thead>
+							<tr>
+								<th>Souvenir Name</th>
+								<th style="width:60px;">Qty</th>
+								<th style="width:60px;" id="label-qty-act">Qty Actual</th>
+								<th>Note</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+		      	</div>
+		      </div>
+		      
+	      <div class="modal-footer">
+	        <button type="button" id="approveSettlement" class="btn btn-primary">Approved</button>
+	         <button type="button" id="rejectSettlement" class="btn btn-danger">Reject</button>
+	        <button type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	
+	
+	
 </body>
 </html>

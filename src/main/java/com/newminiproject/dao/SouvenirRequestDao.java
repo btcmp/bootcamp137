@@ -25,5 +25,9 @@ public interface SouvenirRequestDao {
 
 	void update(TransactionSouvenir ts);
 
+	void savesettlement(TransactionSouvenir ts);
+
+	void approvesettlement(TransactionSouvenir ts);
+
 
 }

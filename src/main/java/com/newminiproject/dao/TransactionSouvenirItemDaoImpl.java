@@ -57,4 +57,16 @@ public class TransactionSouvenirItemDaoImpl implements TransactionSouvenirItemDa
 		//session.update(tsi2);
 	}
 
+	@Override
+	public void savesettlement(TransactionSouvenirItem tsi2) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update TransactionSouvenirItem tsi set tsi.qtySettlement=? where tsi.id=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, tsi2.getQtySettlement());
+		query.setParameter(1, tsi2.getId());
+		
+		query.executeUpdate();
+	}
+
 }
