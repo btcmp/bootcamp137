@@ -478,15 +478,15 @@
 				var status = document.getElementById('statusreceived');
 				status.value = "In Progress";
 				$('#modal-received-transaksi').modal();
-			} else if($(this).attr('data-status') == 3){
+			} else if($(this).attr('data-status') == 3  && statusRequester=="true"){
 				var status = document.getElementById('statusset');
 				status.value = "Received By Requester";
 				$('#modal-settlement-transaksi').modal();
-			} else if($(this).attr('data-status') == 4){
+			} else if($(this).attr('data-status') == 4 && statusAdmin=="true" ){
 				var status = document.getElementById('statusapset');
 				status.value = "Settlement";
 				$('#modal-approvement-settlement').modal();
-			} else if($(this).attr('data-status') == 5){
+			} else if($(this).attr('data-status') == 5 && statusRequester=="true"){
 				var status = document.getElementById('statusclose');
 				status.value = "Approved Settlement";
 				$('#modal-close-request').modal();
@@ -654,7 +654,7 @@
 					alert('error');
 			},
 			dataType:'json'
-			});		
+			});	 
 		});
 	
 	
