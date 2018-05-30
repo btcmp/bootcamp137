@@ -90,6 +90,7 @@
 			$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
 			    $("#success-alert").slideUp(500);
 			});
+			
 		});
 		
 		
@@ -660,35 +661,40 @@
 	
 	//REJECTED BY ADMIN
 	$(document).on('click','#btn-rejected', function(){
-
-		var rejected = {
-			id : $('#id-admin').val(),
-			code : $('#code-admin').val(),
-			requestBy : {
-				id : 1 //$('#requestby').val()
-			},
-			requestDate : new Date($('#requestdateadmin').val()),
-			requestDueDate : new Date($('#duedateadmin').val()),
-			note : $('#noteadmin').val(),
-			status : 0,
-			transactionSouvenirItem : []
-		};
-		console.log(rejected);
-		$.ajax({
-			url : '${pageContext.request.contextPath}/souvenirrequest/approved',
-			type : 'PUT',
-			data : JSON.stringify(rejected),
-			contentType : 'application/json',
-			success: function(data){
-			console.log(data);
-			window.location = '${pageContext.request.contextPath}/souvenirrequest'
-				}, error : function(){
-					alert('error');
-			},
-			dataType:'json'
-			});		
-		});
+		$('#modal-reject-reason').modal();			
+	});
 	
+	$(document).on('click','.btn-reject-reason', function(){
+		var rejected = {
+				id : $('#id-admin').val(),
+				code : $('#code-admin').val(),
+				requestBy : {
+					id : 1 //$('#requestby').val()
+				},
+				requestDate : new Date($('#requestdateadmin').val()),
+				requestDueDate : new Date($('#duedateadmin').val()),
+				note : $('#noteadmin').val(),
+				status : 0,
+				reject_reason : $('rejectreason').val(),
+				transactionSouvenirItem : []
+			};
+			console.log(rejected);
+			$.ajax({
+				url : '${pageContext.request.contextPath}/souvenirrequest/approved',
+				type : 'PUT',
+				data : JSON.stringify(rejected),
+				contentType : 'application/json',
+				success: function(data){
+				console.log(data);
+				window.location = '${pageContext.request.contextPath}/souvenirrequest'
+					}, error : function(){
+						alert('error');
+				},
+				dataType:'json'
+				});
+	});
+	
+	//
 	
 	//SUBMIT settlement
 	$(document).on('click','#submit-btn-settlement', function(){
@@ -1694,6 +1700,29 @@
 	    </div>
 	  </div>
 	</div>
+	
+	
+	<!-- Modal Reject Reason -->
+	<div class="modal fade bd-example-modal-sm" id="modal-reject-reason" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog modal-sm" role="document">
+	    <div class="modal-content">
+	      <div style="float:right;clear:right;">
+	        <button id="close" style="background-color:red;" type="button" class="close" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p style="text-align:center;">Reject Reason</p>
+	        <textarea style="height:100px;" id="rejectreason" placeholder="Input Reject Reason" class="form-control"></textarea>
+	      </div>
+	      <div style="margin:auto;padding-bottom:5px;">
+	        <button type="button" class="btn btn-primary btn-reject-reason">Reject</button>
+	        <button id="cancel-btn" type="button" class="btn btn-warning" style="color:white;">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 	
 	<!-- ALERT -->
 	<div class="alert alert-primary" id="success-alert" role="alert">
