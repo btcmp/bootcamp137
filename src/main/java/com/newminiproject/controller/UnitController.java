@@ -45,7 +45,7 @@ public class UnitController {
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public String search(Model model, @RequestParam(value="unitname", defaultValue="")String unitName, @RequestParam(value="unitcode", defaultValue="") String unitCode, @RequestParam(value="createdby", defaultValue="") String createdBy, @RequestParam(value="createddate", defaultValue="") String createdDate) throws ParseException {
+	public String search(Model model, @RequestParam(value="unitname", defaultValue="")String unitName, @RequestParam(value="unitcode", defaultValue="") String unitCode, @RequestParam(value="unitcreatedby", defaultValue="") String createdBy, @RequestParam(value="unitcreateddate", defaultValue="") String createdDate) throws ParseException {
 		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //untuk format tanggal
 		Date createdDateDual = null;
 		if(!createdDate.equals("")) {
