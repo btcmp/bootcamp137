@@ -74,8 +74,14 @@
 	  
 	  
 	  <script type="text/javascript">
-	$(document).ready(function(){
+$(document).ready(function(){
 	
+	var isd = <%= request.isUserInRole("ROLE_ADMIN") %>;
+	if(isd==true){
+		//alert('tes');
+		document.getElementById('btn-add').style.display = 'none';
+	}
+		console.log(isd);
 	//alert('tes');
 /////////save or insert////////////////////////////////////////////////////////////////////////////
 		$('#btn-add').on('click', function(){
@@ -241,6 +247,7 @@
 				url : '${pageContext.request.contextPath}/event/getevent/'+ id,
 				type : 'GET',
 				success : function(data){
+					var fullName = data.requestBy.firstName + ' ' + data.requestBy.lastName;
 					console.log(data);
 					$('#codeV').val(data.code);
 					$('#EventNameV').val(data.eventName);
@@ -248,7 +255,7 @@
 					$('#StartDateV').val(data.startDate);
 					$('#EndDateV').val(data.endDate);
 					$('#BudgetV').val(data.budget);
-					$('#RequestByV').val(data.requestBy);
+					$('#RequestByV').val(fullName);
 					$('#RequestDateV').val(data.requestDate);
 					$('#statusV').val(data.status);
 					$('#NoteV').val(data.note);
@@ -301,6 +308,7 @@
 				url : '${pageContext.request.contextPath}/event/getevent/'+ idBB,
 				type : 'GET',
 				success : function(data){
+					var fullName = data.requestBy.firstName + ' ' + data.requestBy.lastName;
 					$('#id').val(data.id);
 					$('#codeE').val(data.code);
 					$('#EventNameE').val(data.eventName);
@@ -308,7 +316,7 @@
 					$('#StartDateE').val(data.startDate);
 					$('#EndDateE').val(data.endDate);
 					$('#BudgetE').val(data.budget);
-					$('#RequestByE').val(data.requestBy);
+					$('#RequestByE').val(fullName);
 					$('#RequestDateE').val(data.requestDate);
 					$('#statusE').val(data.status);
 					$('#NoteE').val(data.note);
@@ -502,12 +510,14 @@
 					$("#RequestDateE").prop('disabled', true);
 					$("#NoteE").prop('disabled', true);
 					$("#EndDateE").prop('disabled', true);
+					$("#EmployeeName").prop('disabled', true);
 					
 					document.getElementById('btnedit').style.display = 'none';
 					document.getElementById('CloseRequest').style.display = 'none';
 					document.getElementById('approved').style.display = 'none';
 					document.getElementById('rejected').style.display = 'none';
 					document.getElementById('assignTOE').style.display = 'none';
+					document.getElementById('idEmployeeName').style.display = 'block';
 					
 					var a = document.getElementById("statusES");
 					a.value = "Done"; 
@@ -647,7 +657,6 @@
 					startDate:$('#StartDateE').val(),
 					endDate:$('#EndDateE').val(), 
 					budget:$('#BudgetE').val(),
-					requestBy:$('#RequestByE').val(),
 					requestDate:$('#RequestDateE').val(),
 					note:$('#NoteE').val(),
 					updateBy:$('#updateBy').val()
@@ -738,17 +747,35 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="info">
-          <a href="#" class="d-block">${pageContext.request.userPrincipal.name}</a>
-          <a href="${pageContext.request.contextPath }/company" class="d-block">company</a>
-        </div>
-      </div>
-
-      <!-- Sidebar Menu -->
+     <!-- Sidebar Menu -->
       <nav class="mt-2">
-     
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+        
+         
+           <%--  <a href="#" class="nav-link">
+              <p>
+                <h2><a href="#" class="d-block">${pageContext.request.userPrincipal.name}</a></h2>
+              </p>
+            </a> --%>
+          
+          <li class="nav-header">Menu</li>
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/company" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Company</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/event" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Event</p>
+            </a>
+          </li>
+          
+          
+        </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -760,7 +787,7 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div style="height:40px;background-color:#0069D9;margin-bottom:10px">
-			<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Company</h5>
+			<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Event</h5>
 		</div>
     </div>
     <!-- /.content-header -->
@@ -894,7 +921,7 @@
 							      <label>* Event Name</label>
 							    </div>
 							    <div class="col">
-							       <input  data-parsley-required="true" type="text" class="form-control" id="EventNameS" aria-describedby="emailHelp" placeholder="Type Event Name">
+							       <input data-parsley-required="true" type="text" class="form-control" id="EventNameS" aria-describedby="emailHelp" placeholder="Type Event Name">
 							    </div>
 							</div>
 							
@@ -903,7 +930,7 @@
 							      <label>* Event Place</label>
 							    </div>
 							    <div class="col">
-							       <input type="text" class="form-control" id="EventPlaceS" aria-describedby="emailHelp" placeholder="Type Event Place">
+							       <input data-parsley-required="true" type="text" class="form-control" id="EventPlaceS" aria-describedby="emailHelp" placeholder="Type Event Place">
 							    </div>
 							  </div>
 							  
@@ -912,7 +939,7 @@
 							      <label>* Event Start Date</label>
 							    </div>
 							    <div class="col">
-							       <input placeholder="Start Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="StartDate">	
+							       <input data-parsley-required="true" placeholder="Start Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="StartDate">	
 							    </div>
 							  </div>
 							  
@@ -921,7 +948,7 @@
 							      <label>* Event End Date</label>
 							    </div>
 							    <div class="col">
-							       <input placeholder="End Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="EndDate">	
+							       <input data-parsley-required="true" placeholder="End Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="EndDate">	
 							    </div>
 							  </div>
 							  
@@ -930,7 +957,7 @@
 							      <label>* Budget (Rp.)</label>
 							    </div>
 							    <div class="col">
-							       <input type="number" class="form-control" id="Budget" aria-describedby="emailHelp" placeholder="Event Budget">
+							       <input data-parsley-required="true" type="number" class="form-control" id="Budget" aria-describedby="emailHelp" placeholder="Event Budget">
 							    </div>
 							  </div>
 						  </div>
@@ -1319,9 +1346,9 @@
 </c:if>
 
 <script>
- 	  $(function () {
+ $(function () {
     
-    $('#dataEvent').DataTable({
+   var t = $('#dataEvent').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": false,
@@ -1329,26 +1356,14 @@
       "info": true,
       "autoWidth": false
     });
-  });
-   
-  /* $(document).ready(function() {
-	    var t = $('#dataEvent').DataTable( {
-	        "columnDefs": [ {
-	            "searchable": false,
-	            "searching": false,
-	            "orderable": false,
-	            "targets": 0
-	        } ],
-	        "order": [[ 1, 'asc' ]]
-	    } );
-	 
-	    t.on( 'order.dt search.dt', function () {
+    
+    t.on( 'order.dt search.dt', function () {
 	        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
 	            cell.innerHTML = i+1;
 	        } );
 	    } ).draw();
-	} ); */
-  
+    
+  }); 
 </script>
 
 </body>
