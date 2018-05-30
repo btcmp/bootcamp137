@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-		<!----------------------------------------------------------------------------------------------------------------------------------------------->
-		<!--------------------------------------------------------- Modal From Design STAFF ------------------------------------------------------------->
-		<!----------------------------------------------------------------------------------------------------------------------------------------------->
+	<!----------------------------------------------------------------------------------------------------------------------------------------------->
+		<!----------------------------------------------------- Modal From Design Staff-------------------------------------------------------------->
+		<!------------------------------------------------------------------------------------------------------------------------------------------->
 
 
 		<!------------------------------------------------------- Modal Add/Insert/Save ----------------------------------------------------------------->
@@ -34,8 +34,9 @@
 						  <div>
 						  	<span class = "float-left " style="width:35%; text-align:right;">* Transaction Code :</span>
 						    <div>
-							    <input class = "form-control float-left" style="width:65%;" type="text" id="transCodeStaff"  value = "${hasil}" placeholder="${hasil}" disabled>
-							    <input type="hidden" id="idEdit" >
+							    <input class = "form-control float-left" style="width:65%;" type="text" id="transCodeStaff" disabled>
+							    <input type="hidden" id="idEditStaff" >
+							    <input type="hidden" id="flagDesignEditStaff" >
 						    </div>
 						    
 						  </div>
@@ -50,7 +51,7 @@
 						  
 						   <div id="designAddDiv" >
 						    <span class = "float-left" style="width:35%; text-align:right;" >* Title Header : </span>
-						    <input class = "float-left form-control " style="width:65%; " type="text" id="titleHeaderStaff" placeholder="Type Title">
+						    <input class = "float-left form-control " style="width:65%; " type="text" id="titleHeaderStaff" placeholder="Type Title" disabled>
 						   </div>
 						
 						</div>
@@ -59,7 +60,7 @@
 							  <div class="form-group">
 							    <span class = "float-left" style="width:35%; text-align:right;">* Request By : </span>
 							    <div class = "float-left" style="width:65%;">
-							    	<input class="form-control" type="text" id="requestByStaff" value = "Noe"disabled>
+							    	<input class="form-control" type="text" id="requestByStaff" disabled>
 							    </div>
 							    
 							  </div>
@@ -76,10 +77,31 @@
 							   <div class="form-group">
 							    <span class="float-left" style="width:35%; text-align:right;"> Note :</span>
 							    <div class="float-left" style="width:65%;">
-							     <textarea class="form-control" type="text" id="noteTitleHeaderStaff" style="width:247px;" placeholder="Type Note"></textarea>
+							     <textarea class="form-control" type="text" id="noteTitleHeaderStaff" style="width:247px;" placeholder="Type Note" disabled></textarea>
 							    </div>
 							  </div>
 						  </div>
+						  
+						  <div class = "float-left" style="width:30%;">
+						  	<div class="form-group">
+							    <span class = "float-left" style="width:35%; text-align:right;">Status : </span>
+							    <div class = "float-left" style="width:65%;">
+							    	<input class="form-control" type="text" id="statusByStaff" disabled>
+							    </div>
+							    
+							  </div>
+						  </div>
+						  
+						<div class = "float-left" style="width:30%;">
+						  	<div class="form-group">
+							    <span class = "float-left" style="width:35%; text-align:right;"> * Assign To : </span>
+							    <div class = "float-left" style="width:65%;">
+							    	<input class="form-control" type="text" id="AssignToStaff" disabled>
+							    </div>
+							    
+							  </div>
+						  </div>
+						
 						  
 						  <div style="clear:both;"></div>
 						  
@@ -131,7 +153,7 @@
 						  <div class="form-group">
 						   <span class="float-left" style="width:35%; text-align:right;"> Note : </span>
 						   <div class="float-left" style="width:65%;">
-						   <textarea class="form-control" type="text" id="noteDesignHeaderStaff" style="width:247px;" disabled value=""></textarea>
+						   <textarea class="form-control" type="text" id="noteDesignHeaderStaff" style="width:247px;" disabled ></textarea>
 						   </div>
 						  </div> 
 						
@@ -182,11 +204,11 @@
 					<div>
 						<button class = "btn btn-primary addItem">Add Item</button>
 					</div>
-						<table class="display" style="width:100%; border:none;" id="tabelItem">
+						<table class="display" style="width:100%; border:none;" id="tabelItemStaff">
 							<thead>
 								<tr>
 									<th style="padding-left:110px; width:252px;">Filename</th>
-									<th style="width:63;">Qty</th>
+									<th style="width:63px;">Qty</th>
 									<th style="width:150px;">Todo</th>
 									<th>Due Date</th>
 									<th>Start Date</th>
@@ -205,7 +227,7 @@
 		        </div>
 		      
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" id="staffDesign">Close</button>
+		        <button type="button" class="btn btn-primary" id="closeRequestStaff">Close Request</button>
 		        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
 		      </div>
  
@@ -238,7 +260,8 @@
 						  	<span class = "float-left " style="width:35%; text-align:right;">* Transaction Code :</span>
 						    <div>
 							    <input class = "form-control float-left" style="width:65%;" type="text" id="transCodeStaffView" disabled>
-							    <input type="hidden" id="idEdit" >
+							    <input type="hidden" id="idEditStaffView" >
+							    <input type="hidden" id="flagDesignEditStaffView" >
 						    </div>
 						    
 						  </div>
@@ -262,7 +285,7 @@
 							  <div class="form-group">
 							    <span class = "float-left" style="width:35%; text-align:right;">* Request By : </span>
 							    <div class = "float-left" style="width:65%;">
-							    	<input class="form-control" type="text" id="requestByStaffView" value = "Noe"disabled>
+							    	<input class="form-control" type="text" id="requestByStaffView" disabled>
 							    </div>
 							    
 							  </div>
@@ -293,6 +316,17 @@
 							    
 							  </div>
 						  </div>
+						  
+						<div class = "float-left" style="width:30%;">
+						  	<div class="form-group">
+							    <span class = "float-left" style="width:35%; text-align:right;"> * Assign To : </span>
+							    <div class = "float-left" style="width:65%;">
+							    	<input class="form-control" type="text" id="AssignToStaff" disabled>
+							    </div>
+							    
+							  </div>
+						  </div>
+						
 						  
 						  <div style="clear:both;"></div>
 						  
@@ -395,7 +429,7 @@
 					<div>
 						<button class = "btn btn-primary addItem">Add Item</button>
 					</div>
-						<table class="display" style="width:100%; border:none;" id="tabelItemView">
+						<table class="display" style="width:100%; border:none;" id="tabelItemStaffView">
 							<thead>
 								<tr>
 									<th style="padding-left:110px; width:252px;">Filename</th>
@@ -453,6 +487,8 @@
 						  	<span class = "float-left" style="width:35%; text-align:right;">* Transaction Code : </span>
 						    <div>
 							    <input class = "form-control float-left" style="width:65%;" type="text" id="transCodeStaffNot"  value = "${hasil }" placeholder="${hasil}" disabled>
+								<input type="hidden" id="idEditNotStaff" >
+							    <input type="hidden" id="flagDesignEditNotStaff" >						
 							</div>
 						    
 						  </div>
@@ -491,12 +527,33 @@
 							<div style="clear:both;"></div>
 							  
 							   <div class="form-group">
-							    <span class="float-left" style="width:35%; text-align:right;">* Note :</span>
+							    <span class="float-left" style="width:35%; text-align:right;"> Note :</span>
 							    <div class="float-left" style="width:65%;">
 							     <textarea class="form-control"  type="text" id="noteTitleHeaderStaffNot" style="width:247px;" placeholder = "Type Note"></textarea>
 							    </div>
 							  </div>
 						  </div>
+						  
+						    <div class = "float-left" style="width:30%;">
+						  	<div class="form-group">
+							    <span class = "float-left" style="width:35%; text-align:right;">Status : </span>
+							    <div class = "float-left" style="width:65%;">
+							    	<input class="form-control" type="text" id="statusByNotStaff" disabled>
+							    </div>
+							    
+							  </div>
+						  </div>
+						  
+						<div class = "float-left" style="width:30%;">
+						  	<div class="form-group">
+							    <span class = "float-left" style="width:35%; text-align:right;"> * Assign To : </span>
+							    <div class = "float-left" style="width:65%;">
+							    	<input class="form-control" type="text" id="AssignToNotStaff" disabled>
+							    </div>
+							    
+							  </div>
+						  </div>
+						
 						  
 						  <div style="clear:both;"></div>
 						  
@@ -534,8 +591,8 @@
 		        </div>
 		      
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" id='staffNotDesign'>Close</button>
-		        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
+		        <button type="button" class="btn btn-primary" id="closeRequestStaffNotDesign">Close Request</button>
+		         <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
 		      </div>
  
 		    </div>
@@ -566,23 +623,24 @@
 						  <div>
 						  	<span class = "float-left" style="width:35%; text-align:right;">* Transaction Code : </span>
 						    <div>
-							    <input class = "form-control float-left" style="width:65%;" type="text" id="transCodeStaffNotView" disabled>
-							    <input type="hidden" id="idEdit" >
-						    </div>
+							    <input class = "form-control float-left" style="width:65%;" type="text" id="transCodeNotStaffView" disabled>
+								<input type="hidden" id="idEditNotStaffView">
+							    <input type="hidden" id="flagDesignEditNotStaffView" >						
+							</div>
 						    
 						  </div>
 						  <div style="clear:both;"></div>
 						  
 						  <div>
 						   <span class = "float-left" style="width:35%; text-align:right;">* Event Code  : </span>
-						   <input class = "float-left form-control" style="width:65%; " type = "text" id="eventSelectStaffNot" disabled >
+						   <input class = "float-left form-control" style="width:65%; " type = "text" id="eventSelectStaffNotView" disabled >
 						  </div>
 						  <div style="clear:both;"></div>
 						  
 						  
 						   <div id="designAddDiv" >
 						    <span class = "float-left" style="width:35%; text-align:right;" >* Title Header :</span>
-						    <input class = "float-left form-control " style="width:65%;" type="text" id="titleHeaderStaffNotView" placeholder="Type Title">
+						    <input class = "float-left form-control " style="width:65%;" type="text" id="titleHeaderStaffNotView" placeholder="Type Title" disabled>
 						   </div>
 						
 						</div>
@@ -608,10 +666,31 @@
 							   <div class="form-group">
 							    <span class="float-left" style="width:35%; text-align:right;">* Note :</span>
 							    <div class="float-left" style="width:65%;">
-							     <textarea class="form-control"  type="text" id="noteTitleHeaderStaffNotView" style="width:247px;" placeholder = "Type Note"></textarea>
+							     <textarea class="form-control"  type="text" id="noteTitleHeaderStaffNotView" style="width:247px;" placeholder = "Type Note" disabled></textarea>
 							    </div>
 							  </div>
 						  </div>
+						  
+						      <div class = "float-left" style="width:30%;">
+						  	<div class="form-group">
+							    <span class = "float-left" style="width:35%; text-align:right;">Status : </span>
+							    <div class = "float-left" style="width:65%;">
+							    	<input class="form-control" type="text" id="statusByNotStaffView" disabled>
+							    </div>
+							    
+							  </div>
+						  </div>
+						  
+						<div class = "float-left" style="width:30%;">
+						  	<div class="form-group">
+							    <span class = "float-left" style="width:35%; text-align:right;"> * Assign To : </span>
+							    <div class = "float-left" style="width:65%;">
+							    	<input class="form-control" type="text" id="AssignToNotStaffView" disabled>
+							    </div>
+							    
+							  </div>
+						  </div>
+						
 						  
 						  <div style="clear:both;"></div>
 						  

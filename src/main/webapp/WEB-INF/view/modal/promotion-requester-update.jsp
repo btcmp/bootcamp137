@@ -61,7 +61,7 @@
 							  <div class="form-group">
 							    <span class = "float-left" style="width:35%; text-align:right;">* Request By : </span>
 							    <div class = "float-left" style="width:65%;">
-							    	<input class="form-control" type="text" id="requestByUpdate" value = "Noe"disabled>
+							    	<input class="form-control" type="text" id="requestByUpdate" disabled>
 							    </div>
 							    
 							  </div>
@@ -301,6 +301,17 @@
 							    </div>
 							  </div>
 						  </div>
+						  
+						  <div class = "float-left" style="width:30%;">
+						  	<div class="form-group">
+							    <span class = "float-left" style="width:35%; text-align:right;">Status : </span>
+							    <div class = "float-left" style="width:65%;">
+							    	<input class="form-control" type="text" id="statusByNotUpdate" disabled>
+							    </div>
+							    
+							  </div>
+						  </div>
+						  
 						  
 						  <div style="clear:both;"></div>
 						  
