@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.newminiproject.model.Employee;
+import com.newminiproject.model.Role;
 
 
 @Repository
@@ -71,6 +72,24 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		query.setParameter("id", id);
 		query.executeUpdate();
 		
+	}
+
+	@Override
+	public List<Employee> search(Employee employee) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Employee emp where emp.code=:codeSearch or emp.firstName=:nameSearch or emp.createdBy=:createdBySearch or emp.createdDate=:createdDateSearch";
+		Query query = session.createQuery(hql);
+		query.setParameter("codeSearch", employee.getCode());
+		query.setParameter("nameSearch", employee.getFirstName());
+		query.setParameter("createdBySearch", employee.getCreatedBy());
+		query.setParameter("createdDateSearch", employee.getCreatedDate());
+		//query.setParameter("companySearch", employee.getmCompanyId().getId());
+		List<Employee> listEmployee = query.list();
+		if(listEmployee.isEmpty()) {
+			return new ArrayList<>();
+		}
+		return listEmployee;
 	}
 
 }

@@ -1,6 +1,11 @@
 package com.newminiproject.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.newminiproject.model.Company;
 import com.newminiproject.model.Employee;
+import com.newminiproject.model.Role;
 import com.newminiproject.model.Souvenir;
+import com.newminiproject.model.User;
 import com.newminiproject.service.CompanyService;
 import com.newminiproject.service.EmployeeService;
 
@@ -30,6 +37,9 @@ public class EmployeeController {
 	@Autowired
 	CompanyService companyService;
 
+	@Autowired
+	HttpSession httpSession;//sebuah class di spring security untuk mengambil session
+	
 	@RequestMapping
 	public String index(Model model) {
 		List<Employee> listEmployee = employeeService.getAll();
@@ -62,5 +72,30 @@ public class EmployeeController {
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@RequestParam(value="id", required=false) int id) {
 		employeeService.delete(id);
+	}
+	
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public String search(Model model, @RequestParam(value="codeSearch", defaultValue="")String codeSearch, 
+	@RequestParam(value="nameSearch", defaultValue="") String nameSearch, @RequestParam(value="companySearch", defaultValue="") String companySearch, @RequestParam(value="createdDateSearch", defaultValue="") String createdDateSearch, @RequestParam(value="createdBySearch", defaultValue="") String createdBySearch) throws ParseException {
+//		
+		Date createdDateDual = null;
+		if(!createdDateSearch.equals("")) {
+			createdDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(createdDateSearch);
+		}
+		Employee employee = new Employee();
+		
+		employee.setFirstName(nameSearch);
+		employee.setCode(codeSearch);
+		employee.setCreatedBy(createdBySearch);		
+		employee.setCreatedDate(createdDateDual);
+	//	employee.setmCompanyId(companySearch);
+		List<Employee> listEmployee = employeeService.getAll();
+		List<Employee> listEmployeeFilter = employeeService.search(employee);
+		model.addAttribute("listEmployee", listEmployeeFilter); //isi dari table, milik method getall
+		model.addAttribute("listEmployeeComponent", listEmployee); //data yang ingin dicari
+		//String result = seqDao.addSeq();
+		//System.out.println(result);
+		//model.addAttribute("result",result);
+		return "list-employee";
 	}
 }
