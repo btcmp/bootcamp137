@@ -206,7 +206,7 @@
 		      
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-primary" id="approvedDesign">Approved</button>
-		        <button type="button" class="btn btn-primary" id="rejectedDesign">Rejected</button>
+		        <button type="button" class="btn btn-danger" id="rejectedDesign">Rejected</button>
 		        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
 		      </div>
  
