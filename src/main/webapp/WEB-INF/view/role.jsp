@@ -48,7 +48,6 @@ table {
 				contentType: 'application/json',
 				data: JSON.stringify(role),
 				success:function(data){
-					$('#alert1').alert();
 					window.location = '${pageContext.request.contextPath}/role'
 				},
 				error:function(){
