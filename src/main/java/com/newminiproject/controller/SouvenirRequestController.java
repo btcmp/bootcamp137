@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ import com.newminiproject.model.Souvenir;
 import com.newminiproject.model.TransactionSouvenir;
 import com.newminiproject.model.TransactionSouvenirItem;
 import com.newminiproject.model.Unit;
+import com.newminiproject.model.User;
 import com.newminiproject.service.SouvenirRequestService;
 import com.newminiproject.service.SouvenirService;
 import com.newminiproject.service.TransactionSouvenirItemService;
@@ -42,6 +45,9 @@ public class SouvenirRequestController {
 	
 	@Autowired
 	TransactionSouvenirItemService transactionSouvenirItemService;
+	
+	@Autowired
+	HttpSession httpSession;
 	
 	@RequestMapping
 	//@ResponseBody
@@ -75,6 +81,8 @@ public class SouvenirRequestController {
 	//@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
 	public TransactionSouvenir save(@RequestBody TransactionSouvenir transactionSouvenir){ //valid, buat aktifik validator nya
+		User user = (User)httpSession.getAttribute("app-user");
+		transactionSouvenir.setRequestBy(user.getmEmployeeId());
 		souvenirRequestService.save(transactionSouvenir);
 		return transactionSouvenir;
 	}
@@ -136,6 +144,20 @@ public class SouvenirRequestController {
 		model.addAttribute("result", result);
 		
 		return "list-request";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/settlement", method = RequestMethod.PUT)
+	public TransactionSouvenir savesettlement(@RequestBody TransactionSouvenir transactionSouvenir){
+		souvenirRequestService.savesettlement(transactionSouvenir);
+		return transactionSouvenir;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/appsettlement", method = RequestMethod.PUT)
+	public TransactionSouvenir approvesettlement(@RequestBody TransactionSouvenir transactionSouvenir){
+		souvenirRequestService.approvesettlement(transactionSouvenir);
+		return transactionSouvenir;
 	}
 	
 }

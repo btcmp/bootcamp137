@@ -113,13 +113,12 @@
 				
 			} );
 			
-			/* var oCode3 = $('#StartDate').parsley( {
+			var oCode3 = $('#StartDate').parsley( {
 				required : true,
 				requiredMessage : ' Start Date !!',
 				minlengthMessage: ' must more than 5 character',
 				typeMessage: ' must be email character',
-				minlength: 5,
-				type:"text"
+				minlength: 5
 			} );
 			
 			var oCode4 = $('#EndDate').parsley( {
@@ -127,8 +126,7 @@
 				requiredMessage : ' End Date !!',
 				minlengthMessage: ' must more than 5 character',
 				typeMessage: ' must be email character',
-				minlength: 5,
-				type:"text"
+				minlength: 5
 			} );
 			
 			var oCode5 = $('#Budget').parsley( {
@@ -136,9 +134,8 @@
 				requiredMessage : ' Budget !!',
 				minlengthMessage: ' must more than 5 character',
 				typeMessage: ' must be email character',
-				minlength: 5,
-				type:"text"
-			} ); */
+				minlength: 5
+			} );
 			
 			
 			
@@ -146,13 +143,25 @@
 		
 			var valid = getValid(oCode1);
 			valid = getValid(oCode2);
-		/* 	valid = getValid(oCode3);
+			valid = getValid(oCode3);
 			valid = getValid(oCode4);
-			valid = getValid(oCode5); */
+			valid = getValid(oCode5);
 			/* valid = valid && getValid(oTitle);
 			valid = valid && getValid(oIsbn); */
 			if(valid){
-				alert('save');
+				$.ajax({
+					url:'${pageContext.request.contextPath}/event/save',
+					type:'POST',
+					data:JSON.stringify(event),
+					contentType:'application/json',
+					success:function(data){
+						console.log(data);
+						alert('save ok');
+						window.location = '${pageContext.request.contextPath}/event'
+					},error:function(){
+						alert('gagal save');
+					}
+				});
 			}
 			function getValid(validate){
 				validate.validate();	
@@ -683,12 +692,21 @@
 
 <div class="wrapper">
 
-  <!-- Navbar -->
+   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
     <!-- Left navbar links -->
-    <div style="height:40px;background-color:#0069D9;margin-bottom:10px">
-		<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Company</h5>
-	</div>
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="index3.html" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="#" class="nav-link">Contact</a>
+      </li>
+    </ul>
+
 
     
 
@@ -1676,6 +1694,9 @@
 </div>
 <!-- ./wrapper -->
 
-
+<!-- Bootstrap 4 -->
+<script src="${pageContext.request.contextPath }/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="${pageContext.request.contextPath }/assets/dist/js/adminlte.min.js"></script>
 </body>
 </html>

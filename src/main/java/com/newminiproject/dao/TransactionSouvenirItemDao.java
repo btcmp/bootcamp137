@@ -13,6 +13,8 @@ public interface TransactionSouvenirItemDao {
 
 	void update(TransactionSouvenirItem tsi2);
 
+	void savesettlement(TransactionSouvenirItem tsi2);
+
 
 
 }

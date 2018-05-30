@@ -85,7 +85,7 @@ public class SouvenirRequestService {
 			//souvenir.setId(tsi.getmSouvenirId().getId());
 			//souvenir.setName(tsi.getmSouvenirId().getName());
 			tsi2.setId(tsi.getId());
-			
+			tsi2.setQtySettlement(tsi.getQtySettlement());
 			tsi2.setmSouvenirId(tsi.getmSouvenirId());
 			tsi2.setQty(tsi.getQty());
 			//tsi2.setmSouvenirId(souvenir);
@@ -134,12 +134,47 @@ public class SouvenirRequestService {
 					tsi2.setId(tsi.getId());
 					tsi2.setmSouvenirId(souvenir);
 					tsi2.setQty(tsi.getQty());
+					tsi2.setQtySettlement(tsi.getQtySettlement());
 					tsi2.setNote(tsi.getNote());
 					tsi2.settSouvenirId(ts);
 					
 					transactionSouvenirItemDao.update(tsi2);
 				}
 	}
+	
+	public void savesettlement(TransactionSouvenir transactionSouvenir) {
+		
+		TransactionSouvenir ts = new TransactionSouvenir();
+		ts.setId(transactionSouvenir.getId());
+		ts.setUpdatedDate(new Date());
+		ts.setSettlementDate(new Date());
+		ts.setRequestDueDate(transactionSouvenir.getRequestDueDate());
+		ts.setNote(transactionSouvenir.getNote());
+		ts.setStatus(transactionSouvenir.getStatus());
+		souvenirRequestDao.savesettlement(ts);
+		
+		//2. update qty settlement
+		for(TransactionSouvenirItem tsi: transactionSouvenir.getTransactionSouvenirItem() ){
+			TransactionSouvenirItem tsi2 = new TransactionSouvenirItem();
+			tsi2.setQtySettlement(tsi.getQtySettlement());
+			tsi2.setId(tsi.getId());
+			tsi2.setUpdatedDate(new Date());
+			transactionSouvenirItemDao.savesettlement(tsi2);
+		}
+		
+	}
+
+	public void approvesettlement(TransactionSouvenir transactionSouvenir) {
+		TransactionSouvenir ts = new TransactionSouvenir();
+		ts.setId(transactionSouvenir.getId());
+		ts.setUpdatedDate(new Date());
+		ts.setSettlementDate(new Date());
+		ts.setRequestDueDate(transactionSouvenir.getRequestDueDate());
+		ts.setNote(transactionSouvenir.getNote());
+		ts.setStatus(transactionSouvenir.getStatus());
+		souvenirRequestDao.approvesettlement(ts);
+	}
+
 
 	
 }
