@@ -913,10 +913,19 @@
 		}
 		
 		_readTableDataDesignUpdate(updatePromo.listPromotionItem);
-		console.log(updatePromo);
+		//console.log(updatePromo);
 		
 		$.ajax({
-			url : '${pageContext.request.contextPath}/promotion/'
+			url : '${pageContext.request.contextPath}/promotion/update',
+			type : 'PUT',
+			data : JSON.stringify(updatePromo),
+			contentType : 'application/json',
+			success : function (data){
+				alert('update sukses');
+			},
+			error : function (){
+				alert('error');
+			}
 		})
 		
 	})
