@@ -152,7 +152,7 @@
 				contentType : 'application/json',
 				success : function(data){
 					console.log(data),
-					$('#info-saved').modal('show'),
+					//$('#info-saved').modal('show'),
 					window.location = '${pageContext.request.contextPath}/design'
 					
 				}, error : function(){
@@ -172,13 +172,13 @@
 		/* Modal edit */
 		$(document).on('click', '.btn-edit-modal', function(){
 			var id = $(this).attr('design-id');
-			//console.log(id);
+			console.log(id);
 			$.ajax({
 				url : '${pageContext.request.contextPath }design/getById?id='+id,
 				type : 'GET',
 				dataType : 'json',
 				success : function(obj){
-					/* menampilkan data design berdasarkan id design */
+					//menampilkan data design berdasarkan id design 
 					$('#idDesignEdit').val(obj.id);
 					$('#design-code-edit').val(obj.code);
 					$('#event-code-edit').val(obj.tEventId.id);
@@ -186,7 +186,7 @@
 					$('#design-status-edit').val(obj.status);
 					$('#design-requestDate-edit').val(obj.requestDate);
 					$('#design-note-edit').val(obj.note);
-					//console.log(obj);
+					console.log(obj);
 					var oTable = $('#dt-designItemEdit');
 					var tBody = oTable.find('tbody');
 					oTable.find('tr').remove();
@@ -225,8 +225,8 @@
 							appendString += "</td>"; 
 						appendString += "</tr>"
 						tBody.append(appendString);
-						$('#prod_'+product.id).val(product.id);		//menampilkan data product berdasarkan id product yang telah disimpan
-					});
+						$('#prod_'+product.id).val(product.id);		//menampilkan data product berdasarkan id product yang telah disimpan 
+					}); 
 				}, error : function(){
 					alert('failed');
 				}
@@ -594,6 +594,24 @@
 
 </head>
 <body>
+	
+	<c:url value="/j_spring_security_logout" var="logoutUrl" />
+	<form action="${logoutUrl}" method="post" id="logoutForm">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />
+	</form>
+	<script>
+		function formSubmit() {
+			document.getElementById("logoutForm").submit();
+		}
+	</script>
+
+	<c:if test="${pageContext.request.userPrincipal.name != null}">
+		<h2>
+			Welcome : ${pageContext.request.userPrincipal.name} | <a
+				href="javascript:formSubmit()"> Logout</a>
+		</h2>
+	</c:if>
 	
 	<div id="container" >
 		<div style="height:40px;background-color:#0069D9;margin-bottom:10px">

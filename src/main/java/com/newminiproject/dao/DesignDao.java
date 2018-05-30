@@ -3,6 +3,7 @@ package com.newminiproject.dao;
 import java.util.List;
 
 import com.newminiproject.model.Design;
+import com.newminiproject.model.Event;
 
 public interface DesignDao {
 
@@ -15,6 +16,8 @@ public interface DesignDao {
 	void update(Design design);
 
 	List<Design> search(Design design);
+
+	List<Design> getDesignByEvent(Event event);
 
 	
 }

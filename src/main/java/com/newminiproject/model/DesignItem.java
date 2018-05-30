@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="t_design_item")
 public class DesignItem {
@@ -76,6 +78,7 @@ public class DesignItem {
 	@Column(name="updated_date")
 	private Date updatedDate;
 	
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="designItem")
 	private List<PromotionItem> listPromotionItem;
 
