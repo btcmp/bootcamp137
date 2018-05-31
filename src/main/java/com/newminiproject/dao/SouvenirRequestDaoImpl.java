@@ -142,10 +142,11 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 	public void approved(TransactionSouvenir ts) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update TransactionSouvenir ts set ts.status=? where ts.id=?";
+		String hql = "update TransactionSouvenir ts set ts.status=?, ts.approvedDate=? where ts.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, ts.getStatus());
-		query.setParameter(1, ts.getId());
+		query.setParameter(1, ts.getApprovedDate());
+		query.setParameter(2, ts.getId());
 		
 		query.executeUpdate();
 	}
