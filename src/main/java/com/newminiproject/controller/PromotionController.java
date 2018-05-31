@@ -137,12 +137,23 @@ public class PromotionController {
 	}
 	
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String search(Model model, @RequestParam(value = "code", defaultValue="")String code) {
-		System.out.println(code);
-		
+	public String search(Model model, @RequestParam(value = "code", defaultValue="")String code, @RequestParam(value = "status", defaultValue="")String statusPromo) {
 		Promotion searching = new Promotion();
 		searching.setCode(code);
+		int status = 0;
 		
+		if(statusPromo == "done") {
+			status = 3;
+		} else if (statusPromo == "In Progress") {
+			status = 2;
+		} else if (statusPromo == "Submitted") {
+			status = 1;
+		} else if (statusPromo == "Rejected") {
+			status = 0;
+		}
+			
+		System.out.println("status : " + status);
+		searching.setStatus(status);
 		List<Promotion> listPromotion = promotionService.search(searching);
 		model.addAttribute("listPromotion", listPromotion);
 		return "promotion";

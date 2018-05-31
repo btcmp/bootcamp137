@@ -1933,7 +1933,7 @@
 			</div>
 			
 			<div class = "col">
-			<input type="text" name = "Status" placeholder = "Status" class = "form-control">
+			<input type="text" name = "status" placeholder = "Status" class = "form-control" id="statusPromo">
 			</div>
 			
 			<div class = "col">

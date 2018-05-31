@@ -136,14 +136,13 @@ public class PromotionDaoImpl implements PromotionDao {
 	public List<Promotion> search(Promotion searching) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Promotion pr where pr.code = :code";
+		String hql = "from Promotion pr where pr.code = :code or pr.status = :status";
 		
 		Query query = session.createQuery(hql);
 		query.setParameter("code", searching.getCode());
+		query.setParameter("status", searching.getStatus());
 		List<Promotion> listPromotion = query.list();
 		
-		/*System.out.println("code :" + searching.getCode());
-		*/
 		if(listPromotion.isEmpty()) {
 			return new ArrayList<>();
 		}
