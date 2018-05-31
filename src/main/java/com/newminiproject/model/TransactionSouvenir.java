@@ -28,6 +28,7 @@ public class TransactionSouvenir {
 	@Column(length=11)
 	private int id;
 	
+	
 	@Column(length=50, nullable=false)
 	private String code;
 	
