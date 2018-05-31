@@ -61,11 +61,13 @@ public class RoleDaoImpl implements RoleDao{
 	public void update(Role role) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update Role ro set ro.name=?, ro.description=? where ro.id=?";
+		String hql = "update Role ro set ro.name=?, ro.description=?, ro.updateDate=?, ro.updateBy=? where ro.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, role.getName());
 		query.setParameter(1, role.getDescription());
-		query.setParameter(2, role.getId());
+		query.setParameter(2, role.getUpdateDate());
+		query.setParameter(3, role.getUpdateBy());
+		query.setParameter(4, role.getId());
 		query.executeUpdate();
 	}
 

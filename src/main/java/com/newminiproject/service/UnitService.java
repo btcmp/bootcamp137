@@ -53,7 +53,11 @@ public class UnitService {
 	}
 
 	public void update(Unit unit) {
+		User user = (User) httpSession.getAttribute("app-user");
+		
 		// TODO Auto-generated method stub
+		unit.setUpdateDate(user.getUpdatedDate());
+		unit.setUpdateBy(user.getUsername());
 		unitDao.update(unit);
 	}
 

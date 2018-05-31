@@ -54,7 +54,11 @@ public class MenuService {
 	}
 
 	public void update(Menu menu) {
+		User user = (User) httpSession.getAttribute("app-user");
+		
 		// TODO Auto-generated method stub
+		menu.setUpdatedDate(new Date());
+		menu.setUpdatedBy(user.getUsername());
 		menuDao.update(menu);
 	}
 

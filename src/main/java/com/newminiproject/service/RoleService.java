@@ -53,7 +53,11 @@ public class RoleService {
 	}
 
 	public void update(Role role) {
+		User user = (User) httpSession.getAttribute("app-user");
+		
 		// TODO Auto-generated method stub
+		role.setUpdateDate(new Date());
+		role.setUpdateBy(user.getUsername());
 		roleDao.update(role);
 	}
 

@@ -59,12 +59,14 @@ public class MenuDaoImpl implements MenuDao{
 	public void update(Menu menu) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update Menu me set me.name=?, me.controller=?, me.parentId=? where me.id=?";
+		String hql = "update Menu me set me.name=?, me.controller=?, me.parentId=?, me.updatedDate=?, me.updatedBy=? where me.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, menu.getName());
 		query.setParameter(1, menu.getController());
 		query.setParameter(2, menu.getParentId());
-		query.setParameter(3, menu.getId());
+		query.setParameter(3, menu.getUpdatedDate());
+		query.setParameter(4, menu.getUpdatedBy());
+		query.setParameter(5, menu.getId());
 		query.executeUpdate();
 	}
 

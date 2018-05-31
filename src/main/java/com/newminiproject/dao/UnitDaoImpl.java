@@ -59,11 +59,13 @@ public class UnitDaoImpl implements UnitDao{
 	public void update(Unit unit) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update Unit un set un.name=?, un.description=? where un.id=?";
+		String hql = "update Unit un set un.name=?, un.description=?, un.updateDate=?, un.updateBy=? where un.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, unit.getName());
 		query.setParameter(1, unit.getDescription());
-		query.setParameter(2, unit.getId());
+		query.setParameter(2, unit.getUpdateDate());
+		query.setParameter(3, unit.getUpdateBy());
+		query.setParameter(4, unit.getId());
 		query.executeUpdate();
 	}
 
