@@ -55,11 +55,13 @@ public class Event {
 	private Date update_date;
 	private String updateBy;
 	
+	@Temporal(TemporalType.DATE)
+	private Date approveDate;
+	
 	@ManyToOne
 	@JoinColumn(name="request_by")
 	private Employee requestBy;
 	
-	//@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="tEventId")
 	private List<Design> listDesign;
 	
@@ -70,7 +72,12 @@ public class Event {
 	@ManyToOne
 	private Employee employee;//ini assign to
 	
-	
+	public Date getApproveDate() {
+		return approveDate;
+	}
+	public void setApproveDate(Date approveDate) {
+		this.approveDate = approveDate;
+	}
 	public Employee getRequestBy() {
 		return requestBy;
 	}

@@ -888,8 +888,7 @@ $(document).ready(function(){
 						</c:forEach>
 						</tbody>
 			</table>
-	    		
-		</div>
+	 	</div>
 		
 		
 		
