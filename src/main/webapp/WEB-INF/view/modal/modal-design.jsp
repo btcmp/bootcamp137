@@ -76,12 +76,12 @@
 	       			</div>
        			</div>
        			<div style="clear: both;"></div>
-       			<div style="height:40px;">
+       			<div style="height:50px;">
 	       			<div style="float: left; width:50%; text-align: right">
 	       				<label>*Event Code</label>
 	       			</div>
 	       			<div id="dataEvent" style="float: left; width:50%">
-	       				<select class="form-control" style="font-size: 12px;" id="eventCode">
+	       				<select class="form-control" style="font-size: 12px;" >
 	       					<option disabled selected value="">-Select Event-</option>
 	       					<c:forEach items="${listEvent }" var="event">	
 	       						<option value="${event.id }">${event.code }</option>

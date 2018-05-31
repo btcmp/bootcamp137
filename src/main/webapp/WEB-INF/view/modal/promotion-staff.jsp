@@ -18,7 +18,7 @@
 		  <div class="modal-dialog modal-lg" style = "max-width:1300px;"role="document" >
 		    <div class="modal-content">
 		      <div class="modal-header btn-primary">
-		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Add</span> Marketing Promotion</h5>
+		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Close</span> Marketing Promotion</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -243,7 +243,7 @@
 		  <div class="modal-dialog modal-lg" style = "max-width:1300px;"role="document" >
 		    <div class="modal-content">
 		      <div class="modal-header btn-primary">
-		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Add</span> Marketing Promotion</h5>
+		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Close</span> Marketing Promotion</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -470,7 +470,7 @@
 		  <div class="modal-dialog modal-lg" style = "max-width:1300px;"role="document" >
 		    <div class="modal-content">
 		      <div class="modal-header btn-primary">
-		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Add</span> Marketing Promotion</h5>
+		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Close</span> Marketing Promotion</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -486,7 +486,7 @@
 						  <div>
 						  	<span class = "float-left" style="width:35%; text-align:right;">* Transaction Code : </span>
 						    <div>
-							    <input class = "form-control float-left" style="width:65%;" type="text" id="transCodeStaffNot"  value = "${hasil }" placeholder="${hasil}" disabled>
+							    <input class = "form-control float-left" style="width:65%;" type="text" id="transCodeStaffNot"  disabled>
 								<input type="hidden" id="idEditNotStaff" >
 							    <input type="hidden" id="flagDesignEditNotStaff" >						
 							</div>
@@ -568,7 +568,7 @@
 					<div>
 						<button class = "btn btn-primary addItem"><strong>Add Item</strong></button>
 					</div>
-						<table class="display" style="width:100%; border:none;" id="tabelItemNot">
+						<table class="display" style="width:100%; border:none;" id="tabelItemNotStaff">
 							<thead>
 								<tr>
 									<th style="padding-left:110px; width:252px;">Filename</th>
@@ -607,7 +607,7 @@
 		  <div class="modal-dialog modal-lg" style = "max-width:1300px;"role="document" >
 		    <div class="modal-content">
 		      <div class="modal-header btn-primary">
-		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Add</span> Marketing Promotion</h5>
+		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Close</span> Marketing Promotion</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -705,7 +705,7 @@
 					<div>
 						<button class = "btn btn-primary addItem"><strong>Add Item</strong></button>
 					</div>
-						<table class="display" style="width:100%; border:none;" id="tabelItemNotView">
+						<table class="display" style="width:100%; border:none;" id="tabelItemNotStaffView">
 							<thead>
 								<tr>
 									<th style="padding-left:110px; width:252px;">Filename</th>

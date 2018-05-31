@@ -18,7 +18,7 @@
 		  <div class="modal-dialog modal-lg" style = "max-width:1300px;"role="document" >
 		    <div class="modal-content">
 		      <div class="modal-header btn-primary">
-		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Add</span> Marketing Promotion</h5>
+		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Approval</span> Marketing Promotion</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -244,7 +244,7 @@
 		  <div class="modal-dialog modal-lg" style = "max-width:1300px;"role="document" >
 		    <div class="modal-content">
 		      <div class="modal-header btn-primary">
-		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Add</span> Marketing Promotion</h5>
+		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Approval</span> Marketing Promotion</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -471,7 +471,7 @@
 		  <div class="modal-dialog modal-lg" style = "max-width:1300px;"role="document" >
 		    <div class="modal-content">
 		      <div class="modal-header btn-primary">
-		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Add</span> Marketing Promotion</h5>
+		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Approval</span> Marketing Promotion</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>
@@ -549,7 +549,7 @@
 						  	<div class="form-group">
 							    <span class = "float-left" style="width:35%; text-align:right;"> * Assign To : </span>
 							    <div class = "float-left" style="width:65%;">
-							    	<input class="form-control" type="text" id="AssignToNotAdmin" disabled>
+							    	<input class="form-control" type="text" id="AssignToNotAdmin">
 							    </div>
 							    
 							  </div>
@@ -569,7 +569,7 @@
 					<div>
 						<button class = "btn btn-primary addItem"><strong>Add Item</strong></button>
 					</div>
-						<table class="display" style="width:100%; border:none;" id="tabelItemNot">
+						<table class="display" style="width:100%; border:none;" id="tabelItemNotAdmin">
 							<thead>
 								<tr>
 									<th style="padding-left:110px; width:252px;">Filename</th>
@@ -609,7 +609,7 @@
 		  <div class="modal-dialog modal-lg" style = "max-width:1300px;"role="document" >
 		    <div class="modal-content">
 		      <div class="modal-header btn-primary">
-		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Add</span> Marketing Promotion</h5>
+		        <h5 class="modal-title" id="exampleModalLabel"><span id="editJudul">Approval</span> Marketing Promotion</h5>
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		          <span aria-hidden="true">&times;</span>
 		        </button>

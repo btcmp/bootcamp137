@@ -525,6 +525,13 @@
 						tBody3.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
 							
+							if(value.note == null){
+								value.note = " ";
+							} else {
+								value.note
+							}
+							
+							
 							var appendString3 = "<tr>";
 									appendString3 += "<td>";
 										appendString3 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' disabled>";
@@ -738,7 +745,7 @@
 									appendString5 += '</td>';
 							
 									appendString5 += '<td>';
-										appendString5 += '<select class = "form-control select-todo-promoItem" > <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
+										appendString5 += '<select class = "form-control select-todo-promoItem" > <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
 									appendString5 += '</td>';
 							
 									appendString5 += '<td>';
@@ -771,6 +778,13 @@
 						tBody6.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
 						
+							if(value.note == null){
+								value.note = " ";
+							} else {
+								value.note
+							}
+							
+							
 							var appendString6 = "<tr value-pif-id = '"+ value.id +"'>";
 									appendString6 += "<td>";
 										appendString6 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' >";
@@ -970,7 +984,7 @@
 									appendString11 += '</td>';
 							
 									appendString11 += '<td>';
-										appendString11 += '<select class = "form-control select-todo-promoItem" disabled> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
+										appendString11 += '<select class = "form-control select-todo-promoItem" disabled> <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
 									appendString11 += '</td>';
 							
 									appendString11 += '<td>';
@@ -1003,6 +1017,13 @@
 						tBody12.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
 						
+							if(value.note == null){
+								value.note = " ";
+							} else {
+								value.note
+							}
+							
+							
 							var appendString12 = "<tr value-pif-id = '"+ value.id +"'>";
 									appendString12 += "<td>";
 										appendString12 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' disabled>";
@@ -1075,7 +1096,7 @@
 						$('#statusByNotAdminView').val(status6);
 						
 						
-						var oTable13 = $('#tabelItemNotUpdate');
+						var oTable13 = $('#tabelItemNotAdmin');
 						var tBody13 = oTable13.find('tbody');
 						tBody13.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
@@ -1197,7 +1218,7 @@
 									appendString14 += '</td>';
 							
 									appendString14 += '<td>';
-										appendString14 += '<select class = "form-control select-todo-promoItem" disabled> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
+										appendString14 += '<select class = "form-control select-todo-promoItem" disabled> <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
 									appendString14 += '</td>';
 							
 									appendString14 += '<td>';
@@ -1230,6 +1251,13 @@
 						tBody15.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
 						
+							if(value.note == null){
+								value.note = " ";
+							} else {
+								value.note
+							}
+							
+							
 							var appendString15 = "<tr value-pif-id = '"+ value.id +"'>";
 									appendString15 += "<td>";
 										appendString15 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' disabled>";
@@ -1303,7 +1331,7 @@
 						$('#statusByNotStaffView').val(status7);
 						
 						
-						var oTable16 = $('#tabelItemNotUpdate');
+						var oTable16 = $('#tabelItemNotStaff');
 						var tBody16 = oTable16.find('tbody');
 						tBody16.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){

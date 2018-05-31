@@ -44,15 +44,15 @@ table {
 						id : $('#m-menu-id option:selected').val()
 					}
 				}
-			/* console.log(menuAccess); //deskripsi data yang dikirimkan server */
-			var arrayCheckboxValue = []; // buat array
+			//console.log(menuAccess); //deskripsi data yang dikirimkan server
+			/* var arrayCheckboxValue = []; // buat array
 			$('input[name=menuAdd]').each(function(){ // panggil variabel checkbox
 				if($(this).prop('checked')){ // check yg udah dichecklist aja
 					arrayCheckboxValue.push($(this).val()); // binding datanya ke arrayCheckboxValue
 				}
 			});
 			
-			console.log(arrayCheckboxValue);
+			console.log(arrayCheckboxValue); */
 			
 			$.ajax({
 				url: '${pageContext.request.contextPath}/menu_access/save',
@@ -110,7 +110,6 @@ table {
 				url: '${pageContext.request.contextPath}/menu_access/getmenuaccess?id=' + editCode,
 				type: 'GET',
 				success:function(data){
-					$('#id').val(data.id);
 					$('#roleEdit').val(data.mRoleId.name);
 					$('#menuEdit').val(data.mMenuId.name);
 					
@@ -120,25 +119,29 @@ table {
 				},
 				dataType: 'JSON'
 			});
-			$('.btnEditModal').modal();
+			$('#modalEdit').modal();
 		});
 		
 		//button update function
-		$('#btnEdit').on('click', function(){
-			var menu = {
-				id: $('#id').val(),
-				name: $('#nameEdit').val(),
-				controller: $('#controllerEdit').val()
+		$('#btn-save-edit').on('click', function(){
+			var menuAccess = {
+					mRoleId:{
+						id : $('#roleEdit option:selected').val()
+					},
+					mMenuId:{
+						id : $('#menuEdit option:selected').val()
+					}
 			}
+			
 			$.ajax({
-				url:'${pageContext.request.contextPath}/menu/update',
+				url:'${pageContext.request.contextPath}/menu_access/update',
 				type:'POST',
-				data:JSON.stringify(menu),
+				data:JSON.stringify(menuAccess),
 				contentType:'application/json',
 				success:function(data){
 					alert('update ok');
 					console.log(data);
-					window.location = '${pageContext.request.contextPath}/menu'
+					window.location = '${pageContext.request.contextPath}/menu_access'
 				},error:function(){
 					alert('gagal update');
 				}
@@ -245,13 +248,17 @@ table {
 						  	<div class="col">
 						      <label for="name">* Menu Access</label>
 						    </div>
-						</div>
-						<div class="row">
 							<div class="col" id="m-menu-id" name="menu-add" style="margin-left:10px;">
-							<c:forEach items="${listMenu}" var="menu">
-						      	<input type="checkbox" name="menuadd" value="${menu.id}"/>
-								<span>${menu.name}</span><br/>
-							</c:forEach>	
+								<select class="form-control" style="font-size: 12px;">
+						       		<option>Select Menu Access</option>
+						       		<c:forEach items="${listMenu}" var="menu">
+						       			<option value="${menu.id}">${menu.name}</option>
+						       		</c:forEach>
+						       </select>
+						       <%-- <c:forEach items="${listMenu}" var="menu">
+							      	<input type="checkbox" name="menuadd" value="${menu.id}"/>
+									<span>${menu.name}</span><br/>
+								</c:forEach> --%>	
 						    </div>
 						</div>					  
 					  </div>
@@ -302,10 +309,8 @@ table {
 						  	<div class="col">
 						      <label for="name">* Role Id</label>
 						    </div>
-						    <div class="col" id="m-role-id">
-						       <select class="form-control" style="font-size: 12px;">
+						    <div class="col">
 						       		<input type="text" id="roleEdit" class="form-control" disabled>
-						       </select>
 						    </div>
 						</div>
 						
@@ -315,11 +320,17 @@ table {
 						    </div>
 						</div>
 						<div class="row">
-							<div class="col" id="m-menu-id" style="margin-left:10px;">
-							<c:forEach items="${listMenu}" var="menu">
+							<div class="col" id="menuEdit" style="margin-left:10px;">
+							<select class="form-control" style="font-size: 12px;">
+						       		<option>Select Menu Access</option>
+						       		<c:forEach items="${listMenu}" var="menu">
+						       			<option value="${menu.id}">${menu.name}</option>
+						       		</c:forEach>
+						       </select>
+							<%-- <c:forEach items="${listMenu}" var="menu">
 						      	<input type='checkbox' name='id[0]' id='menuEdit' value="${menu.id}"/>
 								<span>${menu.name}</span><br/>
-							</c:forEach>	
+							</c:forEach> --%>	
 						    </div>
 						</div>					  
 					  </div>
@@ -352,24 +363,23 @@ table {
 						  	<div class="col">
 						      <label for="name">* Role Id</label>
 						    </div>
-						    <div class="col" id="m-role-id">
-						       <select class="form-control" style="font-size: 12px;">
+						    <div class="col">
 						       		<input type="text" id="roleView" class="form-control" disabled>
-						       </select>
 						    </div>
 						</div>
 						
 						<div class="row">  	
-						  	<div class="col">
+						  	<div class="col" style="margin-left:10px;">
 						      <label for="name">* Menu Access</label>
 						    </div>
 						</div>
 						<div class="row">
-							<div class="col" id="m-menu-id" style="margin-left:10px;">
-							<c:forEach items="${listMenu}" var="menu">
+							<div class="col" style="margin-left:10px;">
+								<input type="text" id="menuView" class="form-control" disabled>
+							<%-- <c:forEach items="${listMenu}" var="menu">
 						      	<input type='checkbox' name='id[0]' id='menuView' value="${menu.id}"/>
 								<span>${menu.name}</span><br/>
-							</c:forEach>	
+							</c:forEach>	 --%>
 						    </div>
 						</div>					  
 					  </div>

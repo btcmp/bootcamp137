@@ -46,10 +46,9 @@ public class MenuAccessController {
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
-	@ResponseBody
-	public String save(@RequestBody MenuAccess menuAccess) {
-		//maService.save(menuAccess);
-		return "hello world";
+	@ResponseStatus(HttpStatus.OK)
+	public void save(@RequestBody MenuAccess menuAccess) {
+		maService.save(menuAccess);
 		
 	}
 	
