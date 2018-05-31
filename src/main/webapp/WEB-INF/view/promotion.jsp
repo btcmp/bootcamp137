@@ -1794,11 +1794,11 @@
 		  }
 		}); */
 	
-		$('#serachBtn').on('click', function(){
+		$('#btn-search').on('click', function(){
 			var form = $('#navigasiForm');
 			var data = form.serialize();
-			console.log(form);
-			window.location = '${pageContext.request.contextPath}/promotion/search?'+ form;
+			//console.log(data);
+			window.location = "${pageContext.request.contextPath}/promotion/search?"+data;
 		})
 		
 	})
@@ -1945,7 +1945,7 @@
 			</div>
 			
 			<div class = "col-auto">
-			<input type = "submit" value = "Search" class="btn btn-warning btn-custom float-right" id="serachBtn">
+			<a href="#" style ="width:73px;" class="btn btn-custom btn-warning" id="btn-search" data-toggle="modal" data-target="#exampleModalCenter">Search</a>
 			</div>		
 	
 	

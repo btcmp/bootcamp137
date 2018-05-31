@@ -121,6 +121,7 @@ public class PromotionController {
 		return promotion;
 	}
 	
+	
 	@ResponseBody
 	@RequestMapping (value = "/rejected", method = RequestMethod.POST)
 	public Promotion rejected (@RequestBody Promotion promotion) {

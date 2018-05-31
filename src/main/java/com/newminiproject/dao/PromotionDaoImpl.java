@@ -142,8 +142,8 @@ public class PromotionDaoImpl implements PromotionDao {
 		query.setParameter("code", searching.getCode());
 		List<Promotion> listPromotion = query.list();
 		
-		System.out.println("code :" + searching.getCode());
-		
+		/*System.out.println("code :" + searching.getCode());
+		*/
 		if(listPromotion.isEmpty()) {
 			return new ArrayList<>();
 		}
