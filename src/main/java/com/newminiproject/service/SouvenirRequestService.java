@@ -192,6 +192,7 @@ public class SouvenirRequestService {
 		ts.setRequestDueDate(transactionSouvenir.getRequestDueDate());
 		ts.setNote(transactionSouvenir.getNote());
 		ts.setStatus(transactionSouvenir.getStatus());
+		ts.setRejectReason(transactionSouvenir.getRejectReason());
 		souvenirRequestDao.rejected(ts);
 	}
 

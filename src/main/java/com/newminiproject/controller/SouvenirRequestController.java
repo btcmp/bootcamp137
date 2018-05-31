@@ -165,7 +165,7 @@ public class SouvenirRequestController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/statusupdate", method = RequestMethod.POST)
+	@RequestMapping(value="/rejected", method = RequestMethod.PUT)
 	public TransactionSouvenir rejected(@RequestBody TransactionSouvenir transactionSouvenir){
 		souvenirRequestService.rejected(transactionSouvenir);
 		return transactionSouvenir;

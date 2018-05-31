@@ -675,12 +675,12 @@
 				requestDueDate : new Date($('#duedateadmin').val()),
 				note : $('#noteadmin').val(),
 				status : 0,
-				reject_reason : $('#rejectreason').val(),
+				rejectReason : $('#rejectreason').val(),
 				transactionSouvenirItem : []
 			};
 			console.log(rejected);
 			$.ajax({
-				url : '${pageContext.request.contextPath}/souvenirrequest/approved',
+				url : '${pageContext.request.contextPath}/souvenirrequest/rejected',
 				type : 'PUT',
 				data : JSON.stringify(rejected),
 				contentType : 'application/json',
