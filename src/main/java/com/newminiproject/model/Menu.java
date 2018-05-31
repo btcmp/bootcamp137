@@ -34,7 +34,6 @@ public class Menu {
 	@Column(name="code", length=50)
 	private String code;
 	
-	@NotNull
 	@Column(name="name", length=50)
 	private String name;
 	

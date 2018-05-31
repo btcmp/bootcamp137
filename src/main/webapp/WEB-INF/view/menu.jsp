@@ -460,7 +460,7 @@
 <!-- 			      		<input type="text" id="parentView" class="form-control" disabled> -->
 							<input type="hidden" id="idAdd">
 							<select id="menuNameAdd" class="form-control" name="menuname">
-	    						<option value=0>- Select Menu Code -</option>
+	    						<option value=0 selected>- Select Menu Code -</option>
 	    						<c:forEach items="${listMenu}" var="menu">
 	    						<option value="${menu.id }">${menu.name}</option>
 	    						</c:forEach>
