@@ -99,11 +99,14 @@
 					code: $("#codeAdd").val(),
 					name: $("#nameAdd").val(),
 					controller: $("#controllerAdd").val(),
-					createdBy : $("#username").val(),
-					parentId: {
+					createdBy : $("#username").val()
+					
+				}
+			if($('#menuNameAdd option:selected').val() != 0){
+					menu.parentId = {
 						id : $('#menuNameAdd option:selected').val()
 					}
-				}
+			}
 			//console.log(menu); //deskripsi data yang dikirimkan server
 			
 			//validasi field pada saat save

@@ -23,7 +23,6 @@ public class MenuDaoImpl implements MenuDao{
 		Session session = sessionFactory.getCurrentSession();
 		session.save(menu);
 		session.flush();
-		//System.out.println("Sudah masuk ke menu");
 	}
 
 	@Override
