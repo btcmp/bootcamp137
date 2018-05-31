@@ -65,6 +65,24 @@ public class PromotionItemFileDaoImpl implements PromotionItemFileDao {
 		System.out.println("Note : " + pif1.getNote());
 		System.out.println("Id : " +pif1.getId());
 	*/}
+
+	@Override
+	public void closeRequest(PromotionItemFile lpif1) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PromotionItemFile pif set pif.startDate = ?, pif.endDate = ? where pif.id = ?";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter(0, lpif1.getStartDate());
+		query.setParameter(1, lpif1.getEndDate());
+		query.setParameter(2, lpif1.getId());
+		
+		query.executeUpdate();
+		
+		System.out.println("start date : " + lpif1.getStartDate());
+		System.out.println("end date : " + lpif1.getEndDate());
+		System.out.println("id : " + lpif1.getId());
+	}
 	
 	
 }

@@ -22,4 +22,6 @@ public interface PromotionDao {
 
 	void rejected(Promotion prm);
 
+	void closeRequest(Promotion prm);
+
 }

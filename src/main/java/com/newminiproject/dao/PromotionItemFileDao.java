@@ -14,4 +14,6 @@ public interface PromotionItemFileDao {
 
 	void update(PromotionItemFile pif1);
 
+	void closeRequest(PromotionItemFile lpif1);
+
 }

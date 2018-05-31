@@ -15,4 +15,6 @@ public interface PromotionItemDao {
 
 	void update(PromotionItem pi1);
 
+	void closeRequest(PromotionItem lpi1);
+
 }

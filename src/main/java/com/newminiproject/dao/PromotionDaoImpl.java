@@ -116,4 +116,21 @@ public class PromotionDaoImpl implements PromotionDao {
 		System.out.println("Id : " + prm.getId());
 	*/}
 
+	@Override
+	public void closeRequest(Promotion prm) {
+		// TODO Auto-generated method stub
+		
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update Promotion pr set pr.status = ? where pr.id =?";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter(0, prm.getStatus());
+		query.setParameter(1, prm.getId());
+		
+		query.executeUpdate();
+		
+		System.out.println("status promotion : " + prm.getStatus());
+		System.out.println("id promotion : " + prm.getId());
+	}
+
 }

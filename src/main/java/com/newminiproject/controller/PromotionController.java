@@ -129,6 +129,13 @@ public class PromotionController {
 		return promotion;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/closerequest", method = RequestMethod.POST)
+	public Promotion closeRequest (@RequestBody Promotion promotion) {
+		promotionService.closeRequest (promotion);
+		return promotion;
+	}
+	
 	@RequestMapping (value="/test", method = RequestMethod.GET)
 	@ResponseBody
 	public String test() {

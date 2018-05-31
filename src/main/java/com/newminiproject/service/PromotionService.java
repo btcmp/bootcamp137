@@ -221,4 +221,33 @@ public class PromotionService {
 		
 		promotionDao.rejected(prm);
 	}
+
+	public void closeRequest(Promotion promotion) {
+		// TODO Auto-generated method stub
+		Promotion prm = new Promotion();
+		prm.setId(promotion.getId());
+		prm.setStatus(promotion.getStatus());
+		
+		promotionDao.closeRequest(prm);
+		
+		for(PromotionItem lpi : promotion.getListPromotionItem()) {
+			PromotionItem lpi1 = new PromotionItem();
+			
+			lpi1.setId(lpi.getId());
+			lpi1.setStartDate(lpi.getStartDate());
+			lpi1.setEndDate(lpi.getEndDate());
+			
+			promotionItemDao.closeRequest(lpi1);
+		}
+		
+		for(PromotionItemFile lpif : promotion.getListPromotionItemFile()) {
+			PromotionItemFile lpif1 = new PromotionItemFile();
+			
+			lpif1.setId(lpif.getId());
+			lpif1.setStartDate(lpif.getStartDate());
+			lpif1.setEndDate(lpif.getEndDate());
+			
+			promotionItemFileDao.closeRequest(lpif1);
+		}
+	}
 }

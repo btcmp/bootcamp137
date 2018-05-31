@@ -946,6 +946,10 @@
 							status5 = "Rejected";
 						} else if (data.status == 1){
 							status5 = "Submitted";
+						} else if (data.status == 2){
+							status5 = "In Progress";
+						} else if (data.status == 2){
+							status5 = "Done";
 						}
 						$('#statusByAdmin').val(status5);
 						
@@ -1094,6 +1098,10 @@
 							status6 = "Rejected";
 						} else if (data.status == 1){
 							status6 = "Submitted";
+						} else if (data.status == 2){
+							status6 = "In Progress";
+						} else if (data.status == 3){
+							status6 = "Dones";
 						}
 						$('#statusByNotAdminView').val(status6);
 						
@@ -1189,6 +1197,10 @@
 							status5 = "Rejected";
 						} else if (data.status == 1){
 							status5 = "Submitted";
+						} else if (data.status == 2){
+							status5 = "In Progress";
+						} else if (data.status == 3){
+							status5 = "Done";
 						}
 						$('#statusByStaff').val(status5);
 						
@@ -1237,11 +1249,11 @@
 									appendString14 += '</td>';
 						
 									appendString14 += '<td>';
-										appendString14 += '<input class = "form-control" type="date" value="'+ value.startDate +'" disabled>';
+										appendString14 += '<input class = "form-control" type="date" value="'+ value.startDate +'" >';
 									appendString14 += '</td>';
 										
 									appendString14 += '<td>';
-										appendString14 += '<input type="date" class = "form-control" value ="'+ value.endDate +'" disabled>';
+										appendString14 += '<input type="date" class = "form-control" value ="'+ value.endDate +'" >';
 									appendString14 += '</td>';
 						
 									appendString14 += '<td>';
@@ -1287,11 +1299,11 @@
 									appendString15 += "</td>";
 									
 									appendString15 += "<td>";
-										appendString15 += "<input type='date' class = 'form-control' disabled>" ;
+										appendString15 += "<input type='date' class = 'form-control' value = '"+ value.startDate +"'>" ;
 									appendString15 += "</td>";
 									
 									appendString15 += "<td>";
-										appendString15 += "<input type='date' class = 'form-control' disabled>";
+										appendString15 += "<input type='date' class = 'form-control' value = '"+ value.endDate +"'>";
 									appendString15 += "</td>";
 									
 									appendString15 += "<td>";
@@ -1338,6 +1350,10 @@
 							status7 = "Rejected";
 						} else if (data.status == 1){
 							status7 = "Submitted";
+						} else if (data.status == 2){
+							status7 = "In Progress";
+						} else if (data.status == 3){
+							status7 = "Done";
 						}
 						$('#statusByNotStaffView').val(status7);
 						
@@ -1371,11 +1387,11 @@
 									appendString16 += '</td>';
 							
 									appendString16 += '<td>';
-										appendString16 += '<input type="date" class = "form-control" disabled>' ;
+										appendString16 += '<input type="date" class = "form-control" value="'+ value.startDate +'">' ;
 									appendString16 += '</td>';
 							
 									appendString16 += '<td>';
-										appendString16 += '<input type="date" class = "form-control" disabled>' ;
+										appendString16 += '<input type="date" class = "form-control" value = "'+ value.endDate +'">' ;
 									appendString16 += '</td>';
 							
 									appendString16 += '<td>';
@@ -1527,12 +1543,62 @@
 			
 		})
 	})
+	
+/// ROLE STAFF
+	$('#closeRequestStaff').on('click', function(){
+		var promoStaff = {
+			id : $('#idEditStaff').val(),
+			status : 3,
+			listPromotionItem : [],
+			listPromotionItemFile : []
+		}
+		_closeRequestItem(promoStaff.listPromotionItem);
+		_closeRequestItemFile(promoStaff.listPromotionItemFile);
+	
+		$.ajax({
+			url:'${pageContent.request.contextPath}/promotion/closerequest',
+			type : 'POST',
+			data : JSON.stringify(promoStaff),
+			contentType : 'application/json',
+			success : function(data){
+				window.location = '${pageContext.request.contextPath}/promotion';
+			},
+			error : function(){
+				alert('error');
+			}
+		})
+	
+	})
+
+	function _closeRequestItem(listPromotionItem){
+		$('#listDesignItemStaff > tbody > tr').each(function(index,value){
+			var promoItemStaff = {
+				id : $(value).attr('value-dsi-id'),
+				startDate : $(value).find('td').eq(6).find('input').val(),
+				endDate : $(value).find('td').eq(7).find('input').val()
+			}
+			listPromotionItem.push(promoItemStaff);
+		})
+	}
+	
+	function _closeRequestItemFile(listPromotionItemFile){
+		$('#tabelItemStaff > tbody > tr').each(function(index,value){
+			var promoItemFileStaff = {
+				id : $(value).attr('value-pif-id'),
+				startDate : $(value).find('td').eq(4).find('input').val(),
+				endDate : $(value).find('td').eq(5).find('input').val()
+			}
+			listPromotionItemFile.push(promoItemFileStaff);
+		})
+	}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Update from flagDesign == 0 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /// ROLE_REQUESTER
 	$('#updateNotDesign').on('click', function(){
+		
 		var updatePromoNot = {
 			id : $('#idEditNot').val(),
 			code : $('#transCodeNotUpdate').val(),
@@ -1559,7 +1625,7 @@
 				alert('error');
 			}
 		})
-		
+		 
 	})
 
 	

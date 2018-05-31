@@ -13,6 +13,8 @@ import org.springframework.stereotype.Repository;
 import com.newminiproject.model.Promotion;
 import com.newminiproject.model.PromotionItem;
 
+import oracle.net.aso.l;
+
 
 @Repository
 public class PromotionItemDaoImpl implements PromotionItemDao{
@@ -63,6 +65,25 @@ public class PromotionItemDaoImpl implements PromotionItemDao{
 		System.out.println("get Note"+ pi1.getNote());
 		System.out.println("get id"+ pi1.getId());
 		*/
+	}
+
+	@Override
+	public void closeRequest(PromotionItem lpi1) {
+		// TODO Auto-generated method stub
+		
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update PromotionItem pti set pti.startDate = ?, pti.endDate = ? where pti.id = ?";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter(0, lpi1.getStartDate());
+		query.setParameter(1, lpi1.getEndDate());
+		query.setParameter(2, lpi1.getId());
+		
+		query.executeUpdate();
+		
+		System.out.println("start date : " + lpi1.getStartDate());
+		System.out.println("end date : " + lpi1.getEndDate());
+		System.out.println("id : " + lpi1.getId());
 	}
 
 }
