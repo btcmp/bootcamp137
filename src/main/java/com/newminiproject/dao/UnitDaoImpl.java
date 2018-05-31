@@ -71,7 +71,7 @@ public class UnitDaoImpl implements UnitDao{
 	public List<Unit> search(Unit unit) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Unit un where un.code=:unitcode or un.name=:unitname or un.createdBy=:unitcreatedby or un.createdDate=:unitcreateddate";
+		String hql = "from Unit un where un.code=:unitcode or un.name=:unitname or un.createdBy=:unitcreatedby or un.createdDate=:unitcreateddate and un.isDelete=0";
 		Query query = session.createQuery(hql);
 		query.setParameter("unitcode", unit.getCode());
 		query.setParameter("unitname", unit.getName());
