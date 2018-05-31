@@ -100,7 +100,6 @@
 					name: $("#nameAdd").val(),
 					controller: $("#controllerAdd").val(),
 					createdBy : $("#username").val()
-					
 				}
 			if($('#menuNameAdd option:selected').val() != 0){
 					menu.parentId = {
