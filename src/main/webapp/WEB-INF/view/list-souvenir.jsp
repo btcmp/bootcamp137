@@ -56,6 +56,13 @@
 	background-color: #F2DEDE !important;
 	border: 1px solid #EED3D7 !important;
 }
+
+select.parsley-error
+{
+	color: #B94A48 !important;
+	background-color: #F2DEDE !important;
+	border: 1px solid #EED3D7 !important;
+}
   </style>
   
 <!-- 	ini di copy buat validasi -->
@@ -87,18 +94,15 @@
 			var souvenir = {
 					code : $('#code').val(),
 					mUnitId : {
-						id : $('#m-unit-id option:selected').val()
+						id : $('#unit-valid option:selected').val()
 					},
 					name : $('#name').val(),
 					description : $('#description').val()
 				};
 			
 			//validasi field di  modal add
-			var validateCode = $('#code').parsley({
-				required : true,
-				requiredMessage : 'The Field cant be Empty'
-			});
-			var validateUnit = $('#m-unit-id').parsley({
+			
+			var validateUnit = $('#unit-valid').parsley({
 				required : true,
 				requiredMessage : 'The Field cant be Empty'
 			});
@@ -113,8 +117,7 @@
 				return validate.isValid();
 			}
 			
-			var valid = getValid(validateCode);
-				valid = getValid(validateUnit);
+			var valid = getValid(validateUnit);
 				valid = getValid(validateName);
 			
 				//ajax (asynchronous javascript and xml)
@@ -436,8 +439,8 @@
 		      			<label>* Unit Name</label>
 		      		</div>
 		      		<div class="col-md-4" id="m-unit-id">
-		      			<select class="form-control">
-		      				<option>- Select Unit -</option>
+		      			<select class="form-control" id="unit-valid">
+		      				<option selected value = "">- Select Unit -</option>
 		      				<c:forEach items="${listUnit }" var="unit">
 								<option value="${unit.id }">${unit.name }</option>
 							</c:forEach>
