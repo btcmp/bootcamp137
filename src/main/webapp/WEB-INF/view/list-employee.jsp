@@ -42,7 +42,8 @@
 				},
 				firstName : $('#firstName').val(),
 				lastName : $('#lastName').val(),
-				email : $('#email').val()
+				email : $('#email').val(),
+				createdBy : "Administrator"
 			}
 			console.log(employee);
 			$.ajax({
@@ -58,21 +59,7 @@
 			});
 		}); 
 		
-		//SEARCH
-		$('#btn-search').click(function() {
-		 var search = {
-					code : $('#codeSearch').val()
-				}
-			console.log(search);
-		 
-			
-			var employee1 = search.code;
-				    $("#emp tr").filter(function() {
-				      $(this).toggle($(this).text().toLowerCase().indexOf(employee1) > -1)
-		    });
-			 
-		});
-					
+		
 		//VIEW
 		$(document).on('click','#btn-detail', function(){
 			var id = $(this).attr('data-id');
@@ -164,10 +151,46 @@
 				    }
 				});		
 		});
+		
+		//SEARCH
+		$('#btn-search').click(function() {
+			var form = $("#form-search-emp");
+			var data = form.serialize(); //untuk mengambil semua data yang ada di table
+			console.log(data);
+			if(data == "codeSearch=&nameSearch=&createdDateSearch=&createdBySearch=&companySearch"){
+				console.log(data);
+				window.location = '${pageContext.request.contextPath}/employee';
+			}
+			else{
+				console.log(data);
+				window.location = '${pageContext.request.contextPath}/employee/search?'+data;	
+			} 		
+			 
+		});
 	});
 </script>
 </head>
 <body>
+	<c:url value="/j_spring_security_logout" var="logoutUrl" />
+		<form action="${logoutUrl}" method="post" id="logoutForm">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
+		<script>
+			function formSubmit() { 
+				document.getElementById("logoutForm").submit();
+			}
+		</script>
+	
+		<c:if test="${pageContext.request.userPrincipal.name != null}">
+			<h2>
+				Welcome : ${pageContext.request.userPrincipal.name} | <a
+					href="javascript:formSubmit()"> Logout</a>
+			</h2>
+		</c:if>
+	
+	
+	
 	
 	<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
 		<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Employee</h5>
@@ -183,34 +206,36 @@
 
     	<a href="#" class="btn btn-primary" id="btn-add" style="width:70px;float:right;">Add</a><br/><br/>
 
-    	<div class="form-row">
+		<form id="form-search-emp">
+    	<div class="form-row" >
     		<div class="col-auto">
-    			<input type="text" class="form-control" id="codeSearch" placeholder="Employee ID Number" style="font-size: 13px">
+    			<input type="text" class="form-control" id="code-Search" placeholder="Employee ID Number" name="codeSearch" style="font-size: 13px" >
     		</div>
     		<div class="col">
-    			<input type="text" class="form-control" id="nameSearch" placeholder="Employee Name" style="font-size: 13px">
+    			<input type="text" class="form-control" id="name-Search" placeholder="Employee Name" name="nameSearch" style="font-size: 13px">
     		</div>
     		<div class="form-group">
-    			<div class="col-auto" id="companySearch">
+    			<div class="col-auto" id="company-Search" name="companySearch">
 	  				<select class="form-control" id="exampleFormControlSelect1" style="font-size: 13px">
 	      				<option>- Select Company Name -</option>
 	      				<c:forEach items="${listCompany}" var="company">
-						<option value="${company.id}">${company.name}</option>
+						<option id="company-Name-Search" value="${company.id}">${company.name}</option>
 						</c:forEach>
 	    			</select> 
 	    		</div>
   			</div>
     		
     		<div class="col-auto">
-    			<input placeholder="Created" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="createdDateSearch" style="font-size: 13px">	
+    			<input placeholder="Created" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="created-Date-Search" name="createdDateSearch" style="font-size: 13px">	
     		</div>
     		<div class="col-auto">
-    			<input type="text" class="form-control" id="createdBySearch" placeholder="Created By" style="font-size: 13px">
+    			<input type="text" class="form-control" id="created-By-Search" name="createdBySearch" placeholder="Created By" style="font-size: 13px">
     		</div>
     		<div class="col-auto">
     			<a href="#" class="btn btn-warning" id="btn-search" style="width:70px;color:white;">Search</a>
     		</div>	
     	</div>
+    	</form>
     	
     	<table class="table"  >
 				<thead>

@@ -75,8 +75,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public String search(Model model, @RequestParam(value="codeSearch", defaultValue="")String codeSearch, 
-	@RequestParam(value="nameSearch", defaultValue="") String nameSearch, @RequestParam(value="companySearch", defaultValue="") String companySearch, @RequestParam(value="createdDateSearch", defaultValue="") String createdDateSearch, @RequestParam(value="createdBySearch", defaultValue="") String createdBySearch) throws ParseException {
+	public String search(Model model, @RequestParam(value="codeSearch", defaultValue="")String codeSearch,@RequestParam(value="nameSearch", defaultValue="") String nameSearch, @RequestParam(value="companySearch", defaultValue="") String companySearch, @RequestParam(value="createdDateSearch", defaultValue="") String createdDateSearch, @RequestParam(value="createdBySearch", defaultValue="") String createdBySearch) throws ParseException {
 //		
 		Date createdDateDual = null;
 		if(!createdDateSearch.equals("")) {
@@ -84,8 +83,9 @@ public class EmployeeController {
 		}
 		Employee employee = new Employee();
 		
-		employee.setFirstName(nameSearch);
+
 		employee.setCode(codeSearch);
+		employee.setFirstName(nameSearch);
 		employee.setCreatedBy(createdBySearch);		
 		employee.setCreatedDate(createdDateDual);
 	//	employee.setmCompanyId(companySearch);
