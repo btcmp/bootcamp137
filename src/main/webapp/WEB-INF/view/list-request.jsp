@@ -675,7 +675,7 @@
 				requestDueDate : new Date($('#duedateadmin').val()),
 				note : $('#noteadmin').val(),
 				status : 0,
-				reject_reason : $('rejectreason').val(),
+				reject_reason : $('#rejectreason').val(),
 				transactionSouvenirItem : []
 			};
 			console.log(rejected);
