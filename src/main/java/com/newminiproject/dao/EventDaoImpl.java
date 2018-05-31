@@ -60,7 +60,7 @@ public class EventDaoImpl implements EventDao {
 	public void update(Event event) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update Event it set it.code=?, it.eventName=?, it.eventPlace=?, it.startDate=?, it.endDate=?, it.budget=?, it.requestBy=?, it.requestDate=?, it.note=?, it.updateBy=?, it.update_date=? where it.id=? ";
+		String hql = "update Event it set it.code=?, it.eventName=?, it.eventPlace=?, it.startDate=?, it.endDate=?, it.budget=?, it.requestDate=?, it.note=?, it.updateBy=?, it.update_date=? where it.id=? ";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, event.getCode());
 		query.setParameter(1, event.getEventName());
@@ -68,12 +68,11 @@ public class EventDaoImpl implements EventDao {
 		query.setParameter(3, event.getStartDate());
 		query.setParameter(4, event.getEndDate());
 		query.setParameter(5, event.getBudget());
-		query.setParameter(6, event.getRequestBy());
-		query.setParameter(7, event.getRequestDate());
-		query.setParameter(8, event.getNote());
-		query.setParameter(9, event.getUpdateBy());
-		query.setParameter(10, event.getUpdate_date());
-		query.setParameter(11, event.getId());
+		query.setParameter(6, event.getRequestDate());
+		query.setParameter(7, event.getNote());
+		query.setParameter(8, event.getUpdateBy());
+		query.setParameter(9, event.getUpdate_date());
+		query.setParameter(10, event.getId());
 		query.executeUpdate();
 	}
 
@@ -127,6 +126,25 @@ public class EventDaoImpl implements EventDao {
 		query.setParameter(4, event.getId());
 		query.executeUpdate();
 		
+	}
+
+	@Override
+	public List<Event> search(Event event) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Event it where it.code=? or it.requestDate=? or it.endDate=? or it.status=? or it.createDate=? or it.createBy=? ";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, event.getCode());
+		query.setParameter(1, event.getRequestDate());
+		query.setParameter(2, event.getEndDate());
+		query.setParameter(3, event.getStatus());
+		query.setParameter(4, event.getCreateDate());
+		query.setParameter(5, event.getCreateBy());
+		List<Event> listEvent = query.list();
+		if(listEvent.isEmpty()) {
+			return new ArrayList<>();
+		}
+		
+		return listEvent;
 	}
 
 }

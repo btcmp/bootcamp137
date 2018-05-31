@@ -106,4 +106,9 @@ public class EventService {
 		return event;
 	}
 
+	public List<Event> search(Event event) {
+		// TODO Auto-generated method stub
+		return eventDao.search(event);
+	}
+
 }
