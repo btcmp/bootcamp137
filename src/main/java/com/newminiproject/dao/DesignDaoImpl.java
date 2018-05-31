@@ -49,19 +49,21 @@ public class DesignDaoImpl implements DesignDao{
 	public void update(Design design) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update Design d set d.tEventId=?, d.titleHeader=?, d.note=?, d.updatedDate=? where d.id=?";
+		String hql = "update Design d set d.tEventId=?, d.titleHeader=?, d.note=?, d.updatedDate=?, d.updatedBy=? where d.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, design.gettEventId());
 		query.setParameter(1, design.getTitleHeader());
 		query.setParameter(2, design.getNote());
 		query.setParameter(3, design.getUpdatedDate());
-		query.setParameter(4, design.getId());
+		query.setParameter(4, design.getUpdatedBy());
+		query.setParameter(5, design.getId());
 		
 		query.executeUpdate();
 		System.out.println("event = "+design.gettEventId());
 		System.out.println("title header = "+design.getTitleHeader());
 		System.out.println("note = "+design.getNote());
 		System.out.println("updated date = "+design.getUpdatedDate());
+		System.out.println("updated by = "+design.getUpdatedBy());
 		System.out.println("id = "+design.getId());
 	}
 
@@ -98,13 +100,17 @@ public class DesignDaoImpl implements DesignDao{
 	public void approved(Design design) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update Design d set d.status=2, d.approvedDate=? where d.id=?";
+		String hql = "update Design d set d.status=2, d.approvedDate=?, d.approvedBy=?, d.assignTo=? where d.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, design.getApprovedDate());
-		query.setParameter(1, design.getId());
+		query.setParameter(1, design.getApprovedBy());
+		query.setParameter(2, design.getAssignTo());
+		query.setParameter(3, design.getId());
 		
 		query.executeUpdate();
 		System.out.println("approved date = "+design.getApprovedDate());
+		System.out.println("approved by = "+design.getApprovedBy());
+		System.out.println("assignTo = "+design.getAssignTo());
 		System.out.println("id = "+design.getId());
 	}
 
@@ -112,11 +118,12 @@ public class DesignDaoImpl implements DesignDao{
 	public void rejected(Design design) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update Design d set status=0 where d.id=?";
+		String hql = "update Design d set d.status=0, d.rejectReason=? where d.id=?";
 		Query query = session.createQuery(hql);
-		query.setParameter(0, design.getId());
-		
+		query.setParameter(0, design.getRejectReason());
+		query.setParameter(1, design.getId());
 		query.executeUpdate();
+		System.out.println("reject reason = "+design.getRejectReason());
 		System.out.println("id = "+design.getId());
 	}
 

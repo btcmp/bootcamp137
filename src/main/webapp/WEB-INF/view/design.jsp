@@ -203,7 +203,7 @@
 			var statusAdmin = $(this).attr('data-role-admin');
 			var statusRequester = $(this).attr('data-role-requester');
 			var statusStaff = $(this).attr('data-role-staff');
-			console.log(id);
+			//console.log(id);
 			/* Modal edit */
 			if(statusRequester=="true"){
 				if($(this).attr('data-status')==1){
@@ -336,12 +336,13 @@
 						type : 'GET',
 						dataType : 'json',
 						success : function(data){
-							//console.log(data);
+							console.log(data);
 							$('#idDesignClose').val(data.id);
 							$('#design-code-close').val(data.code);
 							$('#event-code-close').val(data.tEventId.code);
 							$('#design-title-close').val(data.titleHeader);
 							$('#design-status-close').val(data.status);
+							$('#design-assignTo-close').val(data.assignTo);
 							$('#design-requestDate-close').val(data.requestDate);
 							$('#design-note-close').val(data.note);
 							
@@ -503,9 +504,11 @@
 				data : JSON.stringify(design),
 				contentType : 'application/json',
 				success : function(data){
-					console.log(data),
+					
 					alert('approved success'),
-					window.location = '${pageContext.request.contextPath}/design' 
+					
+					//window.location = '${pageContext.request.contextPath}/design', 
+						console.log(data)
 				}, error : function(){
 					alert('failed')
 				}
@@ -749,10 +752,7 @@
 								<a href="#" val class="btn-view-modal" title="View Design Request" design-id="${design.id }" ><i class="fas fa-search"></i></a> 
 								| 
 								<a href="#" class="btn-edit-modal" title="Edit Design Request" design-id="${design.id }" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"data-status="${design.status }"><i class="fas fa-pencil-alt"></i></a>
-								<%-- |
-								<a href="#" id="btn-approve" class="btn-approval-modal" title="Approval Design Request" design-id="${design.id }" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>"><i class="fas fa-check-circle"></i></a>
-								|
-								<a href="#" id="btn-close" class="btn-close-request-modal" title="Close Design Request" design-id="${design.id }" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"><i class="fas fa-times-circle"></i></a> --%>
+								
 							</td>
 						</tr>	
 						</c:forEach>

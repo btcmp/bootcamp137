@@ -78,7 +78,10 @@ public class DesignController {
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseBody												//agar keluar nya data
 	public Design save(@RequestBody Design design) {
-		
+		User user = (User) httpSession.getAttribute("app-user");
+		design.setRequestBy(user.getmEmployeeId());
+		design.setCreatedBy(user.getmEmployeeId());
+		//System.out.println("tes inputan : "+user.getmEmployeeId());
 		designService.save(design);
 		return design;
 	}
@@ -93,6 +96,8 @@ public class DesignController {
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	@ResponseBody
 	public Design update(@RequestBody Design design) {
+		User user = (User) httpSession.getAttribute("app-user");
+		design.setUpdatedBy(user.getmEmployeeId());
 		designService.update(design);
 		return design;
 	}
@@ -100,6 +105,8 @@ public class DesignController {
 	@RequestMapping(value="/approved", method=RequestMethod.POST)
 	@ResponseBody
 	public Design approved(@RequestBody Design design) {
+		User user = (User) httpSession.getAttribute("app-user");
+		design.setApprovedBy(user.getmEmployeeId());
 		designService.approved(design);
 		return design;
 	}

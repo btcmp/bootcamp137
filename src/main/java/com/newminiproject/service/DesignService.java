@@ -12,6 +12,7 @@ import com.newminiproject.dao.DesignDao;
 import com.newminiproject.dao.DesignItemDao;
 import com.newminiproject.model.Design;
 import com.newminiproject.model.DesignItem;
+import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
 import com.newminiproject.model.Product;
 
@@ -37,12 +38,16 @@ public class DesignService {
 		// TODO Auto-generated method stub
 		//save Design Request
 		Event event = new Event();
+		Employee employee = new Employee();
 		event.setId(design.gettEventId().getId());
 		Design dsn = new Design();
 		dsn.setCode(design.getCode());
 		dsn.settEventId(event);
 		dsn.setTitleHeader(design.getTitleHeader());
 		dsn.setCreatedDate(new Date());
+		employee.setId(design.getRequestBy().getId());
+		dsn.setRequestBy(employee);
+		dsn.setCreatedBy(employee);
 		dsn.setRequestDate(new Date());
 		dsn.setStatus(1);
 		dsn.setNote(design.getNote());
@@ -87,6 +92,7 @@ public class DesignService {
 		// TODO Auto-generated method stub
 		//update Design
 		Event event = new Event();
+		Employee employee = new Employee();
 		event.setId(design.gettEventId().getId());
 		Design dsn = new Design();
 		dsn.setId(design.getId());
@@ -94,6 +100,8 @@ public class DesignService {
 		dsn.setTitleHeader(design.getTitleHeader());
 		dsn.setNote(design.getNote());
 		dsn.setUpdatedDate(new Date());
+		employee.setId(design.getUpdatedBy().getId());
+		dsn.setUpdatedBy(employee);
 		designDao.update(dsn);
 		//System.out.println("data design : "+design);
 		
@@ -106,7 +114,7 @@ public class DesignService {
 			di2.setId(di.getId());
 			di2.setTitleItem(di.getTitleItem());
 			di2.setRequestDueDate(di.getRequestDueDate());
-			di.setUpdatedDate(new Date());
+			di2.setUpdatedDate(new Date());
 			di2.setNote(di.getNote());
 			di2.settDesignId(dsn);
 			//System.out.println("id = "+di.getId());
@@ -127,9 +135,14 @@ public class DesignService {
 	public void approved(Design design) {
 		// TODO Auto-generated method stub
 		Design dsn = new Design();
+		Employee employee = new Employee();
 		dsn.setId(design.getId());
 		dsn.setStatus(design.getStatus());
 		dsn.setApprovedDate(new Date());
+		employee.setId(design.getApprovedBy().getId());
+		dsn.setApprovedBy(employee);
+		dsn.setAssignTo(design.getAssignTo());
+		//dsn.setAssignTo(employee);
 		designDao.approved(dsn);
 	}
 
@@ -138,6 +151,7 @@ public class DesignService {
 		Design dsn = new Design();
 		dsn.setId(design.getId());
 		dsn.setStatus(design.getStatus());
+		dsn.setRejectReason(design.getRejectReason());
 		designDao.rejected(dsn);
 	}
 
