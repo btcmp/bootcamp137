@@ -95,7 +95,7 @@ public class MenuDaoImpl implements MenuDao{
 	public List<Menu> search(Menu menu) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Menu me where me.code=:menucode or me.name=:menuname or me.createdBy=:menucreatedby or me.createdDate=:menucreateddate";
+		String hql = "from Menu me where me.code=:menucode or me.name=:menuname or me.createdBy=:menucreatedby or me.createdDate=:menucreateddate and me.isDelete=0";
 		Query query = session.createQuery(hql);
 		query.setParameter("menucode", menu.getCode());
 		query.setParameter("menuname", menu.getName());

@@ -73,7 +73,7 @@ public class RoleDaoImpl implements RoleDao{
 	public List<Role> search(Role role) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Role ro where ro.code=:rolecode or ro.name=:rolename or ro.createdBy=:rolecreatedby or ro.createdDate=:rolecreateddate";
+		String hql = "from Role ro where ro.code=:rolecode or ro.name=:rolename or ro.createdBy=:rolecreatedby or ro.createdDate=:rolecreateddate and ro.isDelete=0";
 		Query query = session.createQuery(hql);
 		query.setParameter("rolecode", role.getCode());
 		query.setParameter("rolename", role.getName());

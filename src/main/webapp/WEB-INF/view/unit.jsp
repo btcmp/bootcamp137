@@ -50,13 +50,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
 <style type="text/css">
-table {
-    counter-reset: tableCount;     
-}
-.counterCell:before {              
-    content: counter(tableCount); 
-    counter-increment: tableCount; 
-}
 input.parsley-error {
 	color: #B94A48 !important;
 	background-color: #F2DEDE !important;
