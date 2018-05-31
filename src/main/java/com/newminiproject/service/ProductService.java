@@ -21,6 +21,7 @@ public class ProductService {
 	public void save(Product product) {
 		// TODO Auto-generated method stub
 		product.setCreatedDate(new Date());
+		product.setCreatedBy("Administrator");
 		productDao.save(product);
 	}
 
