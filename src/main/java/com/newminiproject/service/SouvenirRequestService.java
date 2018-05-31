@@ -147,10 +147,11 @@ public class SouvenirRequestService {
 	}
 	
 	public void savesettlement(TransactionSouvenir transactionSouvenir) {
-		
 		TransactionSouvenir ts = new TransactionSouvenir();
+		Employee employee = new Employee();
+		employee.setId(transactionSouvenir.getRequestBy().getId());
+		ts.setSettlementBy(employee);
 		ts.setId(transactionSouvenir.getId());
-		ts.setUpdatedDate(new Date());
 		ts.setSettlementDate(new Date());
 		ts.setRequestDueDate(transactionSouvenir.getRequestDueDate());
 		ts.setNote(transactionSouvenir.getNote());
@@ -208,6 +209,36 @@ public class SouvenirRequestService {
 		employee.setId(transactionSouvenir.getRequestBy().getId());
 		ts.setReceivedBy(employee);
 		souvenirRequestDao.received(ts);
+	}
+
+	public void saveApproveSettlement(TransactionSouvenir transactionSouvenir) {
+		// TODO Auto-generated method stub
+		TransactionSouvenir ts = new TransactionSouvenir();
+		ts.setId(transactionSouvenir.getId());
+		ts.setUpdatedDate(new Date());
+		ts.setSettlementApprovedDate(new Date());
+		ts.setRequestDueDate(transactionSouvenir.getRequestDueDate());
+		ts.setNote(transactionSouvenir.getNote());
+		ts.setApprovedDate(new Date());
+		ts.setStatus(transactionSouvenir.getStatus());
+		Employee employee = new Employee();
+		employee.setId(transactionSouvenir.getRequestBy().getId());
+		ts.setSettlementAprrovedBy(employee);
+		souvenirRequestDao.approved(ts);
+	}
+
+	public void close(TransactionSouvenir transactionSouvenir) {
+		// TODO Auto-generated method stub
+		TransactionSouvenir ts = new TransactionSouvenir();
+		Employee employee = new Employee();
+		ts.setId(transactionSouvenir.getId());
+		ts.setReceivedDate(new Date());
+		ts.setRequestDueDate(transactionSouvenir.getRequestDueDate());
+		ts.setNote(transactionSouvenir.getNote());
+		ts.setStatus(transactionSouvenir.getStatus());
+		employee.setId(transactionSouvenir.getRequestBy().getId());
+		ts.setReceivedBy(employee);
+		souvenirRequestDao.close(ts);
 	}
 
 

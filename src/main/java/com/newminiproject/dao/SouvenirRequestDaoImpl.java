@@ -131,11 +131,12 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 	public void savesettlement(TransactionSouvenir ts) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update TransactionSouvenir ts set ts.status=? where ts.id=?";
+		String hql = "update TransactionSouvenir ts set ts.status=?, ts.settlementDate=?, ts.settlementBy=? where ts.id=? ";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, ts.getStatus());
-		query.setParameter(1, ts.getId());
-		
+		query.setParameter(1, ts.getSettlementDate());
+		query.setParameter(2, ts.getSettlementBy());
+		query.setParameter(3, ts.getId());
 		query.executeUpdate();
 	}
 
@@ -149,7 +150,6 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 		query.setParameter(1, ts.getApprovedDate());
 		query.setParameter(2, ts.getApprovedBy());
 		query.setParameter(3, ts.getId());
-		
 		query.executeUpdate();
 	}
 
@@ -176,6 +176,18 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 		query.setParameter(1, ts.getReceivedDate());
 		query.setParameter(2, ts.getReceivedBy());
 		query.setParameter(3, ts.getId());
+		
+		query.executeUpdate();
+	}
+
+	@Override
+	public void close(TransactionSouvenir ts) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update TransactionSouvenir ts set ts.status=? where ts.id=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, ts.getStatus());
+		query.setParameter(1, ts.getId());
 		
 		query.executeUpdate();
 	}
