@@ -148,13 +148,13 @@ public class EventController {
 			eventService.getAll();
 		}
 		int a=0;
-		if(statusSearch=="Submited") {
+		if(statusSearch.equals("Submited")) {
 			a=1;
-		}else if(statusSearch=="Rejected") {
+		}else if(statusSearch.equals("Rejected")) {
 			a=0;
-		}else if(statusSearch=="In Progress") {
+		}else if(statusSearch.equals("In Progress")) {
 			a=2;
-		}else if(statusSearch=="Done") {
+		}else if(statusSearch.equals("Done")) {
 			a=3;
 		}
 		System.out.println("a :"+a);//string

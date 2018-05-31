@@ -808,6 +808,7 @@ $(document).ready(function(){
 	    
 	
 	    	<a href="#" class="btn btn-primary" id="btn-add" style="width:70px;float:right;">Add</a><br/><br/>
+	    	<a href="#" id="btnSearch" class="btn btn-warning" style="width:70px;color:white;float:right;">Search</a>
 	    	<form id="formrole">
 	    	<div class="form-row" >
 	    		<div class="col-auto">
@@ -832,14 +833,15 @@ $(document).ready(function(){
 	    			<input placeholder="Created By" class="form-control" type="text" name="createdBysearch">	
 	    		</div>
 	    		<div class="col-auto">
-	    			<a href="#" id="btnSearch" class="btn btn-warning" style="width:70px;color:white;">Search</a>
+	    			
+	    			
 	    		</div>
 	    	</div>
     	</form>
 	
 	    	
 	    	
-	    	<table class="table" id="dataEvent">
+	    	<table id="dataEvent" class="table table-striped table-bordered" style="width:100%">
 				<thead>
 			    	<tr>
 			      		<th scope="col">No</th>
