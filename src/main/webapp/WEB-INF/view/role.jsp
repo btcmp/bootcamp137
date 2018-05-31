@@ -191,19 +191,39 @@ input.parsley-error {
 				name: $('#nameEdit').val(),
 				description: $('#descriptionEdit').val()
 			}
-			$.ajax({
-				url:'${pageContext.request.contextPath}/role/update',
-				type:'POST',
-				data:JSON.stringify(role),
-				contentType:'application/json',
-				success:function(data){
-					alert('update ok');
-					console.log(data);
-					window.location = '${pageContext.request.contextPath}/role'
-				},error:function(){
-					alert('update failed');
-				}
+			
+			//validasi field pada saat update
+			var nameValidate = $("#nameEdit").parsley({
+				required : true,
+				requiredMessage : 'Name must be filled!'
 			});
+			
+			//function validate
+			function getValid(validate){
+				validate.validate();	
+				return validate.isValid();
+			}
+			
+			var valid = getValid(nameValidate);
+			
+			if(valid){
+				$.ajax({
+					url:'${pageContext.request.contextPath}/role/update',
+					type:'POST',
+					data:JSON.stringify(role),
+					contentType:'application/json',
+					success:function(data){
+						alert('update ok');
+						console.log(data);
+						window.location = '${pageContext.request.contextPath}/role'
+					},error:function(){
+						alert('update failed');
+					}
+				});
+			}
+			else{
+				alert('Fill all data first!')
+			}
 		});
 		
 		//search button

@@ -225,19 +225,44 @@
 					id : $('#menuNameEdit option:selected').val()
 				}
 			}
-			$.ajax({
-				url:'${pageContext.request.contextPath}/menu/update',
-				type:'POST',
-				data:JSON.stringify(menu),
-				contentType:'application/json',
-				success:function(data){
-					alert('update ok');
-					console.log(data);
-					window.location = '${pageContext.request.contextPath}/menu'
-				},error:function(){
-					alert('gagal update');
-				}
+			
+			//validasi field pada saat update
+			var nameValidate = $("#nameEdit").parsley({
+				required : true,
+				requiredMessage : 'Name must be filled!'
 			});
+			var controllerValidate = $("#controllerEdit").parsley({
+				required : true,
+				requiredMessage : 'Controller must be filled!'
+			});
+			
+			//function validate
+			function getValid(validate){
+				validate.validate();	
+				return validate.isValid();
+			}
+			
+			var valid = getValid(nameValidate);
+				valid = getValid(controllerValidate);
+				
+			if(valid){
+				$.ajax({
+					url:'${pageContext.request.contextPath}/menu/update',
+					type:'POST',
+					data:JSON.stringify(menu),
+					contentType:'application/json',
+					success:function(data){
+						alert('update ok');
+						console.log(data);
+						window.location = '${pageContext.request.contextPath}/menu'
+					},error:function(){
+						alert('update failed');
+					}
+				});
+			}
+			else{
+				alert('Fill all data first!')
+			}
 		});
 
 		//search button
