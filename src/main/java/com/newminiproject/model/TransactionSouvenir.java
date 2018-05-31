@@ -55,6 +55,7 @@ public class TransactionSouvenir {
 	private Employee approvedBy;
 	
 	@Column(name="approved_date")
+	@Temporal(TemporalType.DATE)
 	private Date approvedDate;
 	
 	@ManyToOne
@@ -70,6 +71,7 @@ public class TransactionSouvenir {
 	private Employee settlementBy;
 	
 	@Column(name="settlement_date")
+	@Temporal(TemporalType.DATE)
 	private Date settlementDate;
 	
 	@ManyToOne
@@ -77,6 +79,7 @@ public class TransactionSouvenir {
 	private Employee settlementAprrovedBy;
 	
 	@Column(name="settlement_approved_date")
+	@Temporal(TemporalType.DATE)
 	private Date settlementApprovedDate;
 	
 	private int status;
