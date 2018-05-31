@@ -211,4 +211,14 @@ public class PromotionService {
 		
 		promotionDao.approved(prm);
 	}
+
+	public void rejected(Promotion promotion) {
+		// TODO Auto-generated method stub
+		Promotion prm = new Promotion();
+		prm.setId(promotion.getId());
+		prm.setStatus(promotion.getStatus());
+		prm.setRejectReason(promotion.getRejectReason());
+		
+		promotionDao.rejected(prm);
+	}
 }

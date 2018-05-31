@@ -20,4 +20,6 @@ public interface PromotionDao {
 
 	void approved(Promotion prm);
 
+	void rejected(Promotion prm);
+
 }

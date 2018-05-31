@@ -1157,7 +1157,11 @@
 			}
 			
 			$('#rejectedDesign').on('click', function(){
-				$('#modalRejected').modal();		
+				$('#modalRejected').modal();
+			})
+			
+			$('#rejectedAdminNotDesign').on('click', function(){
+				$('#modalRejectedNotDesign').modal();
 			})
 		}
 
@@ -1404,6 +1408,7 @@
 /////////////////////////////// Update from flagDesign == 1 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
+//ROLE REQUESTER
 	$('#updateDesign').on('click', function(){
 		var updatePromo = {
 			id : $('#idEdit').val(),
@@ -1479,6 +1484,7 @@
 		})
 	}
 
+///ROLE ADMIN
 	$('#approvedDesign').on('click', function(){
 		var approveData = {
 			id	: $('#idEditAdmin').val(),
@@ -1500,11 +1506,32 @@
 		})
 	})
 	
+	$('#rejectPromotAdmin').on('click', function(){
+		var rejectPromo = {
+			id	: $('#idEditAdmin').val(),
+			status : 0,
+			rejectReason : $('#rejectReasonAdminPromo').val()
+		}
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/promotion/rejected',
+			type : 'POST',
+			data : JSON.stringify(rejectPromo),
+			contentType : 'application/json',
+			success : function (data){
+				window.location = "${pageContext.request.contextPath}/promotion";
+			},
+			error : function (){
+				alert ('error');	
+			}
+			
+		})
+	})
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Update from flagDesign == 0 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+/// ROLE_REQUESTER
 	$('#updateNotDesign').on('click', function(){
 		var updatePromoNot = {
 			id : $('#idEditNot').val(),
@@ -1549,7 +1576,8 @@
 			listPromotionItemFile.push(updateFileNot);
 		})
 	}
-	
+
+///ROLE ADMIN
 	$('#approvedAdminNotDesign').on('click', function(){
 		var approveData = {
 			id	: $('#idEditNotAdmin').val(),
@@ -1560,6 +1588,27 @@
 			url : '${pageContext.request.contextPath}/promotion/approved',
 			type : 'POST',
 			data : JSON.stringify(approveData),
+			contentType : 'application/json',
+			success : function (data){
+				window.location = "${pageContext.request.contextPath}/promotion";
+			},
+			error : function (){
+				alert ('error');	
+			}
+			
+		})
+	})
+	
+	$('#rejectPromotAdminNotDesign').on('click', function(){
+		var rejectPromoNotDesign = {
+			id	: $('#idEditNotAdmin').val(),
+			status : 0,
+			rejectReason : $('#rejectReasonAdminPromoNotDesign').val()
+		}
+		$.ajax({
+			url : '${pageContext.request.contextPath}/promotion/rejected',
+			type : 'POST',
+			data : JSON.stringify(rejectPromoNotDesign),
 			contentType : 'application/json',
 			success : function (data){
 				window.location = "${pageContext.request.contextPath}/promotion";
