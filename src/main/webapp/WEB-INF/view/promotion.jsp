@@ -1549,6 +1549,7 @@
 		var promoStaff = {
 			id : $('#idEditStaff').val(),
 			status : 3,
+			flagDesign : $('#flagDesignEditStaff').val(),
 			listPromotionItem : [],
 			listPromotionItemFile : []
 		}
@@ -1685,7 +1686,46 @@
 			
 		})
 	})
+
 	
+/// ROLE REQUESTER
+	$('#closeRequestStaffNotDesign').on('click', function(){
+		var promoStaffNotDesign = {
+			id : $('#idEditNotStaff').val(),
+			flagDesign : $('#flagDesignEditNotStaff').val(),
+			status : 3,
+			listPromotionItemFile : []
+		}
+		_closeRequestItemFileNot(promoStaffNotDesign.listPromotionItemFile);
+		console.log(promoStaffNotDesign);
+		
+	$.ajax({
+			url:'${pageContent.request.contextPath}/promotion/closerequest',
+			type : 'POST',
+			data : JSON.stringify(promoStaffNotDesign),
+			contentType : 'application/json',
+			success : function(data){
+				window.location = '${pageContext.request.contextPath}/promotion';
+			},
+			error : function(){
+				alert('error');
+			}
+		})
+	 
+	})
+
+	function _closeRequestItemFileNot(listPromotionItemFile){
+		$('#tabelItemNotStaff > tbody > tr').each(function(index,value){
+			var promoItemFileStaffNotDesign = {
+				id : $(value).attr('value-pif-id'),
+				startDate : $(value).find('td').eq(4).find('input').val(),
+				endDate : $(value).find('td').eq(5).find('input').val()
+			}
+			
+			listPromotionItemFile.push(promoItemFileStaffNotDesign);
+		})
+	}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////// Upload File //////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1712,6 +1752,26 @@
 	</script>
 </head>
 <body>
+<!--------------------------------------------------------------------------- LOG OUT -------------------------------------------------------------------------->
+		
+		<c:url value="/j_spring_security_logout" var="logoutUrl" />
+		<form action="${logoutUrl}" method="post" id="logoutForm">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
+		<script>
+			function formSubmit() {
+				document.getElementById("logoutForm").submit();
+			}
+		</script>
+	
+		<c:if test="${pageContext.request.userPrincipal.name != null}">
+			<h2>
+				Welcome : ${pageContext.request.userPrincipal.name} | <a
+					href="javascript:formSubmit()"> Logout</a>
+			</h2>
+		</c:if>
+
 	<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 	<!------------------------------------------------------------------------ MAIN MENU ------------------------------------------------------------------------------------>
 	<!----------------------------------------------------------------------------------------------------------------------------------------------------------------------->

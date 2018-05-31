@@ -230,16 +230,20 @@ public class PromotionService {
 		
 		promotionDao.closeRequest(prm);
 		
-		for(PromotionItem lpi : promotion.getListPromotionItem()) {
-			PromotionItem lpi1 = new PromotionItem();
-			
-			lpi1.setId(lpi.getId());
-			lpi1.setStartDate(lpi.getStartDate());
-			lpi1.setEndDate(lpi.getEndDate());
-			
-			promotionItemDao.closeRequest(lpi1);
+		
+		if (promotion.getFlagDesign() == 1) {
+			for(PromotionItem lpi : promotion.getListPromotionItem()) {
+				PromotionItem lpi1 = new PromotionItem();
+				
+				lpi1.setId(lpi.getId());
+				lpi1.setStartDate(lpi.getStartDate());
+				lpi1.setEndDate(lpi.getEndDate());
+				
+				promotionItemDao.closeRequest(lpi1);
+			}
 		}
 		
+			
 		for(PromotionItemFile lpif : promotion.getListPromotionItemFile()) {
 			PromotionItemFile lpif1 = new PromotionItemFile();
 			
