@@ -117,6 +117,7 @@ public class SouvenirRequestService {
 	public void update(TransactionSouvenir transactionSouvenir) {
 		//1. save table transaction souvenir
 				Event event = new Event();
+				Employee employee = new Employee();
 				event.setId(transactionSouvenir.gettEventId().getId());
 				TransactionSouvenir ts = new TransactionSouvenir();
 				ts.setId(transactionSouvenir.getId());
@@ -124,6 +125,8 @@ public class SouvenirRequestService {
 				ts.settEventId(event);
 				ts.setRequestDueDate(transactionSouvenir.getRequestDueDate());
 				ts.setNote(transactionSouvenir.getNote());
+				employee.setId(transactionSouvenir.getRequestBy().getId());
+				ts.setUpdatedBy(employee.getId());
 				
 				
 				souvenirRequestDao.update(ts);
@@ -167,6 +170,7 @@ public class SouvenirRequestService {
 
 	public void approved(TransactionSouvenir transactionSouvenir) {
 		TransactionSouvenir ts = new TransactionSouvenir();
+		Employee employee = new Employee();
 		ts.setId(transactionSouvenir.getId());
 		ts.setUpdatedDate(new Date());
 		ts.setSettlementDate(new Date());
@@ -174,6 +178,8 @@ public class SouvenirRequestService {
 		ts.setNote(transactionSouvenir.getNote());
 		ts.setApprovedDate(new Date());
 		ts.setStatus(transactionSouvenir.getStatus());
+		employee.setId(transactionSouvenir.getRequestBy().getId());
+		ts.setApprovedBy(employee);
 		souvenirRequestDao.approved(ts);
 	}
 
@@ -187,6 +193,20 @@ public class SouvenirRequestService {
 		ts.setNote(transactionSouvenir.getNote());
 		ts.setStatus(transactionSouvenir.getStatus());
 		souvenirRequestDao.rejected(ts);
+	}
+
+	public void received(TransactionSouvenir transactionSouvenir) {
+		// TODO Auto-generated method stub
+		TransactionSouvenir ts = new TransactionSouvenir();
+		Employee employee = new Employee();
+		ts.setId(transactionSouvenir.getId());
+		ts.setReceivedDate(new Date());
+		ts.setRequestDueDate(transactionSouvenir.getRequestDueDate());
+		ts.setNote(transactionSouvenir.getNote());
+		ts.setStatus(transactionSouvenir.getStatus());
+		employee.setId(transactionSouvenir.getRequestBy().getId());
+		ts.setReceivedBy(employee);
+		souvenirRequestDao.received(ts);
 	}
 
 

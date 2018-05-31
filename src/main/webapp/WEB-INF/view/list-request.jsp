@@ -644,8 +644,8 @@
 		};
 		console.log(received);
 		$.ajax({
-			url : '${pageContext.request.contextPath}/souvenirrequest/statusupdate',
-			type : 'POST',
+			url : '${pageContext.request.contextPath}/souvenirrequest/received',
+			type : 'PUT',
 			data : JSON.stringify(received),
 			contentType : 'application/json',
 			success: function(data){

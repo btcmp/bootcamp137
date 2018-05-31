@@ -114,13 +114,14 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 	public void update(TransactionSouvenir ts) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update TransactionSouvenir ts set ts.tEventId=?, ts.requestDueDate=?, ts.note=?, ts.updatedDate=? where ts.id=?";
+		String hql = "update TransactionSouvenir ts set ts.tEventId=?, ts.requestDueDate=?, ts.note=?, ts.updatedDate=?, ts.updatedBy=? where ts.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, ts.gettEventId());
 		query.setParameter(1, ts.getRequestDueDate());
 		query.setParameter(2, ts.getNote());
 		query.setParameter(3, ts.getUpdatedDate());
-		query.setParameter(4, ts.getId());
+		query.setParameter(4, ts.getUpdatedBy());
+		query.setParameter(5, ts.getId());
 		
 		query.executeUpdate();
 		//session.update(ts); 
@@ -142,11 +143,12 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 	public void approved(TransactionSouvenir ts) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update TransactionSouvenir ts set ts.status=?, ts.approvedDate=? where ts.id=?";
+		String hql = "update TransactionSouvenir ts set ts.status=?, ts.approvedDate=?, ts.approvedBy=? where ts.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, ts.getStatus());
 		query.setParameter(1, ts.getApprovedDate());
-		query.setParameter(2, ts.getId());
+		query.setParameter(2, ts.getApprovedBy());
+		query.setParameter(3, ts.getId());
 		
 		query.executeUpdate();
 	}
@@ -159,6 +161,20 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 		Query query = session.createQuery(hql);
 		query.setParameter(0, ts.getStatus());
 		query.setParameter(1, ts.getId());
+		
+		query.executeUpdate();
+	}
+
+	@Override
+	public void received(TransactionSouvenir ts) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update TransactionSouvenir ts set ts.status=?, ts.receivedDate=?, ts.receivedBy=? where ts.id=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, ts.getStatus());
+		query.setParameter(1, ts.getReceivedDate());
+		query.setParameter(2, ts.getReceivedBy());
+		query.setParameter(3, ts.getId());
 		
 		query.executeUpdate();
 	}

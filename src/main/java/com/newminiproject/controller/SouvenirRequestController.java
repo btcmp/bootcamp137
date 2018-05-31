@@ -91,6 +91,8 @@ public class SouvenirRequestController {
 	//@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public TransactionSouvenir update(@RequestBody TransactionSouvenir transactionSouvenir){
+		User user = (User)httpSession.getAttribute("app-user");
+		transactionSouvenir.setRequestBy(user.getmEmployeeId());
 		souvenirRequestService.update(transactionSouvenir);
 		return transactionSouvenir;
 	}
@@ -156,6 +158,8 @@ public class SouvenirRequestController {
 	@ResponseBody
 	@RequestMapping(value="/approved", method = RequestMethod.PUT)
 	public TransactionSouvenir approved(@RequestBody TransactionSouvenir transactionSouvenir){
+		User user = (User)httpSession.getAttribute("app-user");
+		transactionSouvenir.setRequestBy(user.getmEmployeeId());
 		souvenirRequestService.approved(transactionSouvenir);
 		return transactionSouvenir;
 	}
@@ -164,6 +168,16 @@ public class SouvenirRequestController {
 	@RequestMapping(value="/statusupdate", method = RequestMethod.POST)
 	public TransactionSouvenir rejected(@RequestBody TransactionSouvenir transactionSouvenir){
 		souvenirRequestService.rejected(transactionSouvenir);
+		return transactionSouvenir;
+	}
+	
+	@RequestMapping(value="/received", method=RequestMethod.PUT)
+	//@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public TransactionSouvenir received(@RequestBody TransactionSouvenir transactionSouvenir){
+		User user = (User)httpSession.getAttribute("app-user");
+		transactionSouvenir.setRequestBy(user.getmEmployeeId());
+		souvenirRequestService.received(transactionSouvenir);
 		return transactionSouvenir;
 	}
 	

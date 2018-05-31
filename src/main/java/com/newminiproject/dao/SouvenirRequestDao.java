@@ -31,5 +31,7 @@ public interface SouvenirRequestDao {
 
 	void rejected(TransactionSouvenir ts);
 
+	void received(TransactionSouvenir ts);
+
 
 }
