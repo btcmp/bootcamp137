@@ -45,15 +45,19 @@ public class PromotionService {
 		//1. Untuk save ke dalam tabel promotion
 		Event event = new Event();
 		event.setId(promotion.getEvent().getId());
+		Employee requestBy = new Employee();
+		requestBy.setId(promotion.getRequestBy().getId());
+		
 		
 		Promotion pr = new Promotion();
+		
 		pr.setCode(promotion.getCode());
 		pr.setEvent(event);
 		pr.setCreatedDate(promotion.getCreatedDate());
 		pr.setFlagDesign(promotion.getFlagDesign());
 		pr.setTitleHeader(promotion.getTitleHeader());
 		pr.setNote(promotion.getNote());
-		//pr.setRequestBy(promotion.getRequestBy());
+		pr.setRequestBy(requestBy);
 		pr.setRequestDate(promotion.getRequestDate());
 		pr.setStatus(promotion.getStatus());
 		

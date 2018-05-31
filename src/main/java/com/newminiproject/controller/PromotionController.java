@@ -17,16 +17,20 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mysql.jdbc.Blob;
 import com.newminiproject.dao.SeqDaoPromotion;
 import com.newminiproject.model.Design;
+import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
 import com.newminiproject.model.Product;
 import com.newminiproject.model.Promotion;
+import com.newminiproject.model.User;
 import com.newminiproject.service.DesignItemService;
 import com.newminiproject.service.DesignService;
+import com.newminiproject.service.EmployeeService;
 import com.newminiproject.service.EventService;
 import com.newminiproject.service.ProductService;
 import com.newminiproject.service.PromotionItemFileService;
 import com.newminiproject.service.PromotionItemService;
 import com.newminiproject.service.PromotionService;
+import com.newminiproject.service.UserService;
 
 @Controller
 @RequestMapping("/promotion")
@@ -54,6 +58,12 @@ public class PromotionController {
 	ProductService productService;
 	
 	@Autowired
+	UserService userService;
+	
+	@Autowired
+	EmployeeService employeeService;
+	
+	@Autowired
 	SeqDaoPromotion seqDaoPromotion;
 	
 
@@ -64,12 +74,12 @@ public class PromotionController {
 		
 		List<Event> listEvent = eventService.getAll();
 		List<Design> listDesign = designService.getListDesign();
-		
 		List<Promotion> listPromotion = promotionService.getAllPromotion();
 		List<Product> listProduct = productService.getAllProduct();
+		List<Employee> listEmployee = employeeService.getAll();
 		
 		model.addAttribute("listProduct", listProduct);
-		
+		model.addAttribute("listEmployee", listEmployee);
 		model.addAttribute("listEvent", listEvent);
 		model.addAttribute("listPromotion", listPromotion);
 		model.addAttribute("listDesign", listDesign);
@@ -159,6 +169,13 @@ public class PromotionController {
 		return "promotion";
 	}
 	
+	@ResponseBody
+	@RequestMapping (value = "/user", method = RequestMethod.GET)
+	public User getName (@RequestParam(value = "usr", required = false) String username) {
+		User user = userService.findUserByUsername(username);
+		return user;
+	}
+	
 	@RequestMapping (value="/test", method = RequestMethod.GET)
 	@ResponseBody
 	public String test() {
@@ -167,6 +184,8 @@ public class PromotionController {
 		//System.out.println(tanggal);
 		return "";
 	}
+	
+	
 	
 	/*@ResponseBody
 	@RequestMapping(value="/doupload", method=RequestMethod.POST)

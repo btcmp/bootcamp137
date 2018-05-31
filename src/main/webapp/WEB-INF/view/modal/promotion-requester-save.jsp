@@ -1,3 +1,7 @@
+<%@page import="com.newminiproject.model.User"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="com.newminiproject.service.UserService"%>
+<%@page import="com.newminiproject.dao.UserDaoImpl"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,6 +11,8 @@
 <title>Requester-Save</title>
 </head>
 <body>
+
+
 		<!----------------------------------------------------------------------------------------------------------------------------------------------->
 		<!--------------------------------------------------------- Modal From Design ------------------------------------------------------------------->
 		<!----------------------------------------------------------------------------------------------------------------------------------------------->
@@ -59,7 +65,8 @@
 							  <div class="form-group">
 							    <span class = "float-left" style="width:35%; text-align:right;">* Request By : </span>
 							    <div class = "float-left" style="width:65%;">
-							    	<input class="form-control" type="text" id="requestBySave" value = "${pageContext.request.userPrincipal.name}" disabled>
+							    <input class="form-control" type="text" id="requestBySave" disabled>
+								<input hidden id="idRequestBy">
 							    </div>
 							    
 							  </div>

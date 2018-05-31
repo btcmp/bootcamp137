@@ -49,7 +49,7 @@ public class Promotion {
 	@JoinColumn (name = "t_design_id")
 	private Design design;
 	
-	@JsonIgnore
+	
 	@JoinColumn (name = "request_by")
 	@ManyToOne
 	private Employee requestBy;
@@ -58,7 +58,7 @@ public class Promotion {
 	@Column (name= "request_date")
 	private Date requestDate;
 	
-	@JsonIgnore
+	
 	@JoinColumn (name ="approved_by")
 	@ManyToOne
 	private Employee approvedBy;
@@ -67,7 +67,7 @@ public class Promotion {
 	@Column (name = "approved_date")
 	private Date approvedDate;
 	
-	@JsonIgnore
+	
 	@JoinColumn (name = "assign_to")
 	@ManyToOne
 	private Employee assignTo;

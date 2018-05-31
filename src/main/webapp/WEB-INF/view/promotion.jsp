@@ -6,7 +6,6 @@
 <%@ page import = "javax.servlet.*,java.text.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-
 <%@page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -71,6 +70,33 @@
 
 	$(document).ready(function(){		
 
+		var usrPromo = '${pageContext.request.userPrincipal.name}';
+		 $.ajax({
+			url : '${pageContext.request.contextPath}/promotion/user?usr=' + usrPromo,
+			type : 'GET',
+			data : JSON.stringify(usrPromo),
+			contentType : 'application/json',
+			success : function (data){
+				var firsNameE = data.mEmployeeId.firstName;
+				var lastNameE = data.mEmployeeId.lastName;
+				
+				var fullName = firsNameE + " " + lastNameE;
+				
+				$('#requestBySave').val(fullName);
+				$('#idRequestBy').val(data.mEmployeeId.id);
+			},
+			error : function (){
+				alert('error');
+			}
+		}) 
+		
+		var addAdmin = $('#add').attr('data-role-admin');
+		var addStaff = $('#add').attr('data-role-staff');
+		
+		if (addAdmin == "true" || addStaff == "true"){
+			$('#add').hide();
+		}
+		
 		$('#add').on('click', function (){
 			$('#modalAdd').modal();
 		})
@@ -79,7 +105,7 @@
 			var selectedValue1 = $('#event-select-option option:selected').attr('value');
 			
 			if(selectedValue1 != undefined){
-				
+								
 				$.ajax({
 					url :'${pageContext.request.contextPath }/promotion/getdesign?id=' + selectedValue1,
 					type : 'GET',
@@ -125,6 +151,8 @@
 				$('#modalFromDesign').modal();
 				$('#modalAdd').modal('hide');
 
+				
+				
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////// Get Design Header By Id if designSelectOption == 1 ///////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -324,10 +352,9 @@
 					id : $('#design-select option:selected').val()
 				},
 				flagDesign :$ ('#design-select-option option:selected').val(),
-				/* requestBy : {
-					id : 0
-					//firstName : $('#requestBySave').val()	
-				},  */
+				requestBy : {
+					id : $('#idRequestBy').val()
+				},  
 				status : 1,
 				requestDate : new Date($('#requestDateSave').val()),
 				createdDate : new Date(),
@@ -339,7 +366,7 @@
 			
 			_readListPromotionItem (promoHeader.listPromotionItem);
 			_readTableData (promoHeader.listPromotionItemFile);
-			
+			console.log(promoHeader);
 			
 			$.ajax({
 				url : '${pageContext.request.contextPath}/promotion/save',
@@ -1910,7 +1937,7 @@
 	</div>
 	
 	<div id = "add-container" style="text-align:right;">
-		<input type="submit" value = "Add" class = "btn btn-primary btn-custom" id="add" style ="width:73px;">
+		<input type="submit" value = "Add" class = "btn btn-primary btn-custom" id="add" style ="width:73px;" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>"  data-role-admin = "<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>">
 	</div>
 	
 	<form id = "navigasiForm">
@@ -1970,10 +1997,19 @@
 			</thead>
 			<tbody>
 				<c:forEach items = "${listPromotion }" var = "promotion">
+				
 					<tr value-promo-id = ${promotion.id }>
 						<td></td>
 						<td>${promotion.code }</td>
-						<td>${promotion.requestBy }</td>
+						<td>
+						<c:forEach items = "${listEmployee }" var = "employee">
+							<c:choose>
+								<c:when test="${promotion.requestBy.id == employee.id }">
+									${employee.firstName} ${employee.lastName} 
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						</td>
 						<td>${promotion.requestDate }</td>
 						<td>${promotion.assignTo }</td>
 						<td>
@@ -2003,6 +2039,7 @@
 						</td>
 					</tr>
 				</c:forEach>
+				
 			</tbody>
 		</table>
 	</div>
