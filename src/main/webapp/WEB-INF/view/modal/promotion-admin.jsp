@@ -736,5 +736,27 @@
 		    </div>
 		  </div>
 		</div> 
+
+
+		<!-- Modal Rejected -->
+		<div class="modal fade bd-example-modal-sm" style="z-index: 9992;" id="modalRejected" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered modal-dialog modal-sm" role="document">
+		    <div class="modal-content" style="width: 200px; margin:auto;">
+		    	<div style="float:right; clear:right;">
+		    		<button type="button" style="background-color: red;" class="close" data-dismiss="modal" aria-label="Close">
+		    			<span aria-hidden="true">&times;</span>
+		    		</button>
+				</div>
+				<div class="modal-body">
+					<p style="text-align: center;">Reject Reason</p>
+					<textarea placeholder="Input Reject Reason" id="rejectReason"></textarea>
+				</div>
+				<div style="margin: auto; padding-bottom: 5px;">
+					<button type="button" class="btn btn-sm btn-danger" id="btn-rejected-agree">Reject</button>
+					<button type="button" class="btn btn-sm btn-warning" id="btn-rejected-cancel" style="color: #fff;" data-dismiss="modal">Cancel</button>
+				</div>
+		    </div>
+		  </div>
+		</div>
 </body>
 </html>

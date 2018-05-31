@@ -23,12 +23,6 @@
 
 	$(document).ready(function(){		
 
-		$(function(){
-			$('.date-picker').datepicker({
-				format : "dd-mm-yyyy",
-			})
-		})
-		
 		$('#add').on('click', function (){
 			$('#modalAdd').modal();
 		})
@@ -452,6 +446,10 @@
 							status = "Rejected";
 						} else if (data.status == 1){
 							status = "Submitted";
+						} else if(data.status == 2){
+							status = "In Progress";
+						} else if (data.status == 3){
+							status = "Done";
 						}
 						$('#statusBySaveView').val(status);
 						
@@ -602,6 +600,10 @@
 							status1 = "Rejected";
 						} else if (data.status == 1){
 							status1 = "Submitted";
+						} else if(data.status == 2){
+							status1 = "In Progress";
+						} else if (data.status == 3){
+							status1 = "Done";
 						}
 						$('#statusBySaveNotView').val(status1);
 						
@@ -679,8 +681,8 @@
 		var roleAdmin = $(this).attr('data-role-admin');
 		var roleStaff = $(this).attr('data-role-staff');
 		
-		console.log(roleStaff);
-		
+		var statusPromo = $(this).attr('status-id');
+		console.log(statusPromo);
 ////////////////////////////////////////////////////////////////////Edit from Design REQUESTER ////////////////////////////////////////////////////////////////////
 
 		if(roleRequester == 'true'){		
@@ -1153,8 +1155,13 @@
 				
 				$('#modalNotFromDesignAdmin').modal();
 			}
+			
+			$('#rejectedDesign').on('click', function(){
+				$('#modalRejected').modal();		
+			})
 		}
 
+		
 ////////////////////////////////////////////////////////////////////Edit from Design STAFF ////////////////////////////////////////////////////////////////////
 
 		else if (roleStaff == 'true'){
@@ -1472,6 +1479,27 @@
 		})
 	}
 
+	$('#approvedDesign').on('click', function(){
+		var approveData = {
+			id	: $('#idEditAdmin').val(),
+			status : 2
+		}
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/promotion/approved',
+			type : 'POST',
+			data : JSON.stringify(approveData),
+			contentType : 'application/json',
+			success : function (data){
+				window.location = "${pageContext.request.contextPath}/promotion";
+			},
+			error : function (){
+				alert ('error');	
+			}
+			
+		})
+	})
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Update from flagDesign == 0 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1522,6 +1550,26 @@
 		})
 	}
 	
+	$('#approvedAdminNotDesign').on('click', function(){
+		var approveData = {
+			id	: $('#idEditNotAdmin').val(),
+			status : 2
+		}
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/promotion/approved',
+			type : 'POST',
+			data : JSON.stringify(approveData),
+			contentType : 'application/json',
+			success : function (data){
+				window.location = "${pageContext.request.contextPath}/promotion";
+			},
+			error : function (){
+				alert ('error');	
+			}
+			
+		})
+	})
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////// Upload File //////////////////////////////////////////////
@@ -1654,7 +1702,7 @@
 						<td>${promotion.createdBy }</td>
 						<td>
 							<a href="#" value-promo-id-detail = ${promotion.id } value-flag-design =${promotion.flagDesign } class="tombolDetail"><span class="float-left" style="padding:3px; color:grey;" ><i class="fas fa-search fa-lg"></i></span></a>
-							<a href="#" value-promo-id-edit = ${promotion.id } value-flag-edit =${promotion.flagDesign } data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>"  data-role-admin = "<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>" class="tombolEdit"><span class="float-left" style="padding:3px; color:grey;"><i class="fas fa-pencil-alt fa-lg"></i></span></a>
+							<a href="#" status-id=${promotion.status }  value-promo-id-edit = ${promotion.id } value-flag-edit =${promotion.flagDesign } data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>"  data-role-admin = "<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>" class="tombolEdit"><span class="float-left" style="padding:3px; color:grey;"><i class="fas fa-pencil-alt fa-lg"></i></span></a>
 						</td>
 					</tr>
 				</c:forEach>

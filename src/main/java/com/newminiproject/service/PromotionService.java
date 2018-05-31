@@ -202,4 +202,13 @@ public class PromotionService {
 					promotionItemFileDao.update(pif1);
 				}
 	}
+
+	public void approved(Promotion promotion) {
+		// TODO Auto-generated method stub
+		Promotion prm = new Promotion();
+		prm.setId(promotion.getId());
+		prm.setStatus(promotion.getStatus());
+		
+		promotionDao.approved(prm);
+	}
 }

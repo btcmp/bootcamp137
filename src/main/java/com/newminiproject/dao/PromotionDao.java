@@ -18,4 +18,6 @@ public interface PromotionDao {
 
 	void update(Promotion pr);
 
+	void approved(Promotion prm);
+
 }
