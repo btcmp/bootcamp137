@@ -19,7 +19,6 @@ import com.newminiproject.model.Promotion;
 import com.newminiproject.model.PromotionItem;
 import com.newminiproject.model.PromotionItemFile;
 
-
 @Transactional
 @Service
 public class PromotionService {

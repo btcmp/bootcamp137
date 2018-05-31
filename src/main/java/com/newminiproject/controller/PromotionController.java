@@ -28,7 +28,6 @@ import com.newminiproject.service.PromotionItemFileService;
 import com.newminiproject.service.PromotionItemService;
 import com.newminiproject.service.PromotionService;
 
-
 @Controller
 @RequestMapping("/promotion")
 public class PromotionController {

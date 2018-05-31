@@ -1,6 +1,5 @@
 package com.newminiproject.dao;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
