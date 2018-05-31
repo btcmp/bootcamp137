@@ -207,7 +207,7 @@
 						var souvenir = value.mSouvenirId;
 						var appendString1 = "<tr>";
 								appendString1 += "<td>";
-									appendString1 += "<select class='form-control' id='souvenir_"+souvenir.id+"' value='"+souvenir.name+"' disabled><c:forEach items='${listSouvenirItem }' var='item'><option value='${item.id }'>${item.name }</option></c:forEach></select>";
+									appendString1 += "<input class='form-control' id='qty-item' value='"+souvenir.name+"' disabled>";
 								appendString1 += "</td>";
 								appendString1 += "<td>";
 									appendString1 += "<input class='form-control' id='qty-item' value='"+value.qty+"' disabled>";
