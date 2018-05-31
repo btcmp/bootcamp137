@@ -120,10 +120,11 @@ public class SouvenirRequestService {
 				event.setId(transactionSouvenir.gettEventId().getId());
 				TransactionSouvenir ts = new TransactionSouvenir();
 				ts.setId(transactionSouvenir.getId());
+				ts.setUpdatedDate(new Date());
 				ts.settEventId(event);
 				ts.setRequestDueDate(transactionSouvenir.getRequestDueDate());
 				ts.setNote(transactionSouvenir.getNote());
-				transactionSouvenir.setUpdatedDate(new Date());
+				
 				
 				souvenirRequestDao.update(ts);
 				//2. save table transaction souvenir item

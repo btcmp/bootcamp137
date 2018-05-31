@@ -553,6 +553,7 @@
 					}, 
 					requestDate : new Date($('#requestdateedit').val()),
 					requestDueDate : new Date($('#duedateedit').val()),
+					//updatedDate : new Date($('#updateddate').val()),
 					note : $('#noteedit').val(),
 					//status : 1,
 					transactionSouvenirItem : []
@@ -1586,7 +1587,7 @@
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
 		      					<input value="<%= format.format(date) %>" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="requestdateedit" disabled>	
-		      					
+		      					<input value="<%= format.format(date) %>" class="form-control" type="hidden" onfocus="(this.type='date')" onblur="(this.type='text')" id="updateddate" disabled>	
 		      				</div>
 		      			</div>
 		      		</div>

@@ -114,12 +114,13 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 	public void update(TransactionSouvenir ts) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update TransactionSouvenir ts set ts.tEventId=?, ts.requestDueDate=?, ts.note=? where ts.id=?";
+		String hql = "update TransactionSouvenir ts set ts.tEventId=?, ts.requestDueDate=?, ts.note=?, ts.updatedDate=? where ts.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, ts.gettEventId());
 		query.setParameter(1, ts.getRequestDueDate());
 		query.setParameter(2, ts.getNote());
-		query.setParameter(3, ts.getId());
+		query.setParameter(3, ts.getUpdatedDate());
+		query.setParameter(4, ts.getId());
 		
 		query.executeUpdate();
 		//session.update(ts);
