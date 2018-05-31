@@ -33,5 +33,7 @@ public interface SouvenirRequestDao {
 
 	void received(TransactionSouvenir ts);
 
+	void close(TransactionSouvenir ts);
+
 
 }

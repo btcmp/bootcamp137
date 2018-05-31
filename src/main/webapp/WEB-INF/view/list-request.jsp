@@ -768,7 +768,7 @@
 		console.log(settlement);
 
 		$.ajax({
-			url : '${pageContext.request.contextPath}/souvenirrequest/approved',
+			url : '${pageContext.request.contextPath}/souvenirrequest/approveset',
 			type : 'PUT',
 			data : JSON.stringify(settlement),
 			contentType : 'application/json',
@@ -844,8 +844,8 @@
 		console.log(settlement);
 
 		$.ajax({
-			url : '${pageContext.request.contextPath}/souvenirrequest/statusupdate',
-			type : 'POST',
+			url : '${pageContext.request.contextPath}/souvenirrequest/closerequest',
+			type : 'PUT',
 			data : JSON.stringify(settlement),
 			contentType : 'application/json',
 			success: function(data){

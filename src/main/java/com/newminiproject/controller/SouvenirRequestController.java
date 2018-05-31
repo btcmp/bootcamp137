@@ -151,7 +151,18 @@ public class SouvenirRequestController {
 	@ResponseBody
 	@RequestMapping(value="/settlement", method = RequestMethod.PUT)
 	public TransactionSouvenir savesettlement(@RequestBody TransactionSouvenir transactionSouvenir){
+		User user = (User)httpSession.getAttribute("app-user");
+		transactionSouvenir.setSettlementBy(user.getmEmployeeId());
 		souvenirRequestService.savesettlement(transactionSouvenir);
+		return transactionSouvenir;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/approveset", method = RequestMethod.PUT)
+	public TransactionSouvenir approvesettlement(@RequestBody TransactionSouvenir transactionSouvenir){
+		User user = (User)httpSession.getAttribute("app-user");
+		transactionSouvenir.setSettlementAprrovedBy(user.getmEmployeeId());
+		souvenirRequestService.saveApproveSettlement(transactionSouvenir);
 		return transactionSouvenir;
 	}
 	
@@ -172,7 +183,6 @@ public class SouvenirRequestController {
 	}
 	
 	@RequestMapping(value="/received", method=RequestMethod.PUT)
-	//@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public TransactionSouvenir received(@RequestBody TransactionSouvenir transactionSouvenir){
 		User user = (User)httpSession.getAttribute("app-user");
@@ -180,5 +190,14 @@ public class SouvenirRequestController {
 		souvenirRequestService.received(transactionSouvenir);
 		return transactionSouvenir;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/closerequest", method = RequestMethod.PUT)
+	public TransactionSouvenir close(@RequestBody TransactionSouvenir transactionSouvenir){
+		souvenirRequestService.close(transactionSouvenir);
+		return transactionSouvenir;
+	}
+	
+	
 	
 }
