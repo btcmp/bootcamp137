@@ -60,7 +60,10 @@
 <!-- 	ini di copy buat validasi -->
   	
   	
-  	
+  	 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	
   	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -73,6 +76,11 @@
 <script type="text/javascript">
 	var delObj = null;
 
+	 $(function() {
+         $( "#datepicker-13" ).datepicker();
+         $( "#datepicker-13" ).datepicker("show");
+      });
+	
 	$(document).ready(function(){
 		
 		var viewByAdmin = <%= request.isUserInRole("ROLE_ADMIN") %>;
