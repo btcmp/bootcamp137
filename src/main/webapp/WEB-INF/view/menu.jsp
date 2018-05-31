@@ -219,9 +219,11 @@
 				id: $('#id').val(),
 				name: $('#nameEdit').val(),
 				controller: $('#controllerEdit').val(),
-				parentId: {
-						id : $('#menuNameEdit option:selected').val()
-					}
+			}
+			if($('#menuNameEdit option:selected').val() != 0){
+				menu.parentId = {
+					id : $('#menuNameEdit option:selected').val()
+				}
 			}
 			$.ajax({
 				url:'${pageContext.request.contextPath}/menu/update',
