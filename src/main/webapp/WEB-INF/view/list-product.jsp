@@ -4,8 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
+//<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -50,6 +52,10 @@
 					error : function(){
 						alert('Error Update');
 					}
+				});
+				
+				$("#alert-success").fadeTo(2000, 500).slideUp(500, function(){
+				    $("#alert-success").slideUp(500);
 				});
 			};
 		});
@@ -308,8 +314,8 @@
 	</div>
 	
 	<!--/////////////////////////////// Alert Save \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
-	<div class="alert alert-success" aria-hidden="true">
-	  <strong>Success!</strong> This alert box could indicate a successful or positive action.
+	<div class="alert alert-primary" id="alert-success" role="alert">
+	  <strong>Success!<a href="#" class="alert-link">an example link</a></strong> This alert box could indicate a successful or positive action.
 	</div>
 		
 	<!--/////////////////////////////// Modal Delete \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
