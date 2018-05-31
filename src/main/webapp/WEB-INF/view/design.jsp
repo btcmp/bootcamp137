@@ -45,7 +45,16 @@
 	var delObj = null;
 	
 	$(document).ready(function(){
-		
+		/* var statusAdmin = $(this).attr('role-admin');
+		var statusRequester = $(this).attr('role-requester');
+		var statusStaff = $(this).attr('role-staff');
+		if(statusRequester=="true"){
+			
+		}else if(statusAdmin=="true"){
+			document.getElementById('btn-add-modal').style.display = 'none';
+		}else if (statusStaff=="true"){
+			document.getElementById('btn-add-modal').style.display = 'none';
+		} */
 		/* Modal Add */	
 		$('#btn-add-modal').on('click', function(){
 			$('#modalAddRequest').modal();
@@ -619,14 +628,7 @@
 			
 			$('#modalViewRequest').modal();
 		});
-	/* var statusAdmin = $(this).attr('role-admin');
-	var statusRequester = $(this).attr('role-requester');
-	var statusStaff = $(this).attr('role-staff');
-	if(statusAdmin=="true"){
-		document.getElementById('btn-add-modal').style.display = 'none';
-	}else if (statusStaff=="true"){
-		document.getElementById('btn-add-modal').style.display = 'none';
-	} */
+	 
 	});
 </script>
 <style type="text/css">
