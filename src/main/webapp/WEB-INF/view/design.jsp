@@ -1,60 +1,91 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page isELIgnored="false" %>   
+<%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import = "java.io.*,java.util.*" %>
 <%@ page import = "javax.servlet.*,java.text.*" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-<%@ page session="true"%>
+<%@page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>List Design Request</title>
-<!-- css bootstrap -->
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/assets/css/bootstrap/bootstrap.css"/>
-<!-- css fontawesome -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-<style>
-	input.parsley-error{
-		color: #B94A48 !important;
-		background-color: #F2DEDE !important;
-		border: 1px solid #EED3D7 !important;
-	}
-	select.parsley-error{
-		color: #B94A48 !important;
-		background-color: #F2DEDE !important;
-		border: 1px solid #EED3D7 !important;
-	}
-</style>
-
+   <!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+  <title>List Event</title>
+  	
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+	  <!-- Tell the browser to be responsive to screen width -->
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <!-- css fontawesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	  <!-- Ionicons -->
+	  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	  <!-- Theme style -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/dist/css/adminlte.min.css">
+	  <!-- iCheck -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/iCheck/flat/blue.css">
+	  <!-- Morris chart -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/morris/morris.css">
+	  <!-- jvectormap -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+	  <!-- Date Picker -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/datepicker/datepicker3.css">
+	  <!-- Daterange picker -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/daterangepicker/daterangepicker-bs3.css">
+	  <!-- bootstrap wysihtml5 - text editor -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+	  <!-- Google Font: Source Sans Pro -->
+	  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style>
+  input.parsley-error
+{
+	color: #B94A48 !important;
+	background-color: #F2DEDE !important;
+	border: 1px solid #EED3D7 !important;
+}
+select.parsley-error
+{
+	color: #B94A48 !important;
+	background-color: #F2DEDE !important;
+	border: 1px solid #EED3D7 !important;
+}
+#container{
+	max-width: 1300px; min-height : 650px; margin: auto; border : 1px solid #007bff; border-radius: 5px;
+}
+@media (min-width: 992px) {
+  .modal-lg {
+    max-width: 1200px;
+  }
+}
+  </style>
+  
 <!-- 	ini di copy buat validasi -->
   	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
-
-<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
+  	
+  	
+  	
+  	
+  	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-
 <script type="text/javascript">
 	var delObj = null;
 	
 	$(document).ready(function(){
-		/* var statusAdmin = $(this).attr('role-admin');
-		var statusRequester = $(this).attr('role-requester');
-		var statusStaff = $(this).attr('role-staff');
-		if(statusRequester=="true"){
-			
-		}else if(statusAdmin=="true"){
+		var statusAdmin = <%= request.isUserInRole("ROLE_ADMIN") %>;
+		var statusStaff = <%= request.isUserInRole("ROLE_STAFF") %>;
+		if(statusAdmin||statusStaff){
 			document.getElementById('btn-add-modal').style.display = 'none';
-		}else if (statusStaff=="true"){
-			document.getElementById('btn-add-modal').style.display = 'none';
-		} */
+		}
 		/* Modal Add */	
 		$('#btn-add-modal').on('click', function(){
 			$('#modalAddRequest').modal();
@@ -75,7 +106,7 @@
 					appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='product description' disabled>";
 				appendString += "</td>";
 				appendString += "<td>";
-					appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' id='validateTitleItemAdd'>";
+					appendString += "<input type='text' class='form-control titleItemAdd' style='font-size: 12px;' placeholder='Type Title' >";
 				appendString += "</td>";
 				appendString += "<td>";
 					appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC'>";
@@ -156,20 +187,35 @@
 			};
 			console.log(design);
 			
-			/* validasi di modal add */
-			var validateTitleAdd = $('#designTitle').parsley( {
-				required : true,
-				requiredMessage : 'cant be Empty'
-			} );		
-			//validate function
 			function getValid(validate){
 				validate.validate();	
 				return validate.isValid();
 			}
 			
-			var valid = getValid(validateTitleAdd);
+			/* validasi add design */
+			var validateEventAdd = $('#validEvent').parsley({
+				required : true,
+				requiredMessage : 'cant be Empty'
+			});
+			var valid = getValid(validateEventAdd);
+			
+			var validateTitleAdd = $('#designTitle').parsley( {
+				required : true,
+				requiredMessage : 'cant be Empty'
+			} );	
+			valid = getValid(validateTitleAdd);
+			
+			/* validasi untuk form title */
+			var validateTitleItemAdd = $('.titleItemAdd').parsley( {
+				required : true,
+				requiredMessage : 'cant be Empty'
+			} );  
+			for(i=0; i<=validateTitleItemAdd.length; i++){
+				valid = getValid(validateTitleItemAdd[i]);
+			}
 			
 			if(valid){
+				alert('success');
 				$.ajax({
 					url : '${pageContext.request.contextPath}/design/save',
 					type : 'POST',
@@ -182,10 +228,10 @@
 					}, error : function(){
 						alert('failed')
 					}
-				}); 
+				});  
 			} else{
 				alert('Please Complete the Blank Field(s)');
-			}
+			} 
 		
 		});
 		
@@ -196,6 +242,7 @@
 			console.log(data)
 			window.location = '${pageContext.request.contextPath}/design/search?'+data;		//data diambil dari form.serialize() 
 		});
+		
 		
 		
 		/* Penentuan Role */
@@ -634,134 +681,228 @@
 	 
 	});
 </script>
-<style type="text/css">
-#container{
-	max-width: 1300px; min-height : 650px; margin: auto; border : 1px solid #007bff; border-radius: 5px;
-}
-@media (min-width: 992px) {
-  .modal-lg {
-    max-width: 1200px;
-  }
-}
-</style>
-
 </head>
-<body>
-	
-	<c:url value="/j_spring_security_logout" var="logoutUrl" />
-	<form action="${logoutUrl}" method="post" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-	</form>
-	<script>
-		function formSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-	</script>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
 
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<h2>
-			Welcome : ${pageContext.request.userPrincipal.name} | <a
-				href="javascript:formSubmit()"> Logout</a>
-		</h2>
-	</c:if>
-	
-	<div id="container" >
-		<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
-			<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Design Request</h5>
-		</div>
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+      </li>
+    </ul>
+   <!-- Right navbar links --> <!-- logout ada disini -->
+    <!-- <ul class="navbar-nav ml-auto">
+     <a href="javascript:formSubmit()"> Logout</a>
+    </ul> -->
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <img src="${pageContext.request.contextPath }/assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Marcom Apps</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+     <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-header">Menu</li>
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/design" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Design</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+   
+
+    <!-- Main content -->
+    <section class="content">
+    	<div class="container-fluid">
+    		<c:url value="/j_spring_security_logout" var="logoutUrl" />
+			<form action="${logoutUrl}" method="post" id="logoutForm">
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+			</form>
+			<script>
+				function formSubmit() {
+					document.getElementById("logoutForm").submit();
+				}
+			</script>
 		
-		<div style="width:98%;margin:auto;">
-			<ol class="breadcrumb">
-	  			<li><a href="#">Home </a>/ </li>
-	  			<li><a href="#"> Master </a>/ </li>
-	 		 	<li class="active"> List Design Request</li>
-			</ol>
-			<%-- <input type="hidden" role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"/> --%>
-	    	<button type="button" class="btn btn-primary" id="btn-add-modal" style="width:70px;float:right;">Add</button><br/><br/>
-	    	<form id="formSearch"> 
-	    		<div class="form-row" style="overflow: auto">
-		    		<div class="col-auto">
-		    			<input type="text" style="font-size: 12px" class="form-control" name="designCode" placeholder="Transaction Code">
-		    		</div>
-		    		<div class="col-auto">
-		    			<input type="text" style="font-size: 12px" class="form-control" placeholder="Request By">
-		    		</div>
-		    		<div class="col-auto">
-		    			<input placeholder="Request Date" style="font-size: 12px" class="form-control" name="requestDate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')"><!-- <input type="text" name="date" id="requestDatepicker" placeholder="Request Date"> -->	
-		    		</div>
-		    		<div class="col">
-		    			<select id="eventCode" class="form-control" style="font-size: 12px;">
-		       				<option disabled selected>-Assign To-</option>
-		       				<c:forEach items="${listEmployee }" var="employee">
-								<option value="${employee.id }">${employee.firstName } ${employee.lastName }</option>
-							</c:forEach>
-		       			</select>	
-		    		</div>
-		    		<div class="col">
-		    			<input type="text" style="font-size: 12px" class="form-control" id="status" placeholder="Status">
-		    		</div>
-		    		<div class="col-auto">
-		    			<input placeholder="Created Date" style="font-size: 12px" class="form-control" name="createdDate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="created">	
-		    		</div>
-		    		<div class="col-auto" >
-		    			<input type="text" style="font-size: 12px" class="form-control" id="created-by" placeholder="Created By">
-		    		</div>
-		    		<div class="col-auto">
-		    			<button type="button" class="btn btn-warning" id="btn-search" style="width:70px;color:white;">Search</button>
-		    		</div>	
-		    	</div>
-	    	</form>
-	    	
-	    	<div style="overflow: auto">
-	    		<table class="table" style="font-size: 12px">
-					<thead>
-				    	<tr>
-				      		<th scope="col">No</th>
-							<th scope="col">Transaction Code</th>
-							<th scope="col">Request By</th>
-							<th scope="col">Request Date</th>
-							<th scope="col">Assign To</th>
-							<th scope="col">Status</th>
-							<th scope="col">Created Date</th>
-							<th scope="col">Create By</th>
-							<th scope="col">Actions</th>
-				    	</tr>
-				  	</thead>
-					<tbody>
-					<br/>
-						<c:forEach items="${listDesign }" var="design">
-
-						<tr>
-							<td>1</td>
-							<td>${design.code }</td>
-							<td>${design.requestBy.firstName } ${design.requestBy.lastName }</td>
-							<td>${design.requestDate }</td>
-							<td>${design.assignTo.firstName } ${design.assignTo.lastName }</td>
-							<td>
-								<c:choose>
-									<c:when test = "${design.status == 1 }">Submitted</c:when>
-									<c:when test = "${design.status == 2 }">In Progress</c:when>
-									<c:when test = "${design.status == 3 }">Done</c:when>
-									<c:when test = "${design.status == 0 }">Rejected</c:when>
-								</c:choose>
-							</td>
-							<td>${design.createdDate }</td>
-							<td>${design.createdBy.firstName } ${design.createdBy.lastName }</td>
-							<td>
-								<a href="#" val class="btn-view-modal" title="View Design Request" design-id="${design.id }" ><i class="fas fa-search"></i></a> 
-								| 
-								<a href="#" class="btn-edit-modal" title="Edit Design Request" design-id="${design.id }" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"data-status="${design.status }"><i class="fas fa-pencil-alt"></i></a>
-								
-							</td>
-						</tr>	
-						</c:forEach>
-					</tbody>
-				</table>
-	    	</div>
+			<c:if test="${pageContext.request.userPrincipal.name != null}">
+				<h2>
+					Welcome : ${pageContext.request.userPrincipal.name} | <a
+						href="javascript:formSubmit()"> Logout</a>
+				</h2>
+			</c:if>
+			
+			<div id="container" >
+				<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
+					<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Design Request</h5>
+				</div>
+				
+				<div style="width:98%;margin:auto;">
+					<ol class="breadcrumb">
+			  			<li><a href="#">Home </a>/ </li>
+			  			<li><a href="#"> Master </a>/ </li>
+			 		 	<li class="active"> List Design Request</li>
+					</ol>
+					<%-- <input type="hidden" role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"/> --%>
+			    	<button type="button" class="btn btn-primary" id="btn-add-modal" style="width:70px;float:right;">Add</button><br/><br/>
+			    	<form id="formSearch"> 
+			    		<div class="form-row" style="overflow: auto">
+				    		<div class="col-auto">
+				    			<input type="text" style="font-size: 12px" class="form-control" name="designCode" placeholder="Transaction Code">
+				    		</div>
+				    		<div class="col-auto">
+				    			<input type="text" style="font-size: 12px" class="form-control" placeholder="Request By">
+				    		</div>
+				    		<div class="col-auto">
+				    			<input placeholder="Request Date" style="font-size: 12px" class="form-control" name="requestDate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')"><!-- <input type="text" name="date" id="requestDatepicker" placeholder="Request Date"> -->	
+				    		</div>
+				    		<div class="col">
+				    			<select id="eventCode" class="form-control" style="font-size: 12px;">
+				       				<option disabled selected>-Assign To-</option>
+				       				<c:forEach items="${listEmployee }" var="employee">
+										<option value="${employee.id }">${employee.firstName } ${employee.lastName }</option>
+									</c:forEach>
+				       			</select>	
+				    		</div>
+				    		<div class="col">
+				    			<input type="text" style="font-size: 12px" class="form-control" id="status" placeholder="Status">
+				    		</div>
+				    		<div class="col-auto">
+				    			<input placeholder="Created Date" style="font-size: 12px" class="form-control" name="createdDate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="created">	
+				    		</div>
+				    		<div class="col-auto" >
+				    			<input type="text" style="font-size: 12px" class="form-control" id="created-by" placeholder="Created By">
+				    		</div>
+				    		<div class="col-auto">
+				    			<button type="button" class="btn btn-warning" id="btn-search" style="width:70px;color:white;">Search</button>
+				    		</div>	
+				    	</div>
+			    	</form>
+			    	
+			    	<div style="overflow: auto">
+			    		<table class="table" id="data-tables" style="font-size: 12px">
+							<thead>
+						    	<tr>
+						      		<th scope="col">No</th>
+									<th scope="col">Transaction Code</th>
+									<th scope="col">Request By</th>
+									<th scope="col">Request Date</th>
+									<th scope="col">Assign To</th>
+									<th scope="col">Status</th>
+									<th scope="col">Created Date</th>
+									<th scope="col">Create By</th>
+									<th scope="col">Actions</th>
+						    	</tr>
+						  	</thead>
+							<tbody>
+							<br/>
+								<c:forEach items="${listDesign }" var="design">
+		
+								<tr>
+									<td>1</td>
+									<td>${design.code }</td>
+									<td>${design.requestBy.firstName } ${design.requestBy.lastName }</td>
+									<td>${design.requestDate }</td>
+									<td>${design.assignTo.firstName } ${design.assignTo.lastName }</td>
+									<td>
+										<c:choose>
+											<c:when test = "${design.status == 1 }">Submitted</c:when>
+											<c:when test = "${design.status == 2 }">In Progress</c:when>
+											<c:when test = "${design.status == 3 }">Done</c:when>
+											<c:when test = "${design.status == 0 }">Rejected</c:when>
+										</c:choose>
+									</td>
+									<td>${design.createdDate }</td>
+									<td>${design.createdBy.firstName } ${design.createdBy.lastName }</td>
+									<td>
+										<a href="#" val class="btn-view-modal" title="View Design Request" design-id="${design.id }" ><i class="fas fa-search"></i></a> 
+										| 
+										<a href="#" class="btn-edit-modal" title="Edit Design Request" design-id="${design.id }" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"data-status="${design.status }"><i class="fas fa-pencil-alt"></i></a>
+										
+									</td>
+								</tr>	
+								</c:forEach>
+							</tbody>
+						</table>
+			    	</div>
+				</div>
+			</div>
+			
+			<%@ include file="modal/modal-design.jsp" %>
+    	 
+		
+		
 		</div>
-	</div>
-	
-	<%@ include file="modal/modal-design.jsp" %>
+       
+       
+       
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2014-2018 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.0.0-alpha
+    </div>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- Bootstrap 4 -->
+<script src="${pageContext.request.contextPath }/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="${pageContext.request.contextPath }/assets/dist/js/adminlte.min.js"></script>
+<%-- </c:if> --%>
+
+<script>
+ $(function () {
+    //datatabel
+   var t = $('#data-tables').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+    
+    t.on( 'order.dt search.dt', function () {
+	        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+	            cell.innerHTML = i+1;
+	        } );
+	    } ).draw();
+    
+  }); 
+</script>
 </body>
 </html>

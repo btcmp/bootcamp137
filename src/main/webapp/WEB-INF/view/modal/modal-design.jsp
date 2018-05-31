@@ -55,7 +55,7 @@
 </div>
 
 <!-- Modal Add -->
-<div class="modal fade" id="modalAddRequest">
+<div class="modal fade" id="modalAddRequest" style="z-index: 9991;">
   <div class="modal-dialog modal-lg">
     <div class="modal-content" >
       <div class="modal-header" style="background-color: #007bff; color:#fff">
@@ -76,13 +76,13 @@
 	       			</div>
        			</div>
        			<div style="clear: both;"></div>
-       			<div style="height:50px;">
+       			<div style="height:40px;">
 	       			<div style="float: left; width:50%; text-align: right">
 	       				<label>*Event Code</label>
 	       			</div>
 	       			<div id="dataEvent" style="float: left; width:50%">
-	       				<select class="form-control" style="font-size: 12px;" >
-	       					<option disabled selected value="">-Select Event-</option>
+	       				<select class="form-control" style="font-size: 12px;" id="validEvent">
+	       					<option selected value="">-Select Event-</option>
 	       					<c:forEach items="${listEvent }" var="event">	
 	       						<option value="${event.id }">${event.code }</option>
 	       					</c:forEach>
@@ -281,7 +281,7 @@
 </div>
 
 <!-- Modal View -->
-<div class="modal fade" id="modalViewRequest">
+<div class="modal fade" id="modalViewRequest" style="z-index: 9991;">
   <div class="modal-dialog modal-lg">
     <div class="modal-content" >
       <div class="modal-header" style="background-color: #007bff; color:#fff">
@@ -408,7 +408,7 @@
 </div>
 	
 <!-- Modal Approval -->
-<div class="modal fade" id="modalApprovalRequest">
+<div class="modal fade" id="modalApprovalRequest" style="z-index: 9991;">
   <div class="modal-dialog modal-lg">
     <div class="modal-content" >
       <div class="modal-header" style="background-color: #007bff; color:#fff">
@@ -532,7 +532,7 @@
 </div>
 
 <!-- Modal Close Request -->
-<div class="modal fade" id="modalCloseRequest">
+<div class="modal fade" id="modalCloseRequest" style="z-index: 9991;">
   <div class="modal-dialog modal-lg">
     <div class="modal-content" >
       <div class="modal-header" style="background-color: #007bff; color:#fff">
