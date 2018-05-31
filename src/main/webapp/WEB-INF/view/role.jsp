@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Role</title>
+<title>List Role</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
@@ -65,17 +65,27 @@ input.parsley-error {
 </style>
 
 <script type="text/javascript">
+	
+	$(function () {
+    //datatabel
+   var t = $('#data-role').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+    
+    t.on( 'order.dt search.dt', function () {
+	        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+	            cell.innerHTML = i+1;
+	        } );
+	    } ).draw();
+    
+  }); 
+
 	$(document).ready(function(){
-		
-		//data tables
-		$('#data-menu').DataTable({
-	      "paging": true,
-	      "lengthChange": false,
-	      "searching": false,
-	      "ordering": true,
-	      "info": true,
-	      "autoWidth": false
-	    });
 		
 		//add data event listener
 		$(document).on('click', '.btn-add', function(event){
@@ -219,23 +229,112 @@ input.parsley-error {
 	});
 </script>
 </head>
-<body>
-	<!-- Logout -->
-	<form action="${logoutUrl}" method="post" id="logoutForm">
-		<input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-	</form>
-	<script>
-		function formSubmit() {
-			document.getElementById("logoutForm").submit();
-		}
-	</script>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
 
-	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<h2>
-			Welcome : ${pageContext.request.userPrincipal.name} | <a
-				href="javascript:formSubmit()"> Logout</a>
-		</h2>
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+      </li>
+      	
+    </ul>
+
+
+    
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+     <a href="javascript:formSubmit()"> Logout</a>
+          
+     
+      
+      
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="${pageContext.request.contextPath }/assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Marcom Apps</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+     <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+        
+         
+           <%--  <a href="#" class="nav-link">
+              <p>
+                <h2><a href="#" class="d-block">${pageContext.request.userPrincipal.name}</a></h2>
+              </p>
+            </a> --%>
+          
+          <li class="nav-header">Menu</li>
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/company" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Company</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/event" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Event</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/menu" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Menu</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/unit" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Unit</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+   
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+       	<c:url value="/j_spring_security_logout" var="logoutUrl" />
+		<form action="${logoutUrl}" method="post" id="logoutForm">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
+		<script>
+			function formSubmit() { 
+				document.getElementById("logoutForm").submit();
+			}
+		</script>
+	
+		<c:if test="${pageContext.request.userPrincipal.name != null}">
+			<h2>
+				Welcome : ${pageContext.request.userPrincipal.name}
+			</h2>
+		</c:if>
 	
 	<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
 		<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Role</h5>
@@ -421,7 +520,37 @@ input.parsley-error {
 	      </div>
 	    </div>
 	  </div>
+	</div>	
+     
 	</div>
-</c:if>
+       
+       
+       
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2014-2018 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.0.0-alpha
+    </div>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- Bootstrap 4 -->
+<script src="${pageContext.request.contextPath }/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="${pageContext.request.contextPath }/assets/dist/js/adminlte.min.js"></script>
+<%-- </c:if> --%>
 </body>
 </html>

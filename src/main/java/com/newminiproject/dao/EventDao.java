@@ -25,4 +25,6 @@ public interface EventDao {
 
 	void rejected(Event event);
 
+	List<Event> search(Event event);
+
 }

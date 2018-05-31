@@ -684,7 +684,7 @@ $(document).ready(function(){
 			var form = $("#formrole");
 			var data = form.serialize(); //untuk mengambil semua data yang ada di table
 			console.log(data);
-			//window.location = '${pageContext.request.contextPath}/role/search?'+data;
+			window.location = '${pageContext.request.contextPath}/event/search?'+data;
 		});
 	});
 </script>
