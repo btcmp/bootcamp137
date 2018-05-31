@@ -290,15 +290,15 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-header">Menu</li>
           <li class="nav-item">
-            <a href="${pageContext.request.contextPath }/company" class="nav-link">
+            <a href="${pageContext.request.contextPath }/souvenir" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
-              <p>Company</p>
+              <p>Master Souvenir</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="${pageContext.request.contextPath }/event" class="nav-link">
+            <a href="${pageContext.request.contextPath }/souvenirrequest" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
-              <p>Event</p>
+              <p>Transaction Souvenir</p>
             </a>
           </li>
           
