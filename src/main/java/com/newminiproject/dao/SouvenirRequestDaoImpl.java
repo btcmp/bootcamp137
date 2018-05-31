@@ -123,7 +123,7 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 		query.setParameter(4, ts.getId());
 		
 		query.executeUpdate();
-		//session.update(ts);
+		//session.update(ts); 
 	}
 
 	@Override
