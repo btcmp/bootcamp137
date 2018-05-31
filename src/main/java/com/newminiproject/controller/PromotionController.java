@@ -136,6 +136,18 @@ public class PromotionController {
 		return promotion;
 	}
 	
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String search(Model model, @RequestParam(value = "code", defaultValue="")String code) {
+		System.out.println(code);
+		
+		Promotion searching = new Promotion();
+		searching.setCode(code);
+		
+		List<Promotion> listPromotion = promotionService.search(searching);
+		model.addAttribute("listPromotion", listPromotion);
+		return "promotion";
+	}
+	
 	@RequestMapping (value="/test", method = RequestMethod.GET)
 	@ResponseBody
 	public String test() {

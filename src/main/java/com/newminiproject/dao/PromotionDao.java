@@ -24,4 +24,6 @@ public interface PromotionDao {
 
 	void closeRequest(Promotion prm);
 
+	List<Promotion> search(Promotion searching);
+
 }

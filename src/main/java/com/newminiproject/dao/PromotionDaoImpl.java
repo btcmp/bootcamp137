@@ -129,8 +129,27 @@ public class PromotionDaoImpl implements PromotionDao {
 		
 		query.executeUpdate();
 		
-		System.out.println("status promotion : " + prm.getStatus());
+	/*	System.out.println("status promotion : " + prm.getStatus());
 		System.out.println("id promotion : " + prm.getId());
+	*/}
+
+	@Override
+	public List<Promotion> search(Promotion searching) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from Promotion pr where pr.code = :code";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter("code", searching.getCode());
+		List<Promotion> listPromotion = query.list();
+		
+		System.out.println("code :" + searching.getCode());
+		
+		if(listPromotion.isEmpty()) {
+			return new ArrayList<>();
+		}
+		
+		return listPromotion;
 	}
 
 }

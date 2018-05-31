@@ -243,7 +243,7 @@ public class PromotionService {
 			}
 		}
 		
-			
+		
 		for(PromotionItemFile lpif : promotion.getListPromotionItemFile()) {
 			PromotionItemFile lpif1 = new PromotionItemFile();
 			
@@ -253,5 +253,10 @@ public class PromotionService {
 			
 			promotionItemFileDao.closeRequest(lpif1);
 		}
+	}
+
+	public List<Promotion> search(Promotion searching) {
+		// TODO Auto-generated method stub
+		return promotionDao.search(searching);
 	}
 }
