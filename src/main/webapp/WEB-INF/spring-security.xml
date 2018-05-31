@@ -47,6 +47,7 @@
 			<intercept-url pattern="/menu/**" access="hasRole('ROLE_ADMIN')"/>
 			<intercept-url pattern="/role/**" access="hasRole('ROLE_ADMIN')"/>
 			<intercept-url pattern="/unit/**" access="hasRole('ROLE_ADMIN')"/>
+			<intercept-url pattern="/company/**" access="hasRole('ROLE_ADMIN')"/>
 			<form-login
 			    login-page="/login"
 			    default-target-url="/welcome"

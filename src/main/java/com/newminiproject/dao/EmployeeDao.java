@@ -15,4 +15,6 @@ public interface EmployeeDao {
 	public void update(Employee employee);
 
 	public void delete(int id);
+
+	public List<Employee> search(Employee employee);
 }

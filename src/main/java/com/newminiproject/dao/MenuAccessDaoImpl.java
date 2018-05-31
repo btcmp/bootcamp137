@@ -58,9 +58,12 @@ public class MenuAccessDaoImpl implements MenuAccessDao{
 	@Override
 	public void update(MenuAccess menuAccess) {
 		// TODO Auto-generated method stub
-		Session session= sessionFactory.getCurrentSession();
-		//String hql = "update MenuAccess ma set ma.code=?, ma.mRoleId.name=?, ma.mMenuId.name=?, emp.lastName=?, emp.email=? where emp.id=?";
-		session.update(menuAccess);
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update MenuAccess ma set ma.mRoleId=?, ma.mMenuId=? where ma.id=?";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, menuAccess.getmRoleId());
+		query.setParameter(1, menuAccess.getmRoleId());
+		query.executeUpdate();
 	}
 
 }

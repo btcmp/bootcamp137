@@ -157,8 +157,7 @@
 					$('#requestdateview').val(obj.requestDate);
 					$('#duedateview').val(obj.requestDueDate);
 					$('#noteview').val(obj.note);
-					//$('#statusview').val(obj.status);
-					//console.log(obj.transactionSouvenirItem);
+					
 					var oTable1 = $('#dataitem');
 					var tBody1 = oTable1.find('tbody');
 					tBody1.find('tr').remove();
@@ -784,8 +783,13 @@
 	
 	
 	//REJECT settlement
+	
 	$(document).on('click','#rejectSettlement', function(){
-
+		
+		$('#modal-rejectsett-reason').modal();
+	});
+	
+	$(document).on('click','#btn-settreject-reason', function(){
 		var settlement = {
 			id : $('#id-apset').val(),
 			code : $('#code-apset').val(),
@@ -796,6 +800,7 @@
 			requestDueDate : new Date($('#duedateapset').val()),
 			note : $('#noteapset').val(),
 			status : 0,
+			rejectReason : $('rejectsetreason').val(),
 			transactionSouvenirItem : []
 		};
 				
@@ -809,7 +814,7 @@
 			contentType : 'application/json',
 			success: function(data){
 			console.log(data);
-			//window.location = '${pageContext.request.contextPath}/souvenirrequest'
+			window.location = '${pageContext.request.contextPath}/souvenirrequest'
 				}, error : function(){
 					alert('error');
 			},
@@ -839,12 +844,12 @@
 
 		$.ajax({
 			url : '${pageContext.request.contextPath}/souvenirrequest/statusupdate',
-			type : 'PUT',
+			type : 'POST',
 			data : JSON.stringify(settlement),
 			contentType : 'application/json',
 			success: function(data){
 			console.log(data);
-			//window.location = '${pageContext.request.contextPath}/souvenirrequest'
+			window.location = '${pageContext.request.contextPath}/souvenirrequest'
 				}, error : function(){
 					alert('error');
 			},
@@ -1724,6 +1729,7 @@
 	</div>
 	
 	
+	
 	<!-- ALERT -->
 	<div class="alert alert-primary" id="success-alert" role="alert">
 	  This is a primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
@@ -1995,13 +2001,36 @@
 		      
 	      <div class="modal-footer">
 	        <button type="button" id="approveSettlement" class="btn btn-primary">Approved</button>
-	         <button type="button" id="rejectSettlement" class="btn btn-danger">Reject</button>
+	         <button type="button" id="rejectSettlement" class="btn btn-danger" data-dismiss="modal">Reject</button>
 	        <button type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Cancel</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 	</div>
+	
+	
+		<!-- Modal Settlement Reject Reason -->
+	<div class="modal fade bd-example-modal-sm" id="modal-rejectsett-reason" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog modal-sm" role="document">
+	    <div class="modal-content">
+	      <div style="float:right;clear:right;">
+	        <button id="close" style="background-color:red;" type="button" class="close" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p style="text-align:center;">Reject Reason</p>
+	        <textarea style="height:100px;" id="rejectsetreason" placeholder="Input Reject Reason" class="form-control"></textarea>
+	      </div>
+	      <div style="margin:auto;padding-bottom:5px;">
+	        <button type="button" class="btn btn-primary" id="btn-settreject-reason" data-dismiss="modal">Reject</button>
+	        <button id="cancel-btn" type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 
 		<!------------------------------------------------- Modal Close Request---------------------------------------------------->
 	<div class="modal fade bd-example-modal-lg" id="modal-close-request" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -2128,16 +2157,15 @@
 					</table>
 		      	</div>
 		      </div>
-		      
+		       
 	      <div class="modal-footer">
-	        <button type="button" id="closerequest" class="btn btn-primary">Close Request</button>
+	        <button type="button" id="closerequest" class="btn btn-primary" data-dismiss="modal">Close Request</button>
 	        <button type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Cancel</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
-	</div>
-	
+	</div> 
 	
 </body>
 </html>

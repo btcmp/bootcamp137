@@ -23,6 +23,7 @@
 		
 	$(document).on(('click'), '#save-btn-add-souvenir-stock', function(){
 		var stock = {
+			//createdBy : $('#id-created-by').val(),
 			code : $('#transaction-code-save-souvenir-stock').val(),
 			receivedBy : {
 				id : $('#recived-by-save-souvenir-stock option:selected').val(),
@@ -190,7 +191,7 @@
 				contentType : 'application/json',
 				success: function(data){
 					console.log(data);
-					//window.location = '${pageContext.request.contextPath}/souvenir';
+					window.location = '${pageContext.request.contextPath}/souvenir';
 				}, error : function(){
 					alert('error');
 				}
@@ -296,6 +297,14 @@
 				dataType:'json'
 			});
 		});	
+		
+		$('#btn-search').on('click', function(){
+			var form = $("#form-search");
+			var data = form.serialize();
+			console.log(data);
+			window.location = '${pageContext.request.contextPath}/souvenirstock/search?'+data;
+		});
+		
 	});
 </script>
 </head>
@@ -361,7 +370,8 @@
 			  </ol>
 				
 			<a href="#" class="btn btn-sm btn-primary" id="btn-add">Add</a><br><br>
-				
+			
+			<form id="form-search">
 			  <div class="form-row">
 				<div class="col-auto">
 				  <input type=text name="code" id="Transaction_Code" class="form-control" placeholder="Transaction Code">
@@ -381,7 +391,8 @@
 				<div class="col-auto">		
 				  <a href="#" class="btn btn-sm btn-warning" id="btn-search" data-toggle="modal" data-target="#exampleModalCenter" >Search</a>
 				</div>		
-			  </div>			
+			  </div>
+			 </form>			
 			</div>
 			
 			<div id="body2">
@@ -407,7 +418,6 @@
 					  <td>${ts.createdDate}</td>
 					  <td><%-- ${ts.createBy} --%></td>
 					  <td>
-						<a href="#" class="delete" deleteid="${ts.id}" style="color:inherit;"><i class="fas fa-trash"></i></a>
 					  	<a href="#" class="edit" editid="${ts.id}" style="color:inherit;"><i class="fas fa-pencil-alt"></i></a>
 					  	<a href="#" class="view" id="${ts.id}" style="color:inherit;"><i class="fas fa-search"></i></a>
 					  </td>
@@ -432,6 +442,7 @@
 	      </div>
 	      <div class="modal-body">
 	        <div class="modal-atas" style="border-radius:5px;">
+	        	<input type="hidden" id="id-create-by">
 	        	<div style="width:98%;margin:auto;border:solid 1px aqua;padding:1px;border-radius:5px;padding-top:15px;">
 					<div class="row" style="margin-bottom:5px;">
 		        	  <div class="col-sm-5" style="text-align:right;">
@@ -694,7 +705,6 @@
 	        </div>
 	        <div style="clear:both;"></div>
 	        <div class="modal-bawah" style="margin-top:5px;">
-		        <div style="float:left;margin-top:5px;"><button type="button" class="btn btn-primary" id="add-item-btn">Add Item</button></div>
 		        <div style="clear:both;"></div>
 		        <div>		        	
 		        	<table style="text-align:center;" id="view-item-table">

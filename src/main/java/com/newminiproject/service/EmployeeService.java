@@ -41,4 +41,9 @@ public class EmployeeService {
 		employeeDao.delete(id);
 	}
 
+	public List<Employee> search(Employee employee) {
+		// TODO Auto-generated method stub
+		return employeeDao.search(employee);
+	}
+
 }

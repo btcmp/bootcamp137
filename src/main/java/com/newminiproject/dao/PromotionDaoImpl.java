@@ -80,4 +80,40 @@ public class PromotionDaoImpl implements PromotionDao {
 		System.out.println("title id :" + pr.getId());
 	*/}
 
+	@Override
+	public void approved(Promotion prm) {
+		// TODO Auto-generated method stub
+		
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update Promotion pr set pr.status =? where pr.id=?";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter(0, prm.getStatus());
+		query.setParameter(1, prm.getId());
+		
+		query.executeUpdate();
+		
+		/*System.out.println("status : "+ prm.getStatus());
+		System.out.println("id : "+ prm.getId());
+		*/
+	}
+
+	@Override
+	public void rejected(Promotion prm) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "update Promotion pr set pr.status =?, pr.rejectReason = ? where pr.id = ?";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter(0, prm.getStatus());
+		query.setParameter(1, prm.getRejectReason());
+		query.setParameter(2, prm.getId());
+		
+		query.executeUpdate();
+		
+	/*	System.out.println("status : " + prm.getStatus());
+		System.out.println("Reject Reason : " + prm.getRejectReason());
+		System.out.println("Id : " + prm.getId());
+	*/}
+
 }

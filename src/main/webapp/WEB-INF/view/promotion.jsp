@@ -23,12 +23,6 @@
 
 	$(document).ready(function(){		
 
-		$(function(){
-			$('.date-picker').datepicker({
-				format : "dd-mm-yyyy",
-			})
-		})
-		
 		$('#add').on('click', function (){
 			$('#modalAdd').modal();
 		})
@@ -452,6 +446,10 @@
 							status = "Rejected";
 						} else if (data.status == 1){
 							status = "Submitted";
+						} else if(data.status == 2){
+							status = "In Progress";
+						} else if (data.status == 3){
+							status = "Done";
 						}
 						$('#statusBySaveView').val(status);
 						
@@ -525,6 +523,13 @@
 						tBody3.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
 							
+							if(value.note == null){
+								value.note = " ";
+							} else {
+								value.note
+							}
+							
+							
 							var appendString3 = "<tr>";
 									appendString3 += "<td>";
 										appendString3 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' disabled>";
@@ -595,6 +600,10 @@
 							status1 = "Rejected";
 						} else if (data.status == 1){
 							status1 = "Submitted";
+						} else if(data.status == 2){
+							status1 = "In Progress";
+						} else if (data.status == 3){
+							status1 = "Done";
 						}
 						$('#statusBySaveNotView').val(status1);
 						
@@ -672,8 +681,8 @@
 		var roleAdmin = $(this).attr('data-role-admin');
 		var roleStaff = $(this).attr('data-role-staff');
 		
-		console.log(roleStaff);
-		
+		var statusPromo = $(this).attr('status-id');
+		console.log(statusPromo);
 ////////////////////////////////////////////////////////////////////Edit from Design REQUESTER ////////////////////////////////////////////////////////////////////
 
 		if(roleRequester == 'true'){		
@@ -738,7 +747,7 @@
 									appendString5 += '</td>';
 							
 									appendString5 += '<td>';
-										appendString5 += '<select class = "form-control select-todo-promoItem" > <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
+										appendString5 += '<select class = "form-control select-todo-promoItem" > <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
 									appendString5 += '</td>';
 							
 									appendString5 += '<td>';
@@ -771,6 +780,13 @@
 						tBody6.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
 						
+							if(value.note == null){
+								value.note = " ";
+							} else {
+								value.note
+							}
+							
+							
 							var appendString6 = "<tr value-pif-id = '"+ value.id +"'>";
 									appendString6 += "<td>";
 										appendString6 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' >";
@@ -970,7 +986,7 @@
 									appendString11 += '</td>';
 							
 									appendString11 += '<td>';
-										appendString11 += '<select class = "form-control select-todo-promoItem" disabled> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
+										appendString11 += '<select class = "form-control select-todo-promoItem" disabled> <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
 									appendString11 += '</td>';
 							
 									appendString11 += '<td>';
@@ -1003,6 +1019,13 @@
 						tBody12.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
 						
+							if(value.note == null){
+								value.note = " ";
+							} else {
+								value.note
+							}
+							
+							
 							var appendString12 = "<tr value-pif-id = '"+ value.id +"'>";
 									appendString12 += "<td>";
 										appendString12 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' disabled>";
@@ -1075,7 +1098,7 @@
 						$('#statusByNotAdminView').val(status6);
 						
 						
-						var oTable13 = $('#tabelItemNotUpdate');
+						var oTable13 = $('#tabelItemNotAdmin');
 						var tBody13 = oTable13.find('tbody');
 						tBody13.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
@@ -1132,8 +1155,17 @@
 				
 				$('#modalNotFromDesignAdmin').modal();
 			}
+			
+			$('#rejectedDesign').on('click', function(){
+				$('#modalRejected').modal();
+			})
+			
+			$('#rejectedAdminNotDesign').on('click', function(){
+				$('#modalRejectedNotDesign').modal();
+			})
 		}
 
+		
 ////////////////////////////////////////////////////////////////////Edit from Design STAFF ////////////////////////////////////////////////////////////////////
 
 		else if (roleStaff == 'true'){
@@ -1197,7 +1229,7 @@
 									appendString14 += '</td>';
 							
 									appendString14 += '<td>';
-										appendString14 += '<select class = "form-control select-todo-promoItem" disabled> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
+										appendString14 += '<select class = "form-control select-todo-promoItem" disabled> <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
 									appendString14 += '</td>';
 							
 									appendString14 += '<td>';
@@ -1230,6 +1262,13 @@
 						tBody15.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
 						
+							if(value.note == null){
+								value.note = " ";
+							} else {
+								value.note
+							}
+							
+							
 							var appendString15 = "<tr value-pif-id = '"+ value.id +"'>";
 									appendString15 += "<td>";
 										appendString15 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' disabled>";
@@ -1303,7 +1342,7 @@
 						$('#statusByNotStaffView').val(status7);
 						
 						
-						var oTable16 = $('#tabelItemNotUpdate');
+						var oTable16 = $('#tabelItemNotStaff');
 						var tBody16 = oTable16.find('tbody');
 						tBody16.find('tr').remove();
 						$.each(data.listPromotionItemFile, function(index,value){
@@ -1369,6 +1408,7 @@
 /////////////////////////////// Update from flagDesign == 1 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 
+//ROLE REQUESTER
 	$('#updateDesign').on('click', function(){
 		var updatePromo = {
 			id : $('#idEdit').val(),
@@ -1444,11 +1484,54 @@
 		})
 	}
 
+///ROLE ADMIN
+	$('#approvedDesign').on('click', function(){
+		var approveData = {
+			id	: $('#idEditAdmin').val(),
+			status : 2
+		}
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/promotion/approved',
+			type : 'POST',
+			data : JSON.stringify(approveData),
+			contentType : 'application/json',
+			success : function (data){
+				window.location = "${pageContext.request.contextPath}/promotion";
+			},
+			error : function (){
+				alert ('error');	
+			}
+			
+		})
+	})
+	
+	$('#rejectPromotAdmin').on('click', function(){
+		var rejectPromo = {
+			id	: $('#idEditAdmin').val(),
+			status : 0,
+			rejectReason : $('#rejectReasonAdminPromo').val()
+		}
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/promotion/rejected',
+			type : 'POST',
+			data : JSON.stringify(rejectPromo),
+			contentType : 'application/json',
+			success : function (data){
+				window.location = "${pageContext.request.contextPath}/promotion";
+			},
+			error : function (){
+				alert ('error');	
+			}
+			
+		})
+	})
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////// Update from flagDesign == 0 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+/// ROLE_REQUESTER
 	$('#updateNotDesign').on('click', function(){
 		var updatePromoNot = {
 			id : $('#idEditNot').val(),
@@ -1493,7 +1576,49 @@
 			listPromotionItemFile.push(updateFileNot);
 		})
 	}
+
+///ROLE ADMIN
+	$('#approvedAdminNotDesign').on('click', function(){
+		var approveData = {
+			id	: $('#idEditNotAdmin').val(),
+			status : 2
+		}
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/promotion/approved',
+			type : 'POST',
+			data : JSON.stringify(approveData),
+			contentType : 'application/json',
+			success : function (data){
+				window.location = "${pageContext.request.contextPath}/promotion";
+			},
+			error : function (){
+				alert ('error');	
+			}
+			
+		})
+	})
 	
+	$('#rejectPromotAdminNotDesign').on('click', function(){
+		var rejectPromoNotDesign = {
+			id	: $('#idEditNotAdmin').val(),
+			status : 0,
+			rejectReason : $('#rejectReasonAdminPromoNotDesign').val()
+		}
+		$.ajax({
+			url : '${pageContext.request.contextPath}/promotion/rejected',
+			type : 'POST',
+			data : JSON.stringify(rejectPromoNotDesign),
+			contentType : 'application/json',
+			success : function (data){
+				window.location = "${pageContext.request.contextPath}/promotion";
+			},
+			error : function (){
+				alert ('error');	
+			}
+			
+		})
+	})
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////// Upload File //////////////////////////////////////////////
@@ -1626,7 +1751,7 @@
 						<td>${promotion.createdBy }</td>
 						<td>
 							<a href="#" value-promo-id-detail = ${promotion.id } value-flag-design =${promotion.flagDesign } class="tombolDetail"><span class="float-left" style="padding:3px; color:grey;" ><i class="fas fa-search fa-lg"></i></span></a>
-							<a href="#" value-promo-id-edit = ${promotion.id } value-flag-edit =${promotion.flagDesign } data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>"  data-role-admin = "<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>" class="tombolEdit"><span class="float-left" style="padding:3px; color:grey;"><i class="fas fa-pencil-alt fa-lg"></i></span></a>
+							<a href="#" status-id=${promotion.status }  value-promo-id-edit = ${promotion.id } value-flag-edit =${promotion.flagDesign } data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>"  data-role-admin = "<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>" class="tombolEdit"><span class="float-left" style="padding:3px; color:grey;"><i class="fas fa-pencil-alt fa-lg"></i></span></a>
 						</td>
 					</tr>
 				</c:forEach>
