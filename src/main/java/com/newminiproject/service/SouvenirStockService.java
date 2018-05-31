@@ -147,5 +147,10 @@ public class SouvenirStockService {
 		
 		
 	}
+
+	public List<TransactionSouvenir> search(TransactionSouvenir tssearch) {
+		// TODO Auto-generated method stub
+		return transactionSouvenirStockDao.search(tssearch);
+	}
 	
 }

@@ -1,5 +1,7 @@
 package com.newminiproject.controller;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import com.newminiproject.dao.SeqDaoTSouvenir;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Souvenir;
 import com.newminiproject.model.TransactionSouvenir;
+import com.newminiproject.model.User;
 import com.newminiproject.service.EmployeeService;
 import com.newminiproject.service.SouvenirStockService;
 import com.newminiproject.service.TransactionSouvenirItemStockService;
@@ -53,6 +56,7 @@ public class SouvenirStockController {
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	@ResponseBody// respones status biasanya void
 	public TransactionSouvenir save(@RequestBody TransactionSouvenir transactionSouvenir) {
+		//User user
 		souvenirStockService.save(transactionSouvenir);
 		return transactionSouvenir;
 	}
@@ -79,5 +83,16 @@ public class SouvenirStockController {
 	public TransactionSouvenir update(@RequestBody TransactionSouvenir transactionSouvenir) {
 		souvenirStockService.update(transactionSouvenir);
 		return transactionSouvenir;
+	}
+	
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public String search(Model model, @RequestParam(value="code", defaultValue="")String code) {
+		TransactionSouvenir tssearch = new TransactionSouvenir();
+		tssearch.setCode(code);
+		List<TransactionSouvenir> listTransactionSouvenir = souvenirStockService.search(tssearch);
+		model.addAttribute("listTransactionSouvenir", listTransactionSouvenir);
+		System.out.println("code cont:" + tssearch.getCode());
+		System.out.println(code);
+		return "list-souvenir-stock";
 	}
 }

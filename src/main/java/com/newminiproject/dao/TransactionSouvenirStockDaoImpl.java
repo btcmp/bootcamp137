@@ -80,4 +80,21 @@ public class TransactionSouvenirStockDaoImpl implements TransactionSouvenirStock
 		query.setParameter(0, transactionSouvenir.getId());
 		query.executeUpdate();
 	}
+
+	@Override
+	public List<TransactionSouvenir> search(TransactionSouvenir tssearch) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from TransactionSouvenir ts where ts.code=:code";
+		
+		Query query = session.createQuery(hql);
+		query.setParameter("code", tssearch.getCode());
+		List<TransactionSouvenir> listTransactionSouvenir = query.list();
+		
+		System.out.println("code :" + tssearch.getCode());
+		if(listTransactionSouvenir.isEmpty()) {
+			return new ArrayList<>();
+		}
+		return listTransactionSouvenir;
+	}
 }

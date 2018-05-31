@@ -17,4 +17,6 @@ public interface TransactionSouvenirStockDao {
 
 	void delete(TransactionSouvenir transactionSouvenir);
 
+	List<TransactionSouvenir> search(TransactionSouvenir tssearch);
+
 }
