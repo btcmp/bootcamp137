@@ -157,8 +157,7 @@
 					$('#requestdateview').val(obj.requestDate);
 					$('#duedateview').val(obj.requestDueDate);
 					$('#noteview').val(obj.note);
-					//$('#statusview').val(obj.status);
-					//console.log(obj.transactionSouvenirItem);
+					
 					var oTable1 = $('#dataitem');
 					var tBody1 = oTable1.find('tbody');
 					tBody1.find('tr').remove();
