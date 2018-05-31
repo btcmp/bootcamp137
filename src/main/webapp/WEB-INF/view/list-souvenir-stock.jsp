@@ -495,10 +495,7 @@
 				</div>
 				<div class="col-auto">		
 				  <a href="#" class="btn btn-sm btn-warning" id="btn-search" data-toggle="modal" data-target="#exampleModalCenter" >Search</a>
-				</div>
-				<div class="col-auto">		
-				  <input id="datetime">
-				</div>			
+				</div>	
 			  </div>
 			 </form>			
 			</div>
