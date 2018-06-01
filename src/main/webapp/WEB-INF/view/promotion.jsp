@@ -84,6 +84,8 @@
 				
 				$('#requestBySave').val(fullName);
 				$('#idRequestBy').val(data.mEmployeeId.id);
+				$('#requestByNot').val(fullName);
+				$('#idRequestByNot').val(data.mEmployeeId.id);
 			},
 			error : function (){
 				alert('error');
@@ -435,12 +437,16 @@
 				},
 				flagDesign :$ ('#design-select-option option:selected').val(),
 				status : 1,
+				requestBy : {
+					id : $('#idRequestByNot').val()
+				},
 				requestDate : new Date($('#requestDateSave').val()),
 				createdDate : new Date(),
 				listPromotionItemFile : []
 			}
 			
 			_readTableDataNoteDesign(promoHeaderNot.listPromotionItemFile);
+			console.log(promoHeaderNot);
 			
 			$.ajax ({
 				url:'${pageContext.request.contextPath}/promotion/save',
@@ -448,10 +454,10 @@
 				data:JSON.stringify(promoHeaderNot),
 				contentType:'application/json',
 				success : function (data){
-					window.location = "${pageContext.request.contextPath}/promotion"
+					window.location = "${pageContext.request.contextPath}/promotion";
 				},
 				error : function (){
-					alert('error')
+					alert('error');
 				}
 		  	})
 		})
@@ -1929,7 +1935,7 @@
 	<ol class="breadcrumb">
   		<li><a href="#">Home </a>/</li>
   		<li><a href="#"> Master </a>/</li>
- 	 	<li class="active"> List Marketing Promotion</li>
+ 	 	<li class="active" id="bakToHome" onclick = "doBack()"> <a href="#">List Marketing Promotion</a></li>
 	</ol>
 	
 	<div>
@@ -2162,6 +2168,10 @@
 	    } ).draw();
     
   }); 
+ 
+ function doBack(){
+	 window.location = "${pageContext.request.contextPath}/promotion";
+ }
 </script>
 </body>
 </html>

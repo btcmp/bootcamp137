@@ -484,6 +484,7 @@
 							    <span class = "float-left" style="width:35%; text-align:right;">* Request By :</span>
 							    <div class = "float-left" style="width:65%;">
 							    	<input class="form-control" type="text" id="requestByNot" disabled>
+							    	<input hidden id="idRequestByNot">
 							    </div>
 							    
 							  </div>
