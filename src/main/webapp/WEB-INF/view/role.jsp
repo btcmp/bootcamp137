@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -231,12 +232,12 @@ input.parsley-error {
 			var form = $("#formrole");
 			var data = form.serialize(); //untuk mengambil semua data yang ada di table
 			console.log(data);
-			if(data == "rolecode=&rolename=&rolecreateddate=&rolecreatedby="){
-				window.location = '${pageContext.request.contextPath}/role';
-			}
-			else{
-				window.location = '${pageContext.request.contextPath}/role/search?'+data;	
-			} 			
+// 			if(data == "rolecode=&rolename=&rolecreateddate=&rolecreatedby="){
+// 				window.location = '${pageContext.request.contextPath}/role';
+// 			}
+// 			else{
+// 				window.location = '${pageContext.request.contextPath}/role/search?'+data;	
+// 			} 			
 		});
 		
 	});
@@ -359,8 +360,6 @@ input.parsley-error {
   			<li><a href="#"> Master </a>/</li>
  		 	<li class="active">Role</li>
 		</ol>
-    
-
     	<a href="#" class="btn btn-primary btn-add" style="width:70px;float:right;">Add</a><br/><br/>
 		<form id="formrole">
 	    	<div class="form-row" >
@@ -394,7 +393,7 @@ input.parsley-error {
     	<table id="data-role" class="table" style="margin-top:10px;">
 			<thead>
 		    	<tr>
-		      		<th scope="col">No</th>
+	      			<th scope="col">No</th>
 					<th scope="col">Role Code</th>
 					<th scope="col">Role Name</th>
 					<th scope="col">Created Date</th>
@@ -408,7 +407,7 @@ input.parsley-error {
 						<td class="counterCell"></td>
 						<td>${role.code }</td>
 						<td>${role.name }</td>
-						<td>${role.createdDate }</td>
+						<td><fmt:formatDate value="${role.createdDate }" pattern="dd/MM/yyyy" /></td>
 						<td>${role.createdBy }</td>
 						<td>
 							<a href="#" style="color:inherit" class="iconView" view-id="${role.id}"><i class="fas fa-search"></i></a>

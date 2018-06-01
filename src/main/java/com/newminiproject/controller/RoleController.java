@@ -53,13 +53,14 @@ public class RoleController {
 		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //untuk format tanggal
 		Date createdDateDual = null;
 		if(!createdDate.equals("")) {
-			createdDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(createdDate);
+			createdDateDual = new SimpleDateFormat("dddd/MM/yy").parse(createdDate);
 		}
 		Role role = new Role();
 		role.setName(roleName);
 		role.setCode(roleCode);
 		role.setCreatedBy(createdBy);
 		role.setCreatedDate(createdDateDual);
+		System.out.println("Created Date" + role);
 		List<Role> listRole = roleService.getAllRole();
 		List<Role> listRoleFilter = roleService.search(role);
 		model.addAttribute("listRole", listRoleFilter); //isi dari table, milik method getall

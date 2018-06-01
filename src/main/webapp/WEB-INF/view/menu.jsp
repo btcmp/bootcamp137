@@ -5,7 +5,7 @@
 <%@ page import = "java.io.*,java.util.*" %>
 <%@ page import = "javax.servlet.*,java.text.*" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -450,7 +450,7 @@
 						<td class="counterCell"></td>
 						<td>${menu.code }</td>
 						<td>${menu.name }</td>
-						<td>${menu.createdDate }</td>
+						<td><fmt:formatDate value="${menu.createdDate }" pattern="dd/MM/yyyy" /></td>
 						<td>${menu.createdBy }</td>
 						<td>
 							<a href="#" style="color:inherit" class="iconView" view-id="${menu.id}"><i class="fas fa-search"></i></a>
