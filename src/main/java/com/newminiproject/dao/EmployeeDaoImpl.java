@@ -52,14 +52,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public void update(Employee employee) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update Employee emp set emp.code=?, emp.mCompanyId=?, emp.firstName=?, emp.lastName=?, emp.email=? where emp.id=?";
+		String hql = "update Employee emp set emp.code=?, emp.mCompanyId=?, emp.firstName=?, emp.lastName=?, emp.email=?, emp.updatedDate=?, emp.updated_by=?  where emp.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, employee.getCode());
 		query.setParameter(1, employee.getmCompanyId());
 		query.setParameter(2, employee.getFirstName());
 		query.setParameter(3, employee.getLastName());
 		query.setParameter(4, employee.getEmail());
-		query.setParameter(5, employee.getId());
+		query.setParameter(5, employee.getUpdatedDate());
+		query.setParameter(6, employee.getUpdated_by());
+		query.setParameter(7, employee.getId());
 		
 		query.executeUpdate();
 	}

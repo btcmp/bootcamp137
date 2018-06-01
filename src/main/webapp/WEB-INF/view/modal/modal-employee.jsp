@@ -84,7 +84,7 @@ tr, td {
 	      </div>
 	      
 	      <div class="modal-footer">
-	        <button type="button" id="btn-submit-add" class="btn btn-primary">Save</button>
+	        <button data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" type="button" id="btn-submit-add" class="btn btn-primary">Save</button>
 	        <button type="button" class="btn btn-warning save-btn" style="color:white;" data-dismiss="modal">Cancel</button>
 	      </div>
 	      </div>
@@ -177,6 +177,7 @@ tr, td {
 		      		</div>
 		      		<div class="col-md-4">
 		      			 <input type="hidden" id="idEdit" class="form-control">
+		      			 <input type="hidden" id="updatedBy" class="form-control">
 		      			 <input type="text" id="codeEdit" class="form-control" placeholder="Type Emp ID number"  >
 		      		</div>
 		      		<div class="col-md-2">
