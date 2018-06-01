@@ -80,4 +80,9 @@ public class UserService {
 		return userDao.findUserByUsername(username);
 	}
 
+	public List<User> search(User user) {
+		// TODO Auto-generated method stub
+		return userDao.search(user);
+	}
+
 }

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.newminiproject.dao.UserDao;
+import com.newminiproject.model.MenuAccess;
+import com.newminiproject.model.Role;
 import com.newminiproject.model.User;
 
 @Repository
@@ -59,6 +61,8 @@ public class UserDaoImpl implements UserDao{
 		query.setParameter(1, user.getListRole());
 		query.setParameter(2, user.getUsername());
 		query.setParameter(3, user.getPassword());
+		query.setParameter(4, user.getId());
+		List<Role> listRole= query.list();
 		query.executeUpdate();
 	}
 
@@ -83,6 +87,22 @@ public class UserDaoImpl implements UserDao{
 			return new User();
 		}
 		return listUser.get(0);
+	}
+
+	@Override
+	public List<User> search(User user) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from User us where us.username=:usernameSearch or us.createdBy=:userCreatedBy or us.createdDate=:userCreatedDate";
+		Query query = session.createQuery(hql);
+		query.setParameter("usernameSearch", user.getUsername());
+		query.setParameter("userCreatedBy", user.getCreatedBy());
+		query.setParameter("userCreatedDate", user.getCreatedDate());
+		List<User> listUser = query.list();
+		if(listUser.isEmpty()) {
+			return new ArrayList<>();
+		}
+		return listUser;
 	}
 
 }

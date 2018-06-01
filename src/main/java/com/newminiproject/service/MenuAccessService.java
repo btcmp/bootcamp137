@@ -46,4 +46,9 @@ public class MenuAccessService {
 		maDao.update(menuAccess);
 	}
 
+	public List<MenuAccess> search(MenuAccess menuAccess) {
+		// TODO Auto-generated method stub
+		return maDao.search(menuAccess);
+	}
+
 }

@@ -16,4 +16,6 @@ public interface MenuAccessDao {
 
 	void update(MenuAccess menuAccess);
 
+	List<MenuAccess> search(MenuAccess menuAccess);
+
 }

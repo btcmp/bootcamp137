@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.newminiproject.model.Employee;
+import com.newminiproject.model.MenuAccess;
 import com.newminiproject.model.Role;
 import com.newminiproject.model.User;
 import com.newminiproject.service.EmployeeService;
@@ -80,5 +81,24 @@ public class UserController {
 		usr.setId(id);
 		userService.delete(usr);
 		return "redirect:/user";
+	}
+	
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public String search(Model model, @RequestParam(value="usernameSearch",defaultValue="")String usernameSearch, @RequestParam(value="userCreatedBy",defaultValue="")String createdBy,@RequestParam(value="userCreatedDate",defaultValue="")String createdDate) throws ParseException {
+		
+		Date createdDateDual = null;
+		if(!createdDate.equals("")) {
+			createdDateDual = new SimpleDateFormat("yy-MM-dddd").parse(createdDate);
+		}
+		User user = new User();
+		user.setUsername(usernameSearch);
+		user.setCreatedDate(createdDateDual);
+		user.setCreatedBy(createdBy);
+		List<User> listUser = userService.getAll();
+		List<User> listUserFilter = userService.search(user);
+		model.addAttribute("listUser", listUserFilter);
+		model.addAttribute("listUserComponent", listUser);
+		
+		return "user";
 	}
 }

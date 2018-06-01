@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.newminiproject.model.Menu;
 import com.newminiproject.model.MenuAccess;
 import com.newminiproject.model.Role;
 
@@ -23,6 +24,7 @@ public class MenuAccessDaoImpl implements MenuAccessDao{
 		// TODO Auto-generated method stub
 		Session session= sessionFactory.getCurrentSession();
 		session.save(menuAccess);
+		session.flush();
 	}
 
 	@Override
@@ -63,7 +65,23 @@ public class MenuAccessDaoImpl implements MenuAccessDao{
 		Query query = session.createQuery(hql);
 		query.setParameter(0, menuAccess.getmRoleId());
 		query.setParameter(1, menuAccess.getmRoleId());
+		query.setParameter(2, menuAccess.getId());
 		query.executeUpdate();
+	}
+
+	@Override
+	public List<MenuAccess> search(MenuAccess menuAccess) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "from MenuAccess ma where ma.createdBy=:maCreatedBy or ma.createdDate=:maCreatedDate";
+		Query query = session.createQuery(hql);
+		query.setParameter("maCreatedBy", menuAccess.getCreatedBy());
+		query.setParameter("maCreatedDate", menuAccess.getCreatedDate());
+		List<MenuAccess> listMenuAccess = query.list();
+		if(listMenuAccess.isEmpty()) {
+			return new ArrayList<>();
+		}
+		return listMenuAccess;
 	}
 
 }

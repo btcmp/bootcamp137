@@ -18,4 +18,6 @@ public interface UserDao {
 
 	User findUserByUsername(String username);
 
+	List<User> search(User user);
+
 }

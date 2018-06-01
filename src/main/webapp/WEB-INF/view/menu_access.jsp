@@ -38,21 +38,12 @@ table {
 			event.preventDefault();
 			var menuAccess = {
 					mRoleId:{
-						id : $('#m-role-id option:selected').val()
+						id : $('#roleAdd option:selected').val()
 					},
 					mMenuId:{
-						id : $('#m-menu-id option:selected').val()
+						id : $('#menuAdd option:selected').val()
 					}
-				}
-			//console.log(menuAccess); //deskripsi data yang dikirimkan server
-			/* var arrayCheckboxValue = []; // buat array
-			$('input[name=menuAdd]').each(function(){ // panggil variabel checkbox
-				if($(this).prop('checked')){ // check yg udah dichecklist aja
-					arrayCheckboxValue.push($(this).val()); // binding datanya ke arrayCheckboxValue
-				}
-			});
-			
-			console.log(arrayCheckboxValue); */
+			}
 			
 			$.ajax({
 				url: '${pageContext.request.contextPath}/menu_access/save',
@@ -110,8 +101,10 @@ table {
 				url: '${pageContext.request.contextPath}/menu_access/getmenuaccess?id=' + editCode,
 				type: 'GET',
 				success:function(data){
-					$('#roleEdit').val(data.mRoleId.name);
-					$('#menuEdit').val(data.mMenuId.name);
+					$('#id').val(data.id);
+					$('#roleEdit').val(data.mRoleId.id);
+					$('#menuEdit').val(data.mMenuId.id);
+					console.log(data);
 					
 				},
 				error:function(){
@@ -125,6 +118,7 @@ table {
 		//button update function
 		$('#btn-save-edit').on('click', function(){
 			var menuAccess = {
+					id : $("#id").val(),
 					mRoleId:{
 						id : $('#roleEdit option:selected').val()
 					},
@@ -135,7 +129,7 @@ table {
 			
 			$.ajax({
 				url:'${pageContext.request.contextPath}/menu_access/update',
-				type:'POST',
+				type:'PUT',
 				data:JSON.stringify(menuAccess),
 				contentType:'application/json',
 				success:function(data){
@@ -146,6 +140,19 @@ table {
 					alert('gagal update');
 				}
 			});
+		});
+		
+		//search button
+		$('#btnSearch').on('click', function(){
+			var form = $("#formmenuaccess");
+			var data = form.serialize();
+			console.log(data);
+			if(data == "maCreatedDate=&maCreatedBy="){
+				window.location = '${pageContext.request.contextPath}/menu_access'	
+			}
+			else{
+				window.location = '${pageContext.request.contextPath}/menu_access/search?'+data;	
+			}
 		});
 
 		
@@ -168,24 +175,30 @@ table {
     
 
     	<a href="#" class="btn btn-primary btn-add" style="width:70px;float:right;">Add</a><br/><br/>
-
+		<form id="formmenuaccess">
     	<div class="form-row">
     		<div class="col">
-    			<input type="text" class="form-control" id="role-code" placeholder="- Select Role Code -">
+    			<select id="roleCode" class="form-control">
+	    				<option value="" selected>- Select Role Code -</option>
+	    				<c:forEach items="${listRoleComponent}" var="role">
+	    					<option value="${role.code}">${role.code}</option>
+	    				</c:forEach>
+	    		</select>
     		</div>
     		<div class="col">
     			<input type="text" class="form-control" id="role-name" placeholder="- Select Role Name -">
     		</div>
     		<div class="col-auto">
-    			<input placeholder="Created" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="create-date">	
-    		</div>
+	    			<input placeholder="Created" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="create-date" name="maCreatedDate">	
+	    	</div>
     		<div class="col-auto">
-    			<input placeholder="Created By" class="form-control" type="text">	
-    		</div>
+	    			<input placeholder="Created By" class="form-control" type="text" name="maCreatedBy">	
+	    	</div>
     		<div class="col-auto">
-    			<a href="#" class="btn btn-warning" style="width:70px;color:white;">Search</a>
+    			<a href="#" id="btnSearch" class="btn btn-warning" style="width:70px;color:white;">Search</a>
     		</div>
     	</div>
+    	</form>
     	
     	<table class="table">
 			<thead>
@@ -234,7 +247,7 @@ table {
 						  	<div class="col">
 						      <label for="name">* Role Id</label>
 						    </div>
-						    <div class="col" id="m-role-id">
+						    <div class="col" id="roleAdd">
 						       <select class="form-control" style="font-size: 12px;">
 						       		<option>Select Role Name</option>
 						       		<c:forEach items="${listRole}" var="role">
@@ -248,7 +261,7 @@ table {
 						  	<div class="col">
 						      <label for="name">* Menu Access</label>
 						    </div>
-							<div class="col" id="m-menu-id" name="menu-add" style="margin-left:10px;">
+							<div class="col"style="margin-left:10px;" id="menuAdd">
 								<select class="form-control" style="font-size: 12px;">
 						       		<option>Select Menu Access</option>
 						       		<c:forEach items="${listMenu}" var="menu">
@@ -256,9 +269,9 @@ table {
 						       		</c:forEach>
 						       </select>
 						       <%-- <c:forEach items="${listMenu}" var="menu">
-							      	<input type="checkbox" name="menuadd" value="${menu.id}"/>
+							      	<input type="checkbox" id="menuAdd" name="menuadd" value="${menu.id}"/>
 									<span>${menu.name}</span><br/>
-								</c:forEach> --%>	
+								</c:forEach> --%>
 						    </div>
 						</div>					  
 					  </div>
@@ -305,12 +318,19 @@ table {
 		      
 			      	<div class="row">
 					  <div class="col">
+					  	<div class="row">
+					  		<input type="hidden" id="id" class="form-control"/>
+					  	</div>
 						<div class="row">  	
 						  	<div class="col">
 						      <label for="name">* Role Id</label>
 						    </div>
 						    <div class="col">
-						       		<input type="text" id="roleEdit" class="form-control" disabled>
+						       	<select class="form-control" id="roleEdit" style="font-size: 12px;">
+						       		<c:forEach items="${listRole}" var="role">
+						       			<option value="${role.id}">${role.name}</option>
+						       		</c:forEach>
+						       </select>
 						    </div>
 						</div>
 						
@@ -320,9 +340,8 @@ table {
 						    </div>
 						</div>
 						<div class="row">
-							<div class="col" id="menuEdit" style="margin-left:10px;">
-							<select class="form-control" style="font-size: 12px;">
-						       		<option>Select Menu Access</option>
+							<div class="col" style="margin-left:10px;">
+							<select class="form-control" id="menuEdit" style="font-size: 12px;">
 						       		<c:forEach items="${listMenu}" var="menu">
 						       			<option value="${menu.id}">${menu.name}</option>
 						       		</c:forEach>

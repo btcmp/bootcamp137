@@ -1,5 +1,8 @@
 package com.newminiproject.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,10 +76,27 @@ public class MenuAccessController {
 		return maService.getMenuAccessById(id);
 	}
 	
-	@RequestMapping(value="/update", method=RequestMethod.POST)
+	@RequestMapping(value="/update", method=RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@RequestBody MenuAccess menuAccess) {
 		maService.update(menuAccess);
 	}
 	
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public String search(Model model, @RequestParam(value="maCreatedBy",defaultValue="")String createdBy,@RequestParam(value="maCreatedDate",defaultValue="")String createdDate) throws ParseException {
+		
+		Date createdDateDual = null;
+		if(!createdDate.equals("")) {
+			createdDateDual = new SimpleDateFormat("yy-MM-dddd").parse(createdDate);
+		}
+		MenuAccess menuAccess = new MenuAccess();
+		menuAccess.setCreatedDate(createdDateDual);
+		menuAccess.setCreatedBy(createdBy);
+		List<MenuAccess> listMenuAccess = maService.getAllMenuAccess();
+		List<MenuAccess> listMenuAccessFilter = maService.search(menuAccess);
+		model.addAttribute("listMenuAccess", listMenuAccessFilter);
+		model.addAttribute("listMenuAccessComponent", listMenuAccess);
+		
+		return "menu_access";
+	}
 }

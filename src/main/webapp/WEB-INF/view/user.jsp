@@ -55,7 +55,7 @@ table {
 		color:white;
 	}
 	
-	#btn-search{
+	#btnSearch{
 		width:70px;
 		color:white;
 	}
@@ -186,48 +186,61 @@ table {
 			//alert('tes');
 			window.location="${pageContext.request.contextPath}/user/delete/" +delCode;
 		});
+		
+		//search button
+		$('#btnSearch').on('click', function(){
+			var form = $("#formuser");
+			var data = form.serialize();
+			console.log(data);
+			if(data == "usernameSearch=&userCreatedDate=&userCreatedBy="){
+				window.location = '${pageContext.request.contextPath}/user'	
+			}
+			else{
+				window.location = '${pageContext.request.contextPath}/user/search?'+data;	
+			}
+		});
 	});
 </script>
 </head>
 <body>
-	<div id="container">
-		<div id="header">
-			<h5>List User<h5>
-		</div>
-		<div id="body">
-			<div id="body1">
-				<ol class="breadcrumb">
-					<li><a href="#">Home </a>/</li>
-					<li><a href="#">Master </a>/</li>
-					<li class="active">List User</li>
-				</ol>
-				
-				<a href="#" class="btn btn-sm btn-primary" id="btn-add">Add</a><br><br>
-				
-				<div class="form-row">
-					<div class="col-auto">
-						<input type=text name="employee" id="empName" class="form-control" placeholder="Select Employee Name">
-					</div class="col-auto">
-					<div class="col-auto">
-						<input type=text name="role" id="roleName" class="form-control" placeholder="Select Role Name">
-					</div class="col-auto">
-					<div class="col-auto">
-						<input type=text name="company" id="companyName" class="form-control" placeholder="Select Company Name">
-					</div class="col-auto">
-					<div class="col-auto">
-						<input type=text name="user" id="username" class="form-control" placeholder="Username">
-					</div class="col-auto">
-					<div class="col">		
-						<input type=text name="crdate" id="createdDate" class="form-control" placeholder="Created Date">
-					</div>
-					<div class="col-auto">		
-						<input type=text name="crby" id="createdBy" class="form-control" placeholder="Created By">
-					</div>
-					<div class="col-auto">		
-						<a href="#" class="btn btn-sm btn-warning" id="btn-search" data-toggle="modal" data-target="#exampleModalCenter" >Search</a>
-					</div>
-				</div>
-			</div>
+	<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
+		<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Role</h5>
+	</div>
+	
+	<div style="width:98%;margin:auto;">
+		<ol class="breadcrumb">
+  			<li><a href="#">Home </a>/</li>
+  			<li><a href="#"> Master </a>/</li>
+ 		 	<li class="active">User</li>
+		</ol>
+    
+
+    	<a href="#" class="btn btn-primary" id="btn-add" style="width:70px;float:right;">Add</a><br/><br/>
+		<form id="formuser">
+    	<div class="form-row">
+    		<div class="col">
+    			<input type="text" class="form-control" id="employee-name" placeholder="- Select Employee Name -">
+    		</div>
+    		<div class="col">
+    			<input type="text" class="form-control" id="role-name" placeholder="- Select Role Name -">
+    		</div>
+    		<div class="col">
+    			<input type="text" class="form-control" id="company-name" placeholder="- Select Company Name -">
+    		</div>
+    		<div class="col">
+    			<input type="text" class="form-control" id="username" name="usernameSearch" placeholder="Username">
+    		</div>
+    		<div class="col-auto">
+	    			<input placeholder="Created Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="create-date" name="userCreatedDate">	
+	    	</div>
+    		<div class="col-auto">
+	    			<input placeholder="Created By" class="form-control" type="text" name="userCreatedBy">	
+	    	</div>
+    		<div class="col-auto">
+    			<a href="#" id="btnSearch" class="btn btn-warning" style="width:70px;color:white;">Search</a>
+    		</div>
+    	</div>
+    	</form>
 			
 			<div>
 				<table class="table">
@@ -369,8 +382,8 @@ table {
 						  	<div class="col">
 						      <label for="name">* Role Name</label>
 						    </div>
-						    <div class="col" id="roleEdit">
-						        <select class="form-control" style="font-size: 12px;">
+						    <div class="col">
+						        <select class="form-control" id="roleEdit" style="font-size: 12px;">
 						       		<c:forEach items="${listRole}" var="role">
 						       			<option value="${role.id}">${role.name}</option>
 						       		</c:forEach>
@@ -382,8 +395,8 @@ table {
 						  	<div class="col">
 						      <label for="name">* Employee Name</label>
 						    </div>
-						    <div class="col" id="employeeEdit">
-						       <select class="form-control" style="font-size: 12px;">
+						    <div class="col">
+						        <select class="form-control" id="employeeEdit" style="font-size: 12px;">
 						       		<c:forEach items="${listEmployee}" var="employee">
 						       			<option value="${employee.id}">${employee.firstName} ${employee.lastName}</option>
 						       		</c:forEach>
