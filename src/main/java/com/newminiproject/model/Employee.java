@@ -142,30 +142,6 @@ public class Employee {
 	@JsonIgnore
 	private List<Promotion> listPromotionAssignTo;
 	
-	@OneToMany (fetch = FetchType.LAZY, mappedBy = "createdBy")
-	@JsonIgnore
-	private List<Promotion> listPromotionCreatedBy;
-	
-	@OneToMany (fetch = FetchType.LAZY, mappedBy = "updatedBy")
-	@JsonIgnore
-	private List<Promotion> listPromotionUpdatedBy;
-	
-	@OneToMany (fetch = FetchType.LAZY, mappedBy = "createdBy")
-	@JsonIgnore
-	private List<PromotionItem> listPromotionItemCreatedBy;
-	
-	@OneToMany (fetch = FetchType.LAZY, mappedBy = "updatedBy")
-	@JsonIgnore
-	private List<PromotionItem> listPromotionItemUpdatedBy;
-	
-	@OneToMany (fetch = FetchType.LAZY, mappedBy = "createdBy")
-	@JsonIgnore
-	private List<PromotionItemFile> listPromotionItemFileCreatedBy;
-	
-	@OneToMany (fetch = FetchType.LAZY, mappedBy = "updatedBy")
-	@JsonIgnore
-	private List<PromotionItemFile> listPromotionItemFileUpdatedBy;
-	
 	@OneToMany (fetch = FetchType.LAZY, mappedBy = "requestPic")
 	@JsonIgnore
 	private List<PromotionItem> listPromotionItemRequestPic;
@@ -404,56 +380,7 @@ public class Employee {
 		this.listPromotionAssignTo = listPromotionAssignTo;
 	}
 
-	public List<Promotion> getListPromotionCreatedBy() {
-		return listPromotionCreatedBy;
-	}
-
-	public void setListPromotionCreatedBy(List<Promotion> listPromotionCreatedBy) {
-		this.listPromotionCreatedBy = listPromotionCreatedBy;
-	}
-
-	public List<Promotion> getListPromotionUpdatedBy() {
-		return listPromotionUpdatedBy;
-	}
-
-	public void setListPromotionUpdatedBy(List<Promotion> listPromotionUpdatedBy) {
-		this.listPromotionUpdatedBy = listPromotionUpdatedBy;
-	}
-
-	public List<PromotionItem> getListPromotionItemCreatedBy() {
-		return listPromotionItemCreatedBy;
-	}
-
-	public void setListPromotionItemCreatedBy(List<PromotionItem> listPromotionItemCreatedBy) {
-		this.listPromotionItemCreatedBy = listPromotionItemCreatedBy;
-	}
-
-	public List<PromotionItem> getListPromotionItemUpdatedBy() {
-		return listPromotionItemUpdatedBy;
-	}
-
-	public void setListPromotionItemUpdatedBy(List<PromotionItem> listPromotionItemUpdatedBy) {
-		this.listPromotionItemUpdatedBy = listPromotionItemUpdatedBy;
-	}
-
-	public List<PromotionItemFile> getListPromotionItemFileCreatedBy() {
-		return listPromotionItemFileCreatedBy;
-	}
-
-	public void setListPromotionItemFileCreatedBy(List<PromotionItemFile> listPromotionItemFileCreatedBy) {
-		this.listPromotionItemFileCreatedBy = listPromotionItemFileCreatedBy;
-	}
-
-	public List<PromotionItemFile> getListPromotionItemFileUpdatedBy() {
-		return listPromotionItemFileUpdatedBy;
-	}
-
-	public void setListPromotionItemFileUpdatedBy(List<PromotionItemFile> listPromotionItemFileUpdatedBy) {
-		this.listPromotionItemFileUpdatedBy = listPromotionItemFileUpdatedBy;
-	}
-
-	
-	public List<PromotionItem> getListPromotionItemRequestPic() {
+		public List<PromotionItem> getListPromotionItemRequestPic() {
 		return listPromotionItemRequestPic;
 	}
 
