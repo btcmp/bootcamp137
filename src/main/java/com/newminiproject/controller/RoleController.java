@@ -52,15 +52,15 @@ public class RoleController {
 //		System.out.println("Created Date:"+createdDate);
 		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //untuk format tanggal
 		Date createdDateDual = null;
+		//System.out.println("Created Date Input" + createdDate);
 		if(!createdDate.equals("")) {
-			createdDateDual = new SimpleDateFormat("dddd/MM/yy").parse(createdDate);
+			createdDateDual = new SimpleDateFormat("yy-MM-dddd").parse(createdDate);
 		}
 		Role role = new Role();
 		role.setName(roleName);
-		role.setCode(roleCode);
+		role.setCode(roleCode); 
 		role.setCreatedBy(createdBy);
 		role.setCreatedDate(createdDateDual);
-		System.out.println("Created Date" + role);
 		List<Role> listRole = roleService.getAllRole();
 		List<Role> listRoleFilter = roleService.search(role);
 		model.addAttribute("listRole", listRoleFilter); //isi dari table, milik method getall

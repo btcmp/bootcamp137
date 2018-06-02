@@ -49,7 +49,7 @@ public class UnitController {
 		//SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); //untuk format tanggal
 		Date createdDateDual = null;
 		if(!createdDate.equals("")) {
-			createdDateDual = new SimpleDateFormat("dd/MM/yyyy").parse(createdDate);
+			createdDateDual = new SimpleDateFormat("yy-MM-dddd").parse(createdDate);
 		}
 		Unit unit = new Unit();
 		unit.setName(unitName);
