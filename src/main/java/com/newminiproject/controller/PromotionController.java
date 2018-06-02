@@ -21,6 +21,7 @@ import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
 import com.newminiproject.model.Product;
 import com.newminiproject.model.Promotion;
+import com.newminiproject.model.Role;
 import com.newminiproject.model.User;
 import com.newminiproject.service.DesignItemService;
 import com.newminiproject.service.DesignService;
@@ -30,6 +31,7 @@ import com.newminiproject.service.ProductService;
 import com.newminiproject.service.PromotionItemFileService;
 import com.newminiproject.service.PromotionItemService;
 import com.newminiproject.service.PromotionService;
+import com.newminiproject.service.RoleService;
 import com.newminiproject.service.UserService;
 
 @Controller
@@ -64,6 +66,9 @@ public class PromotionController {
 	EmployeeService employeeService;
 	
 	@Autowired
+	RoleService roleService;
+	
+	@Autowired
 	SeqDaoPromotion seqDaoPromotion;
 	
 
@@ -77,12 +82,17 @@ public class PromotionController {
 		List<Promotion> listPromotion = promotionService.getAllPromotion();
 		List<Product> listProduct = productService.getAllProduct();
 		List<Employee> listEmployee = employeeService.getAll();
+		List<User> listUser = userService.getAll();
+		List<Role> listRole = roleService.getAllRole();
 		
 		model.addAttribute("listProduct", listProduct);
 		model.addAttribute("listEmployee", listEmployee);
 		model.addAttribute("listEvent", listEvent);
 		model.addAttribute("listPromotion", listPromotion);
 		model.addAttribute("listDesign", listDesign);
+		model.addAttribute("listUser", listUser);
+		model.addAttribute("listRole", listRole);
+		
 		model.addAttribute("hasil", hasil);
 		model.addAttribute("tanggal", tanggal);
 		

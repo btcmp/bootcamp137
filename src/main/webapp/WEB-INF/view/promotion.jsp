@@ -77,10 +77,10 @@
 			data : JSON.stringify(usrPromo),
 			contentType : 'application/json',
 			success : function (data){
-				var firsNameE = data.mEmployeeId.firstName;
-				var lastNameE = data.mEmployeeId.lastName;
+				var firsName = data.mEmployeeId.firstName;
+				var lastName = data.mEmployeeId.lastName;
 				
-				var fullName = firsNameE + " " + lastNameE;
+				var fullName = firsName + " " + lastName;
 				
 				$('#requestBySave').val(fullName);
 				$('#idRequestBy').val(data.mEmployeeId.id);
@@ -359,8 +359,11 @@
 				},  
 				status : 1,
 				requestDate : new Date($('#requestDateSave').val()),
+				createdBy : {
+					id : $('#idRequestBy').val()
+				},	
 				createdDate : new Date(),
-				
+			
 				//Promotion Design Item
 				listPromotionItem : [],
 				listPromotionItemFile : []				
@@ -441,6 +444,9 @@
 					id : $('#idRequestByNot').val()
 				},
 				requestDate : new Date($('#requestDateSave').val()),
+				createdBy : {
+					id : $('#idRequestBy').val()
+				},	
 				createdDate : new Date(),
 				listPromotionItemFile : []
 			}
@@ -522,6 +528,13 @@
 						$('#titleHeaderSaveView').val(data.titleHeader);
 						$('#requestDateSaveView').val(data.requestDate);
 						$('#noteTitleHeaderView').val(data.note);
+						
+						var firstName = data.requestBy.firstName;
+						var lastName = data.requestBy.lastName
+						var fullName = firstName + " " + lastName 
+						
+						$('#requestBySaveView').val(fullName);
+						
 						var status = "";
 						if(data.status == 0){
 							status = "Rejected";
@@ -667,14 +680,20 @@
 					type : 'GET',
 					dataType : 'json',
 					success : function (data){
+						console.log(data)
 						
 						///////////Promotion Header
 						$('#transCodeNotView').val(data.code),
 						$('#eventSelectSaveNotView').val(data.event.code),
 						$('#titleHeaderNotView').val(data.titleHeader),
-						$('#requestByNotView').val(data.reqeustBy),
 						$('#requestDateNotView').val(data.requestDate),
 						$('#noteTitleHeaderNotView').val(data.note)
+						
+						var firstName = data.requestBy.firstName;
+						var lastName = data.requestBy.lastName
+						var fullName = firstName + " " + lastName 
+						
+						$('#requestByNotView').val(fullName);
 						
 						var status1 = "";
 						if(data.status == 0){
@@ -2038,7 +2057,15 @@
 							</c:choose>
 						</td>
 						<td>${promotion.createdDate }</td>
-						<td>${promotion.createdBy }</td>
+						<td>
+							<c:forEach items = "${listEmployee }" var = "employee">
+								<c:choose>
+									<c:when test="${promotion.createdBy.id == employee.id }">
+										${employee.firstName} ${employee.lastName} 
+									</c:when>
+								</c:choose>
+							</c:forEach>
+						</td>
 						<td>
 							<a href="#" value-promo-id-detail = ${promotion.id } value-flag-design =${promotion.flagDesign } class="tombolDetail"><span class="float-left" style="padding:3px; color:grey;" ><i class="fas fa-search fa-lg"></i></span></a>
 							<a href="#" status-id=${promotion.status }  value-promo-id-edit = ${promotion.id } value-flag-edit =${promotion.flagDesign } data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>"  data-role-admin = "<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>" class="tombolEdit"><span class="float-left" style="padding:3px; color:grey;"><i class="fas fa-pencil-alt fa-lg"></i></span></a>
