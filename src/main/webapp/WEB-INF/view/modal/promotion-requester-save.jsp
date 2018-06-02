@@ -607,7 +607,7 @@
 							  <div class="form-group">
 							    <span class = "float-left" style="width:35%; text-align:right;">* Request Date :</span>
 							    <div class = "float-left" style="width:65%;">
-							    <input  class = " form-control date-picker" type = "text" id="requestDateNotView" disabled/>
+							    <input  class = " form-control" type = "date" id="requestDateNotView" disabled/>
 							    </div>
 							  </div>
 							  

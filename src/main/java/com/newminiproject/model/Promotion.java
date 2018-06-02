@@ -88,7 +88,6 @@ public class Promotion {
 	@Column (name = "is_delete", length = 5, columnDefinition = "int default 0")
 	private int isDelete;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "created_by") //nullable
 	private Employee createdBy;
@@ -97,7 +96,6 @@ public class Promotion {
 	@Column (name ="created_date") //nullable
 	private Date createdDate;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "updated_by")
 	private Employee updatedBy;

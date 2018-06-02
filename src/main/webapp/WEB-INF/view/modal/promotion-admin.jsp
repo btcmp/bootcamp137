@@ -96,7 +96,13 @@
 						  	<div class="form-group">
 							    <span class = "float-left" style="width:35%; text-align:right;"> * Assign To : </span>
 							    <div class = "float-left" style="width:65%;">
-							    	<input class="form-control" type="text" id="AssignToAdmin">
+							    	<select class="form-control">
+							    			<option><i>- Select Employee -</i></option>
+							    			
+							    	<c:forEach items="${listEmployee }" var = "employee">
+							    		<option value = "${employee.id }"> ${employee.firstName } ${employee.lastName }</option>
+							    	</c:forEach>
+								    </select>
 							    </div>
 							    
 							  </div>
@@ -322,7 +328,8 @@
 						  	<div class="form-group">
 							    <span class = "float-left" style="width:35%; text-align:right;"> * Assign To : </span>
 							    <div class = "float-left" style="width:65%;">
-							    	<input class="form-control" type="text" id="AssignToAdmin" disabled>
+							       	<!-- <input class="form-control" type="text" id="AssignToAdmin" disabled> -->
+							    	
 							    </div>
 							    
 							  </div>

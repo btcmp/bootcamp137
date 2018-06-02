@@ -77,8 +77,15 @@
 	var delObj = null;
  
 	 $(function() {
-         $( "#datepicker-13" ).datepicker();
-         $( "#datepicker-13" ).datepicker("show");
+         $( "#requestdate" ).datepicker({
+        	 dateFormat:"yy-mm-dd"
+         });
+         $( "#due-date" ).datepicker({
+        	 dateFormat:"yy-mm-dd"
+         });
+         $( "#created" ).datepicker({
+        	 dateFormat:"yy-mm-dd"
+         });
       });
 	
 	$(document).ready(function(){
@@ -1023,16 +1030,16 @@
     			<input type="text" class="form-control" id="request-by" name="requestby" placeholder="Request By">
     		</div>
     		<div class="col">
-    			<input placeholder="Request Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="request-date" id="requestdate">	
+    			<input placeholder="Request Date" class="form-control" type="text" name="requestdate" id="requestdate">	
     		</div>
     		<div class="col-auto">
-    			<input placeholder="Due Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="duedate" id="due-date">	
+    			<input placeholder="Due Date" class="form-control" type="text" name="duedate" id="due-date">	
     		</div>
     		<div class="col-auto">
     			<input type="text" class="form-control" id="status" name="status" placeholder="Status">
     		</div>
     		<div class="col-auto">
-    			<input placeholder="Created" name="createddate" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="created">	
+    			<input placeholder="Created" name="createddate" class="form-control" type="text" id="created">	
     		</div>
     		<div class="col-auto">
     			<input type="text" class="form-control" id="created-by" name="createdby" placeholder="Created By">
