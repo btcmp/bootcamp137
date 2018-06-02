@@ -10,28 +10,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-   <!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-  <title>List Event</title>
-  	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
-	
-	<style type="text/css">
-		table{
-			counter-reset: tableCount;
-		}
-		.counterCell:before {
-			content : counter(tableCount);
-			counter-increment: tableCount;
-		}
-	</style>
+  <title>List Employee</title>
   	
-  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<!-- 	ini di copy buat validasi -->
+  	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
+<!-- 	ini di copy buat validasi -->
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+  	
+	
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
 	  <!-- Tell the browser to be responsive to screen width -->
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,34 +48,56 @@
 	  <!-- bootstrap wysihtml5 - text editor -->
 	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 	  <!-- Google Font: Source Sans Pro -->
-	  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+	  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"> 
   <style>
-  input.parsley-error
-{
-	color: #B94A48 !important;
-	background-color: #F2DEDE !important;
-	border: 1px solid #EED3D7 !important;
-}
+	  input.parsley-error
+	{
+		color: #B94A48 !important;
+		background-color: #F2DEDE !important;
+		border: 1px solid #EED3D7 !important;
+	}
+
+	table{
+		counter-reset: tableCount;
+		}
+		.counterCell:before {
+			content : counter(tableCount);
+			counter-increment: tableCount;
+		}
+		
   </style>
   
 <!-- 	ini di copy buat validasi -->
   	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
-  		
+ 
+   	 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+
   	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	
 	<script type="text/javascript">
+	$(function() {
+        $( "#created-date" ).datepicker({
+       	 dateFormat:"yy-mm-dd"
+        });
+        
+     });
+	
 	$(document).ready(function(){
-		
+
 		//ADD
 		$('#btn-add').on('click', function(){
 			$('#modal-add').modal();
 		});
+		
 		//SUBMIT ADD
 		$('#btn-submit-add').click(function(){
 			var id = $(this).attr('data-id');
@@ -108,19 +124,47 @@
 				lastName : $('#lastName').val(),
 				email : $('#email').val(),
 				createdBy : input
-			}
-			console.log(employee);
-			$.ajax({
-				url : '${pageContext.request.contextPath}/employee/save',
-				type : 'POST',
-				contentType : 'application/json',
-				data : JSON.stringify(employee),
-				success : function(data){
-					window.location="${pageContext.request.contextPath}/employee";
-				}, error: function(){
-					alert('error');
-				}
+			};
+			
+			var validatefirstName = $('firstName').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
 			});
+			
+			var validatecodeEmployee = $('#codeEmployee').parsley({
+				required : true,
+				requiredMessage : 'Employee number name cannot be empty or please insert another number',
+				minlengthMessage: ' must 8 character',
+			});
+			
+			
+			
+			
+			var valid = getValid(validatefirstName);
+				valid = getValid(validatecodeEmployee);
+			
+			
+			if(valid){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/employee/save',
+					type : 'POST',
+					contentType : 'application/json',
+					data : JSON.stringify(employee),
+					success : function(data){
+						window.location="${pageContext.request.contextPath}/employee";
+					}, error: function(){
+						alert('error');
+					}
+				});
+			}else {
+				alert('Please use another number employee');
+			}
+			
+			
+			function getValid(validate){
+				validate.validate();	
+				return validate.isValid();
+			}
 		}); 
 		
 		
@@ -195,6 +239,26 @@
 				email : $('#emailEdit').val(),
 				updated_by : $('#updatedBy').val()
 			}
+			
+			var validatefirstName = $('#firstNameEdit').parsley({
+				required : true,
+				requiredMessage : "First name cannot be empty"
+			})
+			
+			var validatecodeEdit = $('#codeEdit').parsley({
+				required : true,
+				requiredMessage : "Employee number name cannot be empty or please insert another number"
+			})
+			
+			
+			function getValid(validate){
+				validate.validate();
+				return validate.isValid();
+			}
+			
+			var valid = getValid(validatefirstName);
+				valid = getValid(validatecodeEdit);
+			
 			console.log(employee);
 			$.ajax({
 				url : '${pageContext.request.contextPath}/employee/update',
@@ -235,14 +299,14 @@
 			var form = $("#form-search-emp");
 			var data = form.serialize(); //untuk mengambil semua data yang ada di table
 			console.log(data);
-			if(data == "codeSearch=&nameSearch=&createdDateSearch=&createdBySearch=&companySearch"){
+			/* if(data == "codeSearch=&nameSearch=&createdDateSearch=&createdBySearch=&companySearch"){
 				console.log(data);
 				window.location = '${pageContext.request.contextPath}/employee';
 			}
 			else{
 				console.log(data);
 				window.location = '${pageContext.request.contextPath}/employee/search?'+data;	
-			} 		
+			} 	 */	
 			 
 		});
 	});
