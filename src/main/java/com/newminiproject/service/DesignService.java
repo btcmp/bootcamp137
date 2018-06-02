@@ -61,6 +61,10 @@ public class DesignService {
 			product.setId(di.getmProductId().getId());
 			di2.setmProductId(product);
 			di2.setTitleItem(di.getTitleItem());
+			Employee empItem = new Employee();
+			empItem.setId(di.getRequestPic().getId());
+			di2.setRequestPic(empItem);
+			di2.setCreatedBy(employee);
 			di2.setRequestDueDate(di.getRequestDueDate());
 			di2.setCreatedDate(new Date());
 			di2.setNote(di.getNote());
@@ -80,8 +84,12 @@ public class DesignService {
 			di2.setId(di.getId());
 			di2.setmProductId(di.getmProductId());
 			di2.setTitleItem(di.getTitleItem());
+			di2.setRequestPic(di.getRequestPic());
 			di2.setRequestDueDate(di.getRequestDueDate());
+			di2.setStartDate(di.getStartDate());
+			di2.setEndDate(di.getEndDate());
 			di2.setNote(di.getNote());
+			//di2.settDesignId(design);
 			lastDI.add(di2);
 		}
 		design.setListDesignItem(lastDI);
@@ -113,8 +121,12 @@ public class DesignService {
 			di2.setmProductId(product);
 			di2.setId(di.getId());
 			di2.setTitleItem(di.getTitleItem());
+			Employee empItem = new Employee();
+			empItem.setId(di.getRequestPic().getId());
+			di2.setRequestPic(empItem);
 			di2.setRequestDueDate(di.getRequestDueDate());
 			di2.setUpdatedDate(new Date());
+			di2.setUpdatedBy(employee);
 			di2.setNote(di.getNote());
 			di2.settDesignId(dsn);
 			//System.out.println("id = "+di.getId());
@@ -142,7 +154,6 @@ public class DesignService {
 		employee.setId(design.getApprovedBy().getId());
 		dsn.setApprovedBy(employee);
 		dsn.setAssignTo(design.getAssignTo());
-		//dsn.setAssignTo(employee);
 		designDao.approved(dsn);
 	}
 
@@ -162,5 +173,15 @@ public class DesignService {
 		dsn.setStatus(design.getStatus());
 		dsn.setCloseDate(new Date());
 		designDao.closerequest(dsn);
-	}
+		
+		for(DesignItem di : design.getListDesignItem()) {
+			DesignItem di2 = new DesignItem();
+			di2.setStartDate(di.getStartDate());
+			di2.setEndDate(di.getEndDate());
+			
+			di2.settDesignId(dsn);
+			//System.out.println("id = "+di.getId());
+			designItemDao.closerequest(di2);
+		}
+	}	
 }

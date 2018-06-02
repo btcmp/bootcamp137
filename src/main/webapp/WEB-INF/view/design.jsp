@@ -13,15 +13,17 @@
    <!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-  <title>List Event</title>
+  <title>List Design</title>
   	
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
 	  <!-- Tell the browser to be responsive to screen width -->
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <!-- css fontawesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	   <!-- Font Awesome 
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/font-awesome/css/font-awesome.min.css"> -->
+	   <!-- css fontawesome -->
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous"> 
 	  <!-- Ionicons -->
 	  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	  <!-- Theme style -->
@@ -68,8 +70,10 @@ select.parsley-error
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
   	
-  	
-  	
+  	<!-- Untuk datepicker 
+  	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
+    <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
   	
   	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -79,6 +83,18 @@ select.parsley-error
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	var delObj = null;
+	
+	/* $(function() {
+        $( "#request-date-search" ).datepicker({
+       	 dateFormat:"yy-mm-dd"
+        });
+        $( "#created-date-search" ).datepicker({
+       	 dateFormat:"yy-mm-dd"
+        });
+        $(".due-date-add").datepicker({
+          	 dateFormat:"yy-mm-dd"
+        });
+     }); */
 	
 	$(document).ready(function(){
 		var statusAdmin = <%= request.isUserInRole("ROLE_ADMIN") %>;
@@ -100,19 +116,19 @@ select.parsley-error
 			var tBody = oTable.find('tbody');
 			var appendString = "<tr>";
 				appendString += "<td>";
-					appendString += "<select class='form-control product-name' style='font-size: 12px;'> <option disabled selected>-Select Product-</option> <c:forEach items='${listProduct }' var='product'> <option value-desc='${product.description }' value='${product.id }'>${product.name }</option> </c:forEach></select>";
+					appendString += "<select class='form-control product-name validProductAdd' style='font-size: 12px;'> <option selected value=''>-Select Product-</option> <c:forEach items='${listProduct }' var='product'> <option value-desc='${product.description }' value='${product.id }'>${product.name }</option> </c:forEach></select>";
 				appendString += "</td>";
 				appendString += "<td>";
 					appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='product description' disabled>";
 				appendString += "</td>";
 				appendString += "<td>";
-					appendString += "<input type='text' class='form-control titleItemAdd' style='font-size: 12px;' placeholder='Type Title' >";
+					appendString += "<input type='text' class='form-control validTitleItemAdd' style='font-size: 12px;' placeholder='Type Title' >";
 				appendString += "</td>";
 				appendString += "<td>";
-					appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC'>";
+					appendString += "<select class='form-control validRequestPicAdd' style='font-size: 12px;'> <option selected value=''>PIC</option> <c:forEach items='${listEmployee }' var='employee'> <option value='${employee.id }'>${employee.firstName } ${employee.lastName }</option> </c:forEach></select>";
 				appendString += "</td>";
 				appendString += "<td>";
-					appendString += "<input class='form-control' type='date' style='font-size: 12px;' placeholder='Due Date'>";
+					appendString += "<input placeholder='Due Date' class='form-control validDueDate' style='font-size: 12px' type='date'>";
 				appendString += "</td>";
 				appendString += "<td>";
 					appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='text' disabled>";
@@ -160,7 +176,7 @@ select.parsley-error
 					},
 					titleItem : $(value).find('td').eq(2).find('input').val(),
 					requestPic : {
-						id : parseInt($(value).find('td').eq(3).find('input').val())
+						id : parseInt($(value).find('td').eq(3).find('select option:selected').val())
 					},
 					requestDueDate : $(value).find('td').eq(4).find('input').val(),
 					note : $(value).find('td').eq(7).find('input').val()
@@ -187,35 +203,63 @@ select.parsley-error
 			};
 			console.log(design);
 			
+			/* validasi add design */
+			var validateEventAdd = $('#validEvent').parsley({
+				required : true,
+				requiredMessage : 'can not be empty'
+			});
+						
+			var validateTitleAdd = $('#designTitle').parsley( {
+				required : true,
+				requiredMessage : 'can not be empty'
+			} );	
+			
 			function getValid(validate){
 				validate.validate();	
 				return validate.isValid();
 			}
 			
-			/* validasi add design */
-			var validateEventAdd = $('#validEvent').parsley({
-				required : true,
-				requiredMessage : 'cant be Empty'
-			});
 			var valid = getValid(validateEventAdd);
+				valid = getValid(validateTitleAdd);
 			
-			var validateTitleAdd = $('#designTitle').parsley( {
-				required : true,
-				requiredMessage : 'cant be Empty'
-			} );	
-			valid = getValid(validateTitleAdd);
-			
-			/* validasi untuk form title */
-			var validateTitleItemAdd = $('.titleItemAdd').parsley( {
-				required : true,
-				requiredMessage : 'cant be Empty'
-			} );  
-			for(i=0; i<=validateTitleItemAdd.length; i++){
-				valid = getValid(validateTitleItemAdd[i]);
-			}
-			
+				/*  validasi untuk select product */
+				var validateProductAdd = $('.validProductAdd').parsley( {
+					required : true,
+					requiredMessage : 'can not be empty'
+				} );  
+				for(i=0; i<validateProductAdd.length; i++){
+					valid = getValid(validateProductAdd[i]);
+				}
+				
+				/*  validasi untuk title item */
+				var validateTitleItemAdd = $('.validTitleItemAdd').parsley( {
+					required : true,
+					requiredMessage : 'can not be empty'
+				} );  
+				for(i=0; i<validateTitleItemAdd.length; i++){
+					valid = getValid(validateTitleItemAdd[i]);
+				}
+				
+				/*  validasi untuk request pic */
+				var validateRequestPicAdd = $('.validRequestPicAdd').parsley( {
+					required : true,
+					requiredMessage : 'can not be empty'
+				} );  
+				for(i=0; i<validateRequestPicAdd.length; i++){
+					valid = getValid(validateRequestPicAdd[i]);
+				} 
+				
+				/*  validasi untuk request due date */
+				var validateDueDateAdd = $('.validDueDate').parsley( {
+					required : true,
+					requiredMessage : 'can not be empty'
+				} );  
+				for(i=0; i<validateDueDateAdd.length; i++){
+					valid = getValid(validateDueDateAdd[i]);
+				}
+				
 			if(valid){
-				alert('success');
+				//alert('success');
 				$.ajax({
 					url : '${pageContext.request.contextPath}/design/save',
 					type : 'POST',
@@ -223,12 +267,12 @@ select.parsley-error
 					contentType : 'application/json',
 					success : function(data){
 						console.log(data),
-						alert('success'),
-						window.location = '${pageContext.request.contextPath}/design'
+						alert('success')
+						//window.location = '${pageContext.request.contextPath}/design'
 					}, error : function(){
 						alert('failed')
 					}
-				});  
+				}); 
 			} else{
 				alert('Please Complete the Blank Field(s)');
 			} 
@@ -242,8 +286,6 @@ select.parsley-error
 			console.log(data)
 			window.location = '${pageContext.request.contextPath}/design/search?'+data;		//data diambil dari form.serialize() 
 		});
-		
-		
 		
 		/* Penentuan Role */
 		$(document).on('click', '.btn-edit-modal', function(){
@@ -274,6 +316,11 @@ select.parsley-error
 							oTable.find('tr').remove();
 							$.each(obj.listDesignItem, function(index, value) {
 								var product = value.mProductId;
+								var pic = value.requestPic;
+								var picFirstName = pic.firstName;
+								var picLastName = pic.lastName;
+								var picName = picFirstName + " " +picLastName;
+								//console.log(pic);
 								var appendString = "<tr>";
 									appendString += "<td>";
 										appendString += "<select class='form-control product-name' id='prod_"+product.id+"' style='font-size: 12px;' value='"+product.name+"'><c:forEach items='${listProduct }' var='product' > <option value-desc='${product.description }' value='${product.id }'>${product.name }</option> </c:forEach></select>";
@@ -285,7 +332,7 @@ select.parsley-error
 										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"'>";
 									appendString += "</td>";
 									appendString += "<td>";
-										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC'>";
+										appendString += "<select class='form-control' id='pic_"+pic.id+"' value='"+picName+"' style='font-size: 12px;'> <c:forEach items='${listEmployee }' var='employee'> <option value='${employee.id }'>${employee.firstName } ${employee.lastName }</option> </c:forEach></select>";
 									appendString += "</td>";
 									appendString += "<td>";
 										appendString += "<input placeholder='Due Date' class='form-control' type='date' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"'>";
@@ -307,7 +354,8 @@ select.parsley-error
 									appendString += "</td>"; 
 								appendString += "</tr>"
 								tBody.append(appendString);
-								$('#prod_'+product.id).val(product.id);		//menampilkan data product berdasarkan id product yang telah disimpan 
+								$('#prod_'+product.id).val(product.id);		//menampilkan data product berdasarkan id product yang telah disimpan
+								$('#pic_'+pic.id).val(pic.id);		//menampilkan data request Pic berdasarkan id request Pic yang telah disimpan
 							}); 
 						}, error : function(){
 							alert('failed');
@@ -338,7 +386,11 @@ select.parsley-error
 							var tBody = oTable.find('tbody');
 							tBody.find('tr').remove();
 							
-							$.each(data.listDesignItem, function(index, value){ 		
+							$.each(data.listDesignItem, function(index, value){ 	
+								var pic = value.requestPic;
+								var picFirstName = pic.firstName;
+								var picLastName = pic.lastName;
+								var picName = picFirstName + " " +picLastName;
 								var appendString = "<tr>";
 									appendString += "<td>";
 										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.mProductId.name+"' disabled>";
@@ -350,7 +402,7 @@ select.parsley-error
 										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"' disabled>";
 									appendString += "</td>";
 									appendString += "<td>";
-										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC' disabled>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC' value='"+picName+"' disabled>";
 									appendString += "</td>";
 									appendString += "<td>";
 										appendString += "<input placeholder='Select Date' class='form-control' type='text' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"' disabled>";
@@ -397,7 +449,11 @@ select.parsley-error
 							var tBody = oTable.find('tbody');
 							tBody.find('tr').remove();
 							
-							$.each(data.listDesignItem, function(index, value){ 		
+							$.each(data.listDesignItem, function(index, value){
+								var pic = value.requestPic;
+								var picFirstName = pic.firstName;
+								var picLastName = pic.lastName;
+								var picName = picFirstName + " " +picLastName;
 								var appendString = "<tr>";
 									appendString += "<td>";
 										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.mProductId.name+"' disabled>";
@@ -409,7 +465,7 @@ select.parsley-error
 										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"' disabled>";
 									appendString += "</td>";
 									appendString += "<td>";
-										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC' disabled>";
+										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC' value='"+picName+"' disabled>";
 									appendString += "</td>";
 									appendString += "<td>";
 										appendString += "<input placeholder='Due Date' class='form-control' type='text' style='font-size: 12px;' value='"+value.requestDueDate+"' disabled>";
@@ -498,7 +554,7 @@ select.parsley-error
 					},
 					titleItem : $(value).find('td').eq(2).find('input').val(),
 					requestPic : {
-						id : parseInt($(value).find('td').eq(3).find('input').val())
+						id : parseInt($(value).find('td').eq(3).find('select option:selected').val())
 					},
 					requestDueDate : $(value).find('td').eq(4).find('input').val(),
 					note : $(value).find('td').eq(7).find('input').val(),
@@ -517,7 +573,7 @@ select.parsley-error
 				updatedDate : $('#design-updatedDate-edit').val(),
 				listDesignItem : listDesignItemEdit
 			};
-			//console.log(design);
+			console.log(design);
 			/* kirim ke server */
 			$.ajax({
 				url : '${pageContext.request.contextPath}/design/update',
@@ -526,8 +582,8 @@ select.parsley-error
 				contentType : 'application/json',
 				success : function(data){
 					console.log(data),
-					alert('updated success'),
-					window.location = '${pageContext.request.contextPath}/design' 
+					alert('updated success')
+					//window.location = '${pageContext.request.contextPath}/design' 
 				}, error : function(){
 					alert('failed')
 				}
@@ -642,7 +698,11 @@ select.parsley-error
 					var tBody = oTable.find('tbody');
 					tBody.find('tr').remove();
 					
-					$.each(obj.listDesignItem, function(index, value){ 		
+					$.each(obj.listDesignItem, function(index, value){ 	
+						var pic = value.requestPic;
+						var picFirstName = pic.firstName;
+						var picLastName = pic.lastName;
+						var picName = picFirstName + " " +picLastName;
 						var appendString = "<tr>";
 							appendString += "<td>";
 								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.mProductId.name+"' disabled>";
@@ -654,7 +714,7 @@ select.parsley-error
 								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"' disabled>";
 							appendString += "</td>";
 							appendString += "<td>";
-								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC' disabled>";
+								appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='PIC' value='"+picName+"' disabled>";
 							appendString += "</td>";
 							appendString += "<td>";
 								appendString += "<input placeholder='Select Date' class='form-control' type='text' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"' disabled>";
@@ -775,7 +835,7 @@ select.parsley-error
 				    			<input type="text" style="font-size: 12px" class="form-control" placeholder="Request By">
 				    		</div>
 				    		<div class="col-auto">
-				    			<input placeholder="Request Date" style="font-size: 12px" class="form-control" name="requestDate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')"><!-- <input type="text" name="date" id="requestDatepicker" placeholder="Request Date"> -->	
+				    			<input placeholder="Request Date" style="font-size: 12px" class="form-control" name="requestDate" type="text" id="request-date-search">	
 				    		</div>
 				    		<div class="col">
 				    			<select id="eventCode" class="form-control" style="font-size: 12px;">
@@ -789,7 +849,7 @@ select.parsley-error
 				    			<input type="text" style="font-size: 12px" class="form-control" id="status" placeholder="Status">
 				    		</div>
 				    		<div class="col-auto">
-				    			<input placeholder="Created Date" style="font-size: 12px" class="form-control" name="createdDate" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="created">	
+				    			<input placeholder="Created Date" style="font-size: 12px" class="form-control" name="createdDate" type="text" id="created-date-search">	
 				    		</div>
 				    		<div class="col-auto" >
 				    			<input type="text" style="font-size: 12px" class="form-control" id="created-by" placeholder="Created By">

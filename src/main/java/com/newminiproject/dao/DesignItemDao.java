@@ -13,5 +13,7 @@ public interface DesignItemDao {
 
 	void update(DesignItem di2);
 
+	void closerequest(DesignItem di2);
+
 	
 }
