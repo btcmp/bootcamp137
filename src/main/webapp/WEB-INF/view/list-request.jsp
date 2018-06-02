@@ -86,6 +86,12 @@
          $( "#created" ).datepicker({
         	 dateFormat:"yy-mm-dd"
          });
+         $( "#duedate" ).datepicker({
+        	 dateFormat:"yy-mm-dd"
+         }); 
+         $( "#duedateedit" ).datepicker({
+        	 dateFormat:"yy-mm-dd"
+         });
       });
 	
 	$(document).ready(function(){
@@ -1173,7 +1179,7 @@
 		      			</div>
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
-		      					<input placeholder="Select Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="duedate">	
+		      					<input placeholder="Select Date" class="form-control" type="text" id="duedate">	
 		      				</div>
 		      			</div>
 		      		</div>
@@ -1718,7 +1724,7 @@
 		      			</div>
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
-		      					<input placeholder="Select Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="duedateedit">	
+		      					<input placeholder="Select Date" class="form-control" type="text" id="duedateedit">	
 		      				</div>
 		      			</div>
 		      		</div>
