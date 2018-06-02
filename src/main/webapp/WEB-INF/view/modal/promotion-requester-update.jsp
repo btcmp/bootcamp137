@@ -282,6 +282,7 @@
 							    <span class = "float-left" style="width:35%; text-align:right;">* Request By :</span>
 							    <div class = "float-left" style="width:65%;">
 							    	<input class="form-control" type="text" id="requestByNotUpdate" disabled>
+							    	<input hidden= "updatedByNot">
 							    </div>
 							    
 							  </div>

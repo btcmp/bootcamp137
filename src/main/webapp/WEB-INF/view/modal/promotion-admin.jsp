@@ -328,8 +328,7 @@
 						  	<div class="form-group">
 							    <span class = "float-left" style="width:35%; text-align:right;"> * Assign To : </span>
 							    <div class = "float-left" style="width:65%;">
-							       	<!-- <input class="form-control" type="text" id="AssignToAdmin" disabled> -->
-							    	
+							       	<input class="form-control" type="text" id="AssignToAdmin" disabled>
 							    </div>
 							    
 							  </div>
@@ -714,7 +713,7 @@
 					<div>
 						<button class = "btn btn-primary addItem"><strong>Add Item</strong></button>
 					</div>
-						<table class="display" style="width:100%; border:none;" id="tabelItemNotView">
+						<table class="display" style="width:100%; border:none;" id="tabelItemNotAdminView">
 							<thead>
 								<tr>
 									<th style="padding-left:110px; width:252px;">Filename</th>

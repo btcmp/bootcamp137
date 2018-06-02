@@ -164,6 +164,8 @@ public class PromotionService {
 		//1. Untuk save ke dalam tabel promotion
 				Promotion pr = new Promotion();
 				
+				pr.setUpdatedBy(promotion.getUpdatedBy());
+				pr.setUpdatedDate(promotion.getUpdatedDate());
 				pr.setId(promotion.getId());
 				pr.setTitleHeader(promotion.getTitleHeader());
 				pr.setNote(promotion.getNote());
