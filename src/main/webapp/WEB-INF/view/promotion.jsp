@@ -86,6 +86,7 @@
 				$('#idRequestBy').val(data.mEmployeeId.id);
 				$('#requestByNot').val(fullName);
 				$('#idRequestByNot').val(data.mEmployeeId.id);
+				$('#updatedByRequester').val(fullName);
 			},
 			error : function (){
 				alert('error');
@@ -360,7 +361,7 @@
 				status : 1,
 				requestDate : new Date($('#requestDateSave').val()),
 				createdBy : {
-					id : $('#idRequestBy').val()
+					name : $('#requestBySave').val()
 				},	
 				createdDate : new Date(),
 			
@@ -445,7 +446,7 @@
 				},
 				requestDate : new Date($('#requestDateSave').val()),
 				createdBy : {
-					id : $('#idRequestBy').val()
+					id : $('#requestByNot').val()
 				},	
 				createdDate : new Date(),
 				listPromotionItemFile : []
@@ -1535,6 +1536,10 @@
 			note : $('#noteTitleHeaderUpdate').val(),
 			status : 1,
 			flagDesign : $('#flagDesignEdit').val(),
+			updatedDate : new Date (),
+			updatedBy :{
+				id : $('#updatedByRequester').val()
+			},
 			listPromotionItem : [],
 			listPromotionItemFile : []
 		}
