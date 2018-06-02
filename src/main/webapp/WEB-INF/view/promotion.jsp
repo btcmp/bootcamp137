@@ -360,9 +360,7 @@
 				},  
 				status : 1,
 				requestDate : new Date($('#requestDateSave').val()),
-				createdBy : {
-					name : $('#requestBySave').val()
-				},	
+				createdBy : $('#requestBySave').val(),
 				createdDate : new Date(),
 			
 				//Promotion Design Item
@@ -445,9 +443,7 @@
 					id : $('#idRequestByNot').val()
 				},
 				requestDate : new Date($('#requestDateSave').val()),
-				createdBy : {
-					id : $('#requestByNot').val()
-				},	
+				createdBy : $('#requestByNot').val(),
 				createdDate : new Date(),
 				listPromotionItemFile : []
 			}
@@ -2062,15 +2058,7 @@
 							</c:choose>
 						</td>
 						<td>${promotion.createdDate }</td>
-						<td>
-							<c:forEach items = "${listEmployee }" var = "employee">
-								<c:choose>
-									<c:when test="${promotion.createdBy.id == employee.id }">
-										${employee.firstName} ${employee.lastName} 
-									</c:when>
-								</c:choose>
-							</c:forEach>
-						</td>
+						<td>${promotion.createdBy }</td>
 						<td>
 							<a href="#" value-promo-id-detail = ${promotion.id } value-flag-design =${promotion.flagDesign } class="tombolDetail"><span class="float-left" style="padding:3px; color:grey;" ><i class="fas fa-search fa-lg"></i></span></a>
 							<a href="#" status-id=${promotion.status }  value-promo-id-edit = ${promotion.id } value-flag-edit =${promotion.flagDesign } data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>"  data-role-admin = "<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>" class="tombolEdit"><span class="float-left" style="padding:3px; color:grey;"><i class="fas fa-pencil-alt fa-lg"></i></span></a>

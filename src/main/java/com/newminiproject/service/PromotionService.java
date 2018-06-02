@@ -47,14 +47,11 @@ public class PromotionService {
 		event.setId(promotion.getEvent().getId());
 		Employee requestBy = new Employee();
 		requestBy.setId(promotion.getRequestBy().getId());
-		Employee createdBy = new Employee();
-		//createdBy.setId(promotion.getCreatedBy().getId());
-		
 		Promotion pr = new Promotion();
 		
 		pr.setCode(promotion.getCode());
 		pr.setEvent(event);
-		//pr.setCreatedBy(createdBy);
+		pr.setCreatedBy(promotion.getCreatedBy());
 		pr.setCreatedDate(promotion.getCreatedDate());
 		pr.setFlagDesign(promotion.getFlagDesign());
 		pr.setTitleHeader(promotion.getTitleHeader());
