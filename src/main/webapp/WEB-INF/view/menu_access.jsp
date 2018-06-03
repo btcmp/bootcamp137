@@ -102,7 +102,7 @@ table {
 				type: 'GET',
 				success:function(data){
 					$('#id').val(data.id);
-					$('#roleEdit').val(data.mRoleId.id);
+					$('#roleEdit').val(data.mRoleId.name);
 					$('#menuEdit').val(data.mMenuId.id);
 					console.log(data);
 					
@@ -119,9 +119,6 @@ table {
 		$('#btn-save-edit').on('click', function(){
 			var menuAccess = {
 					id: $('#id').val(),
-					mRoleId:{
-						id : $('#roleEdit option:selected').val(10)
-					},
 					mMenuId:{
 						id : $('#menuEdit option:selected').val()
 					}
@@ -327,11 +324,12 @@ table {
 						      <label for="name">* Role Id</label>
 						    </div>
 						    <div class="col">
-						       	<select class="form-control" id="roleEdit" style="font-size: 12px;">
+						    	<input type="text" id="roleEdit" class="form-control" disabled>
+						       	<%-- <select class="form-control" id="roleEdit" style="font-size: 12px;">
 						       		<c:forEach items="${listRole}" var="role">
 						       			<option value="${role.id}">${role.name}</option>
 						       		</c:forEach>
-						       </select>
+						       </select> --%>
 						    </div>
 						</div>
 						
