@@ -227,17 +227,16 @@ input.parsley-error {
 			}
 		});
 		
-		//search button
+		// #SEARCH button
 		$('#btnSearch').on('click', function(){
 			var form = $("#formrole");
 			var data = form.serialize(); //untuk mengambil semua data yang ada di table
 			console.log(data);
-// 			if(data == "rolecode=&rolename=&rolecreateddate=&rolecreatedby="){
-// 				window.location = '${pageContext.request.contextPath}/role';
-// 			}
-// 			else{
-// 				window.location = '${pageContext.request.contextPath}/role/search?'+data;	
-// 			} 			
+			if(data == "rolecode=&rolename=&rolecreateddate=&rolecreatedby=") {
+				window.location = '${pageContext.request.contextPath}/role';
+			} else {
+				window.location = '${pageContext.request.contextPath}/role/search?'+data;
+			} 			
 		});
 		
 	});
@@ -286,39 +285,94 @@ input.parsley-error {
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        
-         
-           <%--  <a href="#" class="nav-link">
-              <p>
-                <h2><a href="#" class="d-block">${pageContext.request.userPrincipal.name}</a></h2>
-              </p>
-            </a> --%>
+         <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
           
-          <li class="nav-header">Menu</li>
-          <li class="nav-item">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Master Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
             <a href="${pageContext.request.contextPath }/company" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
               <p>Company</p>
             </a>
           </li>
+          
           <li class="nav-item">
-            <a href="${pageContext.request.contextPath }/event" class="nav-link">
+            <a href="${pageContext.request.contextPath }/employee" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
-              <p>Event</p>
+              <p>Employee</p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href="${pageContext.request.contextPath }/menu" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
               <p>Menu</p>
             </a>
           </li>
+          
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/product" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Product</p>
+            </a>
+          </li>
+          
           <li class="nav-item">
             <a href="${pageContext.request.contextPath }/unit" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
               <p>Unit</p>
             </a>
           </li>
+           
+		</ul>
+     </li>
+     
+     <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Transaction Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+	             <li class="nav-item">
+	           		 <a href="${pageContext.request.contextPath }/event" class="nav-link">
+	           	   <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Event</p>
+	            </a>
+	          	</li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/design" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Design</p>
+	            </a>
+	          </li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/promotion" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Promotion</p>
+	            </a>
+	          </li>
+	          
+	         <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/souvenir" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Souvernir</p>
+	            </a>
+	          </li>
+	          
+	          
+		</ul>
+     </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
