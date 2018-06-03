@@ -321,6 +321,7 @@ select.parsley-error
 				url : '${pageContext.request.contextPath}/souvenirrequest/gettransactionsouvenir?id=' + id,
 				type : 'GET',
 				success : function(obj){
+					var fullName = obj.requestBy.firstName + ' ' + obj.requestBy.lastName;
 					$('#id-edit').val(obj.id);
 					$('#id-admin').val(obj.id);
 					$('#id-received').val(obj.id);
@@ -339,12 +340,12 @@ select.parsley-error
 					$('#event-code-set').val(obj.tEventId.id);
 					$('#event-code-apset').val(obj.tEventId.id);
 					$('#event-code-close').val(obj.tEventId.id);
-					$('#requestbyedit').val(obj.requestBy.firstName);
-					$('#requestbyadmin').val(obj.requestBy.firstName);
-					$('#requestbyreceived').val(obj.requestBy.firstName);
-					$('#requestbyset').val(obj.requestBy.firstName);
-					$('#requestbyapset').val(obj.requestBy.firstName);
-					$('#requestbyclose').val(obj.requestBy.firstName);
+					$('#requestbyedit').val(fullName);
+					$('#requestbyadmin').val(fullName);
+					$('#requestbyreceived').val(fullName);
+					$('#requestbyset').val(fullName);
+					$('#requestbyapset').val(fullName);
+					$('#requestbyclose').val(fullName);
 					$('#requestdateedit').val(obj.requestDate);
 					$('#requestdateadmin').val(obj.requestDate);
 					$('#requestdatereceived').val(obj.requestDate);
@@ -663,13 +664,13 @@ select.parsley-error
 				return validate.isValid();
 			}
 			
-			var valid = getValid(validateEventEdit);
-				valid = getValid(validateDueDateEdit);
+			var validEdit = getValid(validateEventEdit);
+				validEdit = getValid(validateDueDateEdit);
 			
 			_readTableDataEdit(requestEdit.transactionSouvenirItem);
 			
 			//do ajax
-			if(valid){
+			if(validEdit){
 				$.ajax({
 					url : '${pageContext.request.contextPath}/souvenirrequest/update',
 					type : 'PUT',
