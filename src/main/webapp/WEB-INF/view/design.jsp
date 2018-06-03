@@ -382,6 +382,7 @@ select.parsley-error
 							$('#event-code-approval').val(data.tEventId.code);
 							$('#design-title-approval').val(data.titleHeader);
 							$('#design-status-approval').val(data.status);
+							$('#design-requestBy-approval').val(data.requestBy.firstName + ' ' +data.requestBy.lastName );
 							$('#design-requestDate-approval').val(data.requestDate);
 							$('#design-note-approval').val(data.note);
 							
@@ -445,6 +446,7 @@ select.parsley-error
 							$('#design-title-close').val(data.titleHeader);
 							$('#design-status-close').val(data.status);
 							$('#design-assignTo-close').val(data.assignTo.firstName + ' ' + data.assignTo.lastName);
+							$('#design-requestBy-close').val(data.requestBy.firstName + ' ' + data.requestBy.lastName );
 							$('#design-requestDate-close').val(data.requestDate);
 							$('#design-note-close').val(data.note);
 							
@@ -585,8 +587,8 @@ select.parsley-error
 				contentType : 'application/json',
 				success : function(data){
 					console.log(data),
-					alert('updated success')
-					//window.location = '${pageContext.request.contextPath}/design' 
+					alert('updated success'),
+					window.location = '${pageContext.request.contextPath}/design' 
 				}, error : function(){
 					alert('failed')
 				}
@@ -672,8 +674,8 @@ select.parsley-error
 				contentType : 'application/json',
 				success : function(data){
 					console.log(data),
-					alert('close request success')
-					//window.location = '${pageContext.request.contextPath}/design' 
+					alert('close request success'),
+					window.location = '${pageContext.request.contextPath}/design' 
 				}, error : function(){
 					alert('failed')
 				}
@@ -692,7 +694,7 @@ select.parsley-error
 					$('#event-code-view').val(obj.tEventId.code);
 					$('#design-title-view').val(obj.titleHeader);
 					$('#design-status-view').val(obj.status);
-					$('#design-assignTo-view').val(obj.assignTo.firstName + ' ' + obj.assignTo.lastName);
+					$('#design-requestBy-view').val(obj.requestBy.firstName + ' ' +obj.requestBy.lastName );
 					$('#design-requestDate-view').val(obj.requestDate);
 					$('#design-note-view').val(obj.note);
 					var oTable = $('#dt-designItemView');
@@ -737,13 +739,6 @@ select.parsley-error
 				}
 			});
 			$('#modalViewRequest').modal();
-			if($(this).attr('data-status-view')==2 || $(this).attr('data-status-view')==3){
-				document.getElementById('assignToView').style.display = 'block';
-			} else if($(this).attr('data-status-view')==1 || $(this).attr('data-status-view')==0){
-				document.getElementById('assignToView').style.display = 'none';
-			}
-				
-			
 		});
 	 
 	});
@@ -781,14 +776,89 @@ select.parsley-error
      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header">Menu</li>
-          <li class="nav-item">
-            <a href="${pageContext.request.contextPath }/design" class="nav-link">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+         <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+          
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Master Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/company" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
-              <p>Design</p>
+              <p>Company</p>
             </a>
           </li>
-        </ul>
+          
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/employee" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Employee</p>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/unit" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Unit</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/product" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Product</p>
+            </a>
+          </li>
+          
+           
+		</ul>
+     </li>
+     
+     <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Transaction Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+	             <li class="nav-item">
+	           		 <a href="${pageContext.request.contextPath }/event" class="nav-link">
+	           	   <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Event</p>
+	            </a>
+	          	</li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/design" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Design</p>
+	            </a>
+	          </li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/promotion" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Promotion</p>
+	            </a>
+	          </li>
+	          
+	         <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/souvenir" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Souvernir</p>
+	            </a>
+	         </li>
+		</ul>
+     </li>
+      </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

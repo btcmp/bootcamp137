@@ -180,7 +180,8 @@ public class DesignService {
 			di2.setEndDate(di.getEndDate());
 			
 			di2.settDesignId(dsn);
-			//System.out.println("id = "+di.getId());
+			System.out.println("start date = "+di.getStartDate());
+			System.out.println("end date = "+di.getEndDate());
 			designItemDao.closerequest(di2);
 		}
 	}	
