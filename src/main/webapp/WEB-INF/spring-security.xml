@@ -27,7 +27,7 @@
   			<intercept-url pattern="/souvenirrequest/approveset" access="hasRole('ROLE_ADMIN')" />
   			<intercept-url pattern="/souvenirrequest/statusupdate" access="hasRole('ROLE_REQUESTER')" />
   			<intercept-url pattern="/souvenirrequest/closerequest" access="hasRole('ROLE_REQUESTER')" />
-  			<intercept-url pattern="/event**" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_REQUESTER')" />
+  			<intercept-url pattern="/event**" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_REQUESTER') or hasRole('ROLE_STAFF')" />
 			<intercept-url pattern="/user/**" access="hasRole('ROLE_ADMIN')"/>
 			<intercept-url pattern="/menu_access/**" access="hasRole('ROLE_ADMIN')"/>
 			<intercept-url pattern="/design" access="hasRole('ROLE_ADMIN') or hasRole('ROLE_STAFF') or hasRole('ROLE_REQUESTER')"/>
