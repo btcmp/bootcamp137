@@ -310,12 +310,15 @@ $(document).ready(function(){
 		
 ///////////edit even listener///////////////////////////////////////////////////////////////////////////////////
 		//$('.edit').on('click', function(){
+		var statusLogin;
 		var statusSubmit;
+		var statusAssign;
 		var idBB;
 		$(document).on('click','.edit',function(){	
 			idBB = $(this).attr('id');
 			var statusUser = $(this).attr('data-role-user');
 			var statusAdmin = $(this).attr('data-role-admin');
+			statusAssign = $(this).attr('data-closeby');
 			//console.log(abc);
 			$.ajax({
 				url : '${pageContext.request.contextPath}/event/getevent/'+ idBB,
@@ -334,7 +337,7 @@ $(document).ready(function(){
 					$('#statusE').val(data.status);
 					$('#NoteE').val(data.note);
 					$('#EmployeeName').val(data.employee.firstName);
-					
+					statusLogin = data.requestBy.id;
 					//$('#assignTOE').val(data.employee.firstName);
 					//document.getElementById("valueAssign").value = data.employee.id;
 					
@@ -602,12 +605,22 @@ $(document).ready(function(){
 		});
 		
 		$('#btnClsDt').on('click',function(){
+			//data-closeby
+			statusAssign;
+			statusLogin;
+			
+			if(statusAssign==statusLogin){
+				alert('sesuai');
+			}else{
+				alert('tidak sesuai');
+			}
+			
 			var event = {
 					id:$('#id').val(),
 					updateBy:$('#updateBy').val()
 				}
-			//console.log(event);
-		   	$.ajax({
+			//console.log(statusAssign);
+		   	/* $.ajax({
 				url:'${pageContext.request.contextPath}/event/updatecls',
 				type:'POST',
 				data:JSON.stringify(event),
@@ -619,7 +632,7 @@ $(document).ready(function(){
 				},error:function(){
 					alert('gagal update');
 				}
-			});
+			}); */
 		
 		});
 //rejected event/////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -959,7 +972,7 @@ $(document).ready(function(){
 								</td>
 								<td>${event.createDate }</td>
 								<td>${event.createBy }</td>
-								<td><a class="edit" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-pencil-alt"></i></a> | 
+								<td><a class="edit" data-closeby="${event.employee.id }" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-pencil-alt"></i></a> | 
 								<a class="view" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-search"></i></a>
 								</td>
 							</tr>

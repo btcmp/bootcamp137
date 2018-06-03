@@ -102,13 +102,14 @@ public class EventDaoImpl implements EventDao {
 	public void aprove(Event event) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update Event it set it.status=?, it.updateBy=?, it.update_date=?, it.employee=? where it.id=? ";
+		String hql = "update Event it set it.status=?, it.updateBy=?, it.update_date=?, it.employee=?, it.approveDate=?  where it.id=? ";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, event.getStatus());
 		query.setParameter(1, event.getUpdateBy());
 		query.setParameter(2, event.getUpdate_date());
 		query.setParameter(3, event.getEmployee());
-		query.setParameter(4, event.getId());
+		query.setParameter(4, event.getApproveDate());
+		query.setParameter(5, event.getId());
 		query.executeUpdate();
 		
 	}

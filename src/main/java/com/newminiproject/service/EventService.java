@@ -73,6 +73,7 @@ public class EventService {
 	public void aprove(Event event) {
 		// TODO Auto-generated method stub
 		event.setStatus(2);
+		event.setApproveDate(new Date());
 		event.setUpdate_date(new Date());
 		eventDao.aprove(event);
 		
