@@ -64,7 +64,7 @@ public class MenuAccessDaoImpl implements MenuAccessDao{
 		String hql = "update MenuAccess ma set ma.mRoleId=?, ma.mMenuId=? where ma.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, menuAccess.getmRoleId());
-		query.setParameter(1, menuAccess.getmRoleId());
+		query.setParameter(1, menuAccess.getmMenuId());
 		query.setParameter(2, menuAccess.getId());
 		query.executeUpdate();
 		session.flush();
