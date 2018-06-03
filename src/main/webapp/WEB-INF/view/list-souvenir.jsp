@@ -505,7 +505,7 @@ select.parsley-error
 		      		</div>
 		      		<div class="col-md-3">
 		      			<input type="hidden" id="id-edit">
-		      			<input id="code-edit" type="text" class="form-control" placeholder="Auto generated">
+		      			<input id="code-edit" type="text" class="form-control" placeholder="Auto generated" disabled>
 		      		</div>
 		      		<div class="col-md-2">
 		      			<label>* Unit Name</label>
