@@ -57,6 +57,9 @@ public class SouvenirRequestController {
 		List<TransactionSouvenir> listTransactionSouvenir = souvenirRequestService.getAllTransaction();
 		List<TransactionSouvenirItem> listTransactionSouvenirItem = souvenirRequestService.getAllItem();
 		String hasil = codeGenerator.sequenceTransaction();
+		User user = (User)httpSession.getAttribute("app-user");
+		String requester = user.getmEmployeeId().getFirstName() + ' ' + user.getmEmployeeId().getLastName();
+		model.addAttribute("requester", requester);
 		model.addAttribute("hasil", hasil);
 		model.addAttribute("listEvent", listEvent);
 		model.addAttribute("listSouvenirItem", listSouvenirItem);

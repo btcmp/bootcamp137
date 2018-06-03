@@ -1203,7 +1203,7 @@ select.parsley-error
 		      			</div>
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
-		      					<input type="text" id="requestby" name="request-by" placeholder="Request By" class="form-control" disabled>
+		      					<input type="text" id="requestby" name="request-by" placeholder="${requester }" class="form-control" disabled>
 		      				</div>
 		      			</div>
 		      		</div>
