@@ -60,6 +60,7 @@ public class SouvenirRequestController {
 		User user = (User)httpSession.getAttribute("app-user");
 		String requester = user.getmEmployeeId().getFirstName() + ' ' + user.getmEmployeeId().getLastName();
 		model.addAttribute("requester", requester);
+		model.addAttribute("user", user);
 		model.addAttribute("hasil", hasil);
 		model.addAttribute("listEvent", listEvent);
 		model.addAttribute("listSouvenirItem", listSouvenirItem);
@@ -181,6 +182,8 @@ public class SouvenirRequestController {
 	@ResponseBody
 	@RequestMapping(value="/rejected", method = RequestMethod.PUT)
 	public TransactionSouvenir rejected(@RequestBody TransactionSouvenir transactionSouvenir){
+		User user = (User)httpSession.getAttribute("app-user");
+		transactionSouvenir.setRequestBy(user.getmEmployeeId());
 		souvenirRequestService.rejected(transactionSouvenir);
 		return transactionSouvenir;
 	}

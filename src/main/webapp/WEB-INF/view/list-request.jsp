@@ -144,6 +144,10 @@ select.parsley-error
 				required : true,
 				requiredMessage : 'The Field cant be Empty'
 			});
+			var validateDueDate = $('#duedate').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
 			
 			//validate function
 			function getValid(validate){
@@ -152,6 +156,7 @@ select.parsley-error
 			}
 			
 			var valid = getValid(validateEvent);
+				valid = getValid(validateDueDate);
 			
 			_readTableData(request.transactionSouvenirItem);
 			console.log(request);
@@ -200,7 +205,7 @@ select.parsley-error
 			
 			var appendString = "<tr>";
 			appendString += "<td>";
-				appendString += "<select class='form-control' id='souvenir-item'><c:forEach items='${listSouvenirItem }' var='item'><option value='${item.id }'>${item.name }</option></c:forEach></select>";
+				appendString += "<select class='form-control' id='souvenir-item'><option selected value=''>- Select Souvenir -</option><c:forEach items='${listSouvenirItem }' var='item'><option value='${item.id }'>${item.name }</option></c:forEach></select>";
 			appendString += "</td>";
 			appendString += "<td>";
 				appendString += "<input style='width:60px;' type='text' id='qty' placeholder='Qty' class='form-control'>";
@@ -416,9 +421,6 @@ select.parsley-error
 									appendString2 += "<input class='form-control' id='note-item-edit' value='"+value.note+"' disabled>";
 								appendString2 += "</td>";
 								appendString2 += "<td>";
-									appendString2 += "<a data-id='${souvenir.id }' id='btn-edit-edit' href='#' style='color:inherit;'><i class='fas fa-pencil-alt'></i></a> <a class='btn-delete-edit' href='#' style='color:inherit;'><i class='fas fa-trash'></i></a>";
-								appendString2 += "</td>";
-								appendString2 += "<td>";
 									appendString2 += "<input type='hidden' id='id-edit-item' value='"+value.id+"'>";
 								appendString2 += "</td>";
 							appendString2 += "</tr>";
@@ -446,9 +448,6 @@ select.parsley-error
 								appendString2 += "</td>";
 								appendString2 += "<td>";
 									appendString2 += "<input class='form-control' id='note-item-edit' value='"+value.note+"' disabled>";
-								appendString2 += "</td>";
-								appendString2 += "<td>";
-									appendString2 += "<a data-id='${souvenir.id }' id='btn-edit-edit' href='#' style='color:inherit;'><i class='fas fa-pencil-alt'></i></a> <a class='btn-delete-edit' href='#' style='color:inherit;'><i class='fas fa-trash'></i></a>";
 								appendString2 += "</td>";
 								appendString2 += "<td>";
 									appendString2 += "<input type='hidden' id='id-edit-item' value='"+value.id+"'>";
@@ -1142,7 +1141,17 @@ select.parsley-error
 							</c:choose>
 						</td>
 						<td scope="col">${transaction.createdDate }</td>
-						<td scope="col">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</td>
+						<td scope="col">
+							<c:choose>
+								<c:when test="${transaction.status == 1}">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</c:when>
+								<c:when test="${transaction.status == 2}">Administrator</c:when>
+								<c:when test="${transaction.status == 3}">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</c:when>
+								<c:when test="${transaction.status == 4}">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</c:when>
+								<c:when test="${transaction.status == 5}">Administrator</c:when>
+								<c:when test="${transaction.status == 6}">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</c:when>
+								<c:when test="${transaction.status == 0}">Administrator</c:when>
+							</c:choose>
+						</td>
 						<td scope="col">
 							<a data-id="${transaction.id }"  data-status="${transaction.status }" id="btn-view-transaksi" href="#" style="color:inherit;"><i class="fas fa-search"></i></a>
 		  					<a data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-id="${transaction.id }" data-status="${transaction.status }" id="btn-edit-transaksi" href="#" style="color:inherit;"><i class="fas fa-pencil-alt"></i></a>
