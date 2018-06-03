@@ -13,7 +13,7 @@
    <!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-  <title>List Event</title>
+  <title>List Souvenir Stock</title>
   	<link rel="stylesheet" href="${pageContext.request.contextPath }/assets/css/jquery.datetimepicker.min.css">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
@@ -22,6 +22,7 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <!-- Font Awesome -->
 	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/font-awesome/css/font-awesome.min.css">
 	  <!-- Ionicons -->
 	  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	  <!-- Theme style -->
@@ -56,7 +57,7 @@
 	}
 	
 	#body1{
-		width:96%;
+		width:98%;
 		margin:auto;
 		margin-bottom:20px;
 	}
@@ -89,7 +90,10 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
   	
-  	
+  	  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	
   	
   	<script src="${pageContext.request.contextPath }/assets/js/jquery.datetimepicker.full.js"></script>
@@ -104,10 +108,24 @@
 		$('#btn-add').on('click', function(){
 			$('#modalAdd').modal();
 		});
+	
+	///////////////////////////////////////////
+	$(function() {
+	    $( "#Received_Date" ).datepicker({
+	       	dateFormat:"yy-mm-dd"
+	   	});
+	   	$( "#create_Date" ).datepicker({
+	        dateFormat:"yy-mm-dd"
+	    });
+	});
+	
+	$('#received-date-save-souvenir-stock').datepicker({ dateFormat: 'yy-mm-dd' }).val();
+	$('#received-date-edit-souvenir-stock').datepicker({ dateFormat: 'yy-mm-dd' }).val();
+	///////////////////////////////////////////
 		
 	$(document).on(('click'), '#save-btn-add-souvenir-stock', function(){
 		var stock = {
-			//createdBy : $('#id-created-by').val(),
+			/* createdBy : $('#createdBy').val(), */
 			code : $('#transaction-code-save-souvenir-stock').val(),
 			receivedBy : {
 				id : $('#recived-by-save-souvenir-stock option:selected').val(),
@@ -117,21 +135,42 @@
 			transactionSouvenirItem : []
 		};
 		
+		console.log(stock);
+		
+		var statusRB;
+		
+		if( !$('#recived-by-save-souvenir-stock').val() ) { 
+			statusRB=0;
+			alert("assign is empty");
+		}else{
+			statusRB=1;
+		}
+		
+		var statusRD=0;
+		if($('#received-date-save-souvenir-stock').val() == ''){
+		     alert('Start Date can not be left blank');
+		     statusRD=0;
+		}else{
+			statusRD=1;
+		}
+		
 		_readTableData(stock.transactionSouvenirItem);
 		console.log(stock);
-			
-		$.ajax({
-			url : '${pageContext.request.contextPath}/souvenirstock/save',
-			type : 'POST',
-			data : JSON.stringify(stock),
-			contentType : 'application/json',
-			success: function(data){
-			//	console.log(data);
-				window.location = '${pageContext.request.contextPath}/souvenirstock';
-			}, error : function(){
-				alert('error');
-			}
-		});
+		
+		if(statusRB==1&&statusRD==1){
+			$.ajax({
+				url : '${pageContext.request.contextPath}/souvenirstock/save',
+				type : 'POST',
+				data : JSON.stringify(stock),
+				contentType : 'application/json',
+				success: function(data){
+				//	console.log(data);
+					window.location = '${pageContext.request.contextPath}/souvenirstock';
+				}, error : function(){
+					alert('error');
+				}
+			});
+		}
 	});
 		
 		function _readTableData(transactionSouvenirItem){
@@ -297,6 +336,12 @@
 			});
 		}
 		
+		
+		/* $('#').click(function(){
+			alert('oke', function(){
+				
+			});
+		}) */
 		$('#edit-item-btn').on('click', function(){
 			var aTable3 = $('#edit-item-table');
 			var tBody3 = aTable3.find('tbody');
@@ -429,21 +474,103 @@
      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header">Menu</li>
-          <li class="nav-item">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+         <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+          
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Master Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
             <a href="${pageContext.request.contextPath }/company" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
               <p>Company</p>
             </a>
           </li>
+          
           <li class="nav-item">
-            <a href="${pageContext.request.contextPath }/event" class="nav-link">
+            <a href="${pageContext.request.contextPath }/employee" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
-              <p>Event</p>
+              <p>Employee</p>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/unit" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Unit</p>
             </a>
           </li>
           
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/product" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Product</p>
+            </a>
+          </li>
           
+           
+		</ul>
+     </li>
+     
+     <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Transaction Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+	             <li class="nav-item">
+	           		 <a href="${pageContext.request.contextPath }/event" class="nav-link">
+	           	   <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Event</p>
+	            </a>
+	          	</li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/design" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Design</p>
+	            </a>
+	          </li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/promotion" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Promotion</p>
+	            </a>
+	          </li>
+	          
+	         <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/souvenir" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Souvernir</p>
+	            </a>
+	          </li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/souvenirrequest" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Souvernir Request</p>
+	            </a>
+	          </li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/souvenirstock" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Souvernir Stock</p>
+	            </a>
+	          </li>
+	          
+		</ul>
+     </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -460,7 +587,27 @@
     	<div class="container-fluid">
     	
     	 <div id="container">
+		
+		<c:url value="/j_spring_security_logout" var="logoutUrl" />
+		<form action="${logoutUrl}" method="post" id="logoutForm">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
+		<script>
+			function formSubmit() { 
+				document.getElementById("logoutForm").submit();
+			}
+		</script>
 	
+		<c:if test="${pageContext.request.userPrincipal.name != null}">
+			<h2>
+				Welcome : ${pageContext.request.userPrincipal.name} | <a
+					href="javascript:formSubmit()"> Logout</a>
+			</h2>
+		</c:if>
+		
+		
+		
 		<div id="header">
 			<h5>LIST SOUVENIR STOCK<h5>
 		</div>
@@ -485,13 +632,13 @@
 				  <input type=text name="received_by" id="Received_By" class="form-control" placeholder="Received By">
 				</div>
 				<div class="col-auto">
-				  <input name="received_date" id="Received_Date" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Received Date">
+				  <input type=text name="received_date" id="Received_Date" class="form-control" placeholder="Received Date"> <!-- onfocus="(this.type='date')" onblur="(this.type='text')" -->
 				</div>
 				<div class="col">
-				  <input type=date name="createDate" id="create_Date" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Recived Date">
+				  <input type=text name="createDate" id="create_Date" class="form-control" placeholder="Received Date">
 				</div>
 				<div class="col-auto">		
-				  <input type=text name="createBy" id="created_By" class="form-control" placeholder="Created Date">
+				  <input type=text name="createBy" id="created_By" class="form-control" placeholder="Created By">
 				</div>
 				<div class="col-auto">		
 				  <a href="#" class="btn btn-sm btn-warning" id="btn-search" data-toggle="modal" data-target="#exampleModalCenter" >Search</a>
@@ -508,8 +655,8 @@
 					<th scope="col">Transaction Code</th>
 					<th scope="col">Recieved By</th>
 					<th scope="col">Received Date</th>
-					<th scope="col">Create Date</th>
-					<th scope="col">Create By</th>
+					<th scope="col">Created Date</th>
+					<th scope="col">Created By</th>
 					<th scope="col">Action</th>
 				  </tr>
 				</thead>
@@ -521,7 +668,7 @@
 					  <td>${ts.receivedBy.firstName} ${ts.receivedBy.lastName}</td>
 				  	  <td>${ts.receivedDate}</td>
 					  <td>${ts.createdDate}</td>
-					  <td><%-- ${ts.createBy} --%></td>
+					  <td>${ts.createdBy}</td>
 					  <td>
 					  	<a href="#" class="edit" editid="${ts.id}" style="color:inherit;"><i class="fas fa-pencil-alt"></i></a>
 					  	<a href="#" class="view" id="${ts.id}" style="color:inherit;"><i class="fas fa-search"></i></a>
@@ -552,6 +699,7 @@
 					<div class="row" style="margin-bottom:5px;">
 		        	  <div class="col-sm-5" style="text-align:right;">
 		        		<p>*Transaction code :</p>
+		        		<input type="hidden" id="createdBy" value="${pageContext.request.userPrincipal.name}"/>
 		        	  </div>
 		        	  <div class="col-sm-6">
 		        		<input type="text" name="souvenir-name" placeholder="${hasil}" class="form-control" id="transaction-code-save-souvenir-stock" value="${hasil}" disabled>
@@ -577,7 +725,7 @@
 		        		<p>*Recived Date : </p>
 		        	  </div>
 		        	  <div class="col-sm-6">
-		        		<input type="date" name="recive-date" placeholder="Recive Date" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" id="received-date-save-souvenir-stock">
+		        		<input type="text" name="recive-date" placeholder="Recive Date" class="form-control" id="received-date-save-souvenir-stock">
 		        	  </div>
 		        	</div>
 		        	
@@ -677,7 +825,7 @@
 		        		<p>*Recived Date : </p>
 		        	  </div>
 		        	  <div class="col-sm-6">
-		        		<input type="date" name="recive-date" placeholder="Recive Date" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" id="received-date-edit-souvenir-stock">
+		        		<input type="text" name="receive-date" placeholder="Receive Date" class="form-control" id="received-date-edit-souvenir-stock">
 		        	  </div>
 		        	</div>
 		        	

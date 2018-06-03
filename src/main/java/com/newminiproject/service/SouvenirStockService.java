@@ -53,6 +53,7 @@ public class SouvenirStockService {
 		ts.setNote(transactionSouvenir.getNote());
 		ts.setCreatedDate(new Date());
 		ts.settEventId(event);
+		ts.setCreatedBy(emp.getId());
 		
 		//System.out.println("Event :" + event.getId());
 		
