@@ -647,21 +647,44 @@ select.parsley-error
 			};
 			//console.log(requestEdit);
 			
+			//validate di modal edit
+			var validateEventEdit = $('#event-code-edit').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			var validateDueDateEdit = $('#duedateedit').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			
+			//validate function
+			function getValid(validate){
+				validate.validate();
+				return validate.isValid();
+			}
+			
+			var valid = getValid(validateEventEdit);
+				valid = getValid(validateDueDateEdit);
+			
 			_readTableDataEdit(requestEdit.transactionSouvenirItem);
 			
 			//do ajax
-			$.ajax({
-				url : '${pageContext.request.contextPath}/souvenirrequest/update',
-				type : 'PUT',
-				data : JSON.stringify(requestEdit),
-				contentType : 'application/json',
-				success : function(data){
-					console.log(data);
-					window.location = '${pageContext.request.contextPath}/souvenirrequest'
-				}, error : function(){
-					alert('failed');
-				}
-			});
+			if(valid){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/souvenirrequest/update',
+					type : 'PUT',
+					data : JSON.stringify(requestEdit),
+					contentType : 'application/json',
+					success : function(data){
+						console.log(data);
+						window.location = '${pageContext.request.contextPath}/souvenirrequest'
+					}, error : function(){
+						alert('failed');
+					}
+				});
+			} else {
+				alert('Please Complete the Blank Field(s)');
+			}
 			
 		});
 		
@@ -1708,6 +1731,7 @@ select.parsley-error
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
 		      					<select class="form-control" id="event-code-edit">
+				      				<option selected value = "">- Select Event -</option>
 				      				<c:forEach items="${listEvent }" var="event">
 										<option value="${event.id }">${event.code } - ${event.eventName }</option>
 									</c:forEach>
