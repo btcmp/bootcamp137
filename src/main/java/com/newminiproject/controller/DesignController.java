@@ -129,12 +129,11 @@ public class DesignController {
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public String search(Model model, @RequestParam(value="designCode", defaultValue="")String designCode, @RequestParam(value="requestBy", defaultValue="")String requestBy, @RequestParam(value="requestDate", defaultValue="")String requestDate, @RequestParam(value="assignTo", defaultValue="")String assignTo, @RequestParam(value="status", defaultValue="")String status, @RequestParam(value="createdDate", defaultValue="")String createdDate, @RequestParam(value="createdBy", defaultValue="")String createdBy) throws Exception {
+	public String search(Model model, @RequestParam(value="designCode", defaultValue="")String designCode, @RequestParam(value="requestBy", defaultValue="")String requestBy, @RequestParam(value="requestDate", defaultValue="")String requestDate, @RequestParam(value="assignTo", defaultValue="")String assignTo, @RequestParam(value="status", defaultValue="")String status, @RequestParam(value="createdDate", defaultValue="")String createdDate, @RequestParam(value="createdBy", defaultValue="")String createdBy, @RequestParam(value="statusSearch", defaultValue="") String statusSearch) throws Exception {
 		System.out.println("Design Code : "+designCode);
 		System.out.println("Request By : "+requestBy);
 		System.out.println("Request Date : "+requestDate);
 		System.out.println("Assign To : "+assignTo);
-		System.out.println("Status : "+status);
 		System.out.println("Created Date : "+createdDate);
 		System.out.println("Created By : "+createdBy);
 		Date requestDateDual = null;
@@ -145,10 +144,22 @@ public class DesignController {
 		if(!createdDate.equals("")) {	//konversi String menjadi date
 			createdDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(createdDate);
 		}
+		int a=0;
+		if(statusSearch.equals("Submitted")) {
+			a=1;
+		}else if(statusSearch.equals("Rejected")) {
+			a=0;
+		}else if(statusSearch.equals("In Progress")) {
+			a=2;
+		}else if(statusSearch.equals("Done")) {
+			a=3;
+		}
+		System.out.println("status :"+a);//string
 		Design design = new Design();
 		design.setCode(designCode);
 		design.setRequestDate(requestDateDual);
 		design.setCreatedDate(createdDateDual);
+		design.setStatus(a);
 		List<Design> listDesign = designService.getListDesign();
 		List<Design> listDesignFilter = designService.search(design);
 		model.addAttribute("listDesign", listDesignFilter); 	//data yang ingin dicari

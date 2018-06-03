@@ -70,11 +70,12 @@ public class DesignDaoImpl implements DesignDao{
 	public List<Design> search(Design design) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Design d where d.code = :designCode or d.requestDate = :requestDate or d.createdDate = :createdDate";
+		String hql = "from Design d where d.code = :designCode or d.requestDate = :requestDate or d.createdDate = :createdDate or d.status=:status";
 		Query query = session.createQuery(hql);
 		query.setParameter("designCode", design.getCode());
 		query.setParameter("requestDate", design.getRequestDate());
 		query.setParameter("createdDate", design.getCreatedDate());
+		query.setParameter("status", design.getStatus());
 		List<Design> listDesign = query.list();
 		if(listDesign.isEmpty()) {
 			return new ArrayList<Design>();

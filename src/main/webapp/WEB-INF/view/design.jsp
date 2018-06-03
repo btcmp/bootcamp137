@@ -923,7 +923,7 @@ select.parsley-error
 				       			</select>	
 				    		</div>
 				    		<div class="col">
-				    			<input type="text" style="font-size: 12px" class="form-control" id="status" placeholder="Status">
+				    			<input type="text" style="font-size: 12px" class="form-control" id="status" placeholder="Status" name="statusSearch">
 				    		</div>
 				    		<div class="col-auto">
 				    			<input placeholder="Created Date" style="font-size: 12px" class="form-control" name="createdDate" type="text" id="created-date-search">	
