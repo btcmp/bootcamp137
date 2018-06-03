@@ -52,6 +52,12 @@
 	background-color: #F2DEDE !important;
 	border: 1px solid #EED3D7 !important;
 }
+select.parsley-error
+{
+	color: #B94A48 !important;
+	background-color: #F2DEDE !important;
+	border: 1px solid #EED3D7 !important;
+}
   </style>
   
 <!-- 	ini di copy buat validasi -->
@@ -62,7 +68,7 @@
   	
   	 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
          rel = "stylesheet">
-      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <!-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> -->
       <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	
   	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
@@ -132,22 +138,42 @@
 					transactionSouvenirItem : []
 			};
 			
+			//validasi field di  modal add
+			
+			var validateEvent = $('#event-code').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			
+			//validate function
+			function getValid(validate){
+				validate.validate();
+				return validate.isValid();
+			}
+			
+			var valid = getValid(validateEvent);
+			
 			_readTableData(request.transactionSouvenirItem);
 			console.log(request);
 			
-			$.ajax({
-				url : '${pageContext.request.contextPath}/souvenirrequest/save',
-				type : 'POST',
-				data : JSON.stringify(request),
-				contentType : 'application/json',
-				success: function(data){
-					console.log(data);
-					window.location = '${pageContext.request.contextPath}/souvenirrequest'
-				}, error : function(){
-					alert('error');
-				}
-				
-			});
+			if(valid){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/souvenirrequest/save',
+					type : 'POST',
+					data : JSON.stringify(request),
+					contentType : 'application/json',
+					success: function(data){
+						console.log(data);
+						window.location = '${pageContext.request.contextPath}/souvenirrequest'
+					}, error : function(){
+						alert('error');
+					}
+					
+				});
+			} else {
+				alert('Please Complete the Blank Field(s)');
+			}
+			
 			$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
 			    $("#success-alert").slideUp(500);
 			});
@@ -411,7 +437,7 @@
 						var souvenir = value.mSouvenirId;
 						var appendString2 = "<tr>";
 								appendString2 += "<td>";
-									appendString2 += "<select class='form-control' id='souveniredit_"+souvenir.id+"' value='"+souvenir.name+"' disabled><c:forEach items='${listSouvenirItem }' var='item'><option value='${item.id }'>${item.name }</option></c:forEach></select>";
+									appendString2 += "<input class='form-control' value='"+souvenir.name+"' disabled />";
 								appendString2 += "</td>";
 								appendString2 += "<td>";
 									appendString2 += "<input class='form-control' id='qty-item-edit' value='"+value.qty+"' disabled>";
@@ -1136,6 +1162,7 @@
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
 		      					<select class="form-control" id="event-code">
+				      				<option selected value = "">- Select Event -</option>
 				      				<c:forEach items="${listEvent }" var="event">
 										<option value="${event.id }">${event.code } - ${event.eventName }</option>
 									</c:forEach>
