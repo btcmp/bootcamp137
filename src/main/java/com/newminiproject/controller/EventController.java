@@ -129,17 +129,17 @@ public class EventController {
 		//1
 		Date requestDateSearchParsing = null;
 		if(!requestDateSearch.equals("")) {
-			requestDateSearchParsing = new SimpleDateFormat("yyyy-MM-dd").parse(requestDateSearch);
+			requestDateSearchParsing = new SimpleDateFormat("dd/MM/yyyy").parse(requestDateSearch);
 		}
 		//2
 		Date dueDateSearchParsing = null;
 		if(!dueDateSearch.equals("")) {
-			dueDateSearchParsing = new SimpleDateFormat("yyyy-MM-dd").parse(dueDateSearch);
+			dueDateSearchParsing = new SimpleDateFormat("dd/MM/yyyy").parse(dueDateSearch);
 		}
 		//3
 		Date createdSearchParsing = null;
 		if(!createdSearch.equals("")) {
-			createdSearchParsing = new SimpleDateFormat("yyyy-MM-dd").parse(createdSearch);
+			createdSearchParsing = new SimpleDateFormat("dd/MM/yyyy").parse(createdSearch);
 		}
 		
 		

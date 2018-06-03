@@ -53,6 +53,10 @@
   	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
+ <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <!-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> -->
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	
   	
   	
@@ -74,8 +78,17 @@
 	  
 	  
 	  <script type="text/javascript">
+	  $( function() {
+		    $( "#dueDateSearchId" ).datepicker();
+		    $( "#requestDateSearchId" ).datepicker();
+		    $( "#createdSearchId" ).datepicker();
+		   
+		   
+		  } );
 $(document).ready(function(){
 	
+	$('#StartDate').datepicker({ dateFormat: 'yy-mm-dd' }).val();
+	$('#EndDate').datepicker({ dateFormat: 'yy-mm-dd' }).val();
 	var isd = <%= request.isUserInRole("ROLE_ADMIN") %>;
 	if(isd==true){
 		//alert('tes');
@@ -692,6 +705,7 @@ $(document).ready(function(){
 	  
 </head>
 <body class="hold-transition sidebar-mini">
+
 	
 <!-- For login user -->
 		<c:url value="/j_spring_security_logout" var="logoutUrl" />
@@ -727,8 +741,12 @@ $(document).ready(function(){
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <i class="fas fa-door-open"></i>
-     <a href="javascript:formSubmit()"> Logout</a>
+   		<ol class="breadcrumb">
+	  			<li> ${pageContext.request.userPrincipal.name}</li>
+	  			<li><a href="javascript:formSubmit()"><i class="fas fa-door-open"></i></a></li>
+	 		 
+			</ol>
+   
           
      
       
@@ -835,15 +853,6 @@ $(document).ready(function(){
 	          
 		</ul>
      </li>
-         
-          
-          
-         
-          
-          
-          
-          
-          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -875,7 +884,7 @@ $(document).ready(function(){
 	 		 	<li class="active"> List Event Request</li>
 			</ol>
 	    
-	
+	<!-- <p>Date: <input type="text" id="datepicker"></p> -->
 	    	<a href="#" class="btn btn-primary" id="btn-add" style="width:70px;float:right;">Add</a><br/><br/>
 	    	<a href="#" id="btnSearch" class="btn btn-warning" style="width:70px;color:white;float:right;">Search</a>
 	    	<form id="formrole">
@@ -887,16 +896,16 @@ $(document).ready(function(){
 	    			<input placeholder="Request By" class="form-control" type="text" name="requestSearch">	
 	    		</div>
 	    		<div class="col-auto">
-	    			<input placeholder="Request Date" class="form-control" type="text" name="requestDateSearch" onfocus="(this.type='date')" onblur="(this.type='text')">	
+	    			<input placeholder="Request Date" class="form-control" type="text" name="requestDateSearch" id="requestDateSearchId">	
 	    		</div>
 	    		<div class="col">
-	    			<input placeholder="Due Date" class="form-control" type="text" name="dueDateSearch" onfocus="(this.type='date')" onblur="(this.type='text')">	
+	    			<input placeholder="Due Date" class="form-control" type="text" name="dueDateSearch" id="dueDateSearchId">	
 	    		</div>
 	    		<div class="col-auto">
 	    			<input placeholder="Status" class="form-control" type="text" name="statusSearch">	
 	    		</div>
 	    		<div class="col">
-	    			<input placeholder="Created" class="form-control" type="text" name="createdSearch" onfocus="(this.type='date')" onblur="(this.type='text')">	
+	    			<input placeholder="Created" class="form-control" type="text" name="createdSearch" id="createdSearchId">	
 	    		</div>
 	    		<div class="col">
 	    			<input placeholder="Created By" class="form-control" type="text" name="createdBysearch">	
@@ -950,8 +959,8 @@ $(document).ready(function(){
 								</td>
 								<td>${event.createDate }</td>
 								<td>${event.createBy }</td>
-								<td><a class="edit" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-status="${event.status }" id="${event.id }" href="#">Edit</a> | 
-								<a class="view" data-status="${event.status }" id="${event.id }" href="#">View</a>
+								<td><a class="edit" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-pencil-alt"></i></a> | 
+								<a class="view" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-search"></i></a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -1009,7 +1018,7 @@ $(document).ready(function(){
 							      <label>* Event Start Date</label>
 							    </div>
 							    <div class="col">
-							       <input data-parsley-required="true" placeholder="Start Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="StartDate">	
+							       <input data-parsley-required="true" placeholder="Start Date" class="form-control" type="text" id="StartDate">	
 							    </div>
 							  </div>
 							  
@@ -1018,7 +1027,7 @@ $(document).ready(function(){
 							      <label>* Event End Date</label>
 							    </div>
 							    <div class="col">
-							       <input data-parsley-required="true" placeholder="End Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="EndDate">	
+							       <input data-parsley-required="true" placeholder="End Date" class="form-control" type="text" id="EndDate">	
 							    </div>
 							  </div>
 							  
