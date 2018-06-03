@@ -128,6 +128,7 @@ public class SouvenirRequestService {
 				ts.setNote(transactionSouvenir.getNote());
 				employee.setId(transactionSouvenir.getRequestBy().getId());
 				ts.setUpdatedBy(employee.getId());
+				ts.setCreatedBy(employee.getId());
 				
 				
 				souvenirRequestDao.update(ts);
@@ -182,12 +183,14 @@ public class SouvenirRequestService {
 		ts.setStatus(transactionSouvenir.getStatus());
 		employee.setId(transactionSouvenir.getRequestBy().getId());
 		ts.setApprovedBy(employee);
+		ts.setCreatedBy(employee.getId());
 		souvenirRequestDao.approved(ts);
 	}
 
 	public void rejected(TransactionSouvenir transactionSouvenir) {
 		// TODO Auto-generated method stub
 		TransactionSouvenir ts = new TransactionSouvenir();
+		Employee employee = new Employee();
 		ts.setId(transactionSouvenir.getId());
 		ts.setUpdatedDate(new Date());
 		ts.setSettlementDate(new Date());
@@ -195,6 +198,8 @@ public class SouvenirRequestService {
 		ts.setNote(transactionSouvenir.getNote());
 		ts.setStatus(transactionSouvenir.getStatus());
 		ts.setRejectReason(transactionSouvenir.getRejectReason());
+		employee.setId(transactionSouvenir.getRequestBy().getId());
+		ts.setCreatedBy(employee.getId());
 		souvenirRequestDao.rejected(ts);
 	}
 
@@ -209,6 +214,7 @@ public class SouvenirRequestService {
 		ts.setStatus(transactionSouvenir.getStatus());
 		employee.setId(transactionSouvenir.getRequestBy().getId());
 		ts.setReceivedBy(employee);
+		ts.setCreatedBy(employee.getId());
 		souvenirRequestDao.received(ts);
 	}
 
