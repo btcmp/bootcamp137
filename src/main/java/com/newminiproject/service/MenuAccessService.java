@@ -19,7 +19,6 @@ public class MenuAccessService {
 	
 	public void save(MenuAccess menuAccess) {
 		// TODO Auto-generated method stub
-		menuAccess.setCreatedBy("Admin");
 		menuAccess.setCreatedDate(new Date());
 		maDao.save(menuAccess);
 	}

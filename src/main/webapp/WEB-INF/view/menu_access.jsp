@@ -80,7 +80,8 @@
 					},
 					mMenuId:{
 						id : $('#menuAdd option:selected').val()
-					}
+					},
+					createdBy: $('#createdBy').val()
 			}
 			
 			$.ajax({
@@ -433,6 +434,7 @@
 						<div class="row">  	
 						  	<div class="col">
 						      <label for="name">* Role Id</label>
+						      <input type="hidden" id="createdBy" value="${pageContext.request.userPrincipal.name}">
 						    </div>
 						    <div class="col" id="roleAdd">
 						       <select class="form-control" style="font-size: 12px;">
