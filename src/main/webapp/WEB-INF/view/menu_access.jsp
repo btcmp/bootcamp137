@@ -83,7 +83,7 @@ table {
 					
 					$('#roleView').val(data.mRoleId.name);
 					$('#menuView').val(data.mMenuId.name);
-					//console.log(data);
+					console.log(data);
 				},
 				error:function(){
 					alert('Data not found');
@@ -118,7 +118,7 @@ table {
 		//button update function
 		$('#btn-save-edit').on('click', function(){
 			var menuAccess = {
-					id : $("#id").val(),
+					id: $('#id').val(),
 					mRoleId:{
 						id : $('#roleEdit option:selected').val()
 					},
@@ -126,7 +126,7 @@ table {
 						id : $('#menuEdit option:selected').val()
 					}
 			}
-			
+			console.log(menuAccess);
 			$.ajax({
 				url:'${pageContext.request.contextPath}/menu_access/update',
 				type:'PUT',
@@ -318,11 +318,12 @@ table {
 		      
 			      	<div class="row">
 					  <div class="col">
-					  	<div class="row">
-					  		<input type="hidden" id="id" class="form-control"/>
-					  	</div>
+					  	<!-- <div class="row">
+					  		<input type="hidden" id="id" class="form-control">
+					  	</div> -->
 						<div class="row">  	
 						  	<div class="col">
+						  	<input type="hidden" id="id">
 						      <label for="name">* Role Id</label>
 						    </div>
 						    <div class="col">

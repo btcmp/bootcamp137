@@ -67,6 +67,7 @@ public class MenuAccessDaoImpl implements MenuAccessDao{
 		query.setParameter(1, menuAccess.getmRoleId());
 		query.setParameter(2, menuAccess.getId());
 		query.executeUpdate();
+		session.flush();
 	}
 
 	@Override
