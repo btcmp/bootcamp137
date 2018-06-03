@@ -162,7 +162,8 @@
 					},
 					mMenuId:{
 						id : $('#menuEdit option:selected').val()
-					}
+					},
+					updatedBy: $('#updatedBy').val()
 			}
 			console.log(menuAccess);
 			$.ajax({
@@ -504,12 +505,10 @@
 		      
 			      	<div class="row">
 					  <div class="col">
-					  	<!-- <div class="row">
-					  		<input type="hidden" id="id" class="form-control">
-					  	</div> -->
 						<div class="row">  	
 						  	<div class="col">
 						  	<input type="hidden" id="id">
+						  	<input type="hidden" id="updatedBy" value="${pageContext.request.userPrincipal.name}">
 						      <label for="name">* Role Id</label>
 						    </div>
 						    <div class="col">
