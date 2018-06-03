@@ -1,90 +1,112 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*" %>
-<%@ page import="java.text.*" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import = "java.io.*,java.util.*" %>
+<%@ page import = "javax.servlet.*,java.text.*" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Data User</title>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<style type="text/css">
-table {
-    counter-reset: tableCount;     
+   <!-- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+  <title>List User</title>
+  	
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+	  <!-- Tell the browser to be responsive to screen width -->
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <!-- Font Awesome -->
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+		<!-- Ionicons -->
+	  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	  <!-- Theme style -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/dist/css/adminlte.min.css">
+	  <!-- iCheck -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/iCheck/flat/blue.css">
+	  <!-- Morris chart -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/morris/morris.css">
+	  <!-- jvectormap -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+	  <!-- Date Picker -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/datepicker/datepicker3.css">
+	  <!-- Daterange picker -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/daterangepicker/daterangepicker-bs3.css">
+	  <!-- bootstrap wysihtml5 - text editor -->
+	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+	  <!-- Google Font: Source Sans Pro -->
+	  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style>
+  input.parsley-error
+{
+	color: #B94A48 !important;
+	background-color: #F2DEDE !important;
+	border: 1px solid #EED3D7 !important;
 }
-.counterCell:before {              
-    content: counter(tableCount); 
-    counter-increment: tableCount; 
-}
-</style>
-
-<style>
-	#header{
-		height:40px;
-		background-color:#0069D9;
-		margin-bottom:10px;
-	}
+  </style>
+  
+<!-- 	ini di copy buat validasi -->
+  	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
+<!-- 	ini di copy buat validasi -->
+  	
+  	
+  	
+  	
+  	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function(){
 	
-	#header h5{
-		font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
-		padding-top:8px;
-		padding-left:8px;
-		color:white;
-	}
+	//add button
+	$('#btn-add').on('click', function(){
+		$('#modalAdd').modal();
+	});
 	
-	#body1{
-		width:98%;
-		margin:auto;
-	}
-	
-	#btn-add{
-		width:70px;
-		float:right;
-		color:white;
-	}
-	
-	#btnSearch{
-		width:70px;
-		color:white;
-	}
-</style>
-
-<script type="text/javascript">
-	$(document).ready(function(){
+	//Submit Add
+	$(document).on('click', '#btn-save-add', function(event){
+		event.preventDefault();
+		var user={
+			mEmployeeId:{
+				id : $('#m-employee-id option:selected').val()
+			},
+			listRole:[],
+			username: $('#username-add').val(),
+			password: $('#password-add').val()
+		}			
 		
-		//add button
-		$('#btn-add').on('click', function(){
-			$('#modalAdd').modal();
+		user.listRole.push({
+			id: $('#m-role-id option:selected').val()
 		});
 		
-		//Submit Add
-		$(document).on('click', '#btn-save-add', function(event){
-			event.preventDefault();
-			var user={
-				mEmployeeId:{
-					id : $('#m-employee-id option:selected').val()
-				},
-				listRole:[],
-				username: $('#username-add').val(),
-				password: $('#password-add').val()
-			}			
+		var oCode1 = $('#username-add').parsley( {
+			required : true,
+			requiredMessage : ' must be filled!!',
+			minlengthMessage: ' must more than 5 character',
+			typeMessage: ' must be email character'
 			
-			user.listRole.push({
-				id: $('#m-role-id option:selected').val()
-			});
+		} );
+		
+		var oCode2 = $('#password-add').parsley( {
+			required : true,
+			requiredMessage : ' must be filled!!',
+			minlengthMessage: ' must more than 5 character',
+			typeMessage: ' must be email character'
 			
+		} );
+		
+		var valid = getValid(oCode1);
+			valid = getValid(oCode2);
+		
+		if(valid){
 			$.ajax({
 				url: '${pageContext.request.contextPath}/user/save',
 				type: 'POST',
@@ -98,113 +120,270 @@ table {
 					alert('error');
 				}
 			});
-		});
+		}
 		
-		//icon edit
-		$('.edit').on('click', function(){
-			var editCode = $(this).attr('edit-id');
-			console.log(editCode);
-			$.ajax({
-				url: '${pageContext.request.contextPath}/user/getuser?id=' + editCode,
-				type: 'GET',
-				success:function(data){
-					$('#id').val(data.id);
-					$('#roleEdit').val(data.listRole[0].id);
-					$('#employeeEdit').val(data.mEmployeeId.id);
-					$('#usernameEdit').val(data.username);
-					$('#passwordEdit').val(data.password);
-					console.log(data);	
-				},
-				error:function(){
-					alert('Data not found');
-				},
-				dataType: 'JSON'
-			});
-			$('#modalEdit').modal();
+		function getValid(validate){
+			validate.validate();	
+			return validate.isValid();
+		}
+	});
+	
+	//icon edit
+	$('.edit').on('click', function(){
+		var editCode = $(this).attr('edit-id');
+		console.log(editCode);
+		$.ajax({
+			url: '${pageContext.request.contextPath}/user/getuser?id=' + editCode,
+			type: 'GET',
+			success:function(data){
+				$('#id').val(data.id);
+				$('#roleEdit').val(data.listRole[0].id);
+				$('#employeeEdit').val(data.mEmployeeId.id);
+				$('#usernameEdit').val(data.username);
+				$('#passwordEdit').val(data.password);
+				console.log(data);	
+			},
+			error:function(){
+				alert('Data not found');
+			},
+			dataType: 'JSON'
 		});
-		
-		//button update function
-		$('#btn-save-update').on('click', function(){
-			var user = {
-				id: $('#id').val(),
-				mEmployeeId:{
-					id : $('#employeeEdit option:selected').val()
-				},
-				listRole:[],
-				username: $('#username-add').val(),
-				password: $('#password-add').val()
-			}
-			user.listRole.push({
-				id: $('#roleEdit option:selected').val()
-			});
-			$.ajax({
-				url:'${pageContext.request.contextPath}/user/update',
-				type:'POST',
-				data:JSON.stringify(user),
-				contentType:'application/json',
-				success:function(data){
-					alert('update ok');
-					console.log(data);
-					window.location = '${pageContext.request.contextPath}/user'
-				},error:function(){
-					alert('gagal update');
-				}
-			});
+		$('#modalEdit').modal();
+	});
+	
+	//button update function
+	$('#btn-save-update').on('click', function(){
+		var user = {
+			id: $('#id').val(),
+			mEmployeeId:{
+				id : $('#employeeEdit option:selected').val()
+			},
+			listRole:[],
+			username: $('#username-add').val(),
+			password: $('#password-add').val()
+		}
+		user.listRole.push({
+			id: $('#roleEdit option:selected').val()
 		});
-		
-		//view data
-		$(document).on('click', '.view', function(){
-			var viewCode = $(this).attr('view-id');
-			$.ajax({
-				url: '${pageContext.request.contextPath}/user/getuser?id=' + viewCode,
-				type: 'GET',
-				success:function(data){
-					$('#roleView').val(data.listRole[0].name);
-					$('#employeeView').val(data.mEmployeeId.firstName);
-					$('#usernameView').val(data.username);
-					$('#passwordView').val(data.password);
-					console.log(data);
-				},
-				error:function(){
-					alert('Data not found');
-				},
-				dataType: 'JSON'
-			});
-			$('#modalView').modal();
-		});
-		
-		//delete
-		var delCode;
-		$(document).on('click', '.delete', function(){
-			delCode = $(this).attr('del-id');
-			console.log(delCode);
-			$('#modalDelete').modal();
-		});
-		
-		//button delete function
-		$('#btnDel').on('click', function(){
-			//alert('tes');
-			window.location="${pageContext.request.contextPath}/user/delete/" +delCode;
-		});
-		
-		//search button
-		$('#btnSearch').on('click', function(){
-			var form = $("#formuser");
-			var data = form.serialize();
-			console.log(data);
-			if(data == "usernameSearch=&userCreatedDate=&userCreatedBy="){
-				window.location = '${pageContext.request.contextPath}/user'	
-			}
-			else{
-				window.location = '${pageContext.request.contextPath}/user/search?'+data;	
+		$.ajax({
+			url:'${pageContext.request.contextPath}/user/update',
+			type:'POST',
+			data:JSON.stringify(user),
+			contentType:'application/json',
+			success:function(data){
+				alert('update ok');
+				console.log(data);
+				window.location = '${pageContext.request.contextPath}/user'
+			},error:function(){
+				alert('gagal update');
 			}
 		});
 	});
+	
+	//view data
+	$(document).on('click', '.view', function(){
+		var viewCode = $(this).attr('view-id');
+		$.ajax({
+			url: '${pageContext.request.contextPath}/user/getuser?id=' + viewCode,
+			type: 'GET',
+			success:function(data){
+				var fullName= data.mEmployeeId.firstName + ' ' +data.mEmployeeId.lastName;
+				$('#roleView').val(data.listRole[0].name);
+				$('#employeeView').val(fullName);
+				$('#usernameView').val(data.username);
+				$('#passwordView').val(data.password);
+				console.log(data);
+			},
+			error:function(){
+				alert('Data not found');
+			},
+			dataType: 'JSON'
+		});
+		$('#modalView').modal();
+	});
+	
+	//delete
+	var delCode;
+	$(document).on('click', '.delete', function(){
+		delCode = $(this).attr('del-id');
+		console.log(delCode);
+		$('#modalDelete').modal();
+	});
+	
+	//button delete function
+	$('#btnDel').on('click', function(){
+		//alert('tes');
+		window.location="${pageContext.request.contextPath}/user/delete/" +delCode;
+	});
+	
+	//search button
+	$('#btnSearch').on('click', function(){
+		var form = $("#formuser");
+		var data = form.serialize();
+		console.log(data);
+		if(data == "usernameSearch=&userCreatedDate=&userCreatedBy="){
+			window.location = '${pageContext.request.contextPath}/user'	
+		}
+		else{
+			window.location = '${pageContext.request.contextPath}/user/search?'+data;	
+		}
+	});
+});
 </script>
+	  
 </head>
-<body>
-	<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
-		<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Role</h5>
+<body class="hold-transition sidebar-mini">
+<c:url value="/j_spring_security_logout" var="logoutUrl" />
+		<form action="${logoutUrl}" method="post" id="logoutForm">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
+		<script>
+			function formSubmit() {
+				document.getElementById("logoutForm").submit();
+			}
+		</script>
+<div class="wrapper">
+
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+      </li>
+    </ul>
+   <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+   		<ol class="breadcrumb">
+	  			<li> ${pageContext.request.userPrincipal.name}</li>
+	  			<li><a href="javascript:formSubmit()"><i class="fas fa-door-open"></i></a></li>
+	 		 
+			</ol>
+   
+          
+     
+      
+      
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="#" class="brand-link">
+      <img src="${pageContext.request.contextPath }/assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Marcom Apps</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+     <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+          
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Master Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/company" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Company</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/employee" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Employee</p>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/unit" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Unit</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/product" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Product</p>
+            </a>
+          </li>
+          
+           
+		</ul>
+     </li>
+     
+     <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Transaction Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+	             <li class="nav-item">
+	           		 <a href="${pageContext.request.contextPath }/event" class="nav-link">
+	           	   <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Event</p>
+	            </a>
+	          	</li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/design" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Design</p>
+	            </a>
+	          </li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/promotion" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Promotion</p>
+	            </a>
+	          </li>
+	          
+	         <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/souvenir" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Souvernir</p>
+	            </a>
+	          </li>
+	          
+	          
+		</ul>
+     </li>
+          
+          
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+   
+
+    <!-- Main content -->
+    <section class="content">
+    	<div class="container-fluid">
+    	
+    	<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
+		<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List User</h5>
 	</div>
 	
 	<div style="width:98%;margin:auto;">
@@ -243,7 +422,7 @@ table {
     	</form>
 			
 			<div>
-				<table class="table">
+				<table class="table" id="tabs">
 					<thead>
 						<tr>
 							<th scope="col">No</th>
@@ -378,7 +557,8 @@ table {
 		      
 			      	<div class="row">
 					  <div class="col">
-						<div class="row">  	
+						<div class="row">
+							<input type="hidden" id="id">  	
 						  	<div class="col">
 						      <label for="name">* Role Name</label>
 						    </div>
@@ -535,5 +715,55 @@ table {
 	</div>
 		
 	</div>
+       
+       
+       
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2014-2018 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.0.0-alpha
+    </div>
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- Bootstrap 4 -->
+<script src="${pageContext.request.contextPath }/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="${pageContext.request.contextPath }/assets/dist/js/adminlte.min.js"></script>
+<%-- </c:if> --%>
+
+<script>
+ $(function () {
+    //datatabel
+   var t = $('#tabs').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+    
+    t.on( 'order.dt search.dt', function () {
+	        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+	            cell.innerHTML = i+1;
+	        } );
+	    } ).draw();
+    
+  }); 
+</script>
 </body>
 </html>

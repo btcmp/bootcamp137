@@ -63,10 +63,13 @@ public class DesignController {
 	public String index(Model model) {
 		List<Event> listEvent = eventService.getAll();
 		List<Employee> listEmployee = employeeService.getAll();
+		//List<Employee> listEmployeeStaff = employeeService.getEmployeeStaff();
 		List<Design> listDesign = designService.getListDesign();
 		List<Product> listProduct = productService.getAllProduct();
 		model.addAttribute("listEvent", listEvent);
 		model.addAttribute("listEmployee", listEmployee);
+		//model.addAttribute("listEmployeeStaff", listEmployeeStaff);
+		//System.out.println("list emp staff : "+listEmployeeStaff);
 		model.addAttribute("listDesign", listDesign);
 		model.addAttribute("listProduct", listProduct);
 		String hasil = seqDao.addSeq();

@@ -21,7 +21,7 @@
 	  <!-- Tell the browser to be responsive to screen width -->
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <!-- Font Awesome -->
-	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/font-awesome/css/font-awesome.min.css">
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	  <!-- Ionicons -->
 	  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	  <!-- Theme style -->
@@ -53,6 +53,10 @@
   	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
+ <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <!-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> -->
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	
   	
   	
@@ -74,8 +78,17 @@
 	  
 	  
 	  <script type="text/javascript">
+	  $( function() {
+		    $( "#dueDateSearchId" ).datepicker();
+		    $( "#requestDateSearchId" ).datepicker();
+		    $( "#createdSearchId" ).datepicker();
+		   
+		   
+		  } );
 $(document).ready(function(){
 	
+	$('#StartDate').datepicker({ dateFormat: 'yy-mm-dd' }).val();
+	$('#EndDate').datepicker({ dateFormat: 'yy-mm-dd' }).val();
 	var isd = <%= request.isUserInRole("ROLE_ADMIN") %>;
 	if(isd==true){
 		//alert('tes');
@@ -297,12 +310,15 @@ $(document).ready(function(){
 		
 ///////////edit even listener///////////////////////////////////////////////////////////////////////////////////
 		//$('.edit').on('click', function(){
+		var statusLogin;
 		var statusSubmit;
+		var statusAssign;
 		var idBB;
 		$(document).on('click','.edit',function(){	
 			idBB = $(this).attr('id');
 			var statusUser = $(this).attr('data-role-user');
 			var statusAdmin = $(this).attr('data-role-admin');
+			statusAssign = $(this).attr('data-closeby');
 			//console.log(abc);
 			$.ajax({
 				url : '${pageContext.request.contextPath}/event/getevent/'+ idBB,
@@ -321,7 +337,7 @@ $(document).ready(function(){
 					$('#statusE').val(data.status);
 					$('#NoteE').val(data.note);
 					$('#EmployeeName').val(data.employee.firstName);
-					
+					statusLogin = data.requestBy.id;
 					//$('#assignTOE').val(data.employee.firstName);
 					//document.getElementById("valueAssign").value = data.employee.id;
 					
@@ -589,12 +605,22 @@ $(document).ready(function(){
 		});
 		
 		$('#btnClsDt').on('click',function(){
+			//data-closeby
+			statusAssign;
+			statusLogin;
+			
+			if(statusAssign==statusLogin){
+				alert('sesuai');
+			}else{
+				alert('tidak sesuai');
+			}
+			
 			var event = {
 					id:$('#id').val(),
 					updateBy:$('#updateBy').val()
 				}
-			//console.log(event);
-		   	$.ajax({
+			//console.log(statusAssign);
+		   	/* $.ajax({
 				url:'${pageContext.request.contextPath}/event/updatecls',
 				type:'POST',
 				data:JSON.stringify(event),
@@ -606,7 +632,7 @@ $(document).ready(function(){
 				},error:function(){
 					alert('gagal update');
 				}
-			});
+			}); */
 		
 		});
 //rejected event/////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -692,6 +718,7 @@ $(document).ready(function(){
 	  
 </head>
 <body class="hold-transition sidebar-mini">
+
 	
 <!-- For login user -->
 		<c:url value="/j_spring_security_logout" var="logoutUrl" />
@@ -727,7 +754,12 @@ $(document).ready(function(){
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-     <a href="javascript:formSubmit()"> Logout</a>
+   		<ol class="breadcrumb">
+	  			<li> ${pageContext.request.userPrincipal.name}</li>
+	  			<li><a href="javascript:formSubmit()"><i class="fas fa-door-open"></i></a></li>
+	 		 
+			</ol>
+   
           
      
       
@@ -752,29 +784,88 @@ $(document).ready(function(){
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        
-         
-           <%--  <a href="#" class="nav-link">
-              <p>
-                <h2><a href="#" class="d-block">${pageContext.request.userPrincipal.name}</a></h2>
-              </p>
-            </a> --%>
+         <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
           
-          <li class="nav-header">Menu</li>
-          <li class="nav-item">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Master Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
             <a href="${pageContext.request.contextPath }/company" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
               <p>Company</p>
             </a>
           </li>
+          
           <li class="nav-item">
-            <a href="${pageContext.request.contextPath }/event" class="nav-link">
+            <a href="${pageContext.request.contextPath }/employee" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
-              <p>Event</p>
+              <p>Employee</p>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/unit" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Unit</p>
             </a>
           </li>
           
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/product" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Product</p>
+            </a>
+          </li>
           
+           
+		</ul>
+     </li>
+     
+     <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Transaction Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+	             <li class="nav-item">
+	           		 <a href="${pageContext.request.contextPath }/event" class="nav-link">
+	           	   <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Event</p>
+	            </a>
+	          	</li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/design" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Design</p>
+	            </a>
+	          </li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/promotion" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Promotion</p>
+	            </a>
+	          </li>
+	          
+	         <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/souvenir" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Souvernir</p>
+	            </a>
+	          </li>
+	          
+	          
+		</ul>
+     </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -806,7 +897,7 @@ $(document).ready(function(){
 	 		 	<li class="active"> List Event Request</li>
 			</ol>
 	    
-	
+	<!-- <p>Date: <input type="text" id="datepicker"></p> -->
 	    	<a href="#" class="btn btn-primary" id="btn-add" style="width:70px;float:right;">Add</a><br/><br/>
 	    	<a href="#" id="btnSearch" class="btn btn-warning" style="width:70px;color:white;float:right;">Search</a>
 	    	<form id="formrole">
@@ -818,16 +909,16 @@ $(document).ready(function(){
 	    			<input placeholder="Request By" class="form-control" type="text" name="requestSearch">	
 	    		</div>
 	    		<div class="col-auto">
-	    			<input placeholder="Request Date" class="form-control" type="text" name="requestDateSearch" onfocus="(this.type='date')" onblur="(this.type='text')">	
+	    			<input placeholder="Request Date" class="form-control" type="text" name="requestDateSearch" id="requestDateSearchId">	
 	    		</div>
 	    		<div class="col">
-	    			<input placeholder="Due Date" class="form-control" type="text" name="dueDateSearch" onfocus="(this.type='date')" onblur="(this.type='text')">	
+	    			<input placeholder="Due Date" class="form-control" type="text" name="dueDateSearch" id="dueDateSearchId">	
 	    		</div>
 	    		<div class="col-auto">
 	    			<input placeholder="Status" class="form-control" type="text" name="statusSearch">	
 	    		</div>
 	    		<div class="col">
-	    			<input placeholder="Created" class="form-control" type="text" name="createdSearch" onfocus="(this.type='date')" onblur="(this.type='text')">	
+	    			<input placeholder="Created" class="form-control" type="text" name="createdSearch" id="createdSearchId">	
 	    		</div>
 	    		<div class="col">
 	    			<input placeholder="Created By" class="form-control" type="text" name="createdBysearch">	
@@ -881,8 +972,8 @@ $(document).ready(function(){
 								</td>
 								<td>${event.createDate }</td>
 								<td>${event.createBy }</td>
-								<td><a class="edit" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-status="${event.status }" id="${event.id }" href="#">Edit</a> | 
-								<a class="view" data-status="${event.status }" id="${event.id }" href="#">View</a>
+								<td><a class="edit" data-closeby="${event.employee.id }" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-pencil-alt"></i></a> | 
+								<a class="view" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-search"></i></a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -940,7 +1031,7 @@ $(document).ready(function(){
 							      <label>* Event Start Date</label>
 							    </div>
 							    <div class="col">
-							       <input data-parsley-required="true" placeholder="Start Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="StartDate">	
+							       <input data-parsley-required="true" placeholder="Start Date" class="form-control" type="text" id="StartDate">	
 							    </div>
 							  </div>
 							  
@@ -949,7 +1040,7 @@ $(document).ready(function(){
 							      <label>* Event End Date</label>
 							    </div>
 							    <div class="col">
-							       <input data-parsley-required="true" placeholder="End Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="EndDate">	
+							       <input data-parsley-required="true" placeholder="End Date" class="form-control" type="text" id="EndDate">	
 							    </div>
 							  </div>
 							  

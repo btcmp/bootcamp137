@@ -137,10 +137,10 @@
        		<table id="dt-designItem" class="display" style="width:100%;">
 				<thead>
 					<tr>
-						<th>Product</th>
-						<th style="width:140px">Product Description</th>
-						<th style="width:120px">Title</th>
-						<th style="width:120px">Request PIC</th>
+						<th style="width:130px">Product</th>
+						<th style="width:120px">Product Description</th>
+						<th style="width:130px">Title</th>
+						<th style="width:130px">Request PIC</th>
 						<th>Due Date</th>
 						<th>Start Date</th>
 						<th>End Date</th>
@@ -255,15 +255,14 @@
        		<table id="dt-designItemEdit" class="display" style="width:100%;">
 				<thead>
 					<tr>
-						<th>Product</th>
-						<th style="width:140px">Product Description</th>
-						<th style="width:120px">Title</th>
-						<th style="width:120px">Request PIC</th>
+						<th style="width:130px">Product</th>
+						<th style="width:120px">Product Description</th>
+						<th style="width:130px">Title</th>
+						<th style="width:130px">Request PIC</th>
 						<th>Due Date</th>
 						<th>Start Date</th>
 						<th>End Date</th>
 						<th style="width:120px">Note</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>

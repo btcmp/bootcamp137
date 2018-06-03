@@ -71,7 +71,10 @@ select.parsley-error
 <!-- 	ini di copy buat validasi -->
   	
   	
-  	
+  	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+     <!--  <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> -->
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	
   	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -81,6 +84,14 @@ select.parsley-error
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	//isi script
+	 $(function() {
+         $( "#created-date" ).datepicker({
+        	 dateFormat:"yy-mm-dd"
+         });
+         
+      });
+	
+	
 	$(document).ready(function(){
 		$(document).on('click', '#btn-add', function(){
 			$('#modal-add').modal();
@@ -371,7 +382,7 @@ select.parsley-error
 	    		</div>
   			</div>
     		<div class="col-auto">
-    			<input placeholder="Created" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="createddate" id="created-date">	
+    			<input placeholder="Created" class="form-control" type="text" name="createddate" id="created-date">	
     		</div>
     		<div class="col-auto">
     			<input type="text" class="form-control" name="createdby" id="created-by" placeholder="Created By">
@@ -494,7 +505,7 @@ select.parsley-error
 		      		</div>
 		      		<div class="col-md-3">
 		      			<input type="hidden" id="id-edit">
-		      			<input id="code-edit" type="text" class="form-control" placeholder="Auto generated">
+		      			<input id="code-edit" type="text" class="form-control" placeholder="Auto generated" disabled>
 		      		</div>
 		      		<div class="col-md-2">
 		      			<label>* Unit Name</label>

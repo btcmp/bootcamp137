@@ -52,6 +52,12 @@
 	background-color: #F2DEDE !important;
 	border: 1px solid #EED3D7 !important;
 }
+select.parsley-error
+{
+	color: #B94A48 !important;
+	background-color: #F2DEDE !important;
+	border: 1px solid #EED3D7 !important;
+}
   </style>
   
 <!-- 	ini di copy buat validasi -->
@@ -62,7 +68,7 @@
   	
   	 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
          rel = "stylesheet">
-      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <!-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> -->
       <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	
   	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
@@ -84,6 +90,12 @@
         	 dateFormat:"yy-mm-dd"
          });
          $( "#created" ).datepicker({
+        	 dateFormat:"yy-mm-dd"
+         });
+         $( "#duedate" ).datepicker({
+        	 dateFormat:"yy-mm-dd"
+         }); 
+         $( "#duedateedit" ).datepicker({
         	 dateFormat:"yy-mm-dd"
          });
       });
@@ -126,22 +138,42 @@
 					transactionSouvenirItem : []
 			};
 			
+			//validasi field di  modal add
+			
+			var validateEvent = $('#event-code').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			
+			//validate function
+			function getValid(validate){
+				validate.validate();
+				return validate.isValid();
+			}
+			
+			var valid = getValid(validateEvent);
+			
 			_readTableData(request.transactionSouvenirItem);
 			console.log(request);
 			
-			$.ajax({
-				url : '${pageContext.request.contextPath}/souvenirrequest/save',
-				type : 'POST',
-				data : JSON.stringify(request),
-				contentType : 'application/json',
-				success: function(data){
-					console.log(data);
-					window.location = '${pageContext.request.contextPath}/souvenirrequest'
-				}, error : function(){
-					alert('error');
-				}
-				
-			});
+			if(valid){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/souvenirrequest/save',
+					type : 'POST',
+					data : JSON.stringify(request),
+					contentType : 'application/json',
+					success: function(data){
+						console.log(data);
+						window.location = '${pageContext.request.contextPath}/souvenirrequest'
+					}, error : function(){
+						alert('error');
+					}
+					
+				});
+			} else {
+				alert('Please Complete the Blank Field(s)');
+			}
+			
 			$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
 			    $("#success-alert").slideUp(500);
 			});
@@ -289,6 +321,7 @@
 				url : '${pageContext.request.contextPath}/souvenirrequest/gettransactionsouvenir?id=' + id,
 				type : 'GET',
 				success : function(obj){
+					var fullName = obj.requestBy.firstName + ' ' + obj.requestBy.lastName;
 					$('#id-edit').val(obj.id);
 					$('#id-admin').val(obj.id);
 					$('#id-received').val(obj.id);
@@ -307,12 +340,12 @@
 					$('#event-code-set').val(obj.tEventId.id);
 					$('#event-code-apset').val(obj.tEventId.id);
 					$('#event-code-close').val(obj.tEventId.id);
-					$('#requestbyedit').val(obj.requestBy.firstName);
-					$('#requestbyadmin').val(obj.requestBy.firstName);
-					$('#requestbyreceived').val(obj.requestBy.firstName);
-					$('#requestbyset').val(obj.requestBy.firstName);
-					$('#requestbyapset').val(obj.requestBy.firstName);
-					$('#requestbyclose').val(obj.requestBy.firstName);
+					$('#requestbyedit').val(fullName);
+					$('#requestbyadmin').val(fullName);
+					$('#requestbyreceived').val(fullName);
+					$('#requestbyset').val(fullName);
+					$('#requestbyapset').val(fullName);
+					$('#requestbyclose').val(fullName);
 					$('#requestdateedit').val(obj.requestDate);
 					$('#requestdateadmin').val(obj.requestDate);
 					$('#requestdatereceived').val(obj.requestDate);
@@ -331,6 +364,7 @@
 					$('#noteset').val(obj.note);
 					$('#noteapset').val(obj.note);
 					$('#noteclose').val(obj.note);
+					$('#rejectreasonrequester').val(obj.rejectReason);
 					
 /* ---------------------------ketika status 1 (Requester)--------------------------------- */					
 					var oTable2 = $('#dataitemedit');
@@ -405,7 +439,7 @@
 						var souvenir = value.mSouvenirId;
 						var appendString2 = "<tr>";
 								appendString2 += "<td>";
-									appendString2 += "<select class='form-control' id='souveniredit_"+souvenir.id+"' value='"+souvenir.name+"' disabled><c:forEach items='${listSouvenirItem }' var='item'><option value='${item.id }'>${item.name }</option></c:forEach></select>";
+									appendString2 += "<input class='form-control' value='"+souvenir.name+"' disabled />";
 								appendString2 += "</td>";
 								appendString2 += "<td>";
 									appendString2 += "<input class='form-control' id='qty-item-edit' value='"+value.qty+"' disabled>";
@@ -548,9 +582,10 @@
 			} else if($(this).attr('data-status') == 6){
 				var status = document.getElementById('statusedit');
 				status.value = "Close Request";
-			} else if($(this).attr('data-status') == 0){
+			} else if($(this).attr('data-status') == 0 && statusRequester=="true"){
 				var status = document.getElementById('statusedit');
 				status.value = "Rejected";
+				$('#modal-reject-reason-requester').modal();
 			}
 		
 		});
@@ -615,21 +650,44 @@
 			};
 			//console.log(requestEdit);
 			
+			//validate di modal edit
+			var validateEventEdit = $('#event-code-edit').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			var validateDueDateEdit = $('#duedateedit').parsley({
+				required : true,
+				requiredMessage : 'The Field cant be Empty'
+			});
+			
+			//validate function
+			function getValid(validate){
+				validate.validate();
+				return validate.isValid();
+			}
+			
+			var validEdit = getValid(validateEventEdit);
+				validEdit = getValid(validateDueDateEdit);
+			
 			_readTableDataEdit(requestEdit.transactionSouvenirItem);
 			
 			//do ajax
-			$.ajax({
-				url : '${pageContext.request.contextPath}/souvenirrequest/update',
-				type : 'PUT',
-				data : JSON.stringify(requestEdit),
-				contentType : 'application/json',
-				success : function(data){
-					console.log(data);
-					window.location = '${pageContext.request.contextPath}/souvenirrequest'
-				}, error : function(){
-					alert('failed');
-				}
-			});
+			if(validEdit){
+				$.ajax({
+					url : '${pageContext.request.contextPath}/souvenirrequest/update',
+					type : 'PUT',
+					data : JSON.stringify(requestEdit),
+					contentType : 'application/json',
+					success : function(data){
+						console.log(data);
+						window.location = '${pageContext.request.contextPath}/souvenirrequest'
+					}, error : function(){
+						alert('failed');
+					}
+				});
+			} else {
+				alert('Please Complete the Blank Field(s)');
+			}
 			
 		});
 		
@@ -1084,7 +1142,7 @@
 							</c:choose>
 						</td>
 						<td scope="col">${transaction.createdDate }</td>
-						<td scope="col">${pageContext.request.userPrincipal.name}</td>
+						<td scope="col">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</td>
 						<td scope="col">
 							<a data-id="${transaction.id }"  data-status="${transaction.status }" id="btn-view-transaksi" href="#" style="color:inherit;"><i class="fas fa-search"></i></a>
 		  					<a data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-id="${transaction.id }" data-status="${transaction.status }" id="btn-edit-transaksi" href="#" style="color:inherit;"><i class="fas fa-pencil-alt"></i></a>
@@ -1130,6 +1188,7 @@
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
 		      					<select class="form-control" id="event-code">
+				      				<option selected value = "">- Select Event -</option>
 				      				<c:forEach items="${listEvent }" var="event">
 										<option value="${event.id }">${event.code } - ${event.eventName }</option>
 									</c:forEach>
@@ -1146,7 +1205,7 @@
 		      			</div>
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
-		      					<input type="text" id="requestby" name="request-by" placeholder="Request By" class="form-control" disabled>
+		      					<input type="text" id="requestby" name="request-by" placeholder="${requester }" class="form-control" disabled>
 		      				</div>
 		      			</div>
 		      		</div>
@@ -1173,7 +1232,7 @@
 		      			</div>
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
-		      					<input placeholder="Select Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="duedate">	
+		      					<input placeholder="Select Date" class="form-control" type="text" id="duedate">	
 		      				</div>
 		      			</div>
 		      		</div>
@@ -1675,6 +1734,7 @@
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
 		      					<select class="form-control" id="event-code-edit">
+				      				<option selected value = "">- Select Event -</option>
 				      				<c:forEach items="${listEvent }" var="event">
 										<option value="${event.id }">${event.code } - ${event.eventName }</option>
 									</c:forEach>
@@ -1718,7 +1778,7 @@
 		      			</div>
 		      			<div class="col-sm-6">
 		      				<div style="margin-bottom:5px;">
-		      					<input placeholder="Select Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="duedateedit">	
+		      					<input placeholder="Select Date" class="form-control" type="text" id="duedateedit">	
 		      				</div>
 		      			</div>
 		      		</div>
@@ -1842,6 +1902,27 @@
 	      <div style="margin:auto;padding-bottom:5px;">
 	        <button type="button" class="btn btn-primary btn-reject-reason">Reject</button>
 	        <button id="cancel-btn" type="button" class="btn btn-warning" style="color:white;">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- Modal Reject Reason Requester -->
+	<div class="modal fade bd-example-modal-sm" id="modal-reject-reason-requester" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog modal-sm" role="document">
+	    <div class="modal-content">
+	      <div style="float:right;clear:right;">
+	        <button id="close" style="background-color:red;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p style="text-align:center;">Reject Reason</p>
+	        <textarea style="height:100px;" id="rejectreasonrequester" placeholder="Input Reject Reason" class="form-control" disabled></textarea>
+	      </div>
+	      <div style="margin:auto;padding-bottom:5px;">
+	        <button id="cancel-btn" type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Cancel</button>
 	      </div>
 	    </div>
 	  </div>

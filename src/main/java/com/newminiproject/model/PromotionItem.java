@@ -72,16 +72,14 @@ public class PromotionItem {
 	private int isDelete;
 	
 	@JoinColumn (name = "created_by")
-	@ManyToOne
-	private Employee createdBy;
+	private String createdBy;
 	
 	@Temporal(TemporalType.DATE)
 	@Column (name = "created_date")
 	private Date createdDate;
 	
 	@JoinColumn (name ="updated_by")
-	@ManyToOne
-	private Employee updatedBy;
+	private String updatedBy;
 	
 	@Temporal(TemporalType.DATE)
 	@Column (name = "update_date")
@@ -197,12 +195,22 @@ public class PromotionItem {
 		this.isDelete = isDelete;
 	}
 
-	public Employee getCreatedBy() {
+	
+
+	public String getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(Employee createdBy) {
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
 	}
 
 	public Date getCreatedDate() {
@@ -213,13 +221,7 @@ public class PromotionItem {
 		this.createdDate = createdDate;
 	}
 
-	public Employee getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(Employee updatedBy) {
-		this.updatedBy = updatedBy;
-	}
+	
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;

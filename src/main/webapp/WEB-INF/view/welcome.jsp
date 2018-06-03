@@ -100,19 +100,88 @@
      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header">Menu</li>
-          <li class="nav-item">
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+          
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Master Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
             <a href="${pageContext.request.contextPath }/company" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
               <p>Company</p>
             </a>
           </li>
+          
           <li class="nav-item">
-            <a href="${pageContext.request.contextPath }/event" class="nav-link">
+            <a href="${pageContext.request.contextPath }/employee" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
-              <p>Event</p>
+              <p>Employee</p>
             </a>
           </li>
+         
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/unit" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Unit</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/product" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Product</p>
+            </a>
+          </li>
+          
+           
+		</ul>
+     </li>
+     
+     <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Transaction Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+	             <li class="nav-item">
+	           		 <a href="${pageContext.request.contextPath }/event" class="nav-link">
+	           	   <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Event</p>
+	            </a>
+	          	</li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/design" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Design</p>
+	            </a>
+	          </li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/promotion" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Promotion</p>
+	            </a>
+	          </li>
+	          
+	         <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/souvenir" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Souvernir</p>
+	            </a>
+	          </li>
+	          
+	          
+		</ul>
+     </li>
           
           
         </ul>
@@ -162,17 +231,7 @@
 	              </div>
 	            </div>
 	
-	            <div class="card card-primary card-outline">
-	              <div class="card-header">
-	                <h5 class="m-0">Role</h5>
-	              </div>
-	              <div class="card-body">
-	                <h6 class="card-title">Data Role</h6>
-	
-	                <p class="card-text">Contain About Information List Role</p>
-	                <a href="${pageContext.request.contextPath}/ role" class="btn btn-primary">Role</a>
-	              </div>
-	            </div>
+	           
 	          </div>
 	          <!-- BAGIAN KANAN DALAM CONTENT -->
 	          <div class="col-lg-6">
@@ -188,17 +247,7 @@
 	              </div>
 	            </div>
 	
-	            <div class="card card-primary card-outline">
-	              <div class="card-header">
-	                <h5 class="m-0">Featured</h5>
-	              </div>
-	              <div class="card-body">
-	                <h6 class="card-title">Special title treatment</h6>
-	
-	                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-	                <a href="#" class="btn btn-primary">Go somewhere</a>
-	              </div>
-	            </div>
+	            
 	          </div>
 	          <!-- /.col-md-6 -->
 	        </div>

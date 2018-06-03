@@ -76,7 +76,7 @@ public class MenuAccessController {
 		return maService.getMenuAccessById(id);
 	}
 	
-	@RequestMapping(value="/update", method=RequestMethod.PUT)
+	@RequestMapping(value="/update", method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public void update(@RequestBody MenuAccess menuAccess) {
 		maService.update(menuAccess);

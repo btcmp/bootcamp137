@@ -86,6 +86,8 @@
 				$('#idRequestBy').val(data.mEmployeeId.id);
 				$('#requestByNot').val(fullName);
 				$('#idRequestByNot').val(data.mEmployeeId.id);
+				$('#updatedByRequester').val(fullName);
+				$('#updatedByNot').val(fullName);
 			},
 			error : function (){
 				alert('error');
@@ -166,7 +168,7 @@
 					type : 'GET',
 					success : function(obj){
 					 	$('#titleHeaderDesignSave').val(obj.titleHeader);
-						$('#requestByDesignSave').val(obj.requestBy);
+						$('#requestByDesignSave').val(obj.requestBy.firstName + " " + obj.requestBy.lastName);
 						$('#requestDateDesignSave').val(obj.requestDate); 
 						$('#noteDesignHeaderSave').val(obj.note); 
 					
@@ -359,9 +361,7 @@
 				},  
 				status : 1,
 				requestDate : new Date($('#requestDateSave').val()),
-				createdBy : {
-					id : $('#idRequestBy').val()
-				},	
+				createdBy : $('#requestBySave').val(),
 				createdDate : new Date(),
 			
 				//Promotion Design Item
@@ -444,9 +444,7 @@
 					id : $('#idRequestByNot').val()
 				},
 				requestDate : new Date($('#requestDateSave').val()),
-				createdBy : {
-					id : $('#idRequestBy').val()
-				},	
+				createdBy : $('#requestByNot').val(),
 				createdDate : new Date(),
 				listPromotionItemFile : []
 			}
@@ -511,260 +509,776 @@
 		$('.tombolDetail').on('click', function(){
 			
 			var promoId = $(this).attr('value-promo-id-detail');
-			var flagDsg = $(this).attr('value-flag-design')
+			var flagDsg = $(this).attr('value-flag-design');
 			
-///////////////////////////////////////////// VIEW from Design ///////////////////////////////////////////////
+			var roleRequesterView = $(this).attr('data-role-requester');
+			var roleAdminView = $(this).attr('data-role-admin');
+			var roleStaffView = $(this).attr('data-role-staff');
 			
-			if (flagDsg == 1){
-				
-				$.ajax({
-					url:'${pageContext.request.contextPath}/promotion/getdetail?id=' + promoId,
-					type: 'GET',
-					dataType: 'json',
-					success : function(data){
-						//promotion header
-						$('#transCodeSaveView').val(data.code);
-						$('#eventSelectSaveView').val(data.event.code);
-						$('#titleHeaderSaveView').val(data.titleHeader);
-						$('#requestDateSaveView').val(data.requestDate);
-						$('#noteTitleHeaderView').val(data.note);
-						
-						var firstName = data.requestBy.firstName;
-						var lastName = data.requestBy.lastName
-						var fullName = firstName + " " + lastName 
-						
-						$('#requestBySaveView').val(fullName);
-						
-						var status = "";
-						if(data.status == 0){
-							status = "Rejected";
-						} else if (data.status == 1){
-							status = "Submitted";
-						} else if(data.status == 2){
-							status = "In Progress";
-						} else if (data.status == 3){
-							status = "Done";
-						}
-						$('#statusBySaveView').val(status);
-						
-						//design header
-						$('#designCodeSaveView').val(data.design.code);
-						$('#titleHeaderDesignSaveView').val(data.design.titleHeader);
-						$('#requestByDesignSaveView').val(data.design.requestBy);
-						$('#requestDateDesignSaveView').val(data.design.requestDate);
-						$('#noteDesignHeaderSaveView').val(data.design.note);
+			
+///////////////////////////////////////////// REQUESTER VIEW from Design ///////////////////////////////////////////////
+			
+			if(roleRequesterView == 'true'){
+				if (flagDsg == 1){
 					
-						//promotion item
-						var oTabel2 = $('#listDesignItemSaveView');
-						var tBody2 = oTabel2.find('tbody');
-						tBody2.find('tr').remove();
-						
-						$.each(data.listPromotionItem, function(index, value){
-							if(value.note == null){
-								value.note = " ";
-							} else {
-								value.note
+					$.ajax({
+						url:'${pageContext.request.contextPath}/promotion/getdetail?id=' + promoId,
+						type: 'GET',
+						dataType: 'json',
+						success : function(data){
+							//promotion header
+							$('#transCodeSaveView').val(data.code);
+							$('#eventSelectSaveView').val(data.event.code);
+							$('#titleHeaderSaveView').val(data.titleHeader);
+							$('#requestDateSaveView').val(data.requestDate);
+							$('#noteTitleHeaderView').val(data.note);
+							
+							var firstName = data.requestBy.firstName;
+							var lastName = data.requestBy.lastName
+							var fullName = firstName + " " + lastName 
+							
+							$('#requestBySaveView').val(fullName);
+							
+							var status = "";
+							if(data.status == 0){
+								status = "Rejected";
+							} else if (data.status == 1){
+								status = "Submitted";
+							} else if(data.status == 2){
+								status = "In Progress";
+							} else if (data.status == 3){
+								status = "Done";
 							}
+							$('#statusBySaveView').val(status);
 							
-							var appendString2 = '<tr>';
-									appendString2 += '<td>';
-										appendString2 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
-									appendString2 += '</td>';
+							//design header
+							$('#designCodeSaveView').val(data.design.code);
+							$('#titleHeaderDesignSaveView').val(data.design.titleHeader);
+							$('#requestByDesignSaveView').val(data.design.requestBy.firstName + " " + data.design.requestBy.lastName);
+							$('#requestDateDesignSaveView').val(data.design.requestDate);
+							$('#noteDesignHeaderSaveView').val(data.design.note);
 						
-									appendString2 += '<td>';
-										appendString2 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
-									appendString2 += '</td>';
-						
-									appendString2 += '<td>';
-										appendString2 += '<input type="text" value="' + value.designItem.titleItem + '" class="form-control" disabled>';
-									appendString2 += '</td>';
+							//promotion item
+							var oTabel2 = $('#listDesignItemSaveView');
+							var tBody2 = oTabel2.find('tbody');
+							tBody2.find('tr').remove();
+							
+							$.each(data.listPromotionItem, function(index, value){
+								if(value.note == null){
+									value.note = " ";
+								} else {
+									value.note
+								}
 								
-									appendString2 += '<td>';
-										appendString2 += '<input class = "form-control" type="text" value="'+ value.qty +'" disabled>';
-									appendString2 += '</td>';
+								var appendString2 = '<tr>';
+										appendString2 += '<td>';
+											appendString2 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
+										appendString2 += '</td>';
 							
-									appendString2 += '<td>';
-										appendString2 += '<select class = "form-control select-todo-promoItem" disabled> <option>'+ value.todo +'</option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
-									appendString2 += '</td>';
+										appendString2 += '<td>';
+											appendString2 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
+										appendString2 += '</td>';
 							
-									appendString2 += '<td>';
-										appendString2 += '<input type="date" class = "form-control" value="'+ value.requestDueDate +'" disabled>';
-									appendString2 += '</td>';
-						
-									appendString2 += '<td>';
-										appendString2 += '<input class = "form-control" type="date" value="'+ value.startDate +'" disabled>';
-									appendString2 += '</td>';
+										appendString2 += '<td>';
+											appendString2 += '<input type="text" value="' + value.designItem.titleItem + '" class="form-control" disabled>';
+										appendString2 += '</td>';
+									
+										appendString2 += '<td>';
+											appendString2 += '<input class = "form-control" type="text" value="'+ value.qty +'" disabled>';
+										appendString2 += '</td>';
+								
+										appendString2 += '<td>';
+											appendString2 += '<select class = "form-control select-todo-promoItem" disabled> <option>'+ value.todo +'</option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
+										appendString2 += '</td>';
+								
+										appendString2 += '<td>';
+											appendString2 += '<input type="date" class = "form-control" value="'+ value.requestDueDate +'" disabled>';
+										appendString2 += '</td>';
+							
+										appendString2 += '<td>';
+											appendString2 += '<input class = "form-control" type="date" value="'+ value.startDate +'" disabled>';
+										appendString2 += '</td>';
+											
+										appendString2 += '<td>';
+											appendString2 += '<input type="date" class = "form-control" value ="'+ value.endDate +'" disabled>';
+										appendString2 += '</td>';
+							
+										appendString2 += '<td>';
+											appendString2 += '<input class = "form-control" type="text" value="'+ value.note +'" disabled>';
+										appendString2 += '</td>';
+								
+										appendString2 += '<td>';
+											appendString2 += '<a><span><i class="fas fa-arrow-circle-down fa-2x"></i></span></a>';
+										appendString2 += '</td>';
+									
+									appendString2 += '</tr>';
+								tBody2.append(appendString2);
+							})
+							
+							
+							var oTable3 = $('#tabelItemView');
+							var tBody3 = oTable3.find('tbody');
+							tBody3.find('tr').remove();
+							$.each(data.listPromotionItemFile, function(index,value){
+								
+								if(value.note == null){
+									value.note = " ";
+								} else {
+									value.note
+								}
+								
+								
+								var appendString3 = "<tr>";
+										appendString3 += "<td>";
+											appendString3 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' disabled>";
+										appendString3 += "</td>";
 										
-									appendString2 += '<td>';
-										appendString2 += '<input type="date" class = "form-control" value ="'+ value.endDate +'" disabled>';
-									appendString2 += '</td>';
-						
-									appendString2 += '<td>';
-										appendString2 += '<input class = "form-control" type="text" value="'+ value.note +'" disabled>';
-									appendString2 += '</td>';
-							
-									appendString2 += '<td>';
-										appendString2 += '<a><span><i class="fas fa-arrow-circle-down fa-2x"></i></span></a>';
-									appendString2 += '</td>';
+										appendString3 += "<td>";
+											appendString3 +="<input type='text' class='form-control qtyFile' value = '"+ value.qty +"' disabled> ";
+										appendString3 += "</td>";
+									
+										appendString3 += "<td>";
+											appendString3 += "<select class = 'form-control selectOption' disabled> <option> "+ value.todo +" </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>" ;
+										appendString3 += "</td>";
+										
+										appendString3 += "<td>";
+											appendString3 += "<input type='date' class = 'form-control' value='"+ value.requestDueDate +"' disabled>" ;
+										appendString3 += "</td>";
+										
+										appendString3 += "<td>";
+											appendString3 += "<input type='date' class = 'form-control' disabled>" ;
+										appendString3 += "</td>";
+										
+										appendString3 += "<td>";
+											appendString3 += "<input type='date' class = 'form-control' disabled>";
+										appendString3 += "</td>";
+										
+										appendString3 += "<td>";
+											appendString3 += "<input type='text' class='form-control note' value = '"+ value.note +"' disabled>";
+										appendString3 += "</td>";
+									
+										appendString3 += "<td>";
+											appendString3 += "<a href='#' class = 'deleteItem' ><span style='color:red;'><i class='fas fa-window-close fa-2x'></i></span></a>" ;
+										appendString3 += "</td>";
+									appendString3 += "</tr>";
+								tBody3.prepend(appendString3);
 								
-								appendString2 += '</tr>';
-							tBody2.append(appendString2);
-						})
-						
-						
-						var oTable3 = $('#tabelItemView');
-						var tBody3 = oTable3.find('tbody');
-						tBody3.find('tr').remove();
-						$.each(data.listPromotionItemFile, function(index,value){
+							})
 							
-							if(value.note == null){
-								value.note = " ";
-							} else {
-								value.note
-							}
-							
-							
-							var appendString3 = "<tr>";
-									appendString3 += "<td>";
-										appendString3 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' disabled>";
-									appendString3 += "</td>";
-									
-									appendString3 += "<td>";
-										appendString3 +="<input type='text' class='form-control qtyFile' value = '"+ value.qty +"' disabled> ";
-									appendString3 += "</td>";
-								
-									appendString3 += "<td>";
-										appendString3 += "<select class = 'form-control selectOption' disabled> <option> "+ value.todo +" </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>" ;
-									appendString3 += "</td>";
-									
-									appendString3 += "<td>";
-										appendString3 += "<input type='date' class = 'form-control' value='"+ value.requestDueDate +"' disabled>" ;
-									appendString3 += "</td>";
-									
-									appendString3 += "<td>";
-										appendString3 += "<input type='date' class = 'form-control' disabled>" ;
-									appendString3 += "</td>";
-									
-									appendString3 += "<td>";
-										appendString3 += "<input type='date' class = 'form-control' disabled>";
-									appendString3 += "</td>";
-									
-									appendString3 += "<td>";
-										appendString3 += "<input type='text' class='form-control note' value = '"+ value.note +"' disabled>";
-									appendString3 += "</td>";
-								
-									appendString3 += "<td>";
-										appendString3 += "<a href='#' class = 'deleteItem' ><span style='color:red;'><i class='fas fa-window-close fa-2x'></i></span></a>" ;
-									appendString3 += "</td>";
-								appendString3 += "</tr>";
-							tBody3.prepend(appendString3);
-							
-						})
-						
-					},
-					error : function(){
-						alert('error');
-					}
-				})
-				
-				$('#modalFromDesignView').modal();
-				
-			} 
-			
-////////////////////////////////////////// View NOT from design //////////////////////////////////////////
-			
-			else if (flagDsg == 0){
-				
-				$.ajax({
-					url : '${pageContext.request.contextPath}/promotion/getdetail?id=' + promoId,
-					type : 'GET',
-					dataType : 'json',
-					success : function (data){
-						console.log(data)
-						
-						///////////Promotion Header
-						$('#transCodeNotView').val(data.code),
-						$('#eventSelectSaveNotView').val(data.event.code),
-						$('#titleHeaderNotView').val(data.titleHeader),
-						$('#requestDateNotView').val(data.requestDate),
-						$('#noteTitleHeaderNotView').val(data.note)
-						
-						var firstName = data.requestBy.firstName;
-						var lastName = data.requestBy.lastName
-						var fullName = firstName + " " + lastName 
-						
-						$('#requestByNotView').val(fullName);
-						
-						var status1 = "";
-						if(data.status == 0){
-							status1 = "Rejected";
-						} else if (data.status == 1){
-							status1 = "Submitted";
-						} else if(data.status == 2){
-							status1 = "In Progress";
-						} else if (data.status == 3){
-							status1 = "Done";
+						},
+						error : function(){
+							alert('error');
 						}
-						$('#statusBySaveNotView').val(status1);
-						
-						var oTable4 = $('#tabelItemNotView');
-						var tBody4 = oTable4.find('tbody');
-						tBody4.find('tr').remove();
-						$.each(data.listPromotionItemFile, function(index,value){
-							
-							if(value.note == null){
-								value.note = " ";
-							} else {
-								value.note
-							}
-							
-							var appendString4 = '<tr>';
-									appendString4 += '<td>';
-										appendString4 += '<input type="file" class="filestyle uploadFile" data-buttonBefore="true" disabled>' ;
-									appendString4 += '</td>';
-							
-									appendString4 += '<td>';
-										appendString4 += '<input type="text" class="form-control qtyFile" value = "'+ value.qty +'" disabled>' ;
-									appendString4 += '</td>';
-							
-									appendString4 += '<td>';
-										appendString4 += '<select class = "form-control selectOption" disabled> <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>' ;
-									appendString4 += '</td>';
-							
-									appendString4 += '<td>';
-										appendString4 += '<input type="date" class = "form-control" value="'+ value.requestDueDate +'" disabled>' ;
-									appendString4 += '</td>';
-							
-									appendString4 += '<td>';
-										appendString4 += '<input type="date" class = "form-control" disabled>' ;
-									appendString4 += '</td>';
-							
-									appendString4 += '<td>';
-										appendString4 += '<input type="date" class = "form-control" disabled>' ;
-									appendString4 += '</td>';
-							
-									appendString4 += '<td>';
-										appendString4 += '<input type="text" class="form-control note" value = "'+ value.note +'" disabled>' ;
-									appendString4 += '</td>';
-							
-									appendString4 += '<td>';
-										appendString4 += '<a href="#" class = "deleteItem" ><span style="color:red;""><i class="fas fa-window-close fa-2x"></i></span></a>' ;
-									appendString4 += '</td>';
-							
-								appendString4 += '</tr>';
-							
-							tBody4.append(appendString4);
-						})
-						
-					},
-					error : function (data){
-						alert ('error');
-					}
-				})
+					})
+					
+					$('#modalFromDesignView').modal();
+					
+				} 
 				
-				$('#modalNotFromDesignVIEW').modal('show')
+	////////////////////////////////////////// REQUESTER View NOT from design //////////////////////////////////////////
+				
+				else if (flagDsg == 0){
+					
+					$.ajax({
+						url : '${pageContext.request.contextPath}/promotion/getdetail?id=' + promoId,
+						type : 'GET',
+						dataType : 'json',
+						success : function (data){
+							console.log(data)
+							
+							///////////Promotion Header
+							$('#transCodeNotView').val(data.code),
+							$('#eventSelectSaveNotView').val(data.event.code),
+							$('#titleHeaderNotView').val(data.titleHeader),
+							$('#requestDateNotView').val(data.requestDate),
+							$('#noteTitleHeaderNotView').val(data.note)
+							
+							var firstName = data.requestBy.firstName;
+							var lastName = data.requestBy.lastName
+							var fullName = firstName + " " + lastName 
+							
+							$('#requestByNotView').val(fullName);
+							
+							var status1 = "";
+							if(data.status == 0){
+								status1 = "Rejected";
+							} else if (data.status == 1){
+								status1 = "Submitted";
+							} else if(data.status == 2){
+								status1 = "In Progress";
+							} else if (data.status == 3){
+								status1 = "Done";
+							}
+							$('#statusBySaveNotView').val(status1);
+							
+							var oTable4 = $('#tabelItemNotView');
+							var tBody4 = oTable4.find('tbody');
+							tBody4.find('tr').remove();
+							$.each(data.listPromotionItemFile, function(index,value){
+								
+								if(value.note == null){
+									value.note = " ";
+								} else {
+									value.note
+								}
+								
+								var appendString4 = '<tr>';
+										appendString4 += '<td>';
+											appendString4 += '<input type="file" class="filestyle uploadFile" data-buttonBefore="true" disabled>' ;
+										appendString4 += '</td>';
+								
+										appendString4 += '<td>';
+											appendString4 += '<input type="text" class="form-control qtyFile" value = "'+ value.qty +'" disabled>' ;
+										appendString4 += '</td>';
+								
+										appendString4 += '<td>';
+											appendString4 += '<select class = "form-control selectOption" disabled> <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>' ;
+										appendString4 += '</td>';
+								
+										appendString4 += '<td>';
+											appendString4 += '<input type="date" class = "form-control" value="'+ value.requestDueDate +'" disabled>' ;
+										appendString4 += '</td>';
+								
+										appendString4 += '<td>';
+											appendString4 += '<input type="date" class = "form-control" disabled>' ;
+										appendString4 += '</td>';
+								
+										appendString4 += '<td>';
+											appendString4 += '<input type="date" class = "form-control" disabled>' ;
+										appendString4 += '</td>';
+								
+										appendString4 += '<td>';
+											appendString4 += '<input type="text" class="form-control note" value = "'+ value.note +'" disabled>' ;
+										appendString4 += '</td>';
+								
+										appendString4 += '<td>';
+											appendString4 += '<a href="#" class = "deleteItem" ><span style="color:red;""><i class="fas fa-window-close fa-2x"></i></span></a>' ;
+										appendString4 += '</td>';
+								
+									appendString4 += '</tr>';
+								
+								tBody4.append(appendString4);
+							})
+							
+						},
+						error : function (data){
+							alert ('error');
+						}
+					})
+					
+					$('#modalNotFromDesignVIEW').modal('show')
+				}
+			}
+
+//////////////////////////////////////////// ADMIN VIEW /////////////////////////////////////////////
+
+			else if (roleAdminView == 'true') {
+				if (flagDsg == 1){
+					
+					$.ajax({
+						url:'${pageContext.request.contextPath}/promotion/getdetail?id=' + promoId,
+						type: 'GET',
+						dataType: 'json',
+						success : function(data){
+							//promotion header
+							$('#transCodeAdminView').val(data.code);
+							$('#eventSelectAdminView').val(data.event.code);
+							$('#titleHeaderAdminView').val(data.titleHeader);
+							$('#requestDateAdminView').val(data.requestDate);
+							$('#noteTitleHeaderAdminView').val(data.note);
+							
+							var firstName = data.requestBy.firstName;
+							var lastName = data.requestBy.lastName
+							var fullName = firstName + " " + lastName 
+							
+							$('#requestByAdminView').val(fullName);
+							
+							var status = "";
+							if(data.status == 0){
+								status = "Rejected";
+							} else if (data.status == 1){
+								status = "Submitted";
+							} else if(data.status == 2){
+								status = "In Progress";
+							} else if (data.status == 3){
+								status = "Done";
+							}
+							$('#statusByAdminView').val(status);
+							//$('#AssignToAdmin').val(data.assignTo.firstName + " " + data.assignTo.lastName);
+							
+							//design header
+							$('#designCodeAdminView').val(data.design.code);
+							$('#titleHeaderDesignAdminView').val(data.design.titleHeader);
+							$('#requestByDesignAdminView').val(data.design.requestBy.firstName + " " +data.design.requestBy.lastName);
+							$('#requestDateDesignAdminView').val(data.design.requestDate);
+							$('#noteDesignHeaderAdminView').val(data.design.note);
+						
+							//promotion item
+							var oTabelAdminView1 = $('#listDesignItemAdminView');
+							var tBodyAdminView1 = oTabelAdminView1.find('tbody');
+							tBodyAdminView1.find('tr').remove();
+							
+							$.each(data.listPromotionItem, function(index, value){
+								if(value.note == null){
+									value.note = " ";
+								} else {
+									value.note
+								}
+								
+								var appendStringAdminView1 = '<tr>';
+										appendStringAdminView1 += '<td>';
+											appendStringAdminView1 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
+										appendStringAdminView1 += '</td>';
+							
+										appendStringAdminView1 += '<td>';
+											appendStringAdminView1 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
+										appendStringAdminView1 += '</td>';
+							
+										appendStringAdminView1 += '<td>';
+											appendStringAdminView1 += '<input type="text" value="' + value.designItem.titleItem + '" class="form-control" disabled>';
+										appendStringAdminView1 += '</td>';
+									
+										appendStringAdminView1 += '<td>';
+											appendStringAdminView1 += '<input class = "form-control" type="text" value="'+ value.qty +'" disabled>';
+										appendStringAdminView1 += '</td>';
+								
+										appendStringAdminView1 += '<td>';
+											appendStringAdminView1 += '<select class = "form-control select-todo-promoItem" disabled> <option>'+ value.todo +'</option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
+										appendStringAdminView1 += '</td>';
+								
+										appendStringAdminView1 += '<td>';
+											appendStringAdminView1 += '<input type="date" class = "form-control" value="'+ value.requestDueDate +'" disabled>';
+										appendStringAdminView1 += '</td>';
+							
+										appendStringAdminView1 += '<td>';
+											appendStringAdminView1 += '<input class = "form-control" type="date" value="'+ value.startDate +'" disabled>';
+										appendStringAdminView1 += '</td>';
+											
+										appendStringAdminView1 += '<td>';
+											appendStringAdminView1 += '<input type="date" class = "form-control" value ="'+ value.endDate +'" disabled>';
+										appendStringAdminView1 += '</td>';
+							
+										appendStringAdminView1 += '<td>';
+											appendStringAdminView1 += '<input class = "form-control" type="text" value="'+ value.note +'" disabled>';
+										appendStringAdminView1 += '</td>';
+								
+										appendStringAdminView1 += '<td>';
+											appendStringAdminView1 += '<a><span><i class="fas fa-arrow-circle-down fa-2x"></i></span></a>';
+										appendStringAdminView1 += '</td>';
+									
+									appendStringAdminView1 += '</tr>';
+								tBodyAdminView1.append(appendStringAdminView1);
+							})
+							
+							
+							var oTableAdminView2 = $('#tabelItemAdminView');
+							var tBodyAdminView2 = oTableAdminView2.find('tbody');
+							tBodyAdminView2.find('tr').remove();
+							$.each(data.listPromotionItemFile, function(index,value){
+								
+								if(value.note == null){
+									value.note = " ";
+								} else {
+									value.note
+								}
+								
+								
+								var appendStringAdminView2 = "<tr>";
+										appendStringAdminView2 += "<td>";
+											appendStringAdminView2 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' disabled>";
+										appendStringAdminView2 += "</td>";
+										
+										appendStringAdminView2 += "<td>";
+											appendStringAdminView2 +="<input type='text' class='form-control qtyFile' value = '"+ value.qty +"' disabled> ";
+										appendStringAdminView2 += "</td>";
+									
+										appendStringAdminView2 += "<td>";
+											appendStringAdminView2 += "<select class = 'form-control selectOption' disabled> <option> "+ value.todo +" </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>" ;
+										appendStringAdminView2 += "</td>";
+										
+										appendStringAdminView2 += "<td>";
+											appendStringAdminView2 += "<input type='date' class = 'form-control' value='"+ value.requestDueDate +"' disabled>" ;
+										appendStringAdminView2 += "</td>";
+										
+										appendStringAdminView2 += "<td>";
+											appendStringAdminView2 += "<input type='date' class = 'form-control' disabled>" ;
+										appendStringAdminView2 += "</td>";
+										
+										appendStringAdminView2 += "<td>";
+											appendStringAdminView2 += "<input type='date' class = 'form-control' disabled>";
+										appendStringAdminView2 += "</td>";
+										
+										appendStringAdminView2 += "<td>";
+											appendStringAdminView2 += "<input type='text' class='form-control note' value = '"+ value.note +"' disabled>";
+										appendStringAdminView2 += "</td>";
+									
+										appendStringAdminView2 += "<td>";
+											appendStringAdminView2 += "<a href='#' class = 'deleteItem' ><span style='color:red;'><i class='fas fa-window-close fa-2x'></i></span></a>" ;
+										appendStringAdminView2 += "</td>";
+									appendStringAdminView2 += "</tr>";
+								tBodyAdminView2.prepend(appendStringAdminView2);
+								
+							})
+							
+						},
+						error : function(){
+							alert('error');
+						}
+					})
+					
+					$('#modalFromDesignAdminView').modal();
+				} 
+				
+////////////////////////////////// ADMIN VIEW NOT FROM DESIGN /////////////////////////////////
+				
+				else if (flagDsg == 0){
+
+					$.ajax({
+						url : '${pageContext.request.contextPath}/promotion/getdetail?id=' + promoId,
+						type : 'GET',
+						dataType : 'json',
+						success : function (data){
+							console.log(data)
+							
+							///////////Promotion Header
+							$('#transCodeNotAdminView').val(data.code),
+							$('#eventSelectAdminNotView').val(data.event.code),
+							$('#titleHeaderAdminNotView').val(data.titleHeader),
+							$('#requestDateAdminNotView').val(data.requestDate),
+							$('#noteTitleHeaderAdminNotView').val(data.note)
+							
+							var firstName = data.requestBy.firstName;
+							var lastName = data.requestBy.lastName
+							var fullName = firstName + " " + lastName 
+							
+							$('#requestByAdminNotView').val(fullName);
+							
+							var status1 = "";
+							if(data.status == 0){
+								status1 = "Rejected";
+							} else if (data.status == 1){
+								status1 = "Submitted";
+							} else if(data.status == 2){
+								status1 = "In Progress";
+							} else if (data.status == 3){
+								status1 = "Done";
+							}
+							$('#statusByNotAdminView').val(status1);
+							//$('#AssignToNotAdminView').val(data.assignTo.firstName + " " + data.assignTo.lastName);
+							
+							var oTableAdminView = $('#tabelItemNotAdminView');
+							var tBodyAdminView = oTableAdminView.find('tbody');
+							tBodyAdminView.find('tr').remove();
+							$.each(data.listPromotionItemFile, function(index,value){
+								
+								if(value.note == null){
+									value.note = " ";
+								} else {
+									value.note
+								}
+								
+								var appendStringAdminView = '<tr>';
+										appendStringAdminView += '<td>';
+											appendStringAdminView += '<input type="file" class="filestyle uploadFile" data-buttonBefore="true" disabled>' ;
+										appendStringAdminView += '</td>';
+								
+										appendStringAdminView += '<td>';
+											appendStringAdminView += '<input type="text" class="form-control qtyFile" value = "'+ value.qty +'" disabled>' ;
+										appendStringAdminView += '</td>';
+								
+										appendStringAdminView += '<td>';
+											appendStringAdminView += '<select class = "form-control selectOption" disabled> <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>' ;
+										appendStringAdminView += '</td>';
+								
+										appendStringAdminView += '<td>';
+											appendStringAdminView += '<input type="date" class = "form-control" value="'+ value.requestDueDate +'" disabled>' ;
+										appendStringAdminView += '</td>';
+								
+										appendStringAdminView += '<td>';
+											appendStringAdminView += '<input type="date" class = "form-control" disabled>' ;
+										appendStringAdminView += '</td>';
+								
+										appendStringAdminView += '<td>';
+											appendStringAdminView += '<input type="date" class = "form-control" disabled>' ;
+										appendStringAdminView += '</td>';
+								
+										appendStringAdminView += '<td>';
+											appendStringAdminView += '<input type="text" class="form-control note" value = "'+ value.note +'" disabled>' ;
+										appendStringAdminView += '</td>';
+								
+										appendStringAdminView += '<td>';
+											appendStringAdminView += '<a href="#" class = "deleteItem" ><span style="color:red;""><i class="fas fa-window-close fa-2x"></i></span></a>' ;
+										appendStringAdminView += '</td>';
+								
+									appendStringAdminView += '</tr>';
+								
+								tBodyAdminView.append(appendStringAdminView);
+							})
+							
+						},
+						error : function (data){
+							alert ('error');
+						}
+					})
+					
+					$('#modalNotFromDesignAdminVIEW').modal();
+				}
 			}
 			
+///////////////////////////////////////////// STAFF VIEW ////////////////////////////////////////////
+
+			else if (roleStaffView == 'true') {
+				if (flagDsg == 1){
+					
+					$.ajax({
+						url:'${pageContext.request.contextPath}/promotion/getdetail?id=' + promoId,
+						type: 'GET',
+						dataType: 'json',
+						success : function(data){
+							//promotion header
+							$('#transCodeStaffView').val(data.code);
+							$('#eventSelectStaffView').val(data.event.code);
+							$('#titleHeaderStaffView').val(data.titleHeader);
+							$('#requestDateStaffView').val(data.requestDate);
+							$('#noteTitleHeaderStaffView').val(data.note);
+							
+							var firstName = data.requestBy.firstName;
+							var lastName = data.requestBy.lastName
+							var fullName = firstName + " " + lastName 
+							
+							$('#requestByStaffView').val(fullName);
+							
+							var status = "";
+							if(data.status == 0){
+								status = "Rejected";
+							} else if (data.status == 1){
+								status = "Submitted";
+							} else if(data.status == 2){
+								status = "In Progress";
+							} else if (data.status == 3){
+								status = "Done";
+							}
+							$('#statusByStaffView').val(status);
+							//$('#AssignToStaff').val(data.assignTo.firstName + " " + data.assignTo.lastName);
+							
+							//design header
+							$('#designCodeStaffView').val(data.design.code);
+							$('#titleHeaderDesignStaffView').val(data.design.titleHeader);
+							$('#requestByDesignStaffView').val(data.design.requestBy.firstName + " " +data.design.requestBy.lastName);
+							$('#requestDateDesignStaffView').val(data.design.requestDate);
+							$('#noteDesignHeaderStaffView').val(data.design.note);
+						
+							//promotion item
+							var oTabelStaffView1 = $('#listDesignItemStaffView');
+							var tBodyStaffView1 = oTabelStaffView1.find('tbody');
+							tBodyStaffView1.find('tr').remove();
+							
+							$.each(data.listPromotionItem, function(index, value){
+								if(value.note == null){
+									value.note = " ";
+								} else {
+									value.note
+								}
+								
+								var appendStringStaffView1 = '<tr>';
+										appendStringStaffView1 += '<td>';
+											appendStringStaffView1 += '<input type="text" value-id="' + value.product.id +'" value="' + value.product.name +'" class="form-control" disabled>';
+										appendStringStaffView1 += '</td>';
+							
+										appendStringStaffView1 += '<td>';
+											appendStringStaffView1 += '<input type="text" value="'+ value.product.description +'" class="form-control" disabled>';
+										appendStringStaffView1 += '</td>';
+							
+										appendStringStaffView1 += '<td>';
+											appendStringStaffView1 += '<input type="text" value="' + value.designItem.titleItem + '" class="form-control" disabled>';
+										appendStringStaffView1 += '</td>';
+									
+										appendStringStaffView1 += '<td>';
+											appendStringStaffView1 += '<input class = "form-control" type="text" value="'+ value.qty +'" disabled>';
+										appendStringStaffView1 += '</td>';
+								
+										appendStringStaffView1 += '<td>';
+											appendStringStaffView1 += '<select class = "form-control select-todo-promoItem" disabled> <option>'+ value.todo +'</option> <option>- Select Todo-</option> <option>Print</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option> <option>Other</option> </select>';
+										appendStringStaffView1 += '</td>';
+								
+										appendStringStaffView1 += '<td>';
+											appendStringStaffView1 += '<input type="date" class = "form-control" value="'+ value.requestDueDate +'" disabled>';
+										appendStringStaffView1 += '</td>';
+							
+										appendStringStaffView1 += '<td>';
+											appendStringStaffView1 += '<input class = "form-control" type="date" value="'+ value.startDate +'" disabled>';
+										appendStringStaffView1 += '</td>';
+											
+										appendStringStaffView1 += '<td>';
+											appendStringStaffView1 += '<input type="date" class = "form-control" value ="'+ value.endDate +'" disabled>';
+										appendStringStaffView1 += '</td>';
+							
+										appendStringStaffView1 += '<td>';
+											appendStringStaffView1 += '<input class = "form-control" type="text" value="'+ value.note +'" disabled>';
+										appendStringStaffView1 += '</td>';
+								
+										appendStringStaffView1 += '<td>';
+											appendStringStaffView1 += '<a><span><i class="fas fa-arrow-circle-down fa-2x"></i></span></a>';
+										appendStringStaffView1 += '</td>';
+									
+									appendStringStaffView1 += '</tr>';
+								tBodyStaffView1.append(appendStringStaffView1);
+							})
+							
+							
+							var oTableStaffView2 = $('#tabelItemStaffView');
+							var tBodyStaffView2 = oTableStaffView2.find('tbody');
+							tBodyStaffView2.find('tr').remove();
+							$.each(data.listPromotionItemFile, function(index,value){
+								
+								if(value.note == null){
+									value.note = " ";
+								} else {
+									value.note
+								}
+								
+								
+								var appendStringStaffView2 = "<tr>";
+										appendStringStaffView2 += "<td>";
+											appendStringStaffView2 +="<input type='file' class='filestyle uploadFile' data-buttonBefore='true' disabled>";
+										appendStringStaffView2 += "</td>";
+										
+										appendStringStaffView2 += "<td>";
+											appendStringStaffView2 +="<input type='text' class='form-control qtyFile' value = '"+ value.qty +"' disabled> ";
+										appendStringStaffView2 += "</td>";
+									
+										appendStringStaffView2 += "<td>";
+											appendStringStaffView2 += "<select class = 'form-control selectOption' disabled> <option> "+ value.todo +" </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>" ;
+										appendStringStaffView2 += "</td>";
+										
+										appendStringStaffView2 += "<td>";
+											appendStringStaffView2 += "<input type='date' class = 'form-control' value='"+ value.requestDueDate +"' disabled>" ;
+										appendStringStaffView2 += "</td>";
+										
+										appendStringStaffView2 += "<td>";
+											appendStringStaffView2 += "<input type='date' class = 'form-control' disabled>" ;
+										appendStringStaffView2 += "</td>";
+										
+										appendStringStaffView2 += "<td>";
+											appendStringStaffView2 += "<input type='date' class = 'form-control' disabled>";
+										appendStringStaffView2 += "</td>";
+										
+										appendStringStaffView2 += "<td>";
+											appendStringStaffView2 += "<input type='text' class='form-control note' value = '"+ value.note +"' disabled>";
+										appendStringStaffView2 += "</td>";
+									
+										appendStringStaffView2 += "<td>";
+											appendStringStaffView2 += "<a href='#' class = 'deleteItem' ><span style='color:red;'><i class='fas fa-window-close fa-2x'></i></span></a>" ;
+										appendStringStaffView2 += "</td>";
+									appendStringStaffView2 += "</tr>";
+								tBodyStaffView2.prepend(appendStringStaffView2);
+								
+							})
+							
+						},
+						error : function(){
+							alert('error');
+						}
+					})
+					
+					$('#modalFromDesignStaffView').modal();
+				} 
+
+////////////////////////////////// STAFF VIEW NOT FROM DESIGN /////////////////////////////////////
+				
+				else if (flagDsg == 0){
+					
+					$.ajax({
+						url : '${pageContext.request.contextPath}/promotion/getdetail?id=' + promoId,
+						type : 'GET',
+						dataType : 'json',
+						success : function (data){
+							console.log(data)
+							
+							///////////Promotion Header
+							$('#transCodeNotStaffView').val(data.code),
+							$('#eventSelectStaffNotView').val(data.event.code),
+							$('#titleHeaderStaffNotView').val(data.titleHeader),
+							$('#requestDateStaffNotView').val(data.requestDate),
+							$('#noteTitleHeaderStaffNotView').val(data.note)
+							
+							var firstName = data.requestBy.firstName;
+							var lastName = data.requestBy.lastName
+							var fullName = firstName + " " + lastName 
+							
+							$('#requestByStaffNotView').val(fullName);
+							
+							var status1 = "";
+							if(data.status == 0){
+								status1 = "Rejected";
+							} else if (data.status == 1){
+								status1 = "Submitted";
+							} else if(data.status == 2){
+								status1 = "In Progress";
+							} else if (data.status == 3){
+								status1 = "Done";
+							}
+							$('#statusByNotStaffView').val(status1);
+							//$('#AssignToNotStaffView').val(data.assignTo.firstName + " " + data.assignTo.lastName);
+							
+							var oTableStaffView = $('#tabelItemNotStaffView');
+							var tBodyStaffView = oTableStaffView.find('tbody');
+							tBodyStaffView.find('tr').remove();
+							$.each(data.listPromotionItemFile, function(index,value){
+								
+								if(value.note == null){
+									value.note = " ";
+								} else {
+									value.note
+								}
+								
+								var appendStringStaffView = '<tr>';
+										appendStringStaffView += '<td>';
+											appendStringStaffView += '<input type="file" class="filestyle uploadFile" data-buttonBefore="true" disabled>' ;
+										appendStringStaffView += '</td>';
+								
+										appendStringStaffView += '<td>';
+											appendStringStaffView += '<input type="text" class="form-control qtyFile" value = "'+ value.qty +'" disabled>' ;
+										appendStringStaffView += '</td>';
+								
+										appendStringStaffView += '<td>';
+											appendStringStaffView += '<select class = "form-control selectOption" disabled> <option> '+ value.todo +' </option> <option>- Select Todo-</option> <option>Post to Social Media</option> <option>Post to Company Profile website</option> <option>Post to Xsis Academy website</option><option>Other</option></select>' ;
+										appendStringStaffView += '</td>';
+								
+										appendStringStaffView += '<td>';
+											appendStringStaffView += '<input type="date" class = "form-control" value="'+ value.requestDueDate +'" disabled>' ;
+										appendStringStaffView += '</td>';
+								
+										appendStringStaffView += '<td>';
+											appendStringStaffView += '<input type="date" class = "form-control" disabled>' ;
+										appendStringStaffView += '</td>';
+								
+										appendStringStaffView += '<td>';
+											appendStringStaffView += '<input type="date" class = "form-control" disabled>' ;
+										appendStringStaffView += '</td>';
+								
+										appendStringStaffView += '<td>';
+											appendStringStaffView += '<input type="text" class="form-control note" value = "'+ value.note +'" disabled>' ;
+										appendStringStaffView += '</td>';
+								
+										appendStringStaffView += '<td>';
+											appendStringStaffView += '<a href="#" class = "deleteItem" ><span style="color:red;""><i class="fas fa-window-close fa-2x"></i></span></a>' ;
+										appendStringStaffView += '</td>';
+								
+									appendStringStaffView += '</tr>';
+								
+								tBodyStaffView.append(appendStringStaffView);
+							})
+							
+						},
+						error : function (data){
+							alert ('error');
+						}
+					})
+					
+					$('#modalNotFromDesignStaffVIEW').modal();
+				}
+			}
 			
 		})
 
@@ -793,11 +1307,12 @@
 					type: 'GET',
 					dataType: 'json',
 					success : function(data){
-						
+						console.log(data);
 						//promotion header
 						$('#transCodeUpdate').val(data.code);
 						$('#eventSelectUpdate').val(data.event.code);
 						$('#idEdit').val(data.id);
+						$('#requestByUpdate').val(data.requestBy.firstName + " " +data.requestBy.lastName);
 						$('#titleHeaderUpdate').val(data.titleHeader);
 						$('#requestDateUpdate').val(data.requestDate);
 						$('#noteTitleHeaderUpdate').val(data.note);
@@ -813,7 +1328,7 @@
 						//design header
 						$('#designCodeUpdate').val(data.design.code);
 						$('#titleHeaderDesignUpdate').val(data.design.titleHeader);
-						$('#requestByDesignUpdate').val(data.design.requestBy);
+						$('#requestByDesignUpdate').val(data.design.requestBy.firstName + " " + data.design.requestBy.lastName);
 						$('#requestDateDesignUpdate').val(data.design.requestDate);
 						$('#noteDesignHeaderUpdate').val(data.design.note);
 						
@@ -945,14 +1460,14 @@
 					success : function (data){
 						
 						///////////Promotion Header
-						$('#transCodeNotUpdate').val(data.code),
-						$('#flagDesignEditNot').val(data.flagDesign),
-						$('#idEditNot').val(data.id),
-						$('#eventSelectUpdateNot').val(data.event.code),
-						$('#titleHeaderNotUpdate').val(data.titleHeader),
-						$('#requestByNotUpdate').val(data.reqeustBy),
-						$('#requestDateNotUpdate').val(data.requestDate),
-						$('#noteTitleHeaderNotUpdate').val(data.note)
+						$('#transCodeNotUpdate').val(data.code);
+						$('#flagDesignEditNot').val(data.flagDesign);
+						$('#idEditNot').val(data.id);
+						$('#eventSelectUpdateNot').val(data.event.code);
+						$('#titleHeaderNotUpdate').val(data.titleHeader);
+						$('#requestByNotUpdate').val(data.requestBy.firstName + " " + data.requestBy.lastName);
+						$('#requestDateNotUpdate').val(data.requestDate);
+						$('#noteTitleHeaderNotUpdate').val(data.note);
 						
 						var status2 = "";
 						if(data.status == 0){
@@ -1032,12 +1547,13 @@
 					type: 'GET',
 					dataType: 'json',
 					success : function(data){
-						
+						console.log(data);
 						//promotion header
 						$('#transCodeAdmin').val(data.code);
 						$('#eventSelectAdmin').val(data.event.code);
 						$('#idEditAdmin').val(data.id);
 						$('#titleHeaderAdmin').val(data.titleHeader);
+						$('#requestByAdmin').val(data.requestBy.firstName + " " + data.requestBy.lastName);
 						$('#requestDateAdmin').val(data.requestDate);
 						$('#noteTitleHeaderAdmin').val(data.note);
 						$('#flagDesignEditAdmin').val(data.flagDesign);
@@ -1056,7 +1572,7 @@
 						//design header
 						$('#designCodeAdmin').val(data.design.code);
 						$('#titleHeaderDesignAdmin').val(data.design.titleHeader);
-						$('#requestByDesignAdmin').val(data.design.requestBy);
+						$('#requestByDesignAdmin').val(data.design.requestBy.firstName + " " + data.design.requestBy.lastName);
 						$('#requestDateDesignAdmin').val(data.design.requestDate);
 						$('#noteDesignHeaderAdmin').val(data.design.note);
 						
@@ -1182,16 +1698,16 @@
 					type : 'GET',
 					dataType : 'json',
 					success : function (data){
-						
+						console.log(data);
 						///////////Promotion Header
-						$('#transCodeAdminNot').val(data.code),
-						$('#flagDesignEditNotAdmin').val(data.flagDesign),
-						$('#idEditNotAdmin').val(data.id),
-						$('#eventSelectAdminNot').val(data.event.code),
-						$('#titleHeaderAdminNot').val(data.titleHeader),
-						$('#requestByAdminNot').val(data.reqeustBy),
-						$('#requestDateAdminNot').val(data.requestDate),
-						$('#noteTitleHeaderAdminNot').val(data.note)
+						$('#transCodeAdminNot').val(data.code);
+						$('#flagDesignEditNotAdmin').val(data.flagDesign);
+						$('#idEditNotAdmin').val(data.id);
+						$('#eventSelectAdminNot').val(data.event.code);
+						$('#titleHeaderAdminNot').val(data.titleHeader);
+						$('#requestByAdminNot').val(data.requestBy.firstName + " " + data.requestBy.lastName);
+						$('#requestDateAdminNot').val(data.requestDate);
+						$('#noteTitleHeaderAdminNot').val(data.note);
 						
 						var status6 = "";
 						if(data.status == 0){
@@ -1203,7 +1719,7 @@
 						} else if (data.status == 3){
 							status6 = "Dones";
 						}
-						$('#statusByNotAdminView').val(status6);
+						$('#statusByNotAdmin').val(status6);
 						
 						
 						var oTable13 = $('#tabelItemNotAdmin');
@@ -1528,19 +2044,19 @@
 	$('#updateDesign').on('click', function(){
 		var updatePromo = {
 			id : $('#idEdit').val(),
-			code : $('#transCodeUpdate').val(),
 			titleHeader : $('#titleHeaderUpdate').val(),
-			requestBy : $('#requestByUpdate').val(),
-			requestDate : $('#requestDateUpdate').val(),
 			note : $('#noteTitleHeaderUpdate').val(),
 			status : 1,
 			flagDesign : $('#flagDesignEdit').val(),
+			updatedDate : new Date (),
+			updatedBy : $('#updatedByRequester').val(),
 			listPromotionItem : [],
 			listPromotionItemFile : []
 		}
 		
 		_readTableDataDesignUpdate(updatePromo.listPromotionItem);
 		_readTableDataNotDesignUpdate(updatePromo.listPromotionItemFile);
+		console.log(updatePromo);
 		
 		$.ajax({
 			url : '${pageContext.request.contextPath}/promotion/update',
@@ -1553,7 +2069,7 @@
 			error : function (){
 				alert('error');
 			}
-		})
+		}) 
 		
 	})
 	
@@ -1707,6 +2223,8 @@
 			requestBy : $('#requestByNotUpdate').val(),
 			requestDate : $('#requestDateNotUpdate').val(),
 			note : $('#noteTitleHeaderNotUpdate').val(),
+			updatedBy : $('#updatedByNot').val(),
+			updatedDate : new Date (),
 			status : 1,
 			flagDesign : $('#flagDesignEditNot').val(),
 			listPromotionItemFile : []
@@ -2057,17 +2575,9 @@
 							</c:choose>
 						</td>
 						<td>${promotion.createdDate }</td>
+						<td>${promotion.createdBy }</td>
 						<td>
-							<c:forEach items = "${listEmployee }" var = "employee">
-								<c:choose>
-									<c:when test="${promotion.createdBy.id == employee.id }">
-										${employee.firstName} ${employee.lastName} 
-									</c:when>
-								</c:choose>
-							</c:forEach>
-						</td>
-						<td>
-							<a href="#" value-promo-id-detail = ${promotion.id } value-flag-design =${promotion.flagDesign } class="tombolDetail"><span class="float-left" style="padding:3px; color:grey;" ><i class="fas fa-search fa-lg"></i></span></a>
+							<a href="#" value-promo-id-detail = ${promotion.id } value-flag-design =${promotion.flagDesign } data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-role-admin = "<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>" class="tombolDetail"><span class="float-left" style="padding:3px; color:grey;" ><i class="fas fa-search fa-lg"></i></span></a>
 							<a href="#" status-id=${promotion.status }  value-promo-id-edit = ${promotion.id } value-flag-edit =${promotion.flagDesign } data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>"  data-role-admin = "<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>" class="tombolEdit"><span class="float-left" style="padding:3px; color:grey;"><i class="fas fa-pencil-alt fa-lg"></i></span></a>
 						</td>
 					</tr>
