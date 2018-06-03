@@ -327,6 +327,14 @@
 	       				<input type="text" class="form-control" style="font-size: 12px;" id="design-status-view" disabled>
 	       			</div>
 	       		</div>
+	       		<div style="height:40px;" id="assignToView">
+	       			<div style="float: left; width:40%; text-align: right">
+	       				<label>Assign To</label>
+	       			</div>
+	       			<div style="float: left; width:60%">
+	       				<input type="text" class="form-control" style="font-size: 12px;" id="design-assignTo-view" disabled>
+	       			</div>
+	       		</div>
        		</div>
        		<div style="width:25%; float: left; height: auto;">
        			<div style="height:40px;">

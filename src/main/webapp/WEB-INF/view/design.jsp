@@ -70,10 +70,10 @@ select.parsley-error
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
   	
-  	<!-- Untuk datepicker 
+  	 <!-- Untuk datepicker --> 
   	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel = "stylesheet">
-    <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
+    <!-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>-->
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	
   	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -84,17 +84,29 @@ select.parsley-error
 <script type="text/javascript">
 	var delObj = null;
 	
-	/* $(function() {
+	$(function() {
         $( "#request-date-search" ).datepicker({
        	 dateFormat:"yy-mm-dd"
         });
         $( "#created-date-search" ).datepicker({
        	 dateFormat:"yy-mm-dd"
         });
-        $(".due-date-add").datepicker({
-          	 dateFormat:"yy-mm-dd"
+        $('body').on('focus',".due-date-add", function(){
+            $(this).datepicker({
+            	dateFormat:"yy-mm-dd"
+            });
         });
-     }); */
+        $('body').on('focus',".start-date-close", function(){
+            $(this).datepicker({
+            	dateFormat:"yy-mm-dd"
+            });
+        });
+        $('body').on('focus',".end-date-close", function(){
+            $(this).datepicker({
+            	dateFormat:"yy-mm-dd"
+            });
+        });
+     });
 	
 	$(document).ready(function(){
 		var statusAdmin = <%= request.isUserInRole("ROLE_ADMIN") %>;
@@ -128,7 +140,7 @@ select.parsley-error
 					appendString += "<select class='form-control validRequestPicAdd' style='font-size: 12px;'> <option selected value=''>PIC</option> <c:forEach items='${listEmployee }' var='employee'> <option value='${employee.id }'>${employee.firstName } ${employee.lastName }</option> </c:forEach></select>";
 				appendString += "</td>";
 				appendString += "<td>";
-					appendString += "<input placeholder='Due Date' class='form-control validDueDate' style='font-size: 12px' type='date'>";
+					appendString += "<input placeholder='Due Date' class='form-control due-date-add' style='font-size: 12px' type='text'>";
 				appendString += "</td>";
 				appendString += "<td>";
 					appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='text' disabled>";
@@ -221,7 +233,7 @@ select.parsley-error
 			
 			var valid = getValid(validateEventAdd);
 				valid = getValid(validateTitleAdd);
-			
+							
 				/*  validasi untuk select product */
 				var validateProductAdd = $('.validProductAdd').parsley( {
 					required : true,
@@ -248,16 +260,7 @@ select.parsley-error
 				for(i=0; i<validateRequestPicAdd.length; i++){
 					valid = getValid(validateRequestPicAdd[i]);
 				} 
-				
-				/*  validasi untuk request due date */
-				var validateDueDateAdd = $('.validDueDate').parsley( {
-					required : true,
-					requiredMessage : 'can not be empty'
-				} );  
-				for(i=0; i<validateDueDateAdd.length; i++){
-					valid = getValid(validateDueDateAdd[i]);
-				}
-				
+								
 			if(valid){
 				//alert('success');
 				$.ajax({
@@ -266,13 +269,13 @@ select.parsley-error
 					data : JSON.stringify(design),	//convert objek ke string
 					contentType : 'application/json',
 					success : function(data){
-						console.log(data),
+						//console.log(data),
 						alert('success')
-						//window.location = '${pageContext.request.contextPath}/design'
+						window.location = '${pageContext.request.contextPath}/design'
 					}, error : function(){
 						alert('failed')
 					}
-				}); 
+				});  
 			} else{
 				alert('Please Complete the Blank Field(s)');
 			} 
@@ -335,7 +338,7 @@ select.parsley-error
 										appendString += "<select class='form-control' id='pic_"+pic.id+"' value='"+picName+"' style='font-size: 12px;'> <c:forEach items='${listEmployee }' var='employee'> <option value='${employee.id }'>${employee.firstName } ${employee.lastName }</option> </c:forEach></select>";
 									appendString += "</td>";
 									appendString += "<td>";
-										appendString += "<input placeholder='Due Date' class='form-control' type='date' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"'>";
+										appendString += "<input placeholder='Due Date' class='form-control due-date-add' type='text' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"'>";
 									appendString += "</td>";
 									appendString += "<td>";
 										appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='text' disabled>";
@@ -424,8 +427,8 @@ select.parsley-error
 						}
 					});
 					$('#modalApprovalRequest').modal();
-					
 				} 
+			/* Modal Close Request */	
 			} else if(statusStaff=="true"){
 				if($(this).attr('data-status')==2){
 					var id = $(this).attr('design-id');
@@ -441,7 +444,7 @@ select.parsley-error
 							$('#event-code-close').val(data.tEventId.code);
 							$('#design-title-close').val(data.titleHeader);
 							$('#design-status-close').val(data.status);
-							$('#design-assignTo-close').val(data.assignTo);
+							$('#design-assignTo-close').val(data.assignTo.firstName + ' ' + data.assignTo.lastName);
 							$('#design-requestDate-close').val(data.requestDate);
 							$('#design-note-close').val(data.note);
 							
@@ -471,10 +474,10 @@ select.parsley-error
 										appendString += "<input placeholder='Due Date' class='form-control' type='text' style='font-size: 12px;' value='"+value.requestDueDate+"' disabled>";
 									appendString += "</td>";
 									appendString += "<td>";
-										appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='date' enabled>";
+										appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control start-date-close' type='text' enabled>";
 									appendString += "</td>";
 									appendString += "<td>";
-										appendString += "<input placeholder='End Date' style='font-size: 12px' class='form-control' type='date' enabled>";
+										appendString += "<input placeholder='End Date' style='font-size: 12px' class='form-control end-date-close' type='text' enabled>";
 									appendString += "</td>";
 									appendString += "<td>";
 										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Note' value='"+value.note+"' disabled>";
@@ -607,11 +610,9 @@ select.parsley-error
 				data : JSON.stringify(design),
 				contentType : 'application/json',
 				success : function(data){
-					
+					console.log(data),
 					alert('approved success'),
-					
-					//window.location = '${pageContext.request.contextPath}/design', 
-						console.log(data)
+					window.location = '${pageContext.request.contextPath}/design'
 				}, error : function(){
 					alert('failed')
 				}
@@ -671,8 +672,8 @@ select.parsley-error
 				contentType : 'application/json',
 				success : function(data){
 					console.log(data),
-					alert('close request success'),
-					window.location = '${pageContext.request.contextPath}/design' 
+					alert('close request success')
+					//window.location = '${pageContext.request.contextPath}/design' 
 				}, error : function(){
 					alert('failed')
 				}
@@ -691,9 +692,9 @@ select.parsley-error
 					$('#event-code-view').val(obj.tEventId.code);
 					$('#design-title-view').val(obj.titleHeader);
 					$('#design-status-view').val(obj.status);
+					$('#design-assignTo-view').val(obj.assignTo.firstName + ' ' + obj.assignTo.lastName);
 					$('#design-requestDate-view').val(obj.requestDate);
 					$('#design-note-view').val(obj.note);
-					
 					var oTable = $('#dt-designItemView');
 					var tBody = oTable.find('tbody');
 					tBody.find('tr').remove();
@@ -735,8 +736,14 @@ select.parsley-error
 					alert('failed');
 				}
 			});
-			
 			$('#modalViewRequest').modal();
+			if($(this).attr('data-status-view')==2 || $(this).attr('data-status-view')==3){
+				document.getElementById('assignToView').style.display = 'block';
+			} else if($(this).attr('data-status-view')==1 || $(this).attr('data-status-view')==0){
+				document.getElementById('assignToView').style.display = 'none';
+			}
+				
+			
 		});
 	 
 	});
@@ -896,9 +903,9 @@ select.parsley-error
 									<td>${design.createdDate }</td>
 									<td>${design.createdBy.firstName } ${design.createdBy.lastName }</td>
 									<td>
-										<a href="#" val class="btn-view-modal" title="View Design Request" design-id="${design.id }" ><i class="fas fa-search"></i></a> 
+										<a href="#" val class="btn-view-modal" title="View Design Request" design-id="${design.id }" data-status-view="${design.status }"><i class="fas fa-search"></i></a> 
 										| 
-										<a href="#" class="btn-edit-modal" title="Edit Design Request" design-id="${design.id }" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>"data-status="${design.status }"><i class="fas fa-pencil-alt"></i></a>
+										<a href="#" class="btn-edit-modal" title="Edit Design Request" design-id="${design.id }" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-staff="<%= request.isUserInRole("ROLE_STAFF") %>" data-status="${design.status }"><i class="fas fa-pencil-alt"></i></a>
 										
 									</td>
 								</tr>	
