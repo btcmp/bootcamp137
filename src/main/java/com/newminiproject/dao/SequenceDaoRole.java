@@ -16,7 +16,7 @@ public class SequenceDaoRole {
 	DataSource dataSource;//setting 
 	
 	public String addSeq() {
-		String sql = "select codeGenerate2.nextval from dual"; 
+		String sql = "select codeGenerateRole.nextval from dual"; 
 		PreparedStatement ps=null;
 		
 		String code = "RO";

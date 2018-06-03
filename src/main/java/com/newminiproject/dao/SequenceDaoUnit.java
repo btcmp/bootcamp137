@@ -16,7 +16,7 @@ public class SequenceDaoUnit {
 	DataSource dataSource;//setting 
 	
 	public String addSeq() {
-		String sql = "select codeGenerate4.nextval from dual"; 
+		String sql = "select codeGenerateUnit.nextval from dual"; 
 		PreparedStatement ps=null;
 		
 		String code = "UN";

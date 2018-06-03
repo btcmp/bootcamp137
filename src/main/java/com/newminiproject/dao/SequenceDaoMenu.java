@@ -16,7 +16,7 @@ public class SequenceDaoMenu {
 	DataSource dataSource;//setting 
 	
 	public String addSeq() {
-		String sql = "select codeGenerate3.nextval from dual"; 
+		String sql = "select codeGenerateMenu.nextval from dual"; 
 		PreparedStatement ps=null;
 		
 		String code = "ME";
