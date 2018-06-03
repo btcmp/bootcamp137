@@ -364,6 +364,7 @@ select.parsley-error
 					$('#noteset').val(obj.note);
 					$('#noteapset').val(obj.note);
 					$('#noteclose').val(obj.note);
+					$('#rejectreasonrequester').val(obj.rejectReason);
 					
 /* ---------------------------ketika status 1 (Requester)--------------------------------- */					
 					var oTable2 = $('#dataitemedit');
@@ -581,9 +582,10 @@ select.parsley-error
 			} else if($(this).attr('data-status') == 6){
 				var status = document.getElementById('statusedit');
 				status.value = "Close Request";
-			} else if($(this).attr('data-status') == 0){
+			} else if($(this).attr('data-status') == 0 && statusRequester=="true"){
 				var status = document.getElementById('statusedit');
 				status.value = "Rejected";
+				$('#modal-reject-reason-requester').modal();
 			}
 		
 		});
@@ -1140,7 +1142,7 @@ select.parsley-error
 							</c:choose>
 						</td>
 						<td scope="col">${transaction.createdDate }</td>
-						<td scope="col">${pageContext.request.userPrincipal.name}</td>
+						<td scope="col">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</td>
 						<td scope="col">
 							<a data-id="${transaction.id }"  data-status="${transaction.status }" id="btn-view-transaksi" href="#" style="color:inherit;"><i class="fas fa-search"></i></a>
 		  					<a data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-requester="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-id="${transaction.id }" data-status="${transaction.status }" id="btn-edit-transaksi" href="#" style="color:inherit;"><i class="fas fa-pencil-alt"></i></a>
@@ -1900,6 +1902,27 @@ select.parsley-error
 	      <div style="margin:auto;padding-bottom:5px;">
 	        <button type="button" class="btn btn-primary btn-reject-reason">Reject</button>
 	        <button id="cancel-btn" type="button" class="btn btn-warning" style="color:white;">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- Modal Reject Reason Requester -->
+	<div class="modal fade bd-example-modal-sm" id="modal-reject-reason-requester" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered modal-dialog modal-sm" role="document">
+	    <div class="modal-content">
+	      <div style="float:right;clear:right;">
+	        <button id="close" style="background-color:red;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p style="text-align:center;">Reject Reason</p>
+	        <textarea style="height:100px;" id="rejectreasonrequester" placeholder="Input Reject Reason" class="form-control" disabled></textarea>
+	      </div>
+	      <div style="margin:auto;padding-bottom:5px;">
+	        <button id="cancel-btn" type="button" class="btn btn-warning" data-dismiss="modal" style="color:white;">Cancel</button>
 	      </div>
 	    </div>
 	  </div>

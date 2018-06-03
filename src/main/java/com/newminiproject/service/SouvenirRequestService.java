@@ -47,6 +47,7 @@ public class SouvenirRequestService {
 		ts.setStatus(1);
 		employee.setId(transactionSouvenir.getRequestBy().getId());
 		ts.setRequestBy(employee);
+		ts.setCreatedBy(employee.getId());
 		
 		souvenirRequestDao.save(ts);
 		//2. save table transaction souvenir item
