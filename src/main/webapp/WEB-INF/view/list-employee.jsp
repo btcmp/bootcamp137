@@ -72,9 +72,9 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
  
-   	 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+   <!-- 	 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
          rel = "stylesheet">
-      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> -->
 
   	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -84,14 +84,14 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	
 	<script type="text/javascript">
-	$(function() {
+	/* $(function() {
         $( "#created-date" ).datepicker({
        	 dateFormat:"yy-mm-dd"
         });
         
-     });
+     });*/
 	
-	$(document).ready(function(){
+	$(document).ready(function(){ 
 
 		//ADD
 		$('#btn-add').on('click', function(){
@@ -126,7 +126,7 @@
 				createdBy : input
 			};
 			
-			var validatefirstName = $('firstName').parsley({
+			var validatefirstName = $('#firstName').parsley({
 				required : true,
 				requiredMessage : 'The Field cant be Empty'
 			});
@@ -134,7 +134,7 @@
 			var validatecodeEmployee = $('#codeEmployee').parsley({
 				required : true,
 				requiredMessage : 'Employee number name cannot be empty or please insert another number',
-				minlengthMessage: ' must 8 character',
+				minlengthMessage: ' must 8 character'
 			});
 			
 			
