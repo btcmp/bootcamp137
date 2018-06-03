@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
+import com.newminiproject.model.Role;
+import com.newminiproject.model.User;
 
 
 @Repository
@@ -147,5 +149,20 @@ public class EventDaoImpl implements EventDao {
 		
 		return listEvent;
 	}
+
+	/*@Override
+	public List<User> getEmployeByRole() {
+		Session session= sessionFactory.getCurrentSession();
+		String hql = "from User t join t.To User_roles where user_roles.m_role_id = 333";
+		List<User> listUser= session.createQuery(hql).list();
+		if(listUser.isEmpty()) {
+			return new ArrayList<>();
+		}
+		return listUser;
+	}*/
+
+	
+
+	
 
 }

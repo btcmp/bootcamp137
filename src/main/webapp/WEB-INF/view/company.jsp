@@ -21,7 +21,7 @@
 	  <!-- Tell the browser to be responsive to screen width -->
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <!-- Font Awesome -->
-	  <link rel="stylesheet" href="${pageContext.request.contextPath }/assets/plugins/font-awesome/css/font-awesome.min.css">
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 	  <!-- Ionicons -->
 	  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	  <!-- Theme style -->
@@ -53,7 +53,10 @@
   	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
-  	
+  	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <!-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> -->
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	
   	
   	
@@ -69,6 +72,7 @@
 		//save even listener
 		//$('#tabelCompany').DataTable();
 		
+		$('#createDateSearch').datepicker({ dateFormat: 'yy-mm-dd' }).val();
 		$('#btn-add').on('click', function(){
 			
 			$('#modalSave').modal();
@@ -79,13 +83,34 @@
 		
 		//pada saat submit save
 		$('#btnsave').on('click',function(){
+			
+			var input;
+			var isd1 = <%= request.isUserInRole("ROLE_ADMIN") %>;
+			if(isd1==true){
+				//alert('ROLE_ADMIN');
+				input = "ADMINISTRATOR";	
+				
+				}
+			
+			var isd2 = <%= request.isUserInRole("ROLE_STAFF") %>;
+			if(isd2==true){
+				//alert('ROLE_REQUESTER');
+				input = "STAFF";
+			}
+			
+			var isd3 = <%= request.isUserInRole("ROLE_REQUESTER") %>;
+				if(isd3==true){
+					//alert('ROLE_REQUESTER');
+					input = "REQUESTER";
+			}
+			
 			var company = {
 				name:$('#nameA').val(),
 				address:$('#addressA').val(),
 				email:$('#emailA').val(),
 				phone:$('#phoneA').val(),
 				code:$('#codeA').val(),
-				createBy:$('#createBy').val()
+				createBy:input
 				//alert('oke jalan');	
 			}
 			/* var statusNama = 0;
@@ -105,19 +130,28 @@
 			
 			var oCode1 = $('#nameA').parsley( {
 				required : true,
-				requiredMessage : ' name !!',
-				typeMessage: ' must be email character'
+				requiredMessage : ' name !!'
+				
 				
 			} );
 			
-			$('#emailA').val(function() {
+			var oCode2 = $('#emailA').parsley( {
+				required : true,
+				requiredMessage : ' email !!',
+				type:"email"
+				
+				
+			} );
+			
+			/* $('#emailA').val(function() {
 			    var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
 			    if (!testEmail.test(this.value)){
 			    	alert('Email not complete');
 			    }
-			});
+			}); */
 			
 			var valid = getValid(oCode1);
+			valid = getValid(oCode2);
 			
 			if(valid){
 				$.ajax({
@@ -291,7 +325,12 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-     <a href="javascript:formSubmit()"> Logout</a>
+   		<ol class="breadcrumb">
+	  			<li> ${pageContext.request.userPrincipal.name}</li>
+	  			<li><a href="javascript:formSubmit()"><i class="fas fa-door-open"></i></a></li>
+	 		 
+			</ol>
+   
           
      
       
@@ -316,29 +355,88 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        
-         
-           <%--  <a href="#" class="nav-link">
-              <p>
-                <h2><a href="#" class="d-block">${pageContext.request.userPrincipal.name}</a></h2>
-              </p>
-            </a> --%>
+         <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
           
-          <li class="nav-header">Menu</li>
-          <li class="nav-item">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Master Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
             <a href="${pageContext.request.contextPath }/company" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
               <p>Company</p>
             </a>
           </li>
+          
           <li class="nav-item">
-            <a href="${pageContext.request.contextPath }/event" class="nav-link">
+            <a href="${pageContext.request.contextPath }/employee" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
-              <p>Event</p>
+              <p>Employee</p>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/unit" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Unit</p>
             </a>
           </li>
           
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/product" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Product</p>
+            </a>
+          </li>
           
+           
+		</ul>
+     </li>
+     
+     <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Transaction Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+	             <li class="nav-item">
+	           		 <a href="${pageContext.request.contextPath }/event" class="nav-link">
+	           	   <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Event</p>
+	            </a>
+	          	</li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/design" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Design</p>
+	            </a>
+	          </li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/promotion" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Promotion</p>
+	            </a>
+	          </li>
+	          
+	         <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/souvenir" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Souvernir</p>
+	            </a>
+	          </li>
+	          
+	          
+		</ul>
+     </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -366,10 +464,7 @@
 	</script>
 
 	<c:if test="${pageContext.request.userPrincipal.name != null}">
-		<h2>
-			Welcome : ${pageContext.request.userPrincipal.name} | <a
-				href="javascript:formSubmit()"> Logout</a>
-		</h2>
+		
 	</c:if>
 
 	<div id="container">
@@ -407,7 +502,7 @@
 	    			</select>
 	    		</div>
 	    		<div class="col-auto">
-	    			<input placeholder="Created" class="form-control" type="text" name="createDateCompany" onfocus="(this.type='date')" onblur="(this.type='text')" id="createDateSearch">	
+	    			<input placeholder="Created" class="form-control" type="text" name="createDateCompany" id="createDateSearch">	
 	    		</div>
 	    		<div class="col-auto">
 	    			<input placeholder="Created By" class="form-control" type="text" name="createdByCompany" id="createBySearch">	
@@ -637,7 +732,7 @@
 						<div class="row">  	
 						  	<div class="col">
 						      <label>* Company Code</label>
-						      <input type="hidden" id="createBy" value="${pageContext.request.userPrincipal.name}"/>
+						      <input type="hidden" id="createBy" />
 						      
 						    </div>
 						    <div class="col">

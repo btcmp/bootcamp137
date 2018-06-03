@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.newminiproject.dao.GenerateCodeDate;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
+import com.newminiproject.model.Role;
 import com.newminiproject.model.User;
 import com.newminiproject.service.EmployeeService;
 import com.newminiproject.service.EventService;
@@ -55,8 +56,10 @@ public class EventController {
 		
 		List<Event> listEvent = eventService.getAll();
 		List<Employee> listEmployee = employeeService.getAll();
+		//List<User> listUser = eventService.getEmployeByRole();
 		model.addAttribute("listEmployee",listEmployee);
 		model.addAttribute("listEvent", listEvent);
+		//model.addAttribute("listUser", listUser);
 		String hasil = generateCodeDate.addSeq();
 		model.addAttribute("hasil", hasil);
 		return "event";

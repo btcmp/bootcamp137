@@ -14,6 +14,7 @@ import com.newminiproject.dao.EventDao;
 import com.newminiproject.model.Design;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
+import com.newminiproject.model.Role;
 import com.newminiproject.model.User;
 
 @Transactional
@@ -111,5 +112,14 @@ public class EventService {
 		// TODO Auto-generated method stub
 		return eventDao.search(event);
 	}
+
+	/*public List<User> getEmployeByRole() {
+		// TODO Auto-generated method stub
+		return eventDao.getEmployeByRole();
+	}*/
+
+	
+
+	
 
 }

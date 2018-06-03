@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
+import com.newminiproject.model.Role;
+import com.newminiproject.model.User;
 
 public interface EventDao {
 
@@ -26,5 +28,11 @@ public interface EventDao {
 	void rejected(Event event);
 
 	List<Event> search(Event event);
+
+	//List<User> getEmployeByRole();
+
+	
+
+	
 
 }
