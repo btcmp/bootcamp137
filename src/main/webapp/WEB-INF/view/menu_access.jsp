@@ -120,7 +120,7 @@ table {
 			var menuAccess = {
 					id: $('#id').val(),
 					mRoleId:{
-						id : $('#roleEdit option:selected').val()
+						id : $('#roleEdit option:selected').val(10)
 					},
 					mMenuId:{
 						id : $('#menuEdit option:selected').val()
@@ -129,7 +129,7 @@ table {
 			console.log(menuAccess);
 			$.ajax({
 				url:'${pageContext.request.contextPath}/menu_access/update',
-				type:'PUT',
+				type:'POST',
 				data:JSON.stringify(menuAccess),
 				contentType:'application/json',
 				success:function(data){
