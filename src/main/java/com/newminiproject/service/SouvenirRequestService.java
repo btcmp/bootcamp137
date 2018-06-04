@@ -230,7 +230,8 @@ public class SouvenirRequestService {
 		ts.setStatus(transactionSouvenir.getStatus());
 		Employee employee = new Employee();
 		employee.setId(transactionSouvenir.getRequestBy().getId());
-		ts.setSettlementAprrovedBy(employee);
+		ts.setApprovedBy(employee);
+		ts.setCreatedBy(employee.getId());
 		souvenirRequestDao.approved(ts);
 	}
 
@@ -245,6 +246,7 @@ public class SouvenirRequestService {
 		ts.setStatus(transactionSouvenir.getStatus());
 		employee.setId(transactionSouvenir.getRequestBy().getId());
 		ts.setReceivedBy(employee);
+		ts.setCreatedBy(employee.getId());
 		souvenirRequestDao.close(ts);
 	}
 
