@@ -1232,7 +1232,7 @@ select.parsley-error
 							<c:choose>
 								<c:when test="${transaction.status == 1}">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</c:when>
 								<c:when test="${transaction.status == 2}">Administrator</c:when>
-								<c:when test="${transaction.status == 3}">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</c:when>
+								<c:when test="${transaction.status == 3}">${transaction.receivedBy.firstName } ${transaction.receivedBy.lastName }</c:when>
 								<c:when test="${transaction.status == 4}">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</c:when>
 								<c:when test="${transaction.status == 5}">Administrator</c:when>
 								<c:when test="${transaction.status == 6}">${transaction.requestBy.firstName } ${transaction.requestBy.lastName }</c:when>
