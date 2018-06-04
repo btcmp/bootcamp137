@@ -37,6 +37,7 @@ public class ProductService {
 
 	public void edit(Product product) {
 		// TODO Auto-generated method stub
+		product.setUpdatedDate(new Date());
 		productDao.edit(product);
 	}
 

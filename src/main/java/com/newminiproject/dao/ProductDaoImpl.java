@@ -60,12 +60,13 @@ public class ProductDaoImpl implements ProductDao{
 		/*Session session = sessionFactory.getCurrentSession();
 		session.update(product);*/
 		Session session = sessionFactory.getCurrentSession();
-		String hql ="update Product prod set prod.code=?, prod.name=?, prod.description=? where prod.id=?";
+		String hql ="update Product prod set prod.code=?, prod.name=?, prod.description=?, prod.updatedDate=? where prod.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, product.getCode());
 		query.setParameter(1, product.getName());
 		query.setParameter(2, product.getDescription());
-		query.setParameter(3, product.getId());
+		query.setParameter(3, product.getUpdatedDate());
+		query.setParameter(4, product.getId());
 		query.executeUpdate();
 	}
 
