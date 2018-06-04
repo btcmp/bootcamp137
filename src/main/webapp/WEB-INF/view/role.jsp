@@ -2,7 +2,9 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page session="true"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,13 +37,17 @@
 	  <!-- Google Font: Source Sans Pro -->
 	  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
-<!-- 	ini di copy buat validasi -->
+	  <!-- Datepicker -->
+	  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      
+
+	<!-- 	ini di copy buat validasi -->
   	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
-<!-- 	ini di copy buat validasi -->
-  	
-  	
-  	
+	<!-- 	ini di copy buat validasi -->
   	
   	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -61,24 +67,28 @@ input.parsley-error {
 <script type="text/javascript">
 	
 	$(function () {
-    //datatabel
-   var t = $('#data-role').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
+	
+	$( "#createddate" ).datepicker({
+       dateFormat:"yy-mm-dd"
     });
+		
+    //datatabel
+	   var t = $('#data-role').DataTable({
+	      "paging": true,
+	      "lengthChange": false,
+	      "searching": false,
+	      "ordering": true,
+	      "info": true,
+	      "autoWidth": false
+	    });
     
-    t.on( 'order.dt search.dt', function () {
-	        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-	            cell.innerHTML = i+1;
-	        } );
-	    } ).draw();
-    
+	    t.on( 'order.dt search.dt', function () {
+		        t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+		            cell.innerHTML = i+1;
+		        } );
+		    } ).draw();
   }); 
-
+	
 	$(document).ready(function(){
 		
 		//add data event listener
@@ -272,7 +282,7 @@ input.parsley-error {
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="index.html" class="brand-link">
       <img src="${pageContext.request.contextPath }/assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Marcom Apps</span>
@@ -434,7 +444,7 @@ input.parsley-error {
 	    			</select>
 	    		</div>
 	    		<div class="col-auto">
-	    			<input placeholder="Created" class="form-control" type="text" name="rolecreateddate" onfocus="(this.type='date')" onblur="(this.type='text')" id="create-date">	
+	    			<input placeholder="Created" name="createddate" class="form-control" type="text" id="createddate">
 	    		</div>
 	    		<div class="col-auto">
 	    			<input placeholder="Created By" class="form-control" type="text" name="rolecreatedby" id="create-by">	
