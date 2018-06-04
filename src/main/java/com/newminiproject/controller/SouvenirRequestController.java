@@ -118,6 +118,23 @@ public class SouvenirRequestController {
 		Date requestDateDual = null;
 		Date dueDateDual = null;
 		Date createdDateDual = null;
+		int statusDual = 0;
+		
+		if (status.equals("Submitted")) {
+			statusDual = 1;
+		} else if (status.equals("In Progress")){
+			statusDual = 2;
+		} else if(status.equals("Received By Requester")){
+			statusDual = 3;
+		} else if (status.equals("Settlement")){
+			statusDual = 4;
+		} else if (status.equals("Approved Settlement")){
+			statusDual = 5;
+		} else if (status.equals("Close Request")){
+			statusDual = 6;
+		} else if (status.equals("Rejected")){
+			statusDual = 0;
+		}
 		
 		if (!requestDate.equals("")) {
 			requestDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(requestDate);
@@ -136,7 +153,7 @@ public class SouvenirRequestController {
 		//transactionSouvenir.setRequestBy(requestBy);
 		transactionSouvenir.setRequestDate(requestDateDual);
 		transactionSouvenir.setRequestDueDate(dueDateDual);
-		//transactionSouvenir.setStatus(status);
+		transactionSouvenir.setStatus(statusDual);
 		transactionSouvenir.setCreatedDate(createdDateDual);
 		//transactionSouvenir.setCreatedBy(createdBy);
 		

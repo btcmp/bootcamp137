@@ -97,12 +97,13 @@ public class SouvenirRequestDaoImpl implements SouvenirRequestDao {
 		System.out.println("Created Date : " + transactionSouvenir.getCreatedDate());
 		System.out.println("Create By : " + transactionSouvenir.getCreatedBy());
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from TransactionSouvenir ts where ts.code=:transactioncode or ts.requestDate=:requestdate or ts.requestDueDate=:duedate or ts.createdDate=:createddate";
+		String hql = "from TransactionSouvenir ts where ts.code=:transactioncode or ts.requestDate=:requestdate or ts.requestDueDate=:duedate or ts.createdDate=:createddate or ts.status=:status";
 		Query query = session.createQuery(hql);
 		query.setParameter("transactioncode", transactionSouvenir.getCode());
 		query.setParameter("requestdate", transactionSouvenir.getRequestDate());
 		query.setParameter("duedate", transactionSouvenir.getRequestDueDate());
 		query.setParameter("createddate", transactionSouvenir.getCreatedDate());
+		query.setParameter("status", transactionSouvenir.getStatus());
 		List<TransactionSouvenir> listTransactionSouvenir = query.list();
 		if (listTransactionSouvenir.isEmpty()) {
 			return new ArrayList<>();
