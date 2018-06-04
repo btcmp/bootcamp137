@@ -196,7 +196,7 @@
 			var form = $("#formmenuaccess");
 			var data = form.serialize();
 			console.log(data);
-			if(data == "maCreatedDate=&maCreatedBy="){
+			if(data == "rcSearch=&rnSearch=&maCreatedDate=&maCreatedBy="){
 				window.location = '${pageContext.request.contextPath}/menu_access'	
 			}
 			else{
@@ -375,15 +375,20 @@
 		<form id="formmenuaccess">
     	<div class="form-row">
     		<div class="col">
-    			<select id="roleCode" class="form-control">
-	    				<option value="" selected>- Select Role Code -</option>
-	    				<c:forEach items="${listRoleComponent}" var="role">
-	    					<option value="${role.code}">${role.code}</option>
+    			<select id="roleCode" name="rcSearch" class="form-control">
+	    				<option  selected value="0">- Select Role Code -</option>
+	    				<c:forEach items="${listRole}" var="role">
+	    					<option value="${role.id}">${role.code}</option>
 	    				</c:forEach>
 	    		</select>
     		</div>
     		<div class="col">
-    			<input type="text" class="form-control" id="role-name" placeholder="- Select Role Name -">
+    			<select id="roleCode" name="rnSearch" class="form-control">
+	    				<option selected value="0">- Select Role Name -</option>
+	    				<c:forEach items="${listRole}" var="role">
+	    					<option value="${role.id}">${role.name}</option>
+	    				</c:forEach>
+	    		</select>
     		</div>
     		<div class="col-auto">
 	    			<input placeholder="Created" class="form-control" type="text" id="create-date" name="maCreatedDate">	

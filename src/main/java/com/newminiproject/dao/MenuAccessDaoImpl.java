@@ -75,8 +75,10 @@ public class MenuAccessDaoImpl implements MenuAccessDao{
 	public List<MenuAccess> search(MenuAccess menuAccess) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from MenuAccess ma where ma.createdBy=:maCreatedBy or ma.createdDate=:maCreatedDate";
+		String hql = "from MenuAccess ma where ma.mRoleId=:rcSearch or ma.mRoleId=:rnSearch or ma.createdBy=:maCreatedBy or ma.createdDate=:maCreatedDate";
 		Query query = session.createQuery(hql);
+		query.setParameter("rcSearch", menuAccess.getmRoleId());
+		query.setParameter("rnSearch", menuAccess.getmRoleId());
 		query.setParameter("maCreatedBy", menuAccess.getCreatedBy());
 		query.setParameter("maCreatedDate", menuAccess.getCreatedDate());
 		List<MenuAccess> listMenuAccess = query.list();

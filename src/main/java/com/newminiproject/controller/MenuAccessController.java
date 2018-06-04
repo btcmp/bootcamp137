@@ -83,13 +83,24 @@ public class MenuAccessController {
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public String search(Model model, @RequestParam(value="maCreatedBy",defaultValue="")String createdBy,@RequestParam(value="maCreatedDate",defaultValue="")String createdDate) throws ParseException {
+	public String search(Model model, @RequestParam(value="rcSearch", defaultValue="")String rcSearch, @RequestParam(value="rnSearch", defaultValue="")String rnSearch, @RequestParam(value="maCreatedBy",defaultValue="")String createdBy,@RequestParam(value="maCreatedDate",defaultValue="")String createdDate) throws ParseException {
 		
 		Date createdDateDual = null;
 		if(!createdDate.equals("")) {
 			createdDateDual = new SimpleDateFormat("yy-MM-dddd").parse(createdDate);
 		}
 		MenuAccess menuAccess = new MenuAccess();
+		Role role= new Role();
+		int rID= Integer.parseInt(rcSearch);
+		role.setId(rID);
+		if(rID!=0) {
+			menuAccess.setmRoleId(role);
+		}
+		int rName= Integer.parseInt(rnSearch);
+		role.setId(rName);
+		if(rName!=0) {
+			menuAccess.setmRoleId(role);
+		}
 		menuAccess.setCreatedDate(createdDateDual);
 		menuAccess.setCreatedBy(createdBy);
 		List<MenuAccess> listMenuAccess = maService.getAllMenuAccess();
