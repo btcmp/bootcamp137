@@ -271,6 +271,21 @@ select.parsley-error
 	  
 </head>
 <body class="hold-transition sidebar-mini">
+
+<!-- For login user -->
+		<c:url value="/j_spring_security_logout" var="logoutUrl" />
+		<form action="${logoutUrl}" method="post" id="logoutForm">
+			<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
+		</form>
+		<script>
+			function formSubmit() {
+				document.getElementById("logoutForm").submit();
+			}
+		</script>
+
+		
+
 <div class="wrapper">
 
   <!-- Navbar -->
@@ -280,18 +295,32 @@ select.parsley-error
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
       </li>
+      	
     </ul>
-   <!-- Right navbar links --> <!-- logout ada disini -->
-    <!-- <ul class="navbar-nav ml-auto">
-     <a href="javascript:formSubmit()"> Logout</a>
-    </ul> -->
+
+
+    
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+   		<ol class="breadcrumb">
+	  			<li> ${pageContext.request.userPrincipal.name}</li>
+	  			<li><a href="javascript:formSubmit()"><i class="fas fa-door-open"></i></a></li>
+	 		 
+			</ol>
+   
+          
+     
+      
+      
+    </ul>
   </nav>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="index3.html" class="brand-link">
       <img src="${pageContext.request.contextPath }/assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Marcom Apps</span>
@@ -302,21 +331,97 @@ select.parsley-error
      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-header">Menu</li>
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+         <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+          
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Master Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/company" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Company</p>
+            </a>
+          </li>
+          
           <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/employee" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Employee</p>
+            </a>
+          </li>
+         
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/unit" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Unit</p>
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a href="${pageContext.request.contextPath }/product" class="nav-link">
+              <i class="nav-icon fa fa-circle-o text-info"></i>
+              <p>Product</p>
+            </a>
+          </li>
+          
+           <li class="nav-item">
             <a href="${pageContext.request.contextPath }/souvenir" class="nav-link">
               <i class="nav-icon fa fa-circle-o text-info"></i>
-              <p>Master Souvenir</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="${pageContext.request.contextPath }/souvenirrequest" class="nav-link">
-              <i class="nav-icon fa fa-circle-o text-info"></i>
-              <p>Transaction Souvenir</p>
+              <p>Souvenir</p>
             </a>
           </li>
           
-          
+           
+		</ul>
+     </li>
+     
+     <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+               <i class="nav-icon fa fa-th"></i>
+              <p>
+                Transaction Menu
+                <i class="right fa fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+	             <li class="nav-item">
+	           		 <a href="${pageContext.request.contextPath }/event" class="nav-link">
+	           	   <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Event</p>
+	            </a>
+	          	</li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/design" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Design</p>
+	            </a>
+	          </li>
+	          
+	          <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/promotion" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Promotion</p>
+	            </a>
+	          </li>
+	          
+	         <li class="nav-item">
+	            <a href="${pageContext.request.contextPath }/souvenirrequest" class="nav-link">
+	              <i class="nav-icon fa fa-circle-o text-info"></i>
+	              <p>Souvernir Request</p>
+	            </a>
+	          </li>
+	          
+	          
+		</ul>
+     </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -332,23 +437,7 @@ select.parsley-error
     <section class="content">
     	<div class="container-fluid">
     	
-    	<c:url value="/j_spring_security_logout" var="logoutUrl" />
-		<form action="${logoutUrl}" method="post" id="logoutForm">
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}" />
-		</form>
-		<script>
-			function formSubmit() {
-				document.getElementById("logoutForm").submit();
-			}
-		</script>
-	 
-		<c:if test="${pageContext.request.userPrincipal.name != null}">
-			<h2>
-				Welcome : ${pageContext.request.userPrincipal.name} | <a
-					href="javascript:formSubmit()"> Logout</a>
-			</h2>
-		</c:if>
+    	
 	
 	<div style="height:40px;background-color:#0069D9;margin-bottom:10px">
 		<h5 style="font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;padding-top:8px;padding-left:8px;color:white;">List Souvenir Request</h5>
