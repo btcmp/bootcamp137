@@ -464,6 +464,7 @@ select.parsley-error
     		<div id="data-unit">
     			<div class="col-auto">
 	  				<select class="form-control" name="unitname">
+	  					<option selected value="0">- Select unit -</option>
 	      				<c:forEach items="${listUnit }" var="unit">
 								<option value="${unit.id }">${unit.name }</option>
 							</c:forEach>

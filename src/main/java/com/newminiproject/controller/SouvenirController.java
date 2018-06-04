@@ -78,7 +78,7 @@ public class SouvenirController {
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public String search(Model model, @RequestParam(value="souvenircode", defaultValue="")String souvenirCode, @RequestParam(value="souvenirname", defaultValue="")String souvenirName, @RequestParam(value="createddate", defaultValue="")String createdDate) throws ParseException{
+	public String search(Model model, @RequestParam(value="souvenircode", defaultValue="")String souvenirCode, @RequestParam(value="souvenirname", defaultValue="")String souvenirName, @RequestParam(value="createddate", defaultValue="")String createdDate, @RequestParam(value="unitname", defaultValue="")String unitName) throws ParseException{
 		
 		Date createdDateDual = null;
 		
@@ -86,11 +86,18 @@ public class SouvenirController {
 			createdDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(createdDate);
 		}
 		
+		Unit unit = new Unit();
+		int idUnit = Integer.parseInt(unitName);
+		unit.setId(idUnit);
+		
 		Souvenir souvenir = new Souvenir();
 		souvenir.setCode(souvenirCode);
 		//transactionSouvenir.setRequestBy(requestBy);
 		souvenir.setName(souvenirName);
 		souvenir.setCreatedDate(createdDateDual);
+		if (idUnit != 0) {
+			souvenir.setmUnitId(unit);
+		}
 		//transactionSouvenir.setStatus(status);
 		//transactionSouvenir.setCreatedBy(createdBy);
 		
