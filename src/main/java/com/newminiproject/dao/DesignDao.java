@@ -28,7 +28,7 @@ public interface DesignDao {
 
 	List<User> getAllStaff();
 
-	List<User> getAllRequester();
+	List<User> getAllRequester(); 
 
 	
 }

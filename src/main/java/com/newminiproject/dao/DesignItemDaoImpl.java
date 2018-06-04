@@ -71,7 +71,7 @@ public class DesignItemDaoImpl implements DesignItemDao {
 		query.setParameter(2, di2.getId());
 		System.out.println("start date = "+di2.getStartDate());
 		System.out.println("end date = "+di2.getEndDate());
-		System.out.println("id = "+di2.getId());
+		System.out.println("id = "+di2.getId()); 
 		query.executeUpdate(); 
 	}
 

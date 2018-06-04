@@ -181,7 +181,7 @@ public class DesignService {
 			di2.setEndDate(di.getEndDate());
 			di2.setId(di.getId());
 			
-			di2.settDesignId(dsn);
+			di2.settDesignId(dsn); 
 			System.out.println("start date = "+di.getStartDate());
 			System.out.println("end date = "+di.getEndDate());
 			System.out.println("id = "+di.getId());

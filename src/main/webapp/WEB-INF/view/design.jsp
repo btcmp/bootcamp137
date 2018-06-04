@@ -973,7 +973,7 @@ select.parsley-error
 				    		<div class="col">
 				    			<select id="eventCode" class="form-control" style="font-size: 12px;" name="assignTo">
 				       				<option disabled selected>-Assign To-</option>
-				       				<c:forEach items="${listAllStaff }" var="staff">
+				       				<c:forEach items="${listAllStaff }" var="staff"> 
 										<option value="${staff.mEmployeeId.id }">${staff.mEmployeeId.firstName } ${staff.mEmployeeId.lastName }</option>
 									</c:forEach>
 				       			</select>	

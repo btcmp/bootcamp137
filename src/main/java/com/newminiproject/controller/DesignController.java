@@ -160,7 +160,7 @@ public class DesignController {
 		}else if(statusSearch.equals("Done")) {
 			a=3;
 		}
-		System.out.println("status :"+a);//string
+		System.out.println("status :"+a);	//string
 		
 		Employee emp = new Employee();
 		int idAssignTo = Integer.parseInt(assignTo);

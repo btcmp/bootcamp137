@@ -77,7 +77,7 @@ public class DesignDaoImpl implements DesignDao{
 		query.setParameter("requestDate", design.getRequestDate());
 		query.setParameter("createdDate", design.getCreatedDate());
 		query.setParameter("status", design.getStatus());
-		query.setParameter("assignTo", design.getAssignTo());
+		query.setParameter("assignTo", design.getAssignTo()); 
 		List<Design> listDesign = query.list();
 		if(listDesign.isEmpty()) {
 			return new ArrayList<Design>();
