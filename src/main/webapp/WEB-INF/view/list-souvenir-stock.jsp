@@ -668,7 +668,7 @@
 					  <td>${ts.receivedBy.firstName} ${ts.receivedBy.lastName}</td>
 				  	  <td>${ts.receivedDate}</td>
 					  <td>${ts.createdDate}</td>
-					  <td>${ts.createdBy}</td>
+					  <td>Administrator<%-- ${ts.createdBy} --%></td>
 					  <td>
 					  	<a href="#" class="edit" editid="${ts.id}" style="color:inherit;"><i class="fas fa-pencil-alt"></i></a>
 					  	<a href="#" class="view" id="${ts.id}" style="color:inherit;"><i class="fas fa-search"></i></a>

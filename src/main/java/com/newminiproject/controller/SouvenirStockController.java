@@ -1,8 +1,10 @@
 package com.newminiproject.controller;
 
-import java.sql.Date;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,13 +88,30 @@ public class SouvenirStockController {
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public String search(Model model, @RequestParam(value="code", defaultValue="")String code) {
+	public String search(Model model, @RequestParam(value="code", defaultValue="")String code, @RequestParam(value="receivedDate",defaultValue="")String receivedDate, @RequestParam(value="createdDate",defaultValue="")String createdDate) throws ParseException {
 		TransactionSouvenir tssearch = new TransactionSouvenir();
 		tssearch.setCode(code);
+		
+		Date receivedDateDual = null;
+		if(!receivedDate.equals("")) {
+			receivedDateDual =  new SimpleDateFormat("yyyy-MM-dd").parse(receivedDate);
+		}
+		tssearch.setReceivedDate(receivedDateDual);
+		
+		Date createdDateDual = null;
+		if(!createdDate.equals("")) {
+			createdDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(createdDate);
+		}
+		tssearch.setCreatedDate(createdDateDual);
+		
+		
 		List<TransactionSouvenir> listTransactionSouvenir = souvenirStockService.search(tssearch);
 		model.addAttribute("listTransactionSouvenir", listTransactionSouvenir);
 		System.out.println("code cont:" + tssearch.getCode());
 		System.out.println(code);
+		
+		System.out.println("received cont:" + tssearch.getReceivedDate());
+		System.out.println(receivedDate);
 		return "list-souvenir-stock";
 	}
 }

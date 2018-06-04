@@ -85,10 +85,12 @@ public class TransactionSouvenirStockDaoImpl implements TransactionSouvenirStock
 	public List<TransactionSouvenir> search(TransactionSouvenir tssearch) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from TransactionSouvenir ts where ts.code=:code";
+		String hql = "from TransactionSouvenir ts where ts.code=:code or ts.receivedDate=:receivedDate or ts.createdDate=:createdDate";
 		
 		Query query = session.createQuery(hql);
 		query.setParameter("code", tssearch.getCode());
+		query.setParameter("receivedDate", tssearch.getReceivedDate());
+		query.setParameter("createdDate", tssearch.getCreatedDate());
 		List<TransactionSouvenir> listTransactionSouvenir = query.list();
 		
 		System.out.println("code :" + tssearch.getCode());
