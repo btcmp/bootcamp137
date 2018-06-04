@@ -61,10 +61,6 @@ public class UserService {
 
 	public void update(User user) {
 		// TODO Auto-generated method stub
-		Role role= roleDao.getRoleById(user.getListRole().get(0).getId());
-		List<Role> listRole= new ArrayList();
-		listRole.add(role);
-		user.setListRole(listRole);
 		user.setUpdatedDate(new Date());
 		userDao.update(user);
 	}
