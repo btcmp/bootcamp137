@@ -84,24 +84,19 @@ $(document).ready(function(){
 	//Submit Add
 	$(document).on('click', '#btn-save-add', function(event){
 		event.preventDefault();
+		var input=1;
 		var user={
 			mEmployeeId:{
 				id : $('#m-employee-id option:selected').val()
 			},
 			listRole:[],
+			enabled: input,
 			username: $('#username-add').val(),
 			password: $('#password-add').val()
 		}			
 		
 		user.listRole.push({
 			id: $('#m-role-id option:selected').val()
-		});
-		
-		$('#password-add, #repassword').on('keyup', function () {
-		    if ($('#password-add').val() == $('#repassword').val()) {
-		        $('#message').html('Matching').css('color', 'green');
-		    } else 
-		        $('#message').html('Not Matching').css('color', 'red');
 		});
 		
 		var oCode1 = $('#username-add').parsley( {
@@ -154,7 +149,7 @@ $(document).ready(function(){
 			type: 'GET',
 			success:function(data){
 				$('#id').val(data.id);
-				$('#roleEdit').val(data.listRole[0].id);
+				$('#roleEdit').val(data.listRole[0].name);
 				$('#employeeEdit').val(data.mEmployeeId.id);
 				$('#usernameEdit').val(data.username);
 				$('#passwordEdit').val(data.password);
@@ -175,13 +170,10 @@ $(document).ready(function(){
 			mEmployeeId:{
 				id : $('#employeeEdit option:selected').val()
 			},
-			listRole:[],
 			username: $('#usernameEdit').val(),
 			password: $('#passwordEdit').val()
 		}
-		user.listRole.push({
-			id: $('#roleEdit option:selected').val()
-		});
+		console.log(user);
 		$.ajax({
 			url:'${pageContext.request.contextPath}/user/update',
 			type:'POST',
@@ -491,6 +483,7 @@ $(document).ready(function(){
 		      
 			      	<div class="row">
 					  <div class="col">
+					  	<input type="hidden" id="enable">
 						<div class="row">  	
 						  	<div class="col">
 						      <label for="name">* Role Name</label>
@@ -539,7 +532,7 @@ $(document).ready(function(){
 						    </div>
 						  </div>
 						  
-						  <div class="row">  
+						  <!-- <div class="row">  
 						  	<div class="col">
 						      <label for="name">* Re-Type Password</label>
 						    </div>
@@ -547,7 +540,7 @@ $(document).ready(function(){
 						       <input type="password" class="form-control" id="repassword" name="repass" aria-describedby="emailHelp" placeholder="Re-Type Password">
 						       <span id='message'></span>
 						    </div>
-						  </div>
+						  </div> -->
 						  
 						 </div>
 					</div>
@@ -580,11 +573,7 @@ $(document).ready(function(){
 						      <label for="name">* Role Name</label>
 						    </div>
 						    <div class="col">
-						        <select class="form-control" id="roleEdit" style="font-size: 12px;">
-						       		<c:forEach items="${listRole}" var="role">
-						       			<option value="${role.id}">${role.name}</option>
-						       		</c:forEach>
-						       </select>
+						        <input type="text" id="roleEdit" class="form-control" disabled>
 						    </div>
 						</div>
 						

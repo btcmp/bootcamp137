@@ -55,21 +55,19 @@ public class UserDaoImpl implements UserDao{
 	public void update(User user) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "update User us set us.mEmployeeId=?, us.listRole=?, us.username=?, us.password=? where us.id=?";
+		String hql = "update User us set us.mEmployeeId=?, us.username=?, us.password=? where us.id=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, user.getmEmployeeId());
-		query.setParameter(1, user.getListRole());
-		query.setParameter(2, user.getUsername());
-		query.setParameter(3, user.getPassword());
-		query.setParameter(4, user.getId());
-		List<Role> listRole= query.list();
+		query.setParameter(1, user.getUsername());
+		query.setParameter(2, user.getPassword());
+		query.setParameter(3, user.getId());
 		query.executeUpdate();
 	}
 
 	public void delete(User usr) {
 		// TODO Auto-generated method stub
 		Session session= sessionFactory.getCurrentSession();
-		String hql = "update User us set us.isDelete = 1 where us.id =:id";
+		String hql = "update User us set us.isDelete = 1, us.enabled = 0 where us.id =:id";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", usr.getId());
 		query.executeUpdate();
