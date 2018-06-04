@@ -31,6 +31,8 @@ public interface EventDao {
 
 	User getUserEmp(String name);
 
+	List<User> getAllByRole();
+
 	//List<User> getEmployeByRole();
 
 	

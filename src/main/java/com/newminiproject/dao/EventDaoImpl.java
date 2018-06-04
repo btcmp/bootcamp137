@@ -156,6 +156,21 @@ public class EventDaoImpl implements EventDao {
 		return session.get(User.class, name);
 	}
 
+	@Override
+	public List<User> getAllByRole() {
+		Session session= sessionFactory.getCurrentSession();
+		String hql = "select user from User user join user.listRole role where role.name = 'ROLE_STAFF'";
+		//Query query = session.createQuery(hql);
+		
+		List<User> listRole = session.createQuery(hql).list();
+		//System.out.println("ini employee berdasarkan role" + listRole);
+		if(listRole.isEmpty()) {
+			return new ArrayList<>();
+		}
+		
+		return listRole;
+	}
+
 	/*@Override
 	public List<User> getEmployeByRole() {
 		Session session= sessionFactory.getCurrentSession();

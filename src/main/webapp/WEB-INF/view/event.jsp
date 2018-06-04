@@ -319,6 +319,7 @@ $(document).ready(function(){
 			var statusUser = $(this).attr('data-role-user');
 			var statusAdmin = $(this).attr('data-role-admin');
 			statusAssign = $(this).attr('data-closeby');
+			statusLogin = $(this).attr('data-id-login');
 			//console.log(abc);
 			$.ajax({
 				url : '${pageContext.request.contextPath}/event/getevent/'+ idBB,
@@ -337,7 +338,7 @@ $(document).ready(function(){
 					$('#statusE').val(data.status);
 					$('#NoteE').val(data.note);
 					$('#EmployeeName').val(data.employee.firstName);
-					statusLogin = data.employee.id;
+					//statusLogin = data.employee.id;
 					//$('#assignTOE').val(data.employee.firstName);
 					//document.getElementById("valueAssign").value = data.employee.id;
 					
@@ -614,17 +615,31 @@ $(document).ready(function(){
 			
 			console.log(statusAssign);
 			console.log(statusLogin);
-			
-			if(statusAssign==statusLogin){
-				alert('sesuai');
-			}else{
-				alert('tidak sesuai');
-			}
-			
 			var event = {
 					id:$('#id').val(),
 					updateBy:$('#updateBy').val()
 				}
+			
+			if(statusAssign==statusLogin){
+				//alert('sesuai');
+				$.ajax({
+					url:'${pageContext.request.contextPath}/event/updatecls',
+					type:'POST',
+					data:JSON.stringify(event),
+					contentType:'application/json',
+					success:function(data){
+						alert('update ok');
+						
+						window.location = '${pageContext.request.contextPath}/event'
+					},error:function(){
+						alert('gagal update');
+					}
+				});
+			}else{
+				alert("You Don't Have Permission");
+			}
+			
+			
 			//console.log(statusAssign);
 		   	/* $.ajax({
 				url:'${pageContext.request.contextPath}/event/updatecls',
@@ -980,7 +995,7 @@ $(document).ready(function(){
 								</td>
 								<td>${event.createDate }</td>
 								<td>${event.createBy }</td>
-								<td><a class="edit" data-closeby="${event.employee.id }" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_STAFF") %>" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-pencil-alt"></i></a> | 
+								<td><a class="edit" data-id-login="${idLogin }" data-closeby="${event.employee.id }" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_STAFF") %>" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-pencil-alt"></i></a> | 
 								<a class="view" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-search"></i></a>
 								</td>
 							</tr>
@@ -1308,8 +1323,8 @@ $(document).ready(function(){
 							    <div class="col" id="assignTOE">
 							      <select class="custom-select" id="valueAssign">
 									 	 	<option selected value="">Select Employee</option>
-										 <c:forEach items="${listEmployee}" var="employee">
-											<option value="${employee.id }">${employee.firstName} ${employee.lastName}</option>
+										 <c:forEach items="${listUser}" var="user">
+											<option value="${user.mEmployeeId.id}">${user.mEmployeeId.firstName} ${user.mEmployeeId.lastName}</option>
 										</c:forEach>
 									</select>
 							    </div>

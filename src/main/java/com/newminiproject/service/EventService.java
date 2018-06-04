@@ -113,6 +113,11 @@ public class EventService {
 		return eventDao.search(event);
 	}
 
+	public List<User> getAllByRole() {
+		// TODO Auto-generated method stub
+		return eventDao.getAllByRole();
+	}
+
 	/*public List<User> getEmployeByRole() {
 		// TODO Auto-generated method stub
 		return eventDao.getEmployeByRole();
