@@ -53,7 +53,10 @@
   	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
-  	
+  	<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <!-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> -->
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   	
   	
   	
@@ -64,6 +67,13 @@
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script>
+
+$(function(){
+	$( "#create-date" ).datepicker({
+   	 dateFormat:"yy-mm-dd"
+    });
+});
+
 $(document).ready(function(){
 	
 	//add button
@@ -85,6 +95,13 @@ $(document).ready(function(){
 		
 		user.listRole.push({
 			id: $('#m-role-id option:selected').val()
+		});
+		
+		$('#password-add, #repassword').on('keyup', function () {
+		    if ($('#password-add').val() == $('#repassword').val()) {
+		        $('#message').html('Matching').css('color', 'green');
+		    } else 
+		        $('#message').html('Not Matching').css('color', 'red');
 		});
 		
 		var oCode1 = $('#username-add').parsley( {
@@ -159,8 +176,8 @@ $(document).ready(function(){
 				id : $('#employeeEdit option:selected').val()
 			},
 			listRole:[],
-			username: $('#username-add').val(),
-			password: $('#password-add').val()
+			username: $('#usernameEdit').val(),
+			password: $('#passwordEdit').val()
 		}
 		user.listRole.push({
 			id: $('#roleEdit option:selected').val()
@@ -410,7 +427,7 @@ $(document).ready(function(){
     			<input type="text" class="form-control" id="username" name="usernameSearch" placeholder="Username">
     		</div>
     		<div class="col-auto">
-	    			<input placeholder="Created Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="create-date" name="userCreatedDate">	
+	    			<input placeholder="Created Date" class="form-control" type="text" id="create-date" name="userCreatedDate">	
 	    	</div>
     		<div class="col-auto">
 	    			<input placeholder="Created By" class="form-control" type="text" name="userCreatedBy">	
@@ -522,7 +539,7 @@ $(document).ready(function(){
 						    </div>
 						  </div>
 						  
-						  <!-- <div class="row">  
+						  <div class="row">  
 						  	<div class="col">
 						      <label for="name">* Re-Type Password</label>
 						    </div>
@@ -530,7 +547,7 @@ $(document).ready(function(){
 						       <input type="password" class="form-control" id="repassword" name="repass" aria-describedby="emailHelp" placeholder="Re-Type Password">
 						       <span id='message'></span>
 						    </div>
-						  </div> -->
+						  </div>
 						  
 						 </div>
 					</div>

@@ -53,8 +53,10 @@
   	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/parsley.min.js"></script>
 <!-- 	ini di copy buat validasi -->
-  	
-  	
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <!-- <script src = "https://code.jquery.com/jquery-1.10.2.js"></script> -->
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>  	
   	
   	
   	<script src="${pageContext.request.contextPath }/assets/js/bootstrap.js"></script> 
@@ -64,6 +66,13 @@
 	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script>
+
+	$(function(){
+		$( "#create-date" ).datepicker({
+       	 dateFormat:"yy-mm-dd"
+        });
+	});
+
 	$(document).ready(function(){
 		
 		//add data event listener
@@ -377,7 +386,7 @@
     			<input type="text" class="form-control" id="role-name" placeholder="- Select Role Name -">
     		</div>
     		<div class="col-auto">
-	    			<input placeholder="Created" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="create-date" name="maCreatedDate">	
+	    			<input placeholder="Created" class="form-control" type="text" id="create-date" name="maCreatedDate">	
 	    	</div>
     		<div class="col-auto">
 	    			<input placeholder="Created By" class="form-control" type="text" name="maCreatedBy">	
