@@ -105,7 +105,7 @@
 	       				<label>*Request By</label>
 	       			</div>
 	       			<div style="float: left; width:50%">
-	       				<input type="text" class="form-control" style="font-size: 12px;" placeholder="Request By" id="requestBy" disabled>
+	       				<input type="text" class="form-control" style="font-size: 12px;" placeholder="${fullName }" id="requestBy" disabled>
 	       			</div>
        			</div>
        			<div style="clear: both;"></div>
@@ -461,10 +461,10 @@
 	       				<label>*Assign To</label>
 	       			</div>
 	       			<div style="float: left; width:60%" id="design-assign-to">
-	       				<select class="form-control" style="font-size: 12px;" >
-	       					<option disabled selected>-Select Employee-</option>
-	       					<c:forEach items="${listEmployee }" var="emp">
-	       						<option value="${emp.id }" >${emp.firstName } ${emp.lastName }</option>
+	       				<select class="form-control" style="font-size: 12px;" id="validAssignTo">
+	       					<option selected value="">-Select Employee-</option>
+	       					<c:forEach items="${listAllStaff }" var="staff">
+	       						<option value="${staff.mEmployeeId.id }" >${staff.mEmployeeId.firstName } ${staff.mEmployeeId.lastName }</option>
 	       					</c:forEach>
 	       				</select>
 	       			</div>

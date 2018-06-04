@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.newminiproject.model.Design;
 import com.newminiproject.model.Event;
+import com.newminiproject.model.User;
 
 public interface DesignDao {
 
@@ -24,6 +25,10 @@ public interface DesignDao {
 	void rejected(Design design);
 
 	void closerequest(Design design);
+
+	List<User> getAllStaff();
+
+	List<User> getAllRequester();
 
 	
 }

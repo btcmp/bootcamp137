@@ -15,6 +15,7 @@ import com.newminiproject.model.DesignItem;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
 import com.newminiproject.model.Product;
+import com.newminiproject.model.User;
 
 @Service
 @Transactional
@@ -178,11 +179,23 @@ public class DesignService {
 			DesignItem di2 = new DesignItem();
 			di2.setStartDate(di.getStartDate());
 			di2.setEndDate(di.getEndDate());
+			di2.setId(di.getId());
 			
 			di2.settDesignId(dsn);
 			System.out.println("start date = "+di.getStartDate());
 			System.out.println("end date = "+di.getEndDate());
+			System.out.println("id = "+di.getId());
 			designItemDao.closerequest(di2);
 		}
+	}
+
+	public List<User> getAllStaff() {
+		// TODO Auto-generated method stub
+		return designDao.getAllStaff();
+	}
+
+	public List<User> getAllRequester() {
+		// TODO Auto-generated method stub
+		return designDao.getAllRequester();
 	}	
 }

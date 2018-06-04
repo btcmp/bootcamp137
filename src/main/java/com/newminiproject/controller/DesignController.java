@@ -63,23 +63,29 @@ public class DesignController {
 	public String index(Model model) {
 		List<Event> listEvent = eventService.getAll();
 		List<Employee> listEmployee = employeeService.getAll();
-		//List<Employee> listEmployeeStaff = employeeService.getEmployeeStaff();
+		List<User> listAllStaff = designService.getAllStaff();
+		List<User> listAllRequester = designService.getAllRequester();
 		List<Design> listDesign = designService.getListDesign();
 		List<Product> listProduct = productService.getAllProduct();
 		model.addAttribute("listEvent", listEvent);
 		model.addAttribute("listEmployee", listEmployee);
-		//model.addAttribute("listEmployeeStaff", listEmployeeStaff);
-		//System.out.println("list emp staff : "+listEmployeeStaff);
+		
+		model.addAttribute("listAllStaff", listAllStaff);
+		model.addAttribute("listAllRequester", listAllRequester);
+				
 		model.addAttribute("listDesign", listDesign);
 		model.addAttribute("listProduct", listProduct);
 		String hasil = seqDao.addSeq();
 		model.addAttribute("hasil", hasil);
-//		model.addAttribute("request", seqDao.requestDate());
+		//untuk request By
+		User user = (User) httpSession .getAttribute("app-user");
+		String fullName = user.getmEmployeeId().getFirstName() + ' ' + user.getmEmployeeId().getLastName();
+		model.addAttribute("fullName", fullName);
 		return "design";
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
-	@ResponseBody												//agar keluar nya data
+	@ResponseBody												//agar keluar nya data dari objek
 	public Design save(@RequestBody Design design) {
 		User user = (User) httpSession.getAttribute("app-user");
 		design.setRequestBy(user.getmEmployeeId());
@@ -90,15 +96,15 @@ public class DesignController {
 	}
 	
 	@RequestMapping(value="/getById", method=RequestMethod.GET)
-	@ResponseBody												//agar keluar nya data
+	@ResponseBody												//agar keluar nya data dari objek
 	public Design getById(@RequestParam(value="id", required=false) int id) {
 		Design design = designService.getDesignById(id);
 		return design;
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	@ResponseBody
-	public Design update(@RequestBody Design design) {
+	@ResponseBody	//kembalianya nanti ke objeknya
+	public Design update(@RequestBody Design design) { //yang dilempar keajax adalah objek (json), tapi aslinya string. maka perlu di konvert dari sisi String format json ke objeknya java  
 		User user = (User) httpSession.getAttribute("app-user");
 		design.setUpdatedBy(user.getmEmployeeId());
 		designService.update(design);
@@ -155,11 +161,17 @@ public class DesignController {
 			a=3;
 		}
 		System.out.println("status :"+a);//string
+		
+		Employee emp = new Employee();
+		int idAssignTo = Integer.parseInt(assignTo);
+		emp.setId(idAssignTo);
+		
 		Design design = new Design();
 		design.setCode(designCode);
 		design.setRequestDate(requestDateDual);
 		design.setCreatedDate(createdDateDual);
 		design.setStatus(a);
+		design.setAssignTo(emp);
 		List<Design> listDesign = designService.getListDesign();
 		List<Design> listDesignFilter = designService.search(design);
 		model.addAttribute("listDesign", listDesignFilter); 	//data yang ingin dicari

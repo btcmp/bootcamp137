@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.newminiproject.model.Design;
 import com.newminiproject.model.Event;
+import com.newminiproject.model.User;
 
 @Repository
 public class DesignDaoImpl implements DesignDao{
@@ -70,12 +71,13 @@ public class DesignDaoImpl implements DesignDao{
 	public List<Design> search(Design design) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Design d where d.code = :designCode or d.requestDate = :requestDate or d.createdDate = :createdDate or d.status=:status";
+		String hql = "from Design d where d.code = :designCode or d.requestDate = :requestDate or d.createdDate = :createdDate or d.status=:status or d.assignTo=:assignTo";
 		Query query = session.createQuery(hql);
 		query.setParameter("designCode", design.getCode());
 		query.setParameter("requestDate", design.getRequestDate());
 		query.setParameter("createdDate", design.getCreatedDate());
 		query.setParameter("status", design.getStatus());
+		query.setParameter("assignTo", design.getAssignTo());
 		List<Design> listDesign = query.list();
 		if(listDesign.isEmpty()) {
 			return new ArrayList<Design>();
@@ -140,6 +142,34 @@ public class DesignDaoImpl implements DesignDao{
 		query.executeUpdate();
 		System.out.println("closed date = "+design.getCloseDate());
 		System.out.println("id = "+design.getId());
+	}
+
+	@Override
+	public List<User> getAllStaff() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select usr from User usr JOIN usr.listRole rol where rol.name='ROLE_STAFF'";
+		Query query = session.createQuery(hql);
+		
+		List<User> listUser = query.list();
+		if(listUser.isEmpty()) {
+			return new ArrayList<>();
+		}
+		return listUser;
+	}
+
+	@Override
+	public List<User> getAllRequester() {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select usr from User usr JOIN usr.listRole rol where rol.name='ROLE_REQUESTER'";
+		Query query = session.createQuery(hql);
+		
+		List<User> listUser = query.list();
+		if(listUser.isEmpty()) {
+			return new ArrayList<>();
+		}
+		return listUser;
 	}
 
 }

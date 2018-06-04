@@ -137,11 +137,10 @@ select.parsley-error
 					appendString += "<input type='text' class='form-control validTitleItemAdd' style='font-size: 12px;' placeholder='Type Title' >";
 				appendString += "</td>";
 				appendString += "<td>";
-					appendString += "<select class='form-control validRequestPicAdd' style='font-size: 12px;'> <option selected value=''>PIC</option> <c:forEach items='${listEmployee }' var='employee'> <option value='${employee.id }'>${employee.firstName } ${employee.lastName }</option> </c:forEach></select>";
+					appendString += "<select class='form-control validRequestPicAdd' style='font-size: 12px;'> <option selected value=''>PIC</option> <c:forEach items='${listAllRequester }' var='requester'> <option value='${requester.mEmployeeId.id }'>${requester.mEmployeeId.firstName } ${requester.mEmployeeId.lastName }</option> </c:forEach></select>";
 				appendString += "</td>";
 				appendString += "<td>";
-					appendString += "<input placeholder='Due Date' class='form-control due-date-add' style='font-size: 12px' type='text'>";
-				appendString += "</td>";
+					appendString += "<input placeholder='Due Date' class='form-control due-date-add validDueDate' style='font-size: 12px' type='text' >";
 				appendString += "<td>";
 					appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control' type='text' disabled>";
 				appendString += "</td>";
@@ -260,6 +259,15 @@ select.parsley-error
 				for(i=0; i<validateRequestPicAdd.length; i++){
 					valid = getValid(validateRequestPicAdd[i]);
 				} 
+				
+				/*  validasi untuk due date */
+				var validateDueDate = $('.validDueDate').parsley( {
+					required : true,
+					requiredMessage : 'can not be empty'
+				} );  
+				for(i=0; i<validateDueDate.length; i++){
+					valid = getValid(validateDueDate[i]);
+				} 
 								
 			if(valid){
 				//alert('success');
@@ -335,7 +343,7 @@ select.parsley-error
 										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Type Title' value='"+value.titleItem+"'>";
 									appendString += "</td>";
 									appendString += "<td>";
-										appendString += "<select class='form-control' id='pic_"+pic.id+"' value='"+picName+"' style='font-size: 12px;'> <c:forEach items='${listEmployee }' var='employee'> <option value='${employee.id }'>${employee.firstName } ${employee.lastName }</option> </c:forEach></select>";
+										appendString += "<select class='form-control' id='pic_"+pic.id+"' value='"+picName+"' style='font-size: 12px;'> <c:forEach items='${listAllRequester }' var='requester'> <option value='${requester.mEmployeeId.id }'>${requester.mEmployeeId.firstName } ${requester.mEmployeeId.lastName }</option> </c:forEach></select>";
 									appendString += "</td>";
 									appendString += "<td>";
 										appendString += "<input placeholder='Due Date' class='form-control due-date-add' type='text' style='font-size: 12px;' placeholder='Due Date' value='"+value.requestDueDate+"'>";
@@ -476,10 +484,10 @@ select.parsley-error
 										appendString += "<input placeholder='Due Date' class='form-control' type='text' style='font-size: 12px;' value='"+value.requestDueDate+"' disabled>";
 									appendString += "</td>";
 									appendString += "<td>";
-										appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control start-date-close' type='text' enabled>";
+										appendString += "<input placeholder='Start Date' style='font-size: 12px' class='form-control start-date-close validStartDate' type='text' enabled>";
 									appendString += "</td>";
 									appendString += "<td>";
-										appendString += "<input placeholder='End Date' style='font-size: 12px' class='form-control end-date-close' type='text' enabled>";
+										appendString += "<input placeholder='End Date' style='font-size: 12px' class='form-control end-date-close validEndDate' type='text' enabled>";
 									appendString += "</td>";
 									appendString += "<td>";
 										appendString += "<input type='text' class='form-control' style='font-size: 12px;' placeholder='Note' value='"+value.note+"' disabled>";
@@ -606,19 +614,39 @@ select.parsley-error
 				}
 			};
 			console.log(design);
-			$.ajax({
-				url : '${pageContext.request.contextPath}/design/approved',
-				type : 'POST',
-				data : JSON.stringify(design),
-				contentType : 'application/json',
-				success : function(data){
-					console.log(data),
-					alert('approved success'),
-					window.location = '${pageContext.request.contextPath}/design'
-				}, error : function(){
-					alert('failed')
-				}
-			}); 
+			
+			/* Validate Assign To */
+			var validateAssignTo = $('#validAssignTo').parsley( {
+				required : true,
+				requiredMessage : 'can not be empty'
+			} );	
+			
+			function getValid(validate){
+				validate.validate();	
+				return validate.isValid();
+			}
+			
+			var valid = getValid(validateAssignTo);
+			
+			if(valid){
+				//alert('success');
+				$.ajax({
+					url : '${pageContext.request.contextPath}/design/approved',
+					type : 'POST',
+					data : JSON.stringify(design),
+					contentType : 'application/json',
+					success : function(data){
+						console.log(data),
+						alert('approved success'),
+						window.location = '${pageContext.request.contextPath}/design'
+					}, error : function(){
+						alert('failed')
+					}
+				}); 
+			} else {
+				alert('Please Complete the Blank Field(s)');
+			}
+			 
 		});
 		
 		/* Rejected Confirmation */
@@ -667,19 +695,47 @@ select.parsley-error
 				listDesignItem : listDesignItemClose
 			};
 			console.log(design);
-			$.ajax({
-				url : '${pageContext.request.contextPath}/design/closerequest',
-				type : 'POST',
-				data : JSON.stringify(design),
-				contentType : 'application/json',
-				success : function(data){
-					console.log(data),
-					alert('close request success'),
-					window.location = '${pageContext.request.contextPath}/design' 
-				}, error : function(){
-					alert('failed')
-				}
-			});
+			
+			/* Validate Assign To */
+			function getValid(validate){
+				validate.validate();	
+				return validate.isValid();
+			}
+			
+			var validateStartDate = $('.validStartDate').parsley( {
+				required : true,
+				requiredMessage : 'can not be empty'
+			} );
+			for(i=0; i<validateStartDate.length; i++){
+				var valid = getValid(validateStartDate[i]);
+			}
+			
+			var validateEndDate = $('.validEndDate').parsley( {
+				required : true,
+				requiredMessage : 'can not be empty'
+			} );
+			for(i=0; i<validateEndDate.length; i++){
+				valid = getValid(validateEndDate[i]);
+			}
+			if(valid){
+				alert('success');
+				$.ajax({
+					url : '${pageContext.request.contextPath}/design/closerequest',
+					type : 'POST',
+					data : JSON.stringify(design),
+					contentType : 'application/json',
+					success : function(data){
+						console.log(data),
+						alert('close request success'),
+						window.location = '${pageContext.request.contextPath}/design' 
+					}, error : function(){
+						alert('failed')
+					}
+				});
+			} else {
+				alert('Please Complete the Blank Field(s)');
+			}
+			
 		});
 		
 		/* Modal view */
@@ -915,10 +971,10 @@ select.parsley-error
 				    			<input placeholder="Request Date" style="font-size: 12px" class="form-control" name="requestDate" type="text" id="request-date-search">	
 				    		</div>
 				    		<div class="col">
-				    			<select id="eventCode" class="form-control" style="font-size: 12px;">
+				    			<select id="eventCode" class="form-control" style="font-size: 12px;" name="assignTo">
 				       				<option disabled selected>-Assign To-</option>
-				       				<c:forEach items="${listEmployee }" var="employee">
-										<option value="${employee.id }">${employee.firstName } ${employee.lastName }</option>
+				       				<c:forEach items="${listAllStaff }" var="staff">
+										<option value="${staff.mEmployeeId.id }">${staff.mEmployeeId.firstName } ${staff.mEmployeeId.lastName }</option>
 									</c:forEach>
 				       			</select>	
 				    		</div>
