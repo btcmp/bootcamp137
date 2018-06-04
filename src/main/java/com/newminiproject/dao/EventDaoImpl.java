@@ -150,6 +150,12 @@ public class EventDaoImpl implements EventDao {
 		return listEvent;
 	}
 
+	@Override
+	public User getUserEmp(String name) {
+		Session session = sessionFactory.getCurrentSession();
+		return session.get(User.class, name);
+	}
+
 	/*@Override
 	public List<User> getEmployeByRole() {
 		Session session= sessionFactory.getCurrentSession();

@@ -5,15 +5,9 @@ import java.security.acl.Group;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.security.auth.Subject;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.newminiproject.dao.GenerateCodeDate;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
-import com.newminiproject.model.Role;
 import com.newminiproject.model.User;
 import com.newminiproject.service.EmployeeService;
 import com.newminiproject.service.EventService;
@@ -54,14 +47,32 @@ public class EventController {
 	@RequestMapping
 	public String index(Model model) throws Exception {
 		
+		
+		
 		List<Event> listEvent = eventService.getAll();
 		List<Employee> listEmployee = employeeService.getAll();
-		//List<User> listUser = eventService.getEmployeByRole();
+		String hasil = generateCodeDate.addSeq();
+		/*User user = (User) httpSession.getAttribute("app-user");
+		String requster = user.getmEmployeeId().getFirstName();
+		model.addAttribute("requster",requster);
+		*/
 		model.addAttribute("listEmployee",listEmployee);
 		model.addAttribute("listEvent", listEvent);
-		//model.addAttribute("listUser", listUser);
-		String hasil = generateCodeDate.addSeq();
 		model.addAttribute("hasil", hasil);
+		
+		/*User user = (User)httpSession.getAttribute("app-user");
+		String requester = user.getmEmployeeId().getFirstName() + ' ' + user.getmEmployeeId().getLastName();
+		model.addAttribute("requester", requester);*/
+		/*User user = (User)httpSession.getAttribute("app-user");
+		System.out.println("tes inputan"+user.getmEmployeeId().getFirstName());*/
+		/*String requester = user.getmEmployeeId().getFirstName() + ' ' + user.getmEmployeeId().getLastName();
+		model.addAttribute("requester", requester);*/
+		/*User user = (User)httpSession.getAttribute("app-user");
+		String requester = user.getmEmployeeId().getFirstName() + ' ' + user.getmEmployeeId().getLastName();*/
+		//event.setRequestBy(user.getmEmployeeId());
+		//Employee employee = user.getmEmployeeId();
+		//model.addAttribute("employee",employee);
+		//System.out.println(requester);
 		return "event";
 	}
 	

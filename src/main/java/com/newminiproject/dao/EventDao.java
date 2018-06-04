@@ -29,6 +29,8 @@ public interface EventDao {
 
 	List<Event> search(Event event);
 
+	User getUserEmp(String name);
+
 	//List<User> getEmployeByRole();
 
 	

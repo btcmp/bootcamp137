@@ -77,14 +77,14 @@
 	
 	  
 	  
-	  <script type="text/javascript">
-	  $( function() {
-		    $( "#dueDateSearchId" ).datepicker();
-		    $( "#requestDateSearchId" ).datepicker();
-		    $( "#createdSearchId" ).datepicker();
-		   
-		   
-		  } );
+<script type="text/javascript">
+var tes = "${pageContext.request.userPrincipal.name}";
+ //console.log(tes);
+ $( function() {
+    $( "#dueDateSearchId" ).datepicker();
+    $( "#requestDateSearchId" ).datepicker();
+    $( "#createdSearchId" ).datepicker();
+ } );
 $(document).ready(function(){
 	
 	$('#StartDate').datepicker({ dateFormat: 'yy-mm-dd' }).val();
@@ -337,7 +337,7 @@ $(document).ready(function(){
 					$('#statusE').val(data.status);
 					$('#NoteE').val(data.note);
 					$('#EmployeeName').val(data.employee.firstName);
-					statusLogin = data.requestBy.id;
+					statusLogin = data.employee.id;
 					//$('#assignTOE').val(data.employee.firstName);
 					//document.getElementById("valueAssign").value = data.employee.id;
 					
@@ -601,6 +601,9 @@ $(document).ready(function(){
 		
 //close request//////////////////////////////////////////////////////////////////////////////////////////////////		
 		$('#CloseRequest').on('click',function(){
+			
+			
+			
 			$('#modalCloseDate').modal();
 		});
 		
@@ -608,6 +611,9 @@ $(document).ready(function(){
 			//data-closeby
 			statusAssign;
 			statusLogin;
+			
+			console.log(statusAssign);
+			console.log(statusLogin);
 			
 			if(statusAssign==statusLogin){
 				alert('sesuai');
@@ -888,7 +894,9 @@ $(document).ready(function(){
       <div class="container-fluid">
        <c:url value="/j_spring_security_logout" var="logoutUrl" />
 	<div id="container">
-		
+	<%--  /<h2>${employee}</h2>/ --%>
+	
+		<%-- ${pageContext.request.userPrincipal.name} --%>
 		
 		<div style="width:98%;margin:auto;">
 			<ol class="breadcrumb">
@@ -972,11 +980,12 @@ $(document).ready(function(){
 								</td>
 								<td>${event.createDate }</td>
 								<td>${event.createBy }</td>
-								<td><a class="edit" data-closeby="${event.employee.id }" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_REQUESTER") %>" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-pencil-alt"></i></a> | 
+								<td><a class="edit" data-closeby="${event.employee.id }" data-role-admin="<%= request.isUserInRole("ROLE_ADMIN") %>" data-role-user="<%= request.isUserInRole("ROLE_STAFF") %>" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-pencil-alt"></i></a> | 
 								<a class="view" data-status="${event.status }" id="${event.id }" href="#"><i class="fas fa-search"></i></a>
 								</td>
 							</tr>
 						</c:forEach>
+						
 						</tbody>
 			</table>
 	 	</div>
