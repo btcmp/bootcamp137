@@ -632,10 +632,10 @@
 				  <input type=text name="received_by" id="Received_By" class="form-control" placeholder="Received By">
 				</div>
 				<div class="col-auto">
-				  <input type=text name="received_date" id="Received_Date" class="form-control" placeholder="Received Date"> <!-- onfocus="(this.type='date')" onblur="(this.type='text')" -->
+				  <input type=text name="receivedDate" id="Received_Date" class="form-control" placeholder="Received Date"> <!-- onfocus="(this.type='date')" onblur="(this.type='text')" -->
 				</div>
 				<div class="col">
-				  <input type=text name="createDate" id="create_Date" class="form-control" placeholder="Received Date">
+				  <input type=text name="createdDate" id="create_Date" class="form-control" placeholder="created Date">
 				</div>
 				<div class="col-auto">		
 				  <input type=text name="createBy" id="created_By" class="form-control" placeholder="Created By">
