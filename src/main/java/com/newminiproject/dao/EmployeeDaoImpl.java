@@ -80,13 +80,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public List<Employee> search(Employee employee) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "from Employee emp where emp.code=:codeSearch or emp.firstName=:nameSearch or emp.createdBy=:createdBySearch or emp.createdDate=:createdDateSearch";
+		String hql = "from Employee emp where emp.code=:codeSearch or emp.firstName=:nameSearch or emp.createdBy=:createdBySearch or emp.createdDate=:createdDateSearch or emp.mCompanyId=:companySearch";
 		Query query = session.createQuery(hql);
 		query.setParameter("codeSearch", employee.getCode());
 		query.setParameter("nameSearch", employee.getFirstName());
 		query.setParameter("createdBySearch", employee.getCreatedBy());
 		query.setParameter("createdDateSearch", employee.getCreatedDate());
-		//query.setParameter("companySearch", employee.getmCompanyId().getId());
+		query.setParameter("companySearch", employee.getmCompanyId());
 		List<Employee> listEmployee = query.list();
 		if(listEmployee.isEmpty()) {
 			return new ArrayList<>();

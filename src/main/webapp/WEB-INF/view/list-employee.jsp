@@ -84,12 +84,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	
 	<script type="text/javascript">
-	/* $(function() {
-        $( "#created-date" ).datepicker({
-       	 dateFormat:"yy-mm-dd"
-        });
-        
-     });*/
 	
 	$(document).ready(function(){ 
 
@@ -134,14 +128,19 @@
 			var validatecodeEmployee = $('#codeEmployee').parsley({
 				required : true,
 				requiredMessage : 'Employee number name cannot be empty or please insert another number',
-				minlengthMessage: ' must 8 character'
+				minlengthMessage: 'must 8 character'
 			});
 			
-			
+			var validateEmail = $('#email').parsley({
+				required : true,
+				requiredMessage : 'Plaease insert using email format',
+				type : "email"
+			});
 			
 			
 			var valid = getValid(validatefirstName);
 				valid = getValid(validatecodeEmployee);
+				valid = getValid(validateEmail);
 			
 			
 			if(valid){
@@ -250,6 +249,12 @@
 				requiredMessage : "Employee number name cannot be empty or please insert another number"
 			})
 			
+			var validateEmailEdit = $('#emailEdit').parsley({
+				required : true,
+				requiredMessage : 'Plaease insert using email format',
+				type : "email"
+			})
+			
 			
 			function getValid(validate){
 				validate.validate();
@@ -258,21 +263,29 @@
 			
 			var valid = getValid(validatefirstName);
 				valid = getValid(validatecodeEdit);
+				valid = getValid(validateEmailEdit);
 			
 			console.log(employee);
-			$.ajax({
-				url : '${pageContext.request.contextPath}/employee/update',
-				type : 'PUT',
-				data : JSON.stringify(employee),
-				contentType : 'application/json',
-				success : function(data){
-					console.log(employee);
-					alert("Update berhasil");
-					window.location="${pageContext.request.contextPath}/employee";
-				}, error : function() {
-					alert('failed');
-				}
-			});
+			if(valid){
+				
+				$.ajax({
+					url : '${pageContext.request.contextPath}/employee/update',
+					type : 'PUT',
+					data : JSON.stringify(employee),
+					contentType : 'application/json',
+					success : function(data){
+						console.log(employee);
+						alert("Update berhasil");
+						window.location="${pageContext.request.contextPath}/employee";
+					}, error : function() {
+						alert('failed');
+					}
+				});
+			
+			}else {
+				alert('Error');
+			}
+	
 		});
 		
 		//DELETE
@@ -299,14 +312,14 @@
 			var form = $("#form-search-emp");
 			var data = form.serialize(); //untuk mengambil semua data yang ada di table
 			console.log(data);
-			/* if(data == "codeSearch=&nameSearch=&createdDateSearch=&createdBySearch=&companySearch"){
+			if(data == "codeSearch=&nameSearch=&createdDateSearch=&createdBySearch=&companySearch"){
 				console.log(data);
 				window.location = '${pageContext.request.contextPath}/employee';
 			}
 			else{
 				console.log(data);
 				window.location = '${pageContext.request.contextPath}/employee/search?'+data;	
-			} 	 */	
+			}	 
 			 
 		});
 	});
@@ -484,9 +497,9 @@
 	    			<input type="text" class="form-control" id="name-Search" placeholder="Employee Name" name="nameSearch" style="font-size: 13px">
 	    		</div>
 	    		<div class="form-group">
-	    			<div class="col-auto" id="company-Search" name="companySearch">
-		  				<select class="form-control" id="exampleFormControlSelect1" style="font-size: 13px">
-		      				<option>- Select Company Name -</option>
+	    			<div class="col-auto" id="company-Search" >
+		  				<select class="form-control" id="exampleFormControlSelect1" style="font-size: 13px" name="companySearch">
+		      				<option selected value="0">- Select Company Name -</option>
 		      				<c:forEach items="${listCompany}" var="company">
 							<option id="company-Name-Search" value="${company.id}">${company.name}</option>
 							</c:forEach>

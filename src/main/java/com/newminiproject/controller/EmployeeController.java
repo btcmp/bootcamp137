@@ -84,13 +84,19 @@ public class EmployeeController {
 			createdDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(createdDateSearch);
 		}
 		Employee employee = new Employee();
+		Company company = new Company();
+		int compId = Integer.parseInt(companySearch);
+		company.setId(compId);
 		
-
 		employee.setCode(codeSearch);
 		employee.setFirstName(nameSearch);
 		employee.setCreatedBy(createdBySearch);		
 		employee.setCreatedDate(createdDateDual);
-	//	employee.setmCompanyId(companySearch);
+		
+		if(compId!=0) {
+			employee.setmCompanyId(company);
+		}
+		
 		List<Employee> listEmployee = employeeService.getAll();
 		List<Employee> listEmployeeFilter = employeeService.search(employee);
 		model.addAttribute("listEmployee", listEmployeeFilter); //isi dari table, milik method getall
