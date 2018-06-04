@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.newminiproject.dao.GenerateCodeDate;
 import com.newminiproject.model.Employee;
 import com.newminiproject.model.Event;
+import com.newminiproject.model.Role;
 import com.newminiproject.model.User;
 import com.newminiproject.service.EmployeeService;
 import com.newminiproject.service.EventService;
+import com.newminiproject.service.UserService;
 
 @Controller
 @RequestMapping("/event")
@@ -42,6 +44,9 @@ public class EventController {
 	EmployeeService employeeService;
 	
 	@Autowired
+	UserService userService;
+	
+	@Autowired
 	HttpSession httpSession;
 	
 	@RequestMapping
@@ -51,28 +56,16 @@ public class EventController {
 		
 		List<Event> listEvent = eventService.getAll();
 		List<Employee> listEmployee = employeeService.getAll();
+		List<User> listUser = eventService.getAllByRole();
+	
 		String hasil = generateCodeDate.addSeq();
-		/*User user = (User) httpSession.getAttribute("app-user");
-		String requster = user.getmEmployeeId().getFirstName();
-		model.addAttribute("requster",requster);
-		*/
+		User user = (User) httpSession.getAttribute("app-user");
+		int idLogin = user.getmEmployeeId().getId();
+		model.addAttribute("idLogin",idLogin);
+		model.addAttribute("listUser",listUser);
 		model.addAttribute("listEmployee",listEmployee);
 		model.addAttribute("listEvent", listEvent);
 		model.addAttribute("hasil", hasil);
-		
-		/*User user = (User)httpSession.getAttribute("app-user");
-		String requester = user.getmEmployeeId().getFirstName() + ' ' + user.getmEmployeeId().getLastName();
-		model.addAttribute("requester", requester);*/
-		/*User user = (User)httpSession.getAttribute("app-user");
-		System.out.println("tes inputan"+user.getmEmployeeId().getFirstName());*/
-		/*String requester = user.getmEmployeeId().getFirstName() + ' ' + user.getmEmployeeId().getLastName();
-		model.addAttribute("requester", requester);*/
-		/*User user = (User)httpSession.getAttribute("app-user");
-		String requester = user.getmEmployeeId().getFirstName() + ' ' + user.getmEmployeeId().getLastName();*/
-		//event.setRequestBy(user.getmEmployeeId());
-		//Employee employee = user.getmEmployeeId();
-		//model.addAttribute("employee",employee);
-		//System.out.println(requester);
 		return "event";
 	}
 	
