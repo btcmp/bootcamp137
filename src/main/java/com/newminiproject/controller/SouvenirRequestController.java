@@ -112,13 +112,17 @@ public class SouvenirRequestController {
 	}
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public String search(Model model, @RequestParam(value="transactioncode", defaultValue="")String transactionCode, @RequestParam(value="requestby", defaultValue="")String requestBy, @RequestParam(value="requestdate", defaultValue="")String requestDate, @RequestParam(value="duedate", defaultValue="")String dueDate, @RequestParam(value="status", defaultValue="")String status, @RequestParam(value="createddate", defaultValue="")String createdDate, @RequestParam(value="createby", defaultValue="")String createBy) throws ParseException{
+	public String search(Model model, @RequestParam(value="transactioncode", defaultValue="")String transactionCode, @RequestParam(value="requestby", defaultValue="")String requestBy, @RequestParam(value="requestdate", defaultValue="")String requestDate, @RequestParam(value="duedate", defaultValue="")String dueDate, @RequestParam(value="status", defaultValue="")String status, @RequestParam(value="createddate", defaultValue="")String createdDate, @RequestParam(value="createby", defaultValue="")String createBy, @RequestParam(value="searchall", defaultValue="")String searchAll) throws ParseException{
 		
 		
 		Date requestDateDual = null;
 		Date dueDateDual = null;
 		Date createdDateDual = null;
+		Date requestDateDual2 = null;
+		Date dueDateDual2 = null;
+		Date createdDateDual2 = null;
 		int statusDual = 0;
+		int statusDual2 = 0;
 		
 		if (status.equals("Submitted")) {
 			statusDual = 1;
@@ -136,6 +140,22 @@ public class SouvenirRequestController {
 			statusDual = 0;
 		}
 		
+		if (searchAll.equals("Submitted")) {
+			statusDual2 = 1;
+		} else if (searchAll.equals("In Progress")){
+			statusDual2 = 2;
+		} else if(searchAll.equals("Received By Requester")){
+			statusDual2 = 3;
+		} else if (searchAll.equals("Settlement")){
+			statusDual2 = 4;
+		} else if (searchAll.equals("Approved Settlement")){
+			statusDual2 = 5;
+		} else if (searchAll.equals("Close Request")){
+			statusDual2 = 6;
+		} else if (searchAll.equals("Rejected")){
+			statusDual2 = 0;
+		}
+		
 		if (!requestDate.equals("")) {
 			requestDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(requestDate);
 		}
@@ -144,9 +164,21 @@ public class SouvenirRequestController {
 			dueDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(dueDate);
 		}
 		
-		if (!createdDate.equals("")) {
+		/*if (!createdDate.equals("")) {
 			createdDateDual = new SimpleDateFormat("yyyy-MM-dd").parse(createdDate);
 		}
+		
+		if (!searchAll.equals("")) {
+			requestDateDual2 = new SimpleDateFormat("yyyy-MM-dd").parse(requestDate);
+		}
+		
+		if (!searchAll.equals("")) {
+			dueDateDual2 = new SimpleDateFormat("yyyy-MM-dd").parse(dueDate);
+		}
+		
+		if (!searchAll.equals("")) {
+			createdDateDual2 = new SimpleDateFormat("yyyy-MM-dd").parse(createdDate);
+		}*/
 		
 		TransactionSouvenir transactionSouvenir = new TransactionSouvenir();
 		transactionSouvenir.setCode(transactionCode);
@@ -155,6 +187,11 @@ public class SouvenirRequestController {
 		transactionSouvenir.setRequestDueDate(dueDateDual);
 		transactionSouvenir.setStatus(statusDual);
 		transactionSouvenir.setCreatedDate(createdDateDual);
+		transactionSouvenir.setCode(searchAll);
+		transactionSouvenir.setStatus(statusDual2);
+		/*transactionSouvenir.setRequestDate(requestDateDual2);
+		transactionSouvenir.setRequestDueDate(dueDateDual2);
+		transactionSouvenir.setCreatedDate(createdDateDual2);*/
 		//transactionSouvenir.setCreatedBy(createdBy);
 		
 		List<TransactionSouvenir> listTransactionSouvenir = souvenirRequestService.getAllTransaction();

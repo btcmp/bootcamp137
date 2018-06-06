@@ -48,15 +48,19 @@
   <style>
   input.parsley-error
 {
-	color: #B94A48 !important;
+	border-color:#843534;
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483
+	/* color: #B94A48 !important;
 	background-color: #F2DEDE !important;
-	border: 1px solid #EED3D7 !important;
+	border: 1px solid #EED3D7 !important; */
 }
 select.parsley-error
 {
-	color: #B94A48 !important;
+	border-color:#843534;
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483
+	/* color: #B94A48 !important;
 	background-color: #F2DEDE !important;
-	border: 1px solid #EED3D7 !important;
+	border: 1px solid #EED3D7 !important; */
 }
   </style>
   
@@ -149,6 +153,7 @@ select.parsley-error
 				requiredMessage : 'The Field cant be Empty'
 			});
 			
+			
 			//validate function
 			function getValid(validate){
 				validate.validate();
@@ -157,6 +162,22 @@ select.parsley-error
 			
 			var valid = getValid(validateEvent);
 				valid = getValid(validateDueDate);
+				
+				var validateSouvenirItem = $('.validatesouvenir').parsley({
+					required : true,
+					requiredMessage : 'The Field cant be Empty'
+				});
+				for(i = 0; i < validateSouvenirItem.length; i++){
+					valid = getValid(validateSouvenirItem[i]);
+				}
+				
+				var validateQtyItem = $('.validateqty').parsley({
+					required : true,
+					requiredMessage : 'The Field cant be Empty'
+				});
+				for(i = 0; i < validateQtyItem.length; i++){
+					valid = getValid(validateQtyItem[i]);
+				}
 			
 			_readTableData(request.transactionSouvenirItem);
 			console.log(request);
@@ -205,10 +226,10 @@ select.parsley-error
 			
 			var appendString = "<tr>";
 			appendString += "<td>";
-				appendString += "<select class='form-control' id='souvenir-item'><option selected value=''>- Select Souvenir -</option><c:forEach items='${listSouvenirItem }' var='item'><option value='${item.id }'>${item.name }</option></c:forEach></select>";
+				appendString += "<select class='form-control validatesouvenir' id='souvenir-item'><option selected value=''>- Select Souvenir -</option><c:forEach items='${listSouvenirItem }' var='item'><option value='${item.id }'>${item.name }</option></c:forEach></select>";
 			appendString += "</td>";
 			appendString += "<td>";
-				appendString += "<input style='width:60px;' type='text' id='qty' placeholder='Qty' class='form-control'>";
+				appendString += "<input style='width:60px;' type='text' id='qty' placeholder='Qty' class='form-control validateqty'>";
 			appendString += "</td>";
 			appendString += "<td>";
 				appendString += "<input type='text' id='note' placeholder='Note' class='form-control'>";
@@ -1188,6 +1209,11 @@ select.parsley-error
     		<div class="col-auto">
     			<input type="text" class="form-control" id="created-by" name="createdby" placeholder="Created By">
     		</div>
+    		
+    		<div class="col-auto">
+    			<input type="text" class="form-control" id="searchall" name="searchall" placeholder="Search...">
+    		</div>
+    		
     		<div class="col-auto">
     			<a href="#" class="btn btn-warning search" style="width:70px;color:white;">Search</a>
     		</div>	
